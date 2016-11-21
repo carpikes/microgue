@@ -11,9 +11,73 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
-  EditorBanks: []
-  EditorEvents: []
-  MasterBankRef: {fileID: 0}
-  StringsBankRef: {fileID: 0}
-  stringsBankWriteTime: 0
+  EditorBanks:
+  - {fileID: 114000010090211558}
+  - {fileID: 114000012842931130}
+  EditorEvents:
+  - {fileID: 114000010629408614}
+  MasterBankRef: {fileID: 114000012842931130}
+  StringsBankRef: {fileID: 114000010090211558}
+  stringsBankWriteTime: 636150006569044046
   cacheVersion: 2
+--- !u!114 &114000010090211558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: FMOD\Desktop\Master Bank.strings.bank
+  lastModified: 636150006569044046
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 682
+  - Name: Mobile
+    Value: 682
+  Exists: 1
+--- !u!114 &114000010629408614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/SoundFX/SFX_Dummy
+  guid: f473be342ded0c4088047ded7a66a094
+  Banks:
+  - {fileID: 114000012842931130}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+--- !u!114 &114000012842931130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: E:\Dropbox\microgue_git\microgue\Microgue\FMOD\Desktop\Master Bank.bank
+  lastModified: 636150006569039044
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 29728
+  - Name: Mobile
+    Value: 47808
+  Exists: 1
