@@ -8,6 +8,8 @@ public class PlayerScript : MonoBehaviour {
     Animator animator;
     Camera mainCam;
 
+    float old_dir_x = 0.0f;
+
     public Transform aimTransform;
 
     [Header("Parameters for speed")]
@@ -24,14 +26,14 @@ public class PlayerScript : MonoBehaviour {
         animator = GetComponent<Animator>();
 
         mainCam = Camera.main;
-        CenterCamera();
+        SetPositionCamera();
 
         // set cursor to player position
         aimTransform.position = mainCam.ScreenToWorldPoint(new Vector3(0, 0, 1));
 
     }
 
-    private void CenterCamera()
+    private void SetPositionCamera()
     {
         Vector2 charPosition = new Vector2(transform.position.x, transform.position.y);
 
@@ -39,17 +41,30 @@ public class PlayerScript : MonoBehaviour {
         Vector2 mouseNormalized = 
             new Vector2((mouseSP.x / Screen.width) * 2 - 1, (mouseSP.y / Screen.height) * 2 - 1);
 
-        Debug.Log(mouseNormalized);
+        SetPlayerAnimation(mouseNormalized);
 
-        mouseNormalized *= 1;
+        // se vuoi mousenormalized *= cost fallo qui e non sopra setplayeranimation
 
         mainCam.transform.position = new Vector3(
             transform.position.x + mouseNormalized.x, transform.position.y + mouseNormalized.y, -1);
+
+    }
+
+    private void SetPlayerAnimation( Vector2 dir )
+    {
+        // change of direction
+        if (old_dir_x * dir.x <= 0)
+        {
+            animator.SetFloat("dir_x", dir.x);
+            old_dir_x = dir.x;
+
+            Debug.Log(old_dir_x);
+        }
     }
 
     void LateUpdate()
     {
-        CenterCamera();
+        SetPositionCamera();
     }
 
 	// Update is called once per frame
