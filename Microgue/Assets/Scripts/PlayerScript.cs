@@ -8,7 +8,7 @@ public class PlayerScript : MonoBehaviour {
     Animator animator;
     Camera mainCam;
 
-    float old_dir_x = 0.0f;
+    float oldAnimationDirX = 0.0f;
 
     public Transform aimTransform;
 
@@ -18,6 +18,12 @@ public class PlayerScript : MonoBehaviour {
     [Header("Limit area for mouse")]
     public float xPercentage = 0.05f;
     public float yPercentage = 0.05f;
+
+    [Header("Shots parameters")]
+    public GameObject lightBall;
+    public float shotCooldownTime = 0.2f;
+    public float shotSpeed = 3f;
+    float lastShootTime = 0f;
 
     // Use this for initialization
     void Start ()
@@ -36,10 +42,7 @@ public class PlayerScript : MonoBehaviour {
     private void SetPositionCamera()
     {
         Vector2 charPosition = new Vector2(transform.position.x, transform.position.y);
-
-        Vector2 mouseSP = GetScreenMouseCoordinates();
-        Vector2 mouseNormalized = 
-            new Vector2((mouseSP.x / Screen.width) * 2 - 1, (mouseSP.y / Screen.height) * 2 - 1);
+        Vector2 mouseNormalized = GetNormalizedMouseCoordinates();
 
         SetPlayerAnimation(mouseNormalized);
 
@@ -50,15 +53,44 @@ public class PlayerScript : MonoBehaviour {
 
     }
 
+    private Vector2 GetNormalizedMouseCoordinates()
+    {
+        Vector2 mouseSP = GetScreenMouseCoordinates();
+        Vector2 mouseNormalized =
+            new Vector2((mouseSP.x / Screen.width) * 2 - 1, (mouseSP.y / Screen.height) * 2 - 1);
+        return mouseNormalized;
+    }
+
     private void SetPlayerAnimation( Vector2 dir )
     {
         // change of direction
-        if (old_dir_x * dir.x <= 0)
+        if (oldAnimationDirX * dir.x <= 0)
         {
             animator.SetFloat("dir_x", dir.x);
-            old_dir_x = dir.x;
+            oldAnimationDirX = dir.x;
+        }
+    }
 
-            Debug.Log(old_dir_x);
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.Mouse0))
+        {
+            Shoot();
+        }
+    }
+
+    private void Shoot()
+    {
+        if (Time.time - lastShootTime > shotCooldownTime)
+        {
+            GameObject lb = Instantiate(lightBall);
+            lb.transform.position = transform.position;
+
+            Vector2 mouse = GetNormalizedMouseCoordinates().normalized;
+            Debug.Log(mouse);
+            ((Rigidbody2D)lb.GetComponent<Rigidbody2D>()).velocity = mouse * shotSpeed;
+
+            lastShootTime = Time.time;
         }
     }
 
