@@ -119,7 +119,7 @@ public class PlayerScript : MonoBehaviour {
 
         Rect area = new Rect(xPercentage * w, yPercentage * h, (1 - 2 * xPercentage) * w, (1 - 2 * yPercentage) * h);
 
-        Vector2 mouseSP = clampRectangle(area, Input.mousePosition);
+        Vector2 mouseSP = ClampRectangle(area, Input.mousePosition);
 
         return mouseSP;
     }
@@ -146,7 +146,7 @@ public class PlayerScript : MonoBehaviour {
         rb.velocity = delta * speed * Time.fixedDeltaTime;
     }
 
-    private Vector2 clampRectangle( Rect r, Vector2 mousePP )
+    private Vector2 ClampRectangle( Rect r, Vector2 mousePP )
     {
         Vector2 res = mousePP;
 

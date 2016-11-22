@@ -322,7 +322,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 1.5
+  orthographic size: 2
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -396,7 +396,12 @@ Prefab:
     - target: {fileID: 114000014087861964, guid: f9cdb9929af97cb4fab874f6984a6221,
         type: 2}
       propertyPath: speed
-      value: 300
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000014087861964, guid: f9cdb9929af97cb4fab874f6984a6221,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f9cdb9929af97cb4fab874f6984a6221, type: 2}
@@ -747,7 +752,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1507730731}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 1077351063, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
@@ -786,3 +791,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
+--- !u!1 &1822617519 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1000013211588202, guid: f9cdb9929af97cb4fab874f6984a6221,
+    type: 2}
+  m_PrefabInternal: {fileID: 645896700}
+--- !u!114 &1822617520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1822617519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 723c4f92855adf748906e3c77b802b86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 100
