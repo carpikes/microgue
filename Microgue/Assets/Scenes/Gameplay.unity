@@ -401,6 +401,11 @@ Prefab:
     - target: {fileID: 114000014087861964, guid: f9cdb9929af97cb4fab874f6984a6221,
         type: 2}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 50000011941182632, guid: f9cdb9929af97cb4fab874f6984a6221,
+        type: 2}
+      propertyPath: m_IsKinematic
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -514,7 +519,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_Offset: {x: 0.000000014901161, y: 0.15196538}
   serializedVersion: 2
@@ -530,6 +535,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c0815a918f8b8a4da2a59658aa95eb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mMovementRadius: 1
+  mMinStillTime: 2
+  mMaxStillTime: 2
+  mAcceleration: 0.8
+  mFriction: 0.95
 --- !u!50 &958038182
 Rigidbody2D:
   serializedVersion: 2
@@ -538,7 +548,7 @@ Rigidbody2D:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 958038179}
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.0001
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -802,7 +812,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1822617519}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 723c4f92855adf748906e3c77b802b86, type: 3}
   m_Name: 
