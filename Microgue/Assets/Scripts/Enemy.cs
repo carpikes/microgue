@@ -3,9 +3,9 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
-    public float mMovementRadius = 100.0f;
-    public float mMinStillTime = 5.0f;
-    public float mMaxStillTime = 20.0f;
+    public float mMovementRadius = 3.0f;
+    public float mMinStillTime = 8.0f;
+    public float mMaxStillTime = 10.0f;
     public float mAcceleration = 0.5f;
     public float mFriction = 0.01f;
 
@@ -49,18 +49,21 @@ public class Enemy : MonoBehaviour
                 mVelocity += delta.normalized * Time.fixedDeltaTime * mAcceleration;
         }
 
-        mVelocity *= 1.0f - (mFriction * Time.fixedDeltaTime);
+        mVelocity *= (1.0f - mFriction); // * Time.fixedDeltaTime);
         mRb.position += mVelocity * Time.fixedDeltaTime;
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("OUCH");
+        if(other.CompareTag("Shot"))
+            Debug.Log("OUCH");
     }
 
     IEnumerator stillCoroutine()
     {
-        yield return new WaitForSeconds(Random.Range(mMinStillTime, mMaxStillTime));
+        float sleepTime = Random.Range(mMinStillTime, mMaxStillTime);
+        Debug.Log("Sleep per " + sleepTime + " sec");
+        yield return new WaitForSeconds(sleepTime);
         ChooseNewTarget(); 
     }
 
@@ -68,5 +71,6 @@ public class Enemy : MonoBehaviour
     {
         mCurTarget = mInitialPosition + Random.insideUnitCircle * mMovementRadius;
         mCurState = EnemyStates.MOVING;
+        Debug.Log("New Target is " + mCurTarget);
     }
 }
