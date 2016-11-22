@@ -97,13 +97,13 @@ public class PlayerScript : MonoBehaviour {
     void LateUpdate()
     {
         SetPositionCamera();
+        Aim();
     }
 
 	// Update is called once per frame
 	void FixedUpdate ()
     {
         ChangeVelocity();
-        Aim();
     }
 
     private void Aim()
