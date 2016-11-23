@@ -4,17 +4,13 @@ using System;
 
 public class Joypad : MonoBehaviour {
 
-    private enum RStickState
-    {
-        IN_USE,
-        RELEASED
-    }
-
     Rigidbody2D rb;
     Camera mainCam;
-    RStickState rStickState;
 
-    Vector2 previousRStickpos;
+    // r stick management
+    Vector2 previousRStick, droppedRStick;
+    bool resettingRStick = false;
+    float counter = 1f;
 
     [Header("Parameters for speed")]
     public float speed = 100f;
@@ -31,47 +27,62 @@ public class Joypad : MonoBehaviour {
         // set cursor to player position
         aimTransform.position = mainCam.ScreenToWorldPoint(new Vector3(0, 0, 1));
 
-        // Right stick management
-        previousRStickpos = Vector2.zero;
-        rStickState = RStickState.IN_USE;
+        previousRStick = new Vector2(0, 0);
+        droppedRStick = new Vector2(0, 0);
     }
 
     private void SetPositionCamera()
     {
         Vector2 charPosition = new Vector2(transform.position.x, transform.position.y);
-        Vector2 currentRStickpos = new Vector2(Input.GetAxis("JRHorizontal"), -Input.GetAxis("JRVertical"));
+        Vector2 currentRStick = new Vector2(Input.GetAxis("JRHorizontal"), -Input.GetAxis("JRVertical"));
 
-        // check only if we release the stick from non zero position to zero position
-        // in all other situations just move the cursor
-        //if( currentRStickpos == Vector2.zero && previousRStickpos != Vector2.zero )
-        //{
-        //StartCoroutine(RestoreCamera());
-        //} else if( rStickState == RStickState.IN_USE) {
-        //     mainCam.transform.position =
-        //        new Vector3(charPosition.x + currentRStickpos.x, charPosition.y + currentRStickpos.y, -1);
-        //}
+        float counterStep = 0.05f;
 
-        mainCam.transform.position =
-                new Vector3(charPosition.x + currentRStickpos.x, charPosition.y + currentRStickpos.y, -1);
-        previousRStickpos = currentRStickpos;
-    }
+        // if the player released the stick...
+        // "zero" because of the dead zone set in the input manager!
+        if (previousRStick != Vector2.zero && currentRStick == Vector2.zero)
+        {
+            // reset counter and save info about previous stick position
+            counter = 1f;
+            resettingRStick = true;
+            droppedRStick = previousRStick;
+        } else if (currentRStick != Vector2.zero)
+        {
+            // the player gets control back again
+            resettingRStick = false;
+        }
 
-    //private IEnumerator RestoreCamera()
-    //{
-    //    rStickState = RStickState.RELEASED;
+        // if we are in releasing phase...
+        if( resettingRStick )
+        {
+            // and we still have to move...
+            if (counter >= 0.0f)
+            {
+                // interpolate position by percentage of saved stick position
+                mainCam.transform.position =
+                    new Vector3(charPosition.x + (droppedRStick.x)*counter,
+                                charPosition.y + (droppedRStick.y)*counter, -1);
 
-    //    rStickState = RStickState.IN_USE;
-   // }
+                counter -= counterStep;
+            } else
+            {
+                // we arrived at the char, stop interpolating
+                resettingRStick = false;
+            }
+        } else
+        {
+            // the player has control: do whatever we wants
+            mainCam.transform.position =
+                new Vector3(charPosition.x + currentRStick.x, charPosition.y + currentRStick.y, -1);
+        }
 
-    // Update is called once per frame
-    void Update () {
-        
+        // retain previous stick position
+        previousRStick = currentRStick;
     }
 
     void FixedUpdate()
     {
         ChangeVelocity();
-        
     }
 
     void LateUpdate()
