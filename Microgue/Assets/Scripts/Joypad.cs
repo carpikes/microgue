@@ -4,8 +4,17 @@ using System;
 
 public class Joypad : MonoBehaviour {
 
+    private enum RStickState
+    {
+        IN_USE,
+        RELEASED
+    }
+
     Rigidbody2D rb;
     Camera mainCam;
+    RStickState rStickState;
+
+    Vector2 previousRStickpos;
 
     [Header("Parameters for speed")]
     public float speed = 100f;
@@ -22,31 +31,53 @@ public class Joypad : MonoBehaviour {
         // set cursor to player position
         aimTransform.position = mainCam.ScreenToWorldPoint(new Vector3(0, 0, 1));
 
+        // Right stick management
+        previousRStickpos = Vector2.zero;
+        rStickState = RStickState.IN_USE;
     }
 
     private void SetPositionCamera()
     {
         Vector2 charPosition = new Vector2(transform.position.x, transform.position.y);
-        Vector2 rightJoystick = new Vector2(Input.GetAxis("JRHorizontal"), -Input.GetAxis("JRVertical"));
+        Vector2 currentRStickpos = new Vector2(Input.GetAxis("JRHorizontal"), -Input.GetAxis("JRVertical"));
 
-        mainCam.transform.position = new Vector3(
-            transform.position.x + rightJoystick.x, transform.position.y + rightJoystick.y, -1);
+        // check only if we release the stick from non zero position to zero position
+        // in all other situations just move the cursor
+        //if( currentRStickpos == Vector2.zero && previousRStickpos != Vector2.zero )
+        //{
+        //StartCoroutine(RestoreCamera());
+        //} else if( rStickState == RStickState.IN_USE) {
+        //     mainCam.transform.position =
+        //        new Vector3(charPosition.x + currentRStickpos.x, charPosition.y + currentRStickpos.y, -1);
+        //}
+
+        mainCam.transform.position =
+                new Vector3(charPosition.x + currentRStickpos.x, charPosition.y + currentRStickpos.y, -1);
+        previousRStickpos = currentRStickpos;
     }
+
+    //private IEnumerator RestoreCamera()
+    //{
+    //    rStickState = RStickState.RELEASED;
+
+    //    rStickState = RStickState.IN_USE;
+   // }
 
     // Update is called once per frame
     void Update () {
-	    
-	}
+        
+    }
 
     void FixedUpdate()
     {
         ChangeVelocity();
-        Aim();
+        
     }
 
     void LateUpdate()
     {
         SetPositionCamera();
+        Aim();
     }
 
     private void Aim()
