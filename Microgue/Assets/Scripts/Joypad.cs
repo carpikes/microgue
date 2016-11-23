@@ -59,7 +59,7 @@ public class Joypad : MonoBehaviour {
     {
         float horR = Input.GetAxis("JRHorizontal");
         float verR = Input.GetAxis("JRVertical");
-
+        
         // consider only 80% on the x and y axis of the screen
         float wClamp = 0.8f;
         float hClamp = 0.8f;

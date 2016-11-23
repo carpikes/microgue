@@ -24,14 +24,15 @@ public class GameplayManager : MonoBehaviour {
 	}
 
     void Spawn(Spawner s) {
-        int n = Random.Range(s.mNumberMin, s.mNumberMax);
+        int n = Random.Range(s.mNumberMin, s.mNumberMax+1);
         for (int i = 0; i < n; i++)
         {
             string prefabName = "Assets/Prefab/" + s.mWhat + ".prefab";
             GameObject el = AssetDatabase.LoadAssetAtPath(prefabName, typeof(GameObject)) as GameObject;
             if (el != null) {
                 GameObject go = Instantiate(el);
-                go.transform.position = Random.insideUnitCircle * s.mRadius + s.mCenter;
+                Vector3 p = s.GetComponentInParent<Transform>().position;
+                go.transform.position = Random.insideUnitCircle * s.mRadius + s.mCenter + new Vector2(p.x, p.y);
             }
         }
     }
