@@ -10,7 +10,7 @@ public class SpawnImporter : Tiled2Unity.ICustomTiledImporter
         if (!props.ContainsKey("SpawnName"))
             return;
 
-        Spawner s = gameObject.AddComponent<Spawner>();
+        SpawnBehavior s = gameObject.AddComponent<SpawnBehavior>();
         s.mWhat = props["SpawnName"];
         if (props.ContainsKey("SpawnNumber"))
             s.mNumberMin = s.mNumberMax = int.Parse(props["SpawnNumber"]);
@@ -23,7 +23,8 @@ public class SpawnImporter : Tiled2Unity.ICustomTiledImporter
         if (cc == null)
             throw new System.Exception("VOGLIO UN CIRCLE COLLIDER"); // throw ex
 
-        s.mCenter = cc.offset;
+        Vector2 trpos = gameObject.transform.position;
+        s.mCenter = trpos + cc.offset;
         s.mRadius = cc.radius;
     }
 

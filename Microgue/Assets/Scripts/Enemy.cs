@@ -62,7 +62,6 @@ public class Enemy : MonoBehaviour
     IEnumerator stillCoroutine()
     {
         float sleepTime = Random.Range(mMinStillTime, mMaxStillTime);
-        Debug.Log("Sleep per " + sleepTime + " sec");
         yield return new WaitForSeconds(sleepTime);
         ChooseNewTarget(); 
     }
@@ -71,6 +70,5 @@ public class Enemy : MonoBehaviour
     {
         mCurTarget = mInitialPosition + Random.insideUnitCircle * mMovementRadius;
         mCurState = EnemyStates.MOVING;
-        Debug.Log("New Target is " + mCurTarget);
     }
 }
