@@ -11,6 +11,7 @@ public class GameplayManager : MonoBehaviour {
     private int mNumLevels;
     private int mCurLevelNum;
     private string[] mWorlds;
+    private Vector3[] mCameraBounds;
 
     private GameObject mCurWorld = null;
 
@@ -20,6 +21,7 @@ public class GameplayManager : MonoBehaviour {
 
         string[] mAvailWorlds = { "ex1", "ex2" };
 
+        mCameraBounds = new Vector3[2];
         mNumLevels = Random.Range(3, 8);
         mWorlds = new string[mNumLevels];
         for (int i = 0; i < mNumLevels; i++)
@@ -43,6 +45,8 @@ public class GameplayManager : MonoBehaviour {
             Destroy(mCurWorld);
 
         mCurWorld = Instantiate(worldPrefab);
+
+        GetBounds();
 
         // Load enemies
         GameObject spawnerContainer = GameObject.Find(mCurWorld.name + "/Spawns");
@@ -123,5 +127,21 @@ public class GameplayManager : MonoBehaviour {
                 LoadLevel("Down");
                 break;
         }
+    }
+
+    public Vector3[] GetCameraBounds() {
+        return mCameraBounds;
+    }
+
+    void GetBounds() {
+        Renderer r = GameObject.Find(mCurWorld.name + "/Background/water").GetComponent<Renderer>();
+        if (r == null)
+        {
+            Debug.LogError("Cannot get renderer");
+            return;
+        }
+        float ratio = Camera.main.aspect * 2.0f;
+        mCameraBounds[0] = new Vector3(r.bounds.min.x + ratio, r.bounds.min.y + 2.0f);
+        mCameraBounds[1] = new Vector3(r.bounds.max.x - ratio, r.bounds.max.y - 2.0f);
     }
 }

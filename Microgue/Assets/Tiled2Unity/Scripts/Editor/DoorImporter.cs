@@ -16,11 +16,11 @@ public class DoorImporter : Tiled2Unity.ICustomTiledImporter
             door.mNeedItem = null;
 
         door.mPosition = gameObject.transform.position;
-        BoxCollider2D b2d = gameObject.GetComponent<BoxCollider2D>();
-        if (b2d == null)
-            Debug.LogError("I need a box collider");
-        else
-            b2d.isTrigger = true;
+        //BoxCollider2D b2d = gameObject.GetComponent<BoxCollider2D>();
+        //if (b2d == null)
+        //    Debug.LogError("I need a box collider");
+        //else
+        //    b2d.isTrigger = true;
     }
 
     public void CustomizePrefab(GameObject prefab)

@@ -8,8 +8,12 @@ public class DoorBehavior : MonoBehaviour {
     public String mNeedItem;
     public Vector2 mPosition;
 
-    public void OnTriggerEnter2D()
+    public void OnCollisionEnter2D(Collision2D other)
     {
+        Debug.Log("OnCollision with " + other.gameObject.name);
+        if (other.gameObject.name != "MainCharacter")
+            return;
+
         if (mNeedItem == "")
         {
             GameObject gm = GameObject.Find("GameplayManager");

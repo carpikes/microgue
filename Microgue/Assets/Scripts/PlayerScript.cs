@@ -7,6 +7,7 @@ public class PlayerScript : MonoBehaviour {
     Rigidbody2D rb;
     Animator animator;
     Camera mainCam;
+    private GameplayManager mGameManager = null;
 
     float oldAnimationDirX = 0.0f;
 
@@ -36,7 +37,6 @@ public class PlayerScript : MonoBehaviour {
 
         // set cursor to player position
         aimTransform.position = mainCam.ScreenToWorldPoint(new Vector3(0, 0, 1));
-
     }
 
     private void SetPositionCamera()
@@ -48,9 +48,18 @@ public class PlayerScript : MonoBehaviour {
 
         // se vuoi mousenormalized *= cost fallo qui e non sopra setplayeranimation
 
-        mainCam.transform.position = new Vector3(
+        Vector3 cameraPos = new Vector3(
             transform.position.x + mouseNormalized.x, transform.position.y + mouseNormalized.y, -1);
 
+        if (mGameManager == null)
+        {
+            GameObject gm = GameObject.Find("GameplayManager");
+            mGameManager = gm.GetComponent<GameplayManager>();
+        }
+        Vector3[] cameraBound = mGameManager.GetCameraBounds();
+        cameraPos.x = Mathf.Clamp(cameraPos.x, cameraBound[0].x, cameraBound[1].x);
+        cameraPos.y = Mathf.Clamp(cameraPos.y, cameraBound[0].y, cameraBound[1].y);
+        mainCam.transform.position = cameraPos;
     }
 
     private Vector2 GetNormalizedMouseCoordinates()
