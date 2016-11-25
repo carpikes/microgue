@@ -53,12 +53,6 @@ public class Enemy : MonoBehaviour
         mRb.position += mVelocity * Time.fixedDeltaTime;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if(other.CompareTag("Shot"))
-            Debug.Log("OUCH");
-    }
-
     IEnumerator stillCoroutine()
     {
         float sleepTime = Random.Range(mMinStillTime, mMaxStillTime);

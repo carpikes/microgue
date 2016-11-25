@@ -51,7 +51,7 @@ public class GameplayManager : MonoBehaviour {
 
         mCurWorld = Instantiate(worldPrefab);
 
-        GetBounds();
+        GetBoundsOnLoad();
 
         // Load enemies
         GameObject spawnerContainer = GameObject.Find(mCurWorld.name + "/Spawns");
@@ -69,16 +69,16 @@ public class GameplayManager : MonoBehaviour {
         Destroy(spawnerContainer);
 
         if (spawnPoint != "Spawn")
-        {
             HandleDoors(spawnPoint);
-            HandleItems(spawnPoint);
-
-        }
+        HandleItems();
     }
 
-    private void HandleItems(string spawnPoint)
+    private void HandleItems()
     {
-        foreach (ItemBehavior db in GameObject.Find(mCurWorld.name + "/Items").GetComponentsInChildren<ItemBehavior>())
+        ItemBehavior[] items = GameObject.Find(mCurWorld.name + "/Items").GetComponentsInChildren<ItemBehavior>();
+        if (items == null)
+            return;
+        foreach (ItemBehavior db in items)
         {
 
         }
@@ -154,7 +154,7 @@ public class GameplayManager : MonoBehaviour {
         return mCameraBounds;
     }
 
-    void GetBounds() {
+    private void GetBoundsOnLoad() {
         Renderer r = GameObject.Find(mCurWorld.name + "/Background/water").GetComponent<Renderer>();
         if (r == null)
         {
