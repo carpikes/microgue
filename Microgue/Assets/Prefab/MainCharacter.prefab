@@ -25,9 +25,10 @@ GameObject:
   - 61: {fileID: 61000012728219736}
   - 114: {fileID: 114000014087861964}
   - 114: {fileID: 114000012731200906}
+  - 114: {fileID: 114000012160408590}
   m_Layer: 0
   m_Name: MainCharacter
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -93,6 +94,25 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114000012160408590
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013211588202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62f4f1ebcde52ae4f8e829781eb398ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minHealth: 3
+  maxHealth: 6
+  minDefence: 0
+  maxDefence: 3
+  minDamage: 1
+  maxDamage: 3
+  minTemporalDistortion: 0.5
+  maxTemporalDistortion: 2
 --- !u!114 &114000012731200906
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -123,7 +143,7 @@ MonoBehaviour:
   yPercentage: 0.05
   lightBall: {fileID: 1000010376868484, guid: 7af8e4b26b415924594b2d33f9de4dc6, type: 2}
   shotCooldownTime: 0.2
-  shotSpeed: 7
+  shotSpeed: 6
 --- !u!212 &212000011237110204
 SpriteRenderer:
   m_ObjectHideFlags: 1

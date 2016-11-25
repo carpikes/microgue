@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="32" tileheight="32" nextobjectid="17">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="32" tileheight="32" nextobjectid="19">
  <tileset firstgid="1" name="col_half_right" tilewidth="32" tileheight="32" tilecount="1" columns="1">
   <image source="../col_half_right.png" width="32" height="32"/>
   <tile id="0">
@@ -575,6 +575,14 @@
    <properties>
     <property name="DoorType" value="Down"/>
    </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Items">
+  <object id="17" x="1057" y="576" width="24" height="24">
+   <properties>
+    <property name="ItemCategory" value="Heart"/>
+   </properties>
+   <ellipse/>
   </object>
  </objectgroup>
 </map>

@@ -4,6 +4,9 @@ using System.Collections;
 using POLIMIGameCollective;
 using UnityEditor;
 using System.Collections.Generic;
+using System;
+
+using Random = UnityEngine.Random;
 
 public class GameplayManager : MonoBehaviour {
     public GameObject mPlayer;
@@ -67,26 +70,42 @@ public class GameplayManager : MonoBehaviour {
 
         if (spawnPoint != "Spawn")
         {
-            foreach(DoorBehavior db in GameObject.Find(mCurWorld.name + "/Doors").GetComponentsInChildren<DoorBehavior>())
+            HandleDoors(spawnPoint);
+            HandleItems(spawnPoint);
+
+        }
+    }
+
+    private void HandleItems(string spawnPoint)
+    {
+        foreach (ItemBehavior db in GameObject.Find(mCurWorld.name + "/Items").GetComponentsInChildren<ItemBehavior>())
+        {
+
+        }
+    }
+
+    private void HandleDoors(string spawnPoint)
+    {
+        foreach (DoorBehavior db in GameObject.Find(mCurWorld.name + "/Doors").GetComponentsInChildren<DoorBehavior>())
+        {
+            if (spawnPoint == db.mType)
             {
-                if (spawnPoint == db.mType)
+                BoxCollider2D coll = db.GetComponentInParent<BoxCollider2D>();
+                Transform t = db.GetComponentInParent<Transform>();
+                Vector2 spawnPos = t.position;
+                float delta = 0.1f;
+                switch (db.mType)
                 {
-                    BoxCollider2D coll = db.GetComponentInParent<BoxCollider2D>();
-                    Transform t = db.GetComponentInParent<Transform>();
-                    Vector2 spawnPos = t.position;
-                    float delta = 0.1f;
-                    switch (db.mType) {
-                        case "Down": spawnPos.y += coll.size.y + delta; spawnPos.x += coll.size.x / 2.0f; break;
-                        case "Up":   spawnPos.y -= coll.size.y + delta; spawnPos.x += coll.size.x / 2.0f; break;
-                        default: MovePlayerTo(new Vector2(0, 0)); break;
+                    case "Down": spawnPos.y += coll.size.y + delta; spawnPos.x += coll.size.x / 2.0f; break;
+                    case "Up": spawnPos.y -= coll.size.y + delta; spawnPos.x += coll.size.x / 2.0f; break;
+                    default: MovePlayerTo(new Vector2(0, 0)); break;
                         //case "Left": spawnPos.x += coll.size.x + delta; break;
                         //case "Right":spawnPos.x -= coll.size.x + delta; break;
-                    }
-                    MovePlayerTo(spawnPos);
-                    break;
                 }
+                MovePlayerTo(spawnPos);
+                break;
             }
-         }
+        }
     }
 
     void MovePlayerTo(Vector2 coords)
