@@ -66,6 +66,15 @@ public class Level : MonoBehaviour {
         }
         Destroy(spawnerContainer);
 
+        GameObject itemContainer = GameObject.Find(mCurWorld.name + "/Items");
+        if (itemContainer)
+        {
+            foreach (ItemBehavior s in itemContainer.GetComponentsInChildren<ItemBehavior>())
+            {
+                SpawnItem(s, mCurWorld);
+            }
+            Destroy(itemContainer);
+        }
         LoadDoors();
         LoadItems();
     }
@@ -89,15 +98,7 @@ public class Level : MonoBehaviour {
 
     private void LoadItems()
     {
-        GameObject itemsContainer = GameObject.Find(mCurWorld.name + "/Items");
-        if (itemsContainer == null) return; 
-        ItemBehavior[] items = itemsContainer.GetComponentsInChildren<ItemBehavior>();
-        if (items == null) return;
-
-        foreach (ItemBehavior db in items)
-        {
-
-        }
+        
     }
 
     private void LoadDoors()
@@ -161,6 +162,26 @@ public class Level : MonoBehaviour {
             else
                 Debug.LogError("I'm trying to spawn an invalid object: " + prefabName + " !");
         }
+    }
+
+    /* PER BUONA PARTE IL CODICE E' IN COMUNE CON Spawn(), refactorare e unificare */
+    // (non ho avuto tempo sorry :P me ne occupo io poi tranq)
+    private void SpawnItem(ItemBehavior s, GameObject childOf)
+    {
+        string category = s.mCategory;
+
+        string prefabName = "Assets/Prefab/Item.prefab";
+        GameObject el = AssetDatabase.LoadAssetAtPath(prefabName, typeof(GameObject)) as GameObject;
+        Debug.Log("after loading item prefab..");
+        if (el != null)
+        {
+            GameObject go = Instantiate(el);
+            go.transform.position = s.mCenter;
+            go.transform.parent = childOf.transform;
+            Debug.Log("in if item...");
+        }
+        else
+            Debug.LogError("I'm trying to spawn an invalid item: " + prefabName + " !");
     }
 
 }

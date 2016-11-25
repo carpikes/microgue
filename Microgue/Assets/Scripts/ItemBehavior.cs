@@ -5,6 +5,7 @@ using System;
 
 public class ItemBehavior : MonoBehaviour {
     public String mCategory;
+    public Vector2 mCenter;
     List< KeyValuePair<Stat, float> > effects;
 
     public void OnTriggerEnter2D(Collider2D other)
