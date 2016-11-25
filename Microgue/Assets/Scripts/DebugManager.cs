@@ -32,10 +32,10 @@ public class DebugManager : MonoBehaviour {
         playerStats = mainCharacter.GetComponent<PlayerStats>();
         if ( playerStats )
         {
-            debugText.text += "Health: " + playerStats.Health + "\n";
-            debugText.text += "Defence: " + playerStats.Defence + "\n";
-            debugText.text += "Damage: " + playerStats.Damage + "\n";
-            debugText.text += "Temporal distortion: " + playerStats.TemporalDistortion + "\n";
+            foreach( Stat s in playerStats.stats )
+            {
+                debugText.text += s.m_name + ": " + s.CurrentValue + "\n";
+            }
         } else
         {
             Debug.LogError("Cannot retrieve player stats component");

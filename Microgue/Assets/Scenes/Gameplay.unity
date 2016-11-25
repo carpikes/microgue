@@ -301,6 +301,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114000012160408590, guid: f9cdb9929af97cb4fab874f6984a6221,
+        type: 2}
+      propertyPath: stats.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4000011242583054, guid: f9cdb9929af97cb4fab874f6984a6221, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -343,6 +348,61 @@ Prefab:
       propertyPath: aimTransform
       value: 
       objectReference: {fileID: 903330748}
+    - target: {fileID: 114000012160408590, guid: f9cdb9929af97cb4fab874f6984a6221,
+        type: 2}
+      propertyPath: stats.Array.data[0].m_name
+      value: Health
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012160408590, guid: f9cdb9929af97cb4fab874f6984a6221,
+        type: 2}
+      propertyPath: stats.Array.data[0].m_min
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012160408590, guid: f9cdb9929af97cb4fab874f6984a6221,
+        type: 2}
+      propertyPath: stats.Array.data[0].m_max
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012160408590, guid: f9cdb9929af97cb4fab874f6984a6221,
+        type: 2}
+      propertyPath: stats.Array.data[1].m_name
+      value: Defence
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012160408590, guid: f9cdb9929af97cb4fab874f6984a6221,
+        type: 2}
+      propertyPath: stats.Array.data[1].m_max
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012160408590, guid: f9cdb9929af97cb4fab874f6984a6221,
+        type: 2}
+      propertyPath: stats.Array.data[2].m_name
+      value: Damage
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012160408590, guid: f9cdb9929af97cb4fab874f6984a6221,
+        type: 2}
+      propertyPath: stats.Array.data[2].m_min
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012160408590, guid: f9cdb9929af97cb4fab874f6984a6221,
+        type: 2}
+      propertyPath: stats.Array.data[2].m_max
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012160408590, guid: f9cdb9929af97cb4fab874f6984a6221,
+        type: 2}
+      propertyPath: stats.Array.data[3].m_name
+      value: Temporal Distorsion
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012160408590, guid: f9cdb9929af97cb4fab874f6984a6221,
+        type: 2}
+      propertyPath: stats.Array.data[3].m_min
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012160408590, guid: f9cdb9929af97cb4fab874f6984a6221,
+        type: 2}
+      propertyPath: stats.Array.data[3].m_max
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f9cdb9929af97cb4fab874f6984a6221, type: 2}
   m_IsPrefabParent: 0
@@ -559,6 +619,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 212000010079523044, guid: 1c11e6681cce05b44a80064d60c1e1fc,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cb972f545835dfd429b538ec5fe174f8,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1c11e6681cce05b44a80064d60c1e1fc, type: 2}
   m_IsPrefabParent: 0
@@ -594,8 +660,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 150, y: 340}
+  m_AnchoredPosition: {x: -10, y: 0}
+  m_SizeDelta: {x: 150, y: 272}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1484255522
 MonoBehaviour:
@@ -627,7 +693,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: 'DEBUG (X to update)
 

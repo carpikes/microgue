@@ -105,14 +105,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62f4f1ebcde52ae4f8e829781eb398ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minHealth: 3
-  maxHealth: 6
-  minDefence: 0
-  maxDefence: 3
-  minDamage: 1
-  maxDamage: 3
-  minTemporalDistortion: 0.5
-  maxTemporalDistortion: 2
+  stats:
+  - m_name: Health
+    m_min: 3
+    m_max: 6
+  - m_name: Defence
+    m_min: 0
+    m_max: 3
+  - m_name: Damage
+    m_min: 1
+    m_max: 3
+  - m_name: Temporal Distorsion
+    m_min: 0.5
+    m_max: 2
 --- !u!114 &114000012731200906
 MonoBehaviour:
   m_ObjectHideFlags: 1
