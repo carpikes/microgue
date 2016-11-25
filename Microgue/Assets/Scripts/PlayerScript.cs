@@ -23,7 +23,7 @@ public class PlayerScript : MonoBehaviour {
     [Header("Shots parameters")]
     public GameObject lightBall;
     public float shotCooldownTime = 0.2f;
-    public float shotSpeed = 3f;
+    public float shotSpeed = 5f;
     float lastShootTime = 0f;
 
     // Use this for initialization
@@ -57,8 +57,11 @@ public class PlayerScript : MonoBehaviour {
             mGameManager = gm.GetComponent<GameplayManager>();
         }
         Vector3[] cameraBound = mGameManager.GetCameraBounds();
-        cameraPos.x = Mathf.Clamp(cameraPos.x, cameraBound[0].x, cameraBound[1].x);
-        cameraPos.y = Mathf.Clamp(cameraPos.y, cameraBound[0].y, cameraBound[1].y);
+        if (cameraBound != null)
+        {
+            cameraPos.x = Mathf.Clamp(cameraPos.x, cameraBound[0].x, cameraBound[1].x);
+            cameraPos.y = Mathf.Clamp(cameraPos.y, cameraBound[0].y, cameraBound[1].y);
+        }
         mainCam.transform.position = cameraPos;
     }
 
@@ -95,9 +98,10 @@ public class PlayerScript : MonoBehaviour {
             GameObject lb = Instantiate(lightBall);
             lb.transform.position = transform.position;
 
-            Vector2 mouse = GetNormalizedMouseCoordinates().normalized;
-            Debug.Log(mouse);
-            ((Rigidbody2D)lb.GetComponent<Rigidbody2D>()).velocity = mouse * shotSpeed;
+            Vector2 playerPos = transform.position;
+            Vector2 mouse = mainCam.ScreenToWorldPoint(GetScreenMouseCoordinates());
+            Vector2 direction = (mouse - playerPos).normalized;
+            ((Rigidbody2D)lb.GetComponent<Rigidbody2D>()).velocity = direction * shotSpeed;
 
             lastShootTime = Time.time;
         }

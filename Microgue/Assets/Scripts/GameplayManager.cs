@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using POLIMIGameCollective;
 using UnityEditor;
+using System.Collections.Generic;
 
 public class GameplayManager : MonoBehaviour {
     public GameObject mPlayer;
@@ -12,13 +13,14 @@ public class GameplayManager : MonoBehaviour {
     private int mCurLevelNum;
     private string[] mWorlds;
     private Vector3[] mCameraBounds;
-
+    private Dictionary<string, ObjectPool> mObjectPools;
     private GameObject mCurWorld = null;
 
     // Use this for initialization
     void Start () {
         Cursor.visible = false;
 
+        mObjectPools = new Dictionary<string, ObjectPool>();
         string[] mAvailWorlds = { "ex1", "ex2" };
 
         mCameraBounds = new Vector3[2];
