@@ -41,7 +41,6 @@ public class PlayerScript : MonoBehaviour {
 
     private void SetPositionCamera()
     {
-        Vector2 charPosition = new Vector2(transform.position.x, transform.position.y);
         Vector2 mouseNormalized = GetNormalizedMouseCoordinates();
 
         SetPlayerAnimation(mouseNormalized);

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using POLIMIGameCollective;
 
 public class DamageOnShot : MonoBehaviour {
     public int mShotsToDie = 2;
@@ -15,9 +16,13 @@ public class DamageOnShot : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Shot"))
+        {
+            EventManager.TriggerEvent("OnEnemyShot");
             mShotsToDie--;
+        }
         if (mShotsToDie == 0)
         {
+            EventManager.TriggerEvent("OnEnemyKilled");
             Destroy(gameObject);
         }
     }
