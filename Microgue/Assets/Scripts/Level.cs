@@ -1,10 +1,7 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
-using System.Collections;
 using POLIMIGameCollective;
 using UnityEditor;
 using System.Collections.Generic;
-using System;
 
 using Random = UnityEngine.Random;
 
@@ -148,6 +145,8 @@ public class Level : MonoBehaviour {
 
     private void Spawn(SpawnBehavior s, GameObject childOf)
     {
+        if (s.mWhat == "Enemy")
+            s.mWhat = "BadEnemy";
         int n = Random.Range(s.mNumberMin, s.mNumberMax + 1);
         for (int i = 0; i < n; i++)
         {
