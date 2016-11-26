@@ -66,6 +66,7 @@ public class Level : MonoBehaviour {
         GameObject itemContainer = GameObject.Find(mCurWorld.name + "/Items");
         if (itemContainer)
         {
+            Debug.Log("item container found");// OK
             foreach (ItemBehavior s in itemContainer.GetComponentsInChildren<ItemBehavior>())
             {
                 SpawnItem(s, mCurWorld);

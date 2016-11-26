@@ -21,6 +21,7 @@ GameObject:
   - 4: {fileID: 4000010688246714}
   - 114: {fileID: 114000012203597178}
   - 212: {fileID: 212000010079523044}
+  - 58: {fileID: 58000012355849360}
   m_Layer: 0
   m_Name: Item
   m_TagString: Item
@@ -41,6 +42,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!58 &58000012355849360
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013929013460}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.2206096
 --- !u!114 &114000012203597178
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -52,7 +67,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 809be681085afb3429a6a11b49feaaa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mWhat: 
   mCategory: Heart
+  mCenter: {x: 0, y: 0}
 --- !u!212 &212000010079523044
 SpriteRenderer:
   m_ObjectHideFlags: 1
