@@ -34,7 +34,7 @@ public class DebugManager : MonoBehaviour {
         {
             foreach( Stat s in playerStats.stats )
             {
-                debugText.text += s.m_name + ": " + s.CurrentValue + "\n";
+                debugText.text += s.mName + ": " + s.CurrentValue + "\n";
             }
         } else
         {
@@ -44,10 +44,9 @@ public class DebugManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (Input.GetKey(KeyCode.X))
-        {
-            UpdateDebugText();
-        } else if (Input.GetKeyDown(KeyCode.Z))
+        //if (Input.GetKey(KeyCode.X))
+        UpdateDebugText();
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             debugText.enabled = (isDebugVisible ? false : true);
             isDebugVisible = !isDebugVisible;

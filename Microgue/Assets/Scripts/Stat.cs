@@ -4,32 +4,26 @@ using System.Collections;
 [System.Serializable]
 public class Stat {
 
-    public string m_name;
-    public float m_min;
-    public float m_max;
+    public string mName;
+    public float mMin, mMax;
     
-    private float m_currValue;
+    private float mCurrValue;
 
     public float CurrentValue
     {
         get
         {
-            return m_currValue;
+            return mCurrValue;
         }
 
         set
         {
-            if (value >= m_max)
-                m_currValue = m_max;
-            else if (value <= m_min)
-                m_currValue = m_min;
-            else
-                m_currValue = value;
+            mCurrValue = Mathf.Clamp(value, mMin, mMax);
         }
     }
 
     public void ResetToMin()
     {
-        m_currValue = m_min;
+        mCurrValue = mMin;
     }
 }

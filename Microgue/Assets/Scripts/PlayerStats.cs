@@ -26,6 +26,14 @@ public class PlayerStats : MonoBehaviour {
     void Start () {
         foreach (Stat s in stats)
             s.ResetToMin();
+        stats[(int)StatStates.HEALTH].CurrentValue = stats[(int)StatStates.HEALTH].mMax;
 	}
 
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (other.CompareTag("EnemyShot"))
+        {
+            stats[(int)StatStates.HEALTH].CurrentValue--;
+            Destroy(other.gameObject);
+        }
+    }
 }
