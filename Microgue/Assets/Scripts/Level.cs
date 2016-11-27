@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 using Random = UnityEngine.Random;
 
-public class Level : MonoBehaviour {
+public class Level : ScriptableObject {
     //private List<GameObject> mSpawnedItems;
     private string mName, mAssetPath;
     private GameObject mCurWorld;

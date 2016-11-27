@@ -34,9 +34,28 @@ public class BadEnemy : MonoBehaviour
         ChooseNewTarget();
     }
 
+    private float lastShootTime = 0.0f;
+    private const float shotCooldownTime = 1.0f;
+    public GameObject lightBall;
+    private GameObject playerChar = null;
+
     // Update is called once per frame
     void Update()
     {
+        if (mCurState == EnemyStates.TARGETING) {
+            if (Time.time - lastShootTime > shotCooldownTime)
+            {
+                GameObject lb = Instantiate(lightBall);
+                lb.transform.position = transform.position;
+
+                if(playerChar == null) 
+                    playerChar = GameObject.Find("MainCharacter");
+                Vector2 direction = (playerChar.transform.position - transform.position).normalized;
+                ((Rigidbody2D)lb.GetComponent<Rigidbody2D>()).velocity = direction * 5.0f;
+
+                lastShootTime = Time.time;
+            }
+        }
     }
 
     void FixedUpdate()
@@ -52,7 +71,7 @@ public class BadEnemy : MonoBehaviour
         if (mCurState == EnemyStates.TARGETING)
         {
             mCurTarget = mPlayerRb.transform.position;
-            mCurTarget += mTargetDist;
+            mCurTarget += mTargetDist * 2.0f;
         }
 
         Vector2 delta = mCurTarget - new Vector2(transform.position.x, transform.position.y);

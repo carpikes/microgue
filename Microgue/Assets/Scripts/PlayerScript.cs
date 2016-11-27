@@ -168,4 +168,11 @@ public class PlayerScript : MonoBehaviour {
         return res;
     }
 
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (other.CompareTag("EnemyShot"))
+        {
+            Debug.Log("Ouch");
+            Destroy(other.gameObject);
+        }
+    }
 }
