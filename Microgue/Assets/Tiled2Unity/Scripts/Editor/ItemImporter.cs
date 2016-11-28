@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
+
+using Random = UnityEngine.Random;
 
 [Tiled2Unity.CustomTiledImporter]
 public class ItemImporter : Tiled2Unity.ICustomTiledImporter
@@ -11,7 +14,7 @@ public class ItemImporter : Tiled2Unity.ICustomTiledImporter
             return;
 
         ItemBehavior s = gameObject.AddComponent<ItemBehavior>();
-        s.mWhat = props["ItemName"];
+        s.mCategory = props["ItemCategory"];
 
         CircleCollider2D cc = gameObject.GetComponent<CircleCollider2D>();
         if (cc == null)
@@ -19,8 +22,6 @@ public class ItemImporter : Tiled2Unity.ICustomTiledImporter
 
         Vector2 trpos = gameObject.transform.position;
         s.mCenter = trpos + cc.offset;
-
-        // TODO: set all effects in some way
     }
 
     public void CustomizePrefab(GameObject prefab)

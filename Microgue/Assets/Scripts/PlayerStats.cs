@@ -7,7 +7,8 @@ public class PlayerStats : MonoBehaviour {
 
     public enum StatStates
     {
-        HEALTH,
+        CURRENT_HEALTH,
+        MAX_HEALTH,
         DEFENCE,
         DAMAGE,
         TEMP_DISTORSION
@@ -26,13 +27,13 @@ public class PlayerStats : MonoBehaviour {
     void Start () {
         foreach (Stat s in stats)
             s.ResetToMin();
-        stats[(int)StatStates.HEALTH].CurrentValue = stats[(int)StatStates.HEALTH].mMax;
+        stats[(int)StatStates.CURRENT_HEALTH].CurrentValue = stats[(int)StatStates.MAX_HEALTH].mMin;
 	}
 
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("EnemyShot"))
         {
-            stats[(int)StatStates.HEALTH].CurrentValue--;
+            stats[(int)StatStates.CURRENT_HEALTH].CurrentValue--;
             Destroy(other.gameObject);
         }
     }

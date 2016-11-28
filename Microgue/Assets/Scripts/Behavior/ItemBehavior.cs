@@ -3,11 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
+using StatPair = System.Collections.Generic.KeyValuePair<PlayerStats.StatStates, float>;
+
 public class ItemBehavior : MonoBehaviour {
-    public string mWhat;
+
+    [HideInInspector]
     public String mCategory;
+
+    [HideInInspector]
     public Vector2 mCenter;
-    public List< KeyValuePair<Stat, float> > effects;
 
     public void OnTriggerEnter2D(Collider2D other)
     {
@@ -16,9 +20,6 @@ public class ItemBehavior : MonoBehaviour {
 
         Debug.Log("Item touched");
 
-        /*foreach( KeyValuePair<Stat, float> entry in effects )
-        {
-            entry.Key.CurrentValue += entry.Value;
-        }*/
+        Debug.Log(mCategory);
     }
 }

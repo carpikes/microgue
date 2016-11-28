@@ -8,17 +8,28 @@ using StatPair = System.Collections.Generic.KeyValuePair<PlayerStats.StatStates,
 
 public class ItemManager : MonoBehaviour {
 
+    public static ItemManager instance = null;
+
     [HideInInspector]
     public List<List<Item>> items;
+
+    void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else if (instance != this)
+            Destroy(gameObject);
+
+        DontDestroyOnLoad(gameObject);
+    }
 
     public void Start()
     {
         InitializeItemLists();
         parseItemFile();
 
-        foreach (List<Item> list in items)
-            foreach (Item i in list)
-                Debug.Log(i);
+        foreach (Item i in items[(int)Item.ItemCategories.Hearts])
+            Debug.Log(i);
     }
 
     private void InitializeItemLists()

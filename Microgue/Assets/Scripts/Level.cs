@@ -4,6 +4,7 @@ using UnityEditor;
 using System.Collections.Generic;
 
 using Random = UnityEngine.Random;
+using System;
 
 public class Level : ScriptableObject {
     //private List<GameObject> mSpawnedItems;
@@ -96,7 +97,21 @@ public class Level : ScriptableObject {
 
     private void LoadItems()
     {
-        
+        // TODO: 
+        // 1) posiziona item sotto un empty gameobject ITEMS
+        // 2) per ogni item, setta un oggetto randomico usando GenerateItem() e modificane le proprieta'
+    }
+
+    private Item GenerateItem(string str_category)
+    {
+        // retrieve list of items for the specified category
+        Item.ItemCategories category = (Item.ItemCategories)Enum.Parse(typeof(Item.ItemCategories), str_category);
+        List<Item> category_items = ItemManager.instance.items[(int)category];
+
+        // pick an item
+        Item chosen_item = category_items[Random.Range(0, category_items.Count)];
+
+        return chosen_item;
     }
 
     private void LoadDoors()

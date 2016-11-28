@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Text;
 using System;
 
+using StatPair = System.Collections.Generic.KeyValuePair<PlayerStats.StatStates, float>;
+
 public class Item {
 
     public enum ItemCategories
@@ -13,13 +15,13 @@ public class Item {
 
     public Item()
     {
-        values = new List<KeyValuePair<PlayerStats.StatStates, float>>();
+        values = new List<StatPair>();
     }
 
     private string name;
     private ItemCategories category;
 
-    private List<KeyValuePair<PlayerStats.StatStates, float>> values;
+    private List<StatPair> values;
 
     public string Name
     {
@@ -47,7 +49,7 @@ public class Item {
         }
     }
 
-    public List<KeyValuePair<PlayerStats.StatStates, float>> Values
+    public List<StatPair> Values
     {
         get
         {
@@ -64,7 +66,12 @@ public class Item {
     {
         StringBuilder sb = new StringBuilder();
         sb.Append("NAME: " + name + "\n");
-        sb.Append("CATEGORY: " + Enum.Parse(typeof(Item.ItemCategories), category + "\n"));
+        sb.Append("CATEGORY: " + category + "\n");
+
+        foreach (StatPair sp in Values)
+        {
+            sb.Append("EFFECT: " + sp.Key + " (" + sp.Value + ")\n");
+        }
 
         return sb.ToString();
     }

@@ -23,7 +23,7 @@ public class DebugManager : MonoBehaviour {
 
     private void UpdateDebugText()
     {
-        debugText.text = "DEBUG (X to update, Z to toggle)\n";
+        debugText.text = "!!! DA REFACTORARE (Vedi keep)!!!\n\n\nDEBUG (X to update, Z to toggle)\n";
         ShowPlayerStats();
     }
 
