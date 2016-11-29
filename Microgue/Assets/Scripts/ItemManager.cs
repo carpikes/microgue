@@ -47,7 +47,7 @@ public class ItemManager : MonoBehaviour {
         StreamReader reader = null;
 
         try {
-            reader = File.OpenText("Assets\\items.csv");
+            reader = File.OpenText("Assets/items.csv");
 
             string line;
             while ((line = reader.ReadLine()) != null)

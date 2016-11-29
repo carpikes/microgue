@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public class Joypad : MonoBehaviour {
+public class JoypadInput : MonoBehaviour, InputInterface {
 
     Rigidbody2D rb;
     Camera mainCam;
@@ -29,6 +29,11 @@ public class Joypad : MonoBehaviour {
 
         previousRStick = new Vector2(0, 0);
         droppedRStick = new Vector2(0, 0);
+    }
+
+    public void LateUpdate()
+    {
+        SetPositionCamera();
     }
 
     private void SetPositionCamera()
@@ -80,28 +85,11 @@ public class Joypad : MonoBehaviour {
         previousRStick = currentRStick;
     }
 
-    void FixedUpdate()
-    {
-        ChangeVelocity();
-    }
-
-    void LateUpdate()
-    {
-        SetPositionCamera();
-        Aim();
-    }
-
-    private void Aim()
-    {
-        Vector2 joypadWP = mainCam.ScreenToWorldPoint(GetScreenJoypadCoordinates());
-        aimTransform.transform.position = joypadWP;
-    }
-
-    private Vector3 GetScreenJoypadCoordinates()
+    public Vector2 GetScreenPointerCoordinates()
     {
         float horR = Input.GetAxis("JRHorizontal");
         float verR = Input.GetAxis("JRVertical");
-        
+
         // consider only 80% on the x and y axis of the screen
         float wClamp = 0.8f;
         float hClamp = 0.8f;
@@ -110,12 +98,12 @@ public class Joypad : MonoBehaviour {
         float screenHor = Screen.width * (1 + wClamp * horR) / 2;
 
         //hClamp * Screen.height * ( (verR * (-1)) + 1) / 2 + (1 - hClamp) * Screen.height/2;
-        float screenVer = Screen.height * (-hClamp * verR + 1) / 2; 
+        float screenVer = Screen.height * (-hClamp * verR + 1) / 2;
 
-        return new Vector3(screenHor, screenVer, 0);
+        return new Vector2(screenHor, screenVer);
     }
 
-    private void ChangeVelocity()
+    public Vector2 GetVelocityDelta()
     {
         Vector2 delta = new Vector2(0, 0);
 
@@ -135,6 +123,11 @@ public class Joypad : MonoBehaviour {
         if (delta != Vector2.zero)
             delta.Normalize();
 
-        rb.velocity = delta * speed * Time.fixedDeltaTime;
+        return delta;
+    }
+
+    public bool IsShootingButtonPressed()
+    {
+        throw new NotImplementedException();
     }
 }

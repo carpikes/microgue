@@ -4,10 +4,19 @@ using System.Collections;
 [System.Serializable]
 public class Stat {
 
-    public string mName;
+    public readonly string mName;
     public float mMin, mMax;
     
     private float mCurrValue;
+
+    public Stat( string name, float min, float max )
+    {
+        mName = name;
+        mMin = min;
+        mMax = max;
+
+        ResetToMin();
+    }
 
     public float CurrentValue
     {

@@ -97,6 +97,7 @@ public class Level : ScriptableObject {
 
     private void LoadItems()
     {
+
         // TODO: 
         // 1) posiziona item sotto un empty gameobject ITEMS
         // 2) per ogni item, setta un oggetto randomico usando GenerateItem() e modificane le proprieta'
