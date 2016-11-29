@@ -11,7 +11,7 @@ public class ItemManager : MonoBehaviour {
     public static ItemManager instance = null;
 
     [HideInInspector]
-    public List<List<Item>> items;
+    public List<List<ItemData>> items;
 
     void Awake()
     {
@@ -28,11 +28,11 @@ public class ItemManager : MonoBehaviour {
 
     private void InitializeItemLists()
     {
-        items = new List<List<Item>>();
+        items = new List<List<ItemData>>();
 
-        for( int i = 0; i < Enum.GetNames(typeof(Item.ItemCategories)).Length; ++i)
+        for( int i = 0; i < Enum.GetNames(typeof(ItemData.ItemCategories)).Length; ++i)
         {
-            items.Add(new List<Item>());
+            items.Add(new List<ItemData>());
         }
     }
 
@@ -52,9 +52,9 @@ public class ItemManager : MonoBehaviour {
                 // itemname, category, image, (enum, effect)+
 
                 // Create item
-                Item item = new Item();
+                ItemData item = new ItemData();
                 item.Name = item_info[0];
-                item.Category = (Item.ItemCategories)Enum.Parse(typeof(Item.ItemCategories), item_info[1]);
+                item.Category = (ItemData.ItemCategories)Enum.Parse(typeof(ItemData.ItemCategories), item_info[1]);
                 item.Image = item_info[2];
 
                 for (int i = 3; i < item_info.Length; i += 2)

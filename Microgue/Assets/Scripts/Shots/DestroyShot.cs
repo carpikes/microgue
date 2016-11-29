@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DestroyShotScript : MonoBehaviour {
+public class DestroyShot : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {

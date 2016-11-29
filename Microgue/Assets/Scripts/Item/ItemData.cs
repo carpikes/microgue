@@ -6,14 +6,14 @@ using System;
 
 using StatPair = System.Collections.Generic.KeyValuePair<StatManager.StatStates, float>;
 
-public class Item {
+public class ItemData {
 
     public enum ItemCategories
     {
         Hearts
     }
 
-    public Item()
+    public ItemData()
     {
         values = new List<StatPair>();
     }

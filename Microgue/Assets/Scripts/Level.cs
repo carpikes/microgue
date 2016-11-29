@@ -32,7 +32,7 @@ public class Level : ScriptableObject {
             GameObject worldPrefab = AssetDatabase.LoadAssetAtPath(mAssetPath, typeof(GameObject)) as GameObject;
             if (worldPrefab == null)
             {
-                Debug.LogError("Cannot load world: " + name);
+                Debug.LogError("Cannot load world: " + mName);
                 return;
             }
 
@@ -101,14 +101,14 @@ public class Level : ScriptableObject {
         }
     }
 
-    private Item PickItemFromCategory(string str_category)
+    private ItemData PickItemFromCategory(string str_category)
     {
         // retrieve list of items for the specified category
-        Item.ItemCategories category = (Item.ItemCategories)Enum.Parse(typeof(Item.ItemCategories), str_category);
-        List<Item> category_items = ItemManager.instance.items[(int)category];
+        ItemData.ItemCategories category = (ItemData.ItemCategories)Enum.Parse(typeof(ItemData.ItemCategories), str_category);
+        List<ItemData> category_items = ItemManager.instance.items[(int)category];
 
         // pick a random item
-        Item chosen_item = category_items[Random.Range(0, category_items.Count)];
+        ItemData chosen_item = category_items[Random.Range(0, category_items.Count)];
 
         return chosen_item;
     }
@@ -118,7 +118,7 @@ public class Level : ScriptableObject {
         string category = s.mCategory;
         string prefabName = "Assets/Prefab/Item.prefab";
 
-        Item item = PickItemFromCategory(category);
+        ItemData item = PickItemFromCategory(category);
         GameObject el = AssetDatabase.LoadAssetAtPath(prefabName, typeof(GameObject)) as GameObject;
 
         if (el != null)
@@ -131,7 +131,7 @@ public class Level : ScriptableObject {
             sr.sprite = sprite;
 
             // load item info: this will be needed to retrieve stat and effect
-            ItemInfo itemInfo = go.GetComponent<ItemInfo>();
+            ItemEffector itemInfo = go.GetComponent<ItemEffector>();
             itemInfo.item = item;
 
             go.transform.position = s.mCenter;

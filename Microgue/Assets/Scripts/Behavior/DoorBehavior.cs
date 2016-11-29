@@ -10,13 +10,12 @@ public class DoorBehavior : MonoBehaviour {
 
     public void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log("OnCollision with " + other.gameObject.name);
         if (other.gameObject.name != "MainCharacter")
             return;
 
         if (mNeedItem == "")
         {
-            GameObject gm = GameObject.Find("GameplayManager");
+            GameObject gm = GameObject.FindGameObjectWithTag("GameController");
             GameplayManager ggm = gm.GetComponent<GameplayManager>();
             ggm.OnDoorEnter(mType);
         }

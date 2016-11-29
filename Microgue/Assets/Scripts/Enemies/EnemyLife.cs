@@ -3,7 +3,8 @@ using System.Collections;
 using POLIMIGameCollective;
 
 public class DamageOnShot : MonoBehaviour {
-    public int mShotsToDie = 2;
+
+    public int hp = 2;
 	// Use this for initialization
 	void Start () {
         	
@@ -18,9 +19,9 @@ public class DamageOnShot : MonoBehaviour {
         if (other.CompareTag("Shot"))
         {
             EventManager.TriggerEvent("OnEnemyShot");
-            mShotsToDie--;
+            hp--;
         }
-        if (mShotsToDie == 0)
+        if (hp == 0)
         {
             EventManager.TriggerEvent("OnEnemyKilled");
             Destroy(gameObject);

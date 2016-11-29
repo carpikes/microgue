@@ -35,9 +35,11 @@ public class InputManager : MonoBehaviour {
     void Start ()
     {
         if (mInputChoice == InputChoiches.KeyboardMouse)
-            mInput = new KeyboardInput();
-        else
-            mInput = new JoypadInput();
+        {
+            mInput = gameObject.AddComponent<KeyboardInput>();
+        } else {
+            mInput = gameObject.AddComponent<JoypadInput>();
+        }
 
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
