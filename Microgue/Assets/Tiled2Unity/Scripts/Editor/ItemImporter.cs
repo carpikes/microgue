@@ -15,6 +15,7 @@ public class ItemImporter : Tiled2Unity.ICustomTiledImporter
 
         ItemBehavior s = gameObject.AddComponent<ItemBehavior>();
         s.mCategory = props["ItemCategory"];
+        Debug.Log("ITEM IMPORTING: " + s.mCategory);
 
         CircleCollider2D cc = gameObject.GetComponent<CircleCollider2D>();
         if (cc == null)

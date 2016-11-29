@@ -21,15 +21,9 @@ public class ItemManager : MonoBehaviour {
             Destroy(gameObject);
 
         DontDestroyOnLoad(gameObject);
-    }
 
-    public void Start()
-    {
         InitializeItemLists();
         parseItemFile();
-
-        foreach (Item i in items[(int)Item.ItemCategories.Hearts])
-            Debug.Log(i);
     }
 
     private void InitializeItemLists()
@@ -55,13 +49,15 @@ public class ItemManager : MonoBehaviour {
                 string[] item_info = line.Split(',');
 
                 // the file is structured like this
-                // itemname, category, (enum, effect)+
+                // itemname, category, image, (enum, effect)+
 
                 // Create item
                 Item item = new Item();
                 item.Name = item_info[0];
                 item.Category = (Item.ItemCategories)Enum.Parse(typeof(Item.ItemCategories), item_info[1]);
-                for (int i = 2; i < item_info.Length; i += 2)
+                item.Image = item_info[2];
+
+                for (int i = 3; i < item_info.Length; i += 2)
                 {
                     PlayerStats.StatStates stat = (PlayerStats.StatStates)Enum.Parse(typeof(PlayerStats.StatStates), item_info[i]);
                     item.Values.Add(new StatPair(stat, float.Parse(item_info[i + 1])));

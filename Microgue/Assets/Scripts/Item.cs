@@ -20,7 +20,7 @@ public class Item {
 
     private string name;
     private ItemCategories category;
-
+    private string image;
     private List<StatPair> values;
 
     public string Name
@@ -62,11 +62,25 @@ public class Item {
         }
     }
 
+    public string Image
+    {
+        get
+        {
+            return image;
+        }
+
+        set
+        {
+            image = value;
+        }
+    }
+
     public override string ToString()
     {
         StringBuilder sb = new StringBuilder();
         sb.Append("NAME: " + name + "\n");
         sb.Append("CATEGORY: " + category + "\n");
+        sb.Append("IMAGE: " + image + "\n");
 
         foreach (StatPair sp in Values)
         {

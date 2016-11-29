@@ -23,9 +23,8 @@ GameObject:
   - 212: {fileID: 212000011237110204}
   - 50: {fileID: 50000011941182632}
   - 61: {fileID: 61000012728219736}
-  - 114: {fileID: 114000014087861964}
-  - 114: {fileID: 114000012731200906}
   - 114: {fileID: 114000012160408590}
+  - 114: {fileID: 114000013228287918}
   m_Layer: 0
   m_Name: MainCharacter
   m_TagString: Player
@@ -106,32 +105,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats:
-  - m_name: Health
-    m_min: 3
-    m_max: 6
-  - m_name: Defence
-    m_min: 0
-    m_max: 3
-  - m_name: Damage
-    m_min: 1
-    m_max: 3
-  - m_name: Temporal Distorsion
-    m_min: 0.5
-    m_max: 2
---- !u!114 &114000012731200906
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013211588202}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 723c4f92855adf748906e3c77b802b86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 200
-  aimTransform: {fileID: 0}
---- !u!114 &114000014087861964
+  - mMin: 3
+    mMax: 10
+  - mMin: 3
+    mMax: 10
+  - mMin: 1
+    mMax: 5
+  - mMin: 1
+    mMax: 2
+--- !u!114 &114000013228287918
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -139,16 +121,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000013211588202}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f320274ba629fb245a919d228ec6be70, type: 3}
+  m_Script: {fileID: 11500000, guid: 2cda3b8976312be41bc2b048291def02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   aimTransform: {fileID: 0}
   speed: 200
-  xPercentage: 0.05
-  yPercentage: 0.05
   lightBall: {fileID: 1000010376868484, guid: 7af8e4b26b415924594b2d33f9de4dc6, type: 2}
   shotCooldownTime: 0.2
-  shotSpeed: 6
+  shotSpeed: 5
+  mInputChoice: 0
 --- !u!212 &212000011237110204
 SpriteRenderer:
   m_ObjectHideFlags: 1

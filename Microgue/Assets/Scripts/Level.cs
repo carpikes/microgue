@@ -65,18 +65,75 @@ public class Level : ScriptableObject {
         Destroy(spawnerContainer);
 
         GameObject itemContainer = GameObject.Find(mCurWorld.name + "/Items");
+        GameObject items = new GameObject("Items");
+        items.transform.parent = mCurWorld.transform;
+
         if (itemContainer)
         {
             Debug.Log("item container found");// OK
             foreach (ItemBehavior s in itemContainer.GetComponentsInChildren<ItemBehavior>())
             {
-                SpawnItem(s, mCurWorld);
+                SpawnItem(s, items);
             }
             Destroy(itemContainer);
         }
         LoadDoors();
-        LoadItems();
+        //LoadItems();
     }
+
+    private void Spawn(SpawnBehavior s, GameObject childOf)
+    {
+        if (s.mWhat == "Enemy")
+            s.mWhat = "BadEnemy";
+        int n = Random.Range(s.mNumberMin, s.mNumberMax + 1);
+        for (int i = 0; i < n; i++)
+        {
+            string prefabName = "Assets/Prefab/" + s.mWhat + ".prefab";
+            GameObject el = AssetDatabase.LoadAssetAtPath(prefabName, typeof(GameObject)) as GameObject;
+            if (el != null)
+            {
+                GameObject go = Instantiate(el);
+                go.transform.position = Random.insideUnitCircle * s.mRadius + s.mCenter;
+                go.transform.parent = childOf.transform;
+            }
+            else
+                Debug.LogError("I'm trying to spawn an invalid object: " + prefabName + " !");
+        }
+    }
+
+    private Item PickItemFromCategory(string str_category)
+    {
+        // retrieve list of items for the specified category
+        Item.ItemCategories category = (Item.ItemCategories)Enum.Parse(typeof(Item.ItemCategories), str_category);
+        List<Item> category_items = ItemManager.instance.items[(int)category];
+
+        // pick a random item
+        Item chosen_item = category_items[Random.Range(0, category_items.Count)];
+
+        return chosen_item;
+    }
+
+    private void SpawnItem(ItemBehavior s, GameObject childOf)
+    {
+        string category = s.mCategory;
+        string prefabName = "Assets/Prefab/Item.prefab";
+
+        Item item = PickItemFromCategory(category);
+        // set item into item prefab in some way
+
+
+        GameObject el = AssetDatabase.LoadAssetAtPath(prefabName, typeof(GameObject)) as GameObject;
+
+        if (el != null)
+        {
+            GameObject go = Instantiate(el);
+            go.transform.position = s.mCenter;
+            go.transform.parent = childOf.transform;
+        }
+        else
+            Debug.LogError("I'm trying to spawn an invalid item: " + prefabName + " !");
+    }
+
     public void Unload()
     {
         mCurWorld.SetActive(false);
@@ -95,25 +152,9 @@ public class Level : ScriptableObject {
         mCameraBounds[1] = new Vector3(r.bounds.max.x - ratio, r.bounds.max.y - 2.0f);
     }
 
-    private void LoadItems()
-    {
+    
 
-        // TODO: 
-        // 1) posiziona item sotto un empty gameobject ITEMS
-        // 2) per ogni item, setta un oggetto randomico usando GenerateItem() e modificane le proprieta'
-    }
-
-    private Item GenerateItem(string str_category)
-    {
-        // retrieve list of items for the specified category
-        Item.ItemCategories category = (Item.ItemCategories)Enum.Parse(typeof(Item.ItemCategories), str_category);
-        List<Item> category_items = ItemManager.instance.items[(int)category];
-
-        // pick an item
-        Item chosen_item = category_items[Random.Range(0, category_items.Count)];
-
-        return chosen_item;
-    }
+    
 
     private void LoadDoors()
     {
@@ -160,44 +201,6 @@ public class Level : ScriptableObject {
         return mSpawnPoints[spawnPoint];
     }
 
-    private void Spawn(SpawnBehavior s, GameObject childOf)
-    {
-        if (s.mWhat == "Enemy")
-            s.mWhat = "BadEnemy";
-        int n = Random.Range(s.mNumberMin, s.mNumberMax + 1);
-        for (int i = 0; i < n; i++)
-        {
-            string prefabName = "Assets/Prefab/" + s.mWhat + ".prefab";
-            GameObject el = AssetDatabase.LoadAssetAtPath(prefabName, typeof(GameObject)) as GameObject;
-            if (el != null)
-            {
-                GameObject go = Instantiate(el);
-                go.transform.position = Random.insideUnitCircle * s.mRadius + s.mCenter;
-                go.transform.parent = childOf.transform;
-            }
-            else
-                Debug.LogError("I'm trying to spawn an invalid object: " + prefabName + " !");
-        }
-    }
-
-    /* PER BUONA PARTE IL CODICE E' IN COMUNE CON Spawn(), refactorare e unificare */
-    // (non ho avuto tempo sorry :P me ne occupo io poi tranq)
-    private void SpawnItem(ItemBehavior s, GameObject childOf)
-    {
-        string category = s.mCategory;
-
-        string prefabName = "Assets/Prefab/Item.prefab";
-        GameObject el = AssetDatabase.LoadAssetAtPath(prefabName, typeof(GameObject)) as GameObject;
-        Debug.Log("after loading item prefab..");
-        if (el != null)
-        {
-            GameObject go = Instantiate(el);
-            go.transform.position = s.mCenter;
-            go.transform.parent = childOf.transform;
-            Debug.Log("in if item...");
-        }
-        else
-            Debug.LogError("I'm trying to spawn an invalid item: " + prefabName + " !");
-    }
+    
 
 }

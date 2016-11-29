@@ -5,6 +5,8 @@ using System.Collections;
 public class Stat {
 
     public readonly string mName;
+
+    [HideInInspector]
     public float mMin, mMax;
     
     private float mCurrValue;

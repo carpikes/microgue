@@ -18,8 +18,6 @@ public class ItemBehavior : MonoBehaviour {
         if (other.gameObject.name != "MainCharacter")
             return;
 
-        Debug.Log("Item touched");
-
-        Debug.Log(mCategory);
+        // UPDATE STAT FOR PLAYER
     }
 }
