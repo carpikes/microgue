@@ -53,7 +53,7 @@ public class GameplayManager : MonoBehaviour {
             case "Up": mWorlds[++mCurLevelNum].Load(); break;
             default: return;
         }
-        Debug.Log("Loading Level: " + type + " - " + mCurLevelNum);
+        //Debug.Log("Loading Level: " + type + " - " + mCurLevelNum);
 
         // TODO sistemare questo if temporaneo
         MovePlayerTo(mWorlds[mCurLevelNum].GetPlayerStartPos(type == "Down" ? "Up" : "Down"));

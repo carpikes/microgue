@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System;
 
-using StatPair = System.Collections.Generic.KeyValuePair<PlayerStats.StatStates, float>;
+using StatPair = System.Collections.Generic.KeyValuePair<StatManager.StatStates, float>;
 
 public class Item {
 

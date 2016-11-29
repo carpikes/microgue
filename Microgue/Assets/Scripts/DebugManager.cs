@@ -10,7 +10,7 @@ public class DebugManager : MonoBehaviour {
     bool isDebugVisible = true;
 
     GameObject mainCharacter;
-    PlayerStats playerStats;
+    StatManager playerStats;
 
 	// Use this for initialization
 	void Start () {
@@ -23,13 +23,13 @@ public class DebugManager : MonoBehaviour {
 
     private void UpdateDebugText()
     {
-        debugText.text = "!!! DA REFACTORARE (Vedi keep)!!!\n\n\nDEBUG (X to update, Z to toggle)\n";
+        debugText.text = "DEBUG (Z to toggle)\n";
         ShowPlayerStats();
     }
 
     private void ShowPlayerStats()
     {
-        playerStats = mainCharacter.GetComponent<PlayerStats>();
+        playerStats = GameObject.FindGameObjectWithTag("GameController").GetComponent<StatManager>();
         if ( playerStats )
         {
             foreach( Stat s in playerStats.stats )
@@ -44,7 +44,7 @@ public class DebugManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        //if (Input.GetKey(KeyCode.X))
+
         UpdateDebugText();
         if (Input.GetKeyDown(KeyCode.Z))
         {

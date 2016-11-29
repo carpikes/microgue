@@ -70,7 +70,7 @@ public class Level : ScriptableObject {
 
         if (itemContainer)
         {
-            Debug.Log("item container found");// OK
+            //Debug.Log("item container found");// OK
             foreach (ItemBehavior s in itemContainer.GetComponentsInChildren<ItemBehavior>())
             {
                 SpawnItem(s, items);
@@ -119,14 +119,21 @@ public class Level : ScriptableObject {
         string prefabName = "Assets/Prefab/Item.prefab";
 
         Item item = PickItemFromCategory(category);
-        // set item into item prefab in some way
-
-
         GameObject el = AssetDatabase.LoadAssetAtPath(prefabName, typeof(GameObject)) as GameObject;
 
         if (el != null)
         {
             GameObject go = Instantiate(el);
+
+            // set image
+            SpriteRenderer sr = go.GetComponent<SpriteRenderer>();
+            Sprite sprite = AssetDatabase.LoadAssetAtPath("Assets/Images/Sprites/Items/" + item.Image, typeof(Sprite)) as Sprite;
+            sr.sprite = sprite;
+
+            // load item info: this will be needed to retrieve stat and effect
+            ItemInfo itemInfo = go.GetComponent<ItemInfo>();
+            itemInfo.item = item;
+
             go.transform.position = s.mCenter;
             go.transform.parent = childOf.transform;
         }

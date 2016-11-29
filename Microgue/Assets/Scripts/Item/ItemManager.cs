@@ -4,7 +4,7 @@ using System.IO;
 using System;
 using System.Collections.Generic;
 
-using StatPair = System.Collections.Generic.KeyValuePair<PlayerStats.StatStates, float>;
+using StatPair = System.Collections.Generic.KeyValuePair<StatManager.StatStates, float>;
 
 public class ItemManager : MonoBehaviour {
 
@@ -59,7 +59,7 @@ public class ItemManager : MonoBehaviour {
 
                 for (int i = 3; i < item_info.Length; i += 2)
                 {
-                    PlayerStats.StatStates stat = (PlayerStats.StatStates)Enum.Parse(typeof(PlayerStats.StatStates), item_info[i]);
+                    StatManager.StatStates stat = (StatManager.StatStates)Enum.Parse(typeof(StatManager.StatStates), item_info[i]);
                     item.Values.Add(new StatPair(stat, float.Parse(item_info[i + 1])));
                 }
 

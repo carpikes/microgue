@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class PlayerStats : MonoBehaviour {
+public class StatManager : MonoBehaviour {
 
     public enum StatStates
     {
@@ -32,16 +32,17 @@ public class PlayerStats : MonoBehaviour {
 
         SetStat(StatStates.MAX_HEALTH, 3, 10);
         SetStat(StatStates.CURRENT_HEALTH, 0, stats[(int)StatStates.MAX_HEALTH].CurrentValue);
-        SetStat(StatStates.DEFENCE, 1, 2);
-        SetStat(StatStates.DAMAGE, 1, 2);
-        SetStat(StatStates.TEMP_DISTORSION, 1, 2);
+        SetStat(StatStates.DEFENCE, 1, 10);
+        SetStat(StatStates.DAMAGE, 1, 10);
+        SetStat(StatStates.TEMP_DISTORSION, 1, 10);
 
         stats[(int)StatStates.CURRENT_HEALTH].CurrentValue = stats[(int)StatStates.CURRENT_HEALTH].mMax;
     }
 
-    public void setStatValue( StatStates s, float value )
+    public void updateStatValue( StatStates s, float delta )
     {
-        stats[(int)s].CurrentValue = value;
+        Debug.Log("Updating stat: " + s + " with delta " + delta);
+        stats[(int)s].CurrentValue += delta;
     }
 
     public float getStatValue( StatStates s ) { return stats[(int)s].CurrentValue; }
