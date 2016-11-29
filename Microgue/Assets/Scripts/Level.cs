@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Random = UnityEngine.Random;
 using System;
 
+// TODO: TUTTO DA REFACTORARE!
 public class Level : ScriptableObject {
     //private List<GameObject> mSpawnedItems;
     private string mName, mAssetPath;
