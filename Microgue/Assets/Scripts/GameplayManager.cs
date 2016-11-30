@@ -5,10 +5,12 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class GameplayManager : MonoBehaviour {
-    public const string PREFAB_PATH = "Assets/Tiled2Unity/Prefabs";
+    public const string PREFAB_PATH = "Assets/Tiled2Unity/Prefabs/";
+    public const string DEBUG_ARENA = PREFAB_PATH + "arena.prefab";
 
     public GameObject mPlayer;
     public GameObject mAimCursor;
+    public bool mDebugArena = false;
 
     private int mNumLevels;
     private int mCurLevelNum;
@@ -50,10 +52,18 @@ public class GameplayManager : MonoBehaviour {
     {
         mAvailableLevels = new List<string>();
 
-        foreach (string file in Directory.GetFiles(PREFAB_PATH))
+        if( !mDebugArena ) { 
+            foreach (string file in Directory.GetFiles(PREFAB_PATH))
+            {
+                if (file.EndsWith(".prefab") && file != DEBUG_ARENA)
+                {
+                    Debug.Log(file);
+                    mAvailableLevels.Add(Path.GetFileNameWithoutExtension(file));
+                }
+            }
+        } else
         {
-            if (file.EndsWith(".prefab"))
-                mAvailableLevels.Add(Path.GetFileNameWithoutExtension(file));
+            mAvailableLevels.Add(Path.GetFileNameWithoutExtension(DEBUG_ARENA));
         }
     }
 

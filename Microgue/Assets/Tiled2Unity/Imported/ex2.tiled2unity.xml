@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--Tiled2Unity generated xml data-->
 <!--Do not modify by hand-->
-<!--Last exported: 2016-11-29 18:00:46-->
+<!--Last exported: 2016-11-30 15:23:15-->
 <Tiled2Unity version="1.0.7.10">
   <AssignMaterial mesh="mesh_0001" material="water" />
   <AssignMaterial mesh="mesh_0002" material="grassalt" />
@@ -209,12 +209,12 @@
       </GameObject>
       <GameObject name="CircleObject" x="3.42337" y="-5.65" rotation="0" layer="">
         <Property name="SpawnName" value="Enemy" />
-        <Property name="SpawnNumberMax" value="4" />
+        <Property name="SpawnNumberMax" value="2" />
         <Property name="SpawnNumberMin" value="1" />
         <CircleCollider2D radius="1" />
       </GameObject>
       <GameObject name="CircleObject" x="12.25" y="-6.10333" rotation="0" layer="">
-        <Property name="SpawnName" value="Enemy" />
+        <Property name="SpawnName" value="StompStompEnemy" />
         <Property name="SpawnNumber" value="1" />
         <CircleCollider2D radius="0.599999964" />
       </GameObject>
