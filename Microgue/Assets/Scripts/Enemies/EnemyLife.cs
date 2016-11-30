@@ -2,7 +2,7 @@
 using System.Collections;
 using POLIMIGameCollective;
 
-public class DamageOnShot : MonoBehaviour {
+public class EnemyLife : MonoBehaviour {
 
     public int hp = 2;
 	// Use this for initialization

@@ -24,8 +24,8 @@ GameObject:
   - 50: {fileID: 50000011865528800}
   - 61: {fileID: 61000013681157468}
   - 114: {fileID: 114000012172340558}
-  - 114: {fileID: 114000012299557284}
   - 114: {fileID: 114000012171516190}
+  - 114: {fileID: 114000011817798800}
   m_Layer: 0
   m_Name: BadEnemy
   m_TagString: Untagged
@@ -91,6 +91,18 @@ BoxCollider2D:
   m_Offset: {x: 0.000000014901161, y: 0.15196538}
   serializedVersion: 2
   m_Size: {x: 0.32225403, y: 0.67213786}
+--- !u!114 &114000011817798800
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013733487062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2aede8658bda6b7499b7f8cd1b5d4c68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 2
 --- !u!114 &114000012171516190
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -119,18 +131,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfca8f6a24cdfde44bc9bf2d18fa8d9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114000012299557284
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013733487062}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2aede8658bda6b7499b7f8cd1b5d4c68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mShotsToDie: 2
 --- !u!212 &212000012663567222
 SpriteRenderer:
   m_ObjectHideFlags: 1

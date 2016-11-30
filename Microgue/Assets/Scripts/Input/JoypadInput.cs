@@ -3,8 +3,6 @@ using System.Collections;
 using System;
 
 public class JoypadInput : MonoBehaviour, InputInterface {
-
-    Rigidbody2D rb;
     Camera mainCam;
 
     // r stick management
@@ -19,8 +17,6 @@ public class JoypadInput : MonoBehaviour, InputInterface {
 
     // Use this for initialization
     void Start () {
-        rb = GetComponent<Rigidbody2D>();
-
         mainCam = Camera.main;
         SetPositionCamera();
 
