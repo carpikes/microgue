@@ -4,100 +4,128 @@ using DG.Tweening;
 
 public class StompStomp : MonoBehaviour {
 
-    Rigidbody2D rb;
-    Collider2D coll;
-    Transform playerTransform;
-
-    SpriteRenderer sr;
-
-	// Use this for initialization
-	void Start () {
-        rb = GetComponent<Rigidbody2D>();
-        coll = GetComponent<Collider2D>();
-        sr = GetComponent<SpriteRenderer>();
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-
-        //StartCoroutine("JumpCoroutine");
-	}
-
-    IEnumerator JumpCoroutine()
-    {
-        Sequence seq;
-
-        while (true)
-        {
-            seq = rb.DOJump(playerTransform.position, 2f, 1, 1, false);
-            yield return seq.WaitForStart();
-            Debug.Log("Jump started");
-            coll.enabled = false;
-            sr.color = Color.magenta;
-            yield return seq.WaitForCompletion();
-            coll.enabled = true;
-            sr.color = Color.white;
-
-            // This log will happen after the tween has completed
-            Debug.Log("Jump completed");
-            yield return new WaitForSeconds(1);
-        }
-
-    }
-
-    float curTime = 0;
+    enum EnemyStatus {
+        WAITING,
+        FALLING,
+        STILL,
+        JUMPING,
+    };
+    private EnemyStatus mStatus;
     private Vector2 mVelocity = new Vector2(0,0);
     private Vector2 mCurTarget = new Vector2(0, 0);
 
     public float mGravity = 9.80665f;
-    public float mJumpAccel = 5.0f;
+    public float mJumpAccel = 3.0f;
+    public float mMinWait = 0.1f;
+    public float mMaxWait = 0.5f;
+    public float mJumpSize = 1.0f;
 
-    void BeginJumpToTarget(Vector2 newTarget)
+    private Rigidbody2D mRigidBody;
+    private Transform mShadowTransform;
+    private Collider2D mCollider;
+    private Transform mPlayerTransform;
+
+    // Used for shadow projection
+    private Vector2 mMovingDirection, mJumpStartPosition, mShadowOffset;
+
+    private SpriteRenderer mSpriteRenderer;
+
+	// Use this for initialization
+	void Start () {
+        mRigidBody = transform.GetChild(0).GetComponent<Rigidbody2D>();
+        mCollider = transform.GetChild(0).GetComponent<Collider2D>();
+        mSpriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        mPlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        mShadowTransform = transform.GetChild(1).transform;
+        mShadowOffset = mShadowTransform.localPosition;
+
+        mJumpStartPosition = mRigidBody.transform.position;
+        mMovingDirection = new Vector2(0, 0);
+        mStatus = EnemyStatus.WAITING;
+
+        Vector2 pos = new Vector2(0.0f, 10.0f);
+        mRigidBody.position = mRigidBody.position + pos;
+	}
+
+    IEnumerator JumpCoroutine()
     {
-        Vector2 pos = rb.transform.position;
+        float waitTime = Random.Range(mMinWait, mMaxWait);
+        yield return new WaitForSeconds(waitTime);
+        mCollider.enabled = false;
+        mSpriteRenderer.color = Color.magenta;
+        BeginJumpToTarget();
+    }
+
+    void BeginJumpToTarget()
+    {
+        Vector2 newTarget = mPlayerTransform.position;
+        Vector2 pos = mRigidBody.transform.position;
         Vector2 ds = newTarget - pos;
 
+        // Clamp jump magnitude
+        if (ds.magnitude > mJumpSize)
+        {
+            ds = ds.normalized * mJumpSize;
+            newTarget = pos + ds;
+        }
+
         float angle = Mathf.PI / 4.0f;
-        float Vx = mJumpAccel * Mathf.Cos(angle);
-        float Vy = mJumpAccel * Mathf.Sin(angle);
-        float jumpTime = 2 * (Vy / mGravity + Mathf.Sqrt(Vy * Vy + 2 * mGravity * Mathf.Abs(ds.y))) / mGravity;
-        float jumpX = Vx * jumpTime;
+        float ax = mJumpAccel * Mathf.Cos(angle);
+        float ay = mJumpAccel * Mathf.Sin(angle);
+        float jumpTime = 2 * (ay / mGravity + Mathf.Sqrt(ay * ay + 2 * mGravity * Mathf.Abs(ds.y))) / mGravity;
+        float jumpX = ax * jumpTime;
         
-        // salto troppo, riduco l'angolo
+        // If jump is too far using PI/4 as angle, change the angle
         if (ds.x * ds.x < jumpX * jumpX)
         { 
-            // dato che jumpTime dipende dall'angolo e l'angolo da jumpTime, itero 5 volte 
-            // (10 volte converge alla 4^ cifra decimale, ma non serve cosi` tanta precisione)
+            // The loop is because jumpTime depends.. and the angle depends on jumpTime.
             for (int i = 0; i < 5; i++)
             {
                 angle = Mathf.Acos(Mathf.Abs(ds.x) / (mJumpAccel * jumpTime));
-                Vy = mJumpAccel * Mathf.Sin(angle);
-                jumpTime = 2 * (Vy / mGravity + Mathf.Sqrt(Vy * Vy + 2 * mGravity * Mathf.Abs(ds.y))) / mGravity;
+                ay = mJumpAccel * Mathf.Sin(angle);
+                jumpTime = 2 * (ay / mGravity + Mathf.Sqrt(ay * ay + 2 * mGravity * Mathf.Abs(ds.y))) / mGravity;
             }
         }
 
         mVelocity.x = mJumpAccel * Mathf.Cos(angle) * Mathf.Sign(ds.x);
         mVelocity.y = mJumpAccel * Mathf.Sin(angle);
         mCurTarget = newTarget;
+        mMovingDirection = ds.normalized;
+        mJumpStartPosition = mRigidBody.position;
+        mStatus = EnemyStatus.JUMPING;
     }
 
     // Update is called once per frame
     void FixedUpdate () {
-        if (curTime == 0.0f)
-            BeginJumpToTarget(playerTransform.position);
+        if (mStatus != EnemyStatus.JUMPING && mStatus != EnemyStatus.FALLING)
+            return;
 
         mVelocity.y -= mGravity * Time.fixedDeltaTime;
 
-        Vector3 newPosition = rb.transform.position;
+        Vector2 newPosition = mRigidBody.transform.position;
         newPosition.x += mVelocity.x * Time.fixedDeltaTime;
         newPosition.y += mVelocity.y * Time.fixedDeltaTime;
 
-        curTime += Time.fixedDeltaTime;
-        if (newPosition.y <= mCurTarget.y && mVelocity.y < 0)
+        if (newPosition.y <= mCurTarget.y && mVelocity.y < 0.05)
         {
-            mVelocity = Vector2.zero;
-            curTime = 0.0f;
-        }
-        
-        rb.transform.position = newPosition;
+            if (mStatus == EnemyStatus.FALLING)
+                newPosition.y = mCurTarget.y;
 
+            mVelocity = Vector2.zero;
+            mStatus = EnemyStatus.STILL;
+            mCollider.enabled = true;
+            mSpriteRenderer.color = Color.white;
+            StartCoroutine(JumpCoroutine());
+        }
+
+        if (mStatus == EnemyStatus.JUMPING || mStatus == EnemyStatus.STILL)
+        {
+            // Shadow Projection
+            float dot = Vector2.Dot(newPosition - mJumpStartPosition, mMovingDirection);
+            mShadowTransform.position = mJumpStartPosition + dot * mMovingDirection + mShadowOffset;
+        }
+
+        mRigidBody.transform.position = newPosition;
 	}
 
     void OnTriggerEnter2D(Collider2D other)
@@ -105,4 +133,13 @@ public class StompStomp : MonoBehaviour {
         Debug.Log("Stomp hit " + other.name + " " + Time.time + ": " + gameObject.transform.position);
     }
 
+    public void OnShadowTouch() {
+        if (mStatus == EnemyStatus.WAITING)
+        {
+            mStatus = EnemyStatus.FALLING;
+            mCurTarget = mShadowTransform.position;
+            mCurTarget -= mShadowOffset;
+        }
+        Debug.Log("Changed status to Falling");
+    }
 }
