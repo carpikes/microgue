@@ -86,6 +86,9 @@ public class GameplayManager : MonoBehaviour
 
     public void OnDoorEnter(Bundle args)
     {
+        if (mDebugArena)
+            return;
+
         string type;
 
         if (!args.TryGetValue(DoorBehavior.DOOR_TYPE_TAG, out type))
