@@ -27,6 +27,7 @@ public class InputManager : MonoBehaviour {
     public float shotCooldownTime = 0.2f;
     public float shotSpeed = 5f;
     float lastShootTime = 0f;
+    private float mShakeTime = 0.0f, mShakeForce = 0.0f;
 
     InputInterface mInput;
     public InputChoiches mInputChoice;
@@ -51,8 +52,6 @@ public class InputManager : MonoBehaviour {
         aimTransform.position = mainCam.ScreenToWorldPoint(new Vector3(0, 0, 1));
     }
 
-    float mShakeTime = 0.0f;
-    float mShakeForce = 0.0f;
 
     private void SetPositionCamera()
     {
@@ -85,8 +84,9 @@ public class InputManager : MonoBehaviour {
     }
 
     public void ShakeCamera(float duration, float force) {
-        if(mShakeTime < Time.time + duration)
-            mShakeTime = Time.time + duration;
+        float finishTime = Time.time + duration;
+        if (mShakeTime < finishTime)
+            mShakeTime = finishTime;
         if(mShakeForce < force)
             mShakeForce = force;
     }
