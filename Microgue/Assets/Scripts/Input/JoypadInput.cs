@@ -126,4 +126,9 @@ public class JoypadInput : MonoBehaviour, InputInterface {
     {
         throw new NotImplementedException();
     }
+
+    public bool IsItemButtonPressed()
+    {
+        throw new NotImplementedException();
+    }
 }

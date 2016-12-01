@@ -5,30 +5,26 @@ using StatPair = System.Collections.Generic.KeyValuePair<StatManager.StatStates,
 
 public class ItemEffector : MonoBehaviour {
 
-    StatManager statManager;
+    PlayerManager playerManager;
 
     [HideInInspector]
     public ItemData item;
 
     void Start()
     {
-        statManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<StatManager>();
+        playerManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<PlayerManager>();
     }
 
 	void OnTriggerEnter2D( Collider2D other )
     {
         if (other.CompareTag("Player"))
         {
-            // activate all effects on stat
-            foreach (StatPair pair in item.Values)
-            {
-                StatManager.StatStates stat = pair.Key;
-                float delta = pair.Value;
+            //EventManager.TriggerEvent(Events.ON_ITEM_PICKUP, item);
+            if ( item.IsPassive )
+                playerManager.PickUpItem(item);
+            else
+                playerManager.StoreItem(item);
 
-                statManager.updateStatValue(stat, delta);
-            }
-
-            // disable after pickup
             gameObject.SetActive(false);
         }
     }

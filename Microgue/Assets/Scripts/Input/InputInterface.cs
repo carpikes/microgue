@@ -5,4 +5,5 @@ public interface InputInterface {
     Vector2 GetScreenPointerCoordinates();
     Vector2 GetVelocityDelta();
     bool IsShootingButtonPressed();
+    bool IsItemButtonPressed();
 }

@@ -13,10 +13,13 @@ public class InputManager : MonoBehaviour {
     Rigidbody2D rb;
     Animator animator;
     Camera mainCam;
-    private GameplayManager mGameManager = null;
+    GameplayManager mGameManager = null;
+    PlayerManager playerManager = null;
 
     float oldAnimationDirX = 0.0f;
+    private float mShakeTime = 0.0f, mShakeForce = 0.0f;
 
+    [Header("Aim transform")]
     public Transform aimTransform;
 
     [Header("Parameters for speed")]
@@ -27,8 +30,8 @@ public class InputManager : MonoBehaviour {
     public float shotCooldownTime = 0.2f;
     public float shotSpeed = 5f;
     float lastShootTime = 0f;
-    private float mShakeTime = 0.0f, mShakeForce = 0.0f;
 
+    [Header("Keyboard or joypad?")]
     InputInterface mInput;
     public InputChoiches mInputChoice;
 
@@ -44,6 +47,7 @@ public class InputManager : MonoBehaviour {
 
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        playerManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<PlayerManager>();
 
         mainCam = Camera.main;
         SetPositionCamera();
@@ -109,14 +113,6 @@ public class InputManager : MonoBehaviour {
         }
     }
 
-    void Update()
-    {
-        if (mInput.IsShootingButtonPressed())
-        {
-            Shoot();
-        }
-    }
-
     private void Shoot()
     {
         if (Time.time - lastShootTime > shotCooldownTime)
@@ -130,6 +126,19 @@ public class InputManager : MonoBehaviour {
             ((Rigidbody2D)lb.GetComponent<Rigidbody2D>()).velocity = direction * shotSpeed;
 
             lastShootTime = Time.time;
+        }
+    }
+
+    void Update()
+    {
+        if (mInput.IsShootingButtonPressed())
+        {
+            Shoot();
+        }
+
+        if( mInput.IsItemButtonPressed() )
+        {
+            playerManager.UseActiveItem();
         }
     }
 

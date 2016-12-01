@@ -30,8 +30,8 @@ public enum Events
     ON_ENEMY_TRIGGER,
 
     // object related
-    ON_OBJECT_PICKUP,
-    ON_OBJECT_USE,
+    ON_ITEM_PICKUP,
+    ON_ITEM_USE,
 
     // time related
     ON_TIME_FINISHING,

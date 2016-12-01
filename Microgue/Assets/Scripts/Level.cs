@@ -111,7 +111,7 @@ public class Level : MonoBehaviour {
     {
         // retrieve list of items for the specified category
         ItemData.ItemCategories category = (ItemData.ItemCategories)Enum.Parse(typeof(ItemData.ItemCategories), str_category);
-        List<ItemData> category_items = ItemManager.instance.items[(int)category];
+        List<ItemData> category_items = ItemParser.instance.items[(int)category];
 
         // pick a random item
         ItemData chosen_item = category_items[Random.Range(0, category_items.Count)];

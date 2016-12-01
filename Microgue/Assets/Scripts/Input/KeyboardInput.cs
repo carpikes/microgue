@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using System;
+﻿using System;
+using UnityEngine;
 
 public class KeyboardInput : MonoBehaviour, InputInterface {
 
@@ -55,5 +54,10 @@ public class KeyboardInput : MonoBehaviour, InputInterface {
     public bool IsShootingButtonPressed()
     {
         return Input.GetKey(KeyCode.Mouse0);
+    }
+
+    public bool IsItemButtonPressed()
+    {
+        return Input.GetKeyDown(KeyCode.Mouse1);
     }
 }

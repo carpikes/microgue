@@ -21,6 +21,7 @@ public class ItemData {
     private string name;
     private ItemCategories category;
     private string image;
+    private bool isPassive;
     private List<StatPair> values;
 
     public string Name
@@ -75,11 +76,25 @@ public class ItemData {
         }
     }
 
+    public bool IsPassive
+    {
+        get
+        {
+            return isPassive;
+        }
+
+        set
+        {
+            isPassive = value;
+        }
+    }
+
     public override string ToString()
     {
         StringBuilder sb = new StringBuilder();
         sb.Append("NAME: " + name + "\n");
         sb.Append("CATEGORY: " + category + "\n");
+        sb.Append("IS PASSIVE? " + isPassive + "\n");
         sb.Append("IMAGE: " + image + "\n");
 
         foreach (StatPair sp in Values)
