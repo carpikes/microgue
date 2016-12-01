@@ -6,4 +6,6 @@ public interface InputInterface {
     Vector2 GetVelocityDelta();
     bool IsShootingButtonPressed();
     bool IsItemButtonPressed();
+    bool isDashButtonPressed();
+    bool isSecondaryAttackButtonPressed();
 }

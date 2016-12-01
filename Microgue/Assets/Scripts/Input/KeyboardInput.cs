@@ -58,6 +58,16 @@ public class KeyboardInput : MonoBehaviour, InputInterface {
 
     public bool IsItemButtonPressed()
     {
+        return Input.GetKeyDown(KeyCode.E);
+    }
+
+    public bool isDashButtonPressed()
+    {
         return Input.GetKeyDown(KeyCode.Mouse1);
+    }
+
+    public bool isSecondaryAttackButtonPressed()
+    {
+        return Input.GetKeyDown(KeyCode.LeftShift);
     }
 }

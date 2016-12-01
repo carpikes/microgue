@@ -34,7 +34,8 @@ public enum Events
     ON_ITEM_USE,
 
     // time related
-    ON_TIME_FINISHING,
+    ON_SECOND_PASSED,
+    //ON_TIME_FINISHING,
     ON_TIME_ENDED,
 
     // stat related

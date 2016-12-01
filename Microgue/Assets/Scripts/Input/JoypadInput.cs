@@ -131,4 +131,14 @@ public class JoypadInput : MonoBehaviour, InputInterface {
     {
         throw new NotImplementedException();
     }
+
+    public bool isDashButtonPressed()
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool isSecondaryAttackButtonPressed()
+    {
+        throw new NotImplementedException();
+    }
 }

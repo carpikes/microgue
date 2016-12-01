@@ -9,7 +9,8 @@ using Bundle = System.Collections.Generic.Dictionary<string, string>;
 public class DebugManager : MonoBehaviour {
 
     public Canvas debugCanvas;
-    public Text debugText;
+    public Text statText;
+    public Text timerText;
 
     public bool isDebugVisible = true;
 
@@ -19,29 +20,36 @@ public class DebugManager : MonoBehaviour {
     void OnEnable()
     {
         EventManager.StartListening(Events.ON_STAT_CHANGED, OnStatChanged);
-    }
-
-    private void OnStatChanged(Bundle args)
-    {
-        UpdateDebugText();
+        EventManager.StartListening(Events.ON_SECOND_PASSED, OnSecondPassed);
     }
 
     void OnDisable()
     {
         EventManager.StopListening(Events.ON_STAT_CHANGED, OnStatChanged);
+        EventManager.StopListening(Events.ON_SECOND_PASSED, OnSecondPassed);
     }
+
+    private void OnSecondPassed(Bundle args)
+    {
+        //timerText.text = args.
+    }
+
+    private void OnStatChanged(Bundle args)
+    {
+        UpdateStatText();
+    }
+
 
     // Use this for initialization
     void Start () {
         if (!isDebugVisible)
         {
             debugCanvas.enabled = false;
-            enabled = false;
             return;
         }
 
         mainCharacter = GameObject.FindGameObjectWithTag("Player");
-        UpdateDebugText();
+        UpdateStatText();
     }
 
     // Update is called once per frame
@@ -50,14 +58,14 @@ public class DebugManager : MonoBehaviour {
         //UpdateDebugText();
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            debugText.enabled = (isDebugVisible ? false : true);
+            statText.enabled = (isDebugVisible ? false : true);
             isDebugVisible = !isDebugVisible;
         }
     }
 
-    private void UpdateDebugText()
+    private void UpdateStatText()
     {
-        debugText.text = "DEBUG (Z to toggle)\n";
+        statText.text = "DEBUG (Z to toggle)\n";
         ShowPlayerStats();
     }
 
@@ -68,7 +76,7 @@ public class DebugManager : MonoBehaviour {
         {
             foreach( Stat s in playerStats.stats )
             {
-                debugText.text += s.mName + ": " + s.CurrentValue + "\n";
+                statText.text += s.mName + ": " + s.CurrentValue + "\n";
             }
         } else
         {

@@ -140,6 +140,16 @@ public class InputManager : MonoBehaviour {
         {
             playerManager.UseActiveItem();
         }
+
+        if (mInput.isDashButtonPressed())
+        {
+            Dash();
+        }
+
+        if( mInput.isSecondaryAttackButtonPressed())
+        {
+            SecondaryAttack();
+        }
     }
 
     void LateUpdate()
@@ -165,5 +175,15 @@ public class InputManager : MonoBehaviour {
     {
         Vector2 delta = mInput.GetVelocityDelta();
         rb.velocity = delta * speed * Time.fixedDeltaTime;
+    }
+
+    private void SecondaryAttack()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void Dash()
+    {
+        throw new NotImplementedException();
     }
 }
