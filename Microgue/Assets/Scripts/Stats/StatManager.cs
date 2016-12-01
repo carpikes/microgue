@@ -41,8 +41,8 @@ public class StatManager : MonoBehaviour {
 
     public void updateStatValue( StatStates s, float delta )
     {
-        Debug.Log("Updating stat: " + s + " with delta " + delta);
         stats[(int)s].CurrentValue += delta;
+        EventManager.TriggerEvent(Events.ON_STAT_CHANGED);
 
         // TODO: verificare sincronia tra max_health e current_health
     }

@@ -19,8 +19,6 @@ public class ItemEffector : MonoBehaviour {
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log(item);
-
             // activate all effects on stat
             foreach (StatPair pair in item.Values)
             {

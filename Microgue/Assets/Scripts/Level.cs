@@ -37,11 +37,11 @@ public class Level : ScriptableObject {
                 return;
             }
 
-            EventManager.TriggerEvent("BeforeLoadLevel");
+            EventManager.TriggerEvent(Events.ON_LEVEL_BEFORE_LOADING);
             mCurWorld = Instantiate(worldPrefab);
             mCurWorld.name = mName;
             LoadStuff();
-            EventManager.TriggerEvent("AfterLoadLevel");
+            EventManager.TriggerEvent(Events.ON_LEVEL_BEFORE_LOADING);
         } else {
             mCurWorld.SetActive(true);
         }

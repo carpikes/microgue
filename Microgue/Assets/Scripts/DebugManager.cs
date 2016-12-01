@@ -5,21 +5,47 @@ using System;
 
 public class DebugManager : MonoBehaviour {
 
+    public Canvas debugCanvas;
     public Text debugText;
 
-    bool isDebugVisible = true;
+    public bool isDebugVisible = true;
 
     GameObject mainCharacter;
     StatManager playerStats;
 
-	// Use this for initialization
-	void Start () {
+    void OnEnable()
+    {
+        EventManager.StartListening(Events.ON_STAT_CHANGED, OnStatChanged);
+    }
 
-        if (!debugText)
+    void OnDisable()
+    {
+        EventManager.StopListening(Events.ON_STAT_CHANGED, OnStatChanged);
+    }
+
+    // Use this for initialization
+    void Start () {
+        if (!isDebugVisible)
+        {
+            debugCanvas.enabled = false;
+            enabled = false;
             return;
+        }
 
         mainCharacter = GameObject.FindGameObjectWithTag("Player");
-	}
+        UpdateDebugText();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        //UpdateDebugText();
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            debugText.enabled = (isDebugVisible ? false : true);
+            isDebugVisible = !isDebugVisible;
+        }
+    }
 
     private void UpdateDebugText()
     {
@@ -42,14 +68,8 @@ public class DebugManager : MonoBehaviour {
         }
     }
 
-    // Update is called once per frame
-    void Update() {
-
+    void OnStatChanged()
+    {
         UpdateDebugText();
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            debugText.enabled = (isDebugVisible ? false : true);
-            isDebugVisible = !isDebugVisible;
-        }
     }
 }
