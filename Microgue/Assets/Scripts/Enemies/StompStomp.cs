@@ -24,6 +24,7 @@ public class StompStomp : MonoBehaviour {
     private Transform mShadowTransform;
     private Collider2D mCollider;
     private Transform mPlayerTransform;
+    private InputManager mInputManager;
 
     // Used for shadow projection
     private Vector2 mMovingDirection, mJumpStartPosition, mShadowOffset;
@@ -42,6 +43,7 @@ public class StompStomp : MonoBehaviour {
         mJumpStartPosition = mRigidBody.transform.position;
         mMovingDirection = new Vector2(0, 0);
         mStatus = EnemyStatus.WAITING;
+        mInputManager = GameObject.Find("MainCharacter").GetComponent<InputManager>();
 
         Vector2 pos = new Vector2(0.0f, 10.0f);
         mRigidBody.position = mRigidBody.position + pos;
@@ -109,7 +111,11 @@ public class StompStomp : MonoBehaviour {
         if (newPosition.y <= mCurTarget.y && mVelocity.y < 0.05)
         {
             if (mStatus == EnemyStatus.FALLING)
+            {
                 newPosition.y = mCurTarget.y;
+                mInputManager.ShakeCamera(0.15f, 2.0f);
+            } else 
+                mInputManager.ShakeCamera(0.13f, 1.0f);
 
             mVelocity = Vector2.zero;
             mStatus = EnemyStatus.STILL;

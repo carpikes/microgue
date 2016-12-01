@@ -51,6 +51,9 @@ public class InputManager : MonoBehaviour {
         aimTransform.position = mainCam.ScreenToWorldPoint(new Vector3(0, 0, 1));
     }
 
+    float mShakeTime = 0.0f;
+    float mShakeForce = 0.0f;
+
     private void SetPositionCamera()
     {
         Vector2 normCoords = GetNormalizedCoordinates();
@@ -72,7 +75,20 @@ public class InputManager : MonoBehaviour {
             cameraPos.x = Mathf.Clamp(cameraPos.x, cameraBound[0].x, cameraBound[1].x);
             cameraPos.y = Mathf.Clamp(cameraPos.y, cameraBound[0].y, cameraBound[1].y);
         }
-        mainCam.transform.position = cameraPos;
+
+        Vector3 r = Vector3.zero;
+        if (Time.time < mShakeTime)
+            r = UnityEngine.Random.insideUnitCircle / 20.0f * mShakeForce;
+        else
+            mShakeForce = 0.0f;
+        mainCam.transform.position = cameraPos + r;
+    }
+
+    public void ShakeCamera(float duration, float force) {
+        if(mShakeTime < Time.time + duration)
+            mShakeTime = Time.time + duration;
+        if(mShakeForce < force)
+            mShakeForce = force;
     }
 
     private Vector2 GetNormalizedCoordinates()
