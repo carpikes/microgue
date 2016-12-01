@@ -46,16 +46,13 @@ public class ItemParser : MonoBehaviour {
             string line;
             while ((line = reader.ReadLine()) != null)
             {
-                if (line.StartsWith("#"))
-                {
-                    Debug.Log("SKIP LINE");
+                if (line.StartsWith("#") || line == "")
                     continue;
-                }
 
                 string[] item_info = line.Split(',');
 
-                // the file is structured like this
-                // itemname, category, image, (enum, effect)+
+                for (int i = 0; i < item_info.Length; ++i)
+                    item_info[i] = item_info[i].Trim();
 
                 // Create item
                 ItemData item = new ItemData();
