@@ -387,7 +387,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mPlayer: {fileID: 45119986}
   mAimCursor: {fileID: 1093476809}
-  mDebugArena: 1
+  mDebugArena: 0
 --- !u!114 &864414237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -399,8 +399,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7abe62487d85b14d91e862eca6f433a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugCanvas: {fileID: 977886684}
   debugText: {fileID: 1484255522}
-  isDebugVisible: 0
+  isDebugVisible: 1
 --- !u!114 &864414238
 MonoBehaviour:
   m_ObjectHideFlags: 0

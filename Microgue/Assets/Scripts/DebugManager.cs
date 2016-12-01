@@ -2,6 +2,9 @@
 using UnityEngine.UI;
 using System.Collections;
 using System;
+using System.Collections.Generic;
+
+using Bundle = System.Collections.Generic.Dictionary<string, string>;
 
 public class DebugManager : MonoBehaviour {
 
@@ -16,6 +19,11 @@ public class DebugManager : MonoBehaviour {
     void OnEnable()
     {
         EventManager.StartListening(Events.ON_STAT_CHANGED, OnStatChanged);
+    }
+
+    private void OnStatChanged(Bundle args)
+    {
+        UpdateDebugText();
     }
 
     void OnDisable()
@@ -66,10 +74,5 @@ public class DebugManager : MonoBehaviour {
         {
             Debug.LogError("Cannot retrieve player stats component");
         }
-    }
-
-    void OnStatChanged()
-    {
-        UpdateDebugText();
     }
 }

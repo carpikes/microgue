@@ -10,6 +10,8 @@ public enum Events
     // level related
     ON_LEVEL_BEFORE_LOADING,
     ON_LEVEL_AFTER_LOADING,
+    ON_LEVEL_UNLOADING,
+    ON_DOOR_TOUCH,
 
     // main character related
     ON_MAIN_CHAR_HIT,
@@ -37,4 +39,5 @@ public enum Events
 
     // stat related
     ON_STAT_CHANGED,
+    
 }

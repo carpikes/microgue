@@ -18,12 +18,12 @@ public class EnemyLife : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Shot"))
         {
-            EventManager.TriggerEvent(Events.ON_ENEMY_HIT);
+            EventManager.TriggerEvent(Events.ON_ENEMY_HIT, null);
             hp--;
         }
         if (hp < 0)
         {
-            EventManager.TriggerEvent(Events.ON_ENEMY_DEATH);
+            EventManager.TriggerEvent(Events.ON_ENEMY_DEATH, null);
             Destroy(gameObject);
         }
     }

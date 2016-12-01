@@ -1,19 +1,21 @@
 ﻿using UnityEngine;
-using POLIMIGameCollective;
 using UnityEditor;
 using System.Collections.Generic;
 
 using Random = UnityEngine.Random;
+using Bundle = System.Collections.Generic.Dictionary<string, string>;
 using System;
 
-// TODO: TUTTO DA REFACTORARE!
-public class Level : ScriptableObject {
+public class Level : MonoBehaviour {
     //private List<GameObject> mSpawnedItems;
     private string mName, mAssetPath;
     private GameObject mCurWorld;
 
     private Vector3[] mCameraBounds;
     private Dictionary<string, Vector2> mSpawnPoints;
+
+    public readonly static string LEVEL_NAME_TAG = "LEVEL_NAME";
+    public readonly static string LEVEL_UNLOAD_TAG = "LEVEL_UNLOAD";
 
     public Level(int num, string name)
     {
@@ -37,11 +39,14 @@ public class Level : ScriptableObject {
                 return;
             }
 
-            EventManager.TriggerEvent(Events.ON_LEVEL_BEFORE_LOADING);
+            Bundle levelEventInfo = new Bundle();
+            levelEventInfo.Add(LEVEL_NAME_TAG, mName);
+            
+            EventManager.TriggerEvent(Events.ON_LEVEL_BEFORE_LOADING, levelEventInfo);
             mCurWorld = Instantiate(worldPrefab);
             mCurWorld.name = mName;
             LoadStuff();
-            EventManager.TriggerEvent(Events.ON_LEVEL_BEFORE_LOADING);
+            EventManager.TriggerEvent(Events.ON_LEVEL_BEFORE_LOADING, levelEventInfo);
         } else {
             mCurWorld.SetActive(true);
         }
@@ -145,6 +150,10 @@ public class Level : ScriptableObject {
     public void Unload()
     {
         mCurWorld.SetActive(false);
+
+        Bundle b = new Bundle();
+        b.Add(LEVEL_UNLOAD_TAG, mCurWorld.ToString());
+        EventManager.TriggerEvent(Events.ON_LEVEL_UNLOADING, b);
     }
 
     private void GetBoundsOnLoad()
