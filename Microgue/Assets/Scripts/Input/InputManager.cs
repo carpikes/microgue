@@ -2,7 +2,11 @@
 using System.Collections;
 using System;
 
+using Bundle = System.Collections.Generic.Dictionary<string, string>;
+
 public class InputManager : MonoBehaviour {
+
+    public static string IS_FACING_RIGHT = "IS_FACING_RIGHT";
 
     public enum InputChoiches
     {
@@ -11,12 +15,12 @@ public class InputManager : MonoBehaviour {
     }
 
     Rigidbody2D rb;
-    Animator animator;
+
     Camera mainCam;
     GameplayManager mGameManager = null;
     PlayerManager playerManager = null;
 
-    float oldAnimationDirX = 0.0f;
+    float lastAimX = 0.0f;
     private float mShakeTime = 0.0f, mShakeForce = 0.0f;
 
     [Header("Aim transform")]
@@ -46,7 +50,7 @@ public class InputManager : MonoBehaviour {
         }
 
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
+        
         playerManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<PlayerManager>();
 
         mainCam = Camera.main;
@@ -59,9 +63,7 @@ public class InputManager : MonoBehaviour {
 
     private void SetPositionCamera()
     {
-        Vector2 normCoords = GetNormalizedCoordinates();
-
-        SetPlayerAnimation(normCoords);
+        Vector2 normCoords = GetNormalizedPointerCoordinates();
 
         Vector3 cameraPos = new Vector3(
             transform.position.x + normCoords.x, transform.position.y + normCoords.y, -1);
@@ -95,7 +97,7 @@ public class InputManager : MonoBehaviour {
             mShakeForce = force;
     }
 
-    private Vector2 GetNormalizedCoordinates()
+    private Vector2 GetNormalizedPointerCoordinates()
     {
         Vector2 sp = mInput.GetScreenPointerCoordinates();
         Vector2 normCoords =
@@ -103,13 +105,66 @@ public class InputManager : MonoBehaviour {
         return normCoords;
     }
 
-    private void SetPlayerAnimation( Vector2 dir )
+    // Update is called once per frame
+    void FixedUpdate ()
     {
-        // change of direction
-        if (oldAnimationDirX * dir.x <= 0)
+        ChangeVelocity();
+    }
+
+    private void ChangeVelocity()
+    {
+        Vector2 delta = mInput.GetVelocityDelta();
+        rb.velocity = delta * speed * Time.fixedDeltaTime;
+    }
+
+    private void Aim()
+    {
+        Vector2 p = mainCam.ScreenToWorldPoint(mInput.GetScreenPointerCoordinates());
+
+        aimTransform.transform.position = p;
+    }
+
+    void LateUpdate()
+    {
+        CheckDirection();
+        SetPositionCamera();
+        Aim();
+    }
+
+    void CheckDirection()
+    {
+        Vector2 aimCoords = GetNormalizedPointerCoordinates();
+        if( aimCoords.x * lastAimX < 0.0f )
         {
-            animator.SetFloat("dir_x", dir.x);
-            oldAnimationDirX = dir.x;
+            Bundle dir = new Bundle();
+            dir.Add(IS_FACING_RIGHT, (aimCoords.x >= 0.0f ? true : false).ToString() );
+
+            EventManager.TriggerEvent(Events.ON_MAIN_CHAR_CHANGE_DIR, dir);
+        }
+
+        lastAimX = aimCoords.x;
+    }
+
+    void Update()
+    {
+        if (mInput.IsShootingButtonPressed())
+        {
+            Shoot();
+        }
+
+        if (mInput.IsItemButtonPressed())
+        {
+            playerManager.UseActiveItem();
+        }
+
+        if (mInput.isDashButtonPressed())
+        {
+            Dash();
+        }
+
+        if (mInput.isSecondaryAttackButtonPressed())
+        {
+            SecondaryAttack();
         }
     }
 
@@ -126,64 +181,18 @@ public class InputManager : MonoBehaviour {
             ((Rigidbody2D)lb.GetComponent<Rigidbody2D>()).velocity = direction * shotSpeed;
 
             lastShootTime = Time.time;
+
+            EventManager.TriggerEvent(Events.ON_MAIN_CHAR_ATTACK, null);
         }
-    }
-
-    void Update()
-    {
-        if (mInput.IsShootingButtonPressed())
-        {
-            Shoot();
-        }
-
-        if( mInput.IsItemButtonPressed() )
-        {
-            playerManager.UseActiveItem();
-        }
-
-        if (mInput.isDashButtonPressed())
-        {
-            Dash();
-        }
-
-        if( mInput.isSecondaryAttackButtonPressed())
-        {
-            SecondaryAttack();
-        }
-    }
-
-    void LateUpdate()
-    {
-        SetPositionCamera();
-        Aim();
-    }
-
-    // Update is called once per frame
-    void FixedUpdate ()
-    {
-        ChangeVelocity();
-    }
-
-    private void Aim()
-    {
-        Vector2 p = mainCam.ScreenToWorldPoint(mInput.GetScreenPointerCoordinates());
-
-        aimTransform.transform.position = p;
-    }
-
-    private void ChangeVelocity()
-    {
-        Vector2 delta = mInput.GetVelocityDelta();
-        rb.velocity = delta * speed * Time.fixedDeltaTime;
     }
 
     private void SecondaryAttack()
     {
-        throw new NotImplementedException();
+        EventManager.TriggerEvent(Events.ON_MAIN_CHAR_SECOND_ATTACK, null);
     }
 
     private void Dash()
     {
-        throw new NotImplementedException();
+        EventManager.TriggerEvent(Events.ON_MAIN_CHAR_DASH, null);
     }
 }
