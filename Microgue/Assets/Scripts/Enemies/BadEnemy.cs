@@ -99,6 +99,16 @@ public class BadEnemy : MonoBehaviour
         ChooseNewTarget(); 
     }
 
+    IEnumerator preTargetCoroutine()
+    {
+        mCurState = EnemyStates.STILL;
+        float sleepTime = Random.Range(0.4f, 0.5f);
+        yield return new WaitForSeconds(sleepTime);
+        mCurState = EnemyStates.TARGETING;
+        mTargetDist = Random.onUnitSphere;
+        ChooseNewTarget(); 
+    }
+
     void ChooseNewTarget()
     {
         if (mCurState != EnemyStates.TARGETING)
@@ -112,9 +122,6 @@ public class BadEnemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Shot"))
-        {
-            mCurState = EnemyStates.TARGETING;
-            mTargetDist = Random.onUnitSphere;
-        }
+            StartCoroutine(preTargetCoroutine());
     }
 }
