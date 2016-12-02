@@ -13,13 +13,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: 114000010090211558}
-  - {fileID: 114000010800837366}
+  - {fileID: 114000010052854320}
   EditorEvents:
   - {fileID: 114000010629408614}
-  MasterBankRef: {fileID: 114000010800837366}
+  MasterBankRef: {fileID: 114000010052854320}
   StringsBankRef: {fileID: 114000010090211558}
-  stringsBankWriteTime: 636159693227310901
+  stringsBankWriteTime: 636153429304285053
   cacheVersion: 2
+--- !u!114 &114000010052854320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\Alain\Desktop\microgue\Microgue\FMOD\Desktop\Master Bank.bank
+  lastModified: 636153429304265032
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 29728
+  - Name: Mobile
+    Value: 47808
+  Exists: 1
 --- !u!114 &114000010090211558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32,7 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: FMOD\Desktop\Master Bank.strings.bank
-  lastModified: 636159693227310901
+  lastModified: 636153429304285053
   LoadResult: 0
   FileSizes:
   - Name: Desktop
@@ -74,7 +94,7 @@ MonoBehaviour:
   Path: event:/SoundFX/SFX_Dummy
   guid: f473be342ded0c4088047ded7a66a094
   Banks:
-  - {fileID: 114000010800837366}
+  - {fileID: 114000010052854320}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
