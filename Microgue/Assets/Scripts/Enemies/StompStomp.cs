@@ -28,6 +28,7 @@ public class StompStomp : MonoBehaviour {
 
     // Used for shadow projection
     private Vector2 mMovingDirection, mJumpStartPosition, mShadowOffset;
+    private bool mDontMoveShadow;
 
     private SpriteRenderer mSpriteRenderer;
 
@@ -80,7 +81,8 @@ public class StompStomp : MonoBehaviour {
         // If jump is too far using PI/4 as angle, change the angle
         if (ds.x * ds.x < jumpX * jumpX)
         { 
-            // The loop is because jumpTime depends.. and the angle depends on jumpTime.
+            // The loop is because jumpTime depends on the angle.. and the angle depends on jumpTime.
+            // It converges up to the 4th decimal if looped for 10 times, 5 is enough for us :)
             for (int i = 0; i < 5; i++)
             {
                 angle = Mathf.Acos(Mathf.Abs(ds.x) / (mJumpAccel * jumpTime));
@@ -94,6 +96,8 @@ public class StompStomp : MonoBehaviour {
         mCurTarget = newTarget;
         mMovingDirection = ds.normalized;
         mJumpStartPosition = mRigidBody.position;
+
+        mDontMoveShadow = ((mJumpStartPosition - mCurTarget).magnitude < 0.1);
         mStatus = EnemyStatus.JUMPING;
     }
 
@@ -128,16 +132,12 @@ public class StompStomp : MonoBehaviour {
         {
             // Shadow Projection
             float dot = Vector2.Dot(newPosition - mJumpStartPosition, mMovingDirection);
-            mShadowTransform.position = mJumpStartPosition + dot * mMovingDirection + mShadowOffset;
+            if(!mDontMoveShadow)
+                mShadowTransform.position = mJumpStartPosition + dot * mMovingDirection + mShadowOffset;
         }
 
         mRigidBody.transform.position = newPosition;
 	}
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        Debug.Log("Stomp hit " + other.name + " " + Time.time + ": " + gameObject.transform.position);
-    }
 
     public void OnShadowTouch() {
         if (mStatus == EnemyStatus.WAITING)
@@ -145,7 +145,7 @@ public class StompStomp : MonoBehaviour {
             mStatus = EnemyStatus.FALLING;
             mCurTarget = mShadowTransform.position;
             mCurTarget -= mShadowOffset;
+            Debug.Log("Changed status to Falling");
         }
-        Debug.Log("Changed status to Falling");
     }
 }
