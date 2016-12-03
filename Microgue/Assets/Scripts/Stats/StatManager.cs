@@ -31,7 +31,7 @@ public class StatManager : MonoBehaviour {
 
     public Stat[] stats;
 
-    private void SetStat(StatStates s, float min, float max)
+    private void SetupStat(StatStates s, float min, float max)
     {
         stats[(int)s] = new Stat(s.ToString(), min, max);
     }
@@ -40,28 +40,44 @@ public class StatManager : MonoBehaviour {
     {
         stats = new Stat[ numberOfStates ];
 
-        SetStat(StatStates.MAX_HEALTH, 3, 10);
-        SetStat(StatStates.CURRENT_HEALTH, 0, stats[(int)StatStates.MAX_HEALTH].CurrentValue);
-        SetStat(StatStates.DEFENCE, 1, 10);
-        SetStat(StatStates.DAMAGE, 1, 10);
-        SetStat(StatStates.TEMP_DISTORSION, 1, 10);
+        SetupStat(StatStates.MAX_HEALTH, 3, 10);
+        SetupStat(StatStates.CURRENT_HEALTH, 0, stats[(int)StatStates.MAX_HEALTH].CurrentValue);
+        SetupStat(StatStates.DEFENCE, 1, 10);
+        SetupStat(StatStates.DAMAGE, 1, 10);
+        SetupStat(StatStates.TEMP_DISTORSION, 1, 10);
 
         stats[(int)StatStates.CURRENT_HEALTH].CurrentValue = stats[(int)StatStates.CURRENT_HEALTH].mMax;
     }
 
-    public void updateStatValue( StatStates s, float delta )
+    public void UpdateStatValue( StatStates s, float delta )
     {
-        stats[(int)s].CurrentValue += delta;
-        EventManager.TriggerEvent(Events.ON_STAT_CHANGED, null);
-
-        // TODO: verificare sincronia tra max_health e current_health
+        SetStatValue(s, stats[(int)s].CurrentValue + delta);
     }
 
-    public float getStatValue( StatStates s ) { return stats[(int)s].CurrentValue; }
+    public void SetStatValue( StatStates s, float v )
+    {
+        Stat currentStat = stats[(int)s];
+
+        currentStat.CurrentValue = v;
+        Mathf.Clamp(currentStat.CurrentValue, currentStat.mMin, currentStat.mMax);
+        
+        if( s == StatStates.MAX_HEALTH )
+        {
+            Stat currHealth = stats[(int)StatStates.CURRENT_HEALTH];
+            currHealth.mMax = currentStat.CurrentValue;
+
+            // if I decrease the max health, maybe the current healt is invalid now, fix with clamp
+            Mathf.Clamp(currHealth.CurrentValue, currHealth.mMin, currHealth.mMax);
+        }
+
+        EventManager.TriggerEvent(Events.ON_STAT_CHANGED, null);
+    }
+
+    public float GetStatValue( StatStates s ) { return stats[(int)s].CurrentValue; }
 
     private void DecreaseEnergy(Dictionary<string, string> arg0)
     {
-        updateStatValue(StatStates.CURRENT_HEALTH, -1);
+        UpdateStatValue(StatStates.CURRENT_HEALTH, -1);
     }
        
 }

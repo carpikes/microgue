@@ -26,7 +26,7 @@ public class PlayerManager : MonoBehaviour {
 
         //EventManager.TriggerEvent(Events.ON_ITEM_USE, item);
         foreach (StatPair pair in item.Values)
-            statManager.updateStatValue(pair.Key, pair.Value);
+            statManager.UpdateStatValue(pair.Key, pair.Value);
     }
 
     public void StoreItem(ItemData item)
