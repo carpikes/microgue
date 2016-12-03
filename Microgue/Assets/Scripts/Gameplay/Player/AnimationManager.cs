@@ -10,6 +10,11 @@ public class AnimationManager : MonoBehaviour {
     Animator animator;
     GameObject mainChar;
 
+    public static string ANIM_MAIN_ATTACK = "mainAttack";
+    public static string ANIM_DEATH = "death";
+    public static string ANIM_HIT = "hit";
+    public static string ANIM_IS_MOVING = "isMoving";
+
     // to mirror animations
     bool isRight = true;
 
@@ -48,6 +53,7 @@ public class AnimationManager : MonoBehaviour {
 
     private void OnMainCharChangeDir(Bundle args)
     {
+        /* NOT USING THIS INFO! */
         string d = null;
         if( args.TryGetValue(InputManager.IS_FACING_RIGHT, out d) )
             isRight = bool.Parse(d);
@@ -59,7 +65,7 @@ public class AnimationManager : MonoBehaviour {
 
     private void OnMainCharAttack(Bundle args)
     {
-        throw new NotImplementedException();
+        animator.SetTrigger(ANIM_MAIN_ATTACK);
     }
 
     private void OnMainCharSecondAttack(Bundle args)
@@ -69,22 +75,23 @@ public class AnimationManager : MonoBehaviour {
 
     private void OnMainCharMove(Bundle args)
     {
-        throw new NotImplementedException();
+        animator.SetBool(ANIM_IS_MOVING, true);
     }
 
     private void OnMainCharIdle(Bundle args)
     {
-        throw new NotImplementedException();
+        animator.SetBool(ANIM_IS_MOVING, false);
     }
 
     private void OnMainCharHit(Bundle args)
     {
-        throw new NotImplementedException();
+        // flashing effect??
+        animator.SetTrigger(ANIM_HIT);
     }
 
     private void OnMainCharDeath(Bundle args)
     {
-        throw new NotImplementedException();
+        animator.SetTrigger(ANIM_DEATH);
     }
 
     private void OnMainCharDash(Bundle args)
