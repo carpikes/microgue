@@ -61,10 +61,7 @@ public class Level : MonoBehaviour {
         foreach (SpawnBehavior s in spawnerContainer.GetComponentsInChildren<SpawnBehavior>())
         {
             if (s.mWhat == "Player")
-            {
-                mSpawnPoints["Spawn"] = s.mCenter;
-                // altrimenti ignora lo spawn point. spawna poi dalla porta
-            }
+                Debug.LogError("Feature rimossa. Togliere lo spawn point dalla mappa!");
             else
                 Spawn(s, mCurWorld);
         }
@@ -76,21 +73,15 @@ public class Level : MonoBehaviour {
 
         if (itemContainer)
         {
-            //Debug.Log("item container found");// OK
             foreach (ItemBehavior s in itemContainer.GetComponentsInChildren<ItemBehavior>())
-            {
                 SpawnItem(s, items);
-            }
             Destroy(itemContainer);
         }
         LoadDoors();
-        //LoadItems();
     }
 
     private void Spawn(SpawnBehavior s, GameObject childOf)
     {
-        if (s.mWhat == "Enemy")
-            s.mWhat = "BadEnemy";
         int n = Random.Range(s.mNumberMin, s.mNumberMax + 1);
         for (int i = 0; i < n; i++)
         {
@@ -149,11 +140,11 @@ public class Level : MonoBehaviour {
 
     public void Unload()
     {
-        mCurWorld.SetActive(false);
-
         Bundle b = new Bundle();
         b.Add(LEVEL_UNLOAD_TAG, mCurWorld.ToString());
         EventManager.TriggerEvent(Events.ON_LEVEL_UNLOADING, b);
+
+        mCurWorld.SetActive(false);
     }
 
     private void GetBoundsOnLoad()
@@ -169,10 +160,6 @@ public class Level : MonoBehaviour {
         mCameraBounds[1] = new Vector3(r.bounds.max.x - ratio, r.bounds.max.y - 2.0f);
     }
 
-    
-
-    
-
     private void LoadDoors()
     {
         GameObject doorContainer = GameObject.Find(mCurWorld.name + "/Doors");
@@ -185,7 +172,7 @@ public class Level : MonoBehaviour {
             BoxCollider2D coll = db.GetComponentInParent<BoxCollider2D>();
             Transform t = db.GetComponentInParent<Transform>();
             Vector2 spawnPos = t.position;
-            float delta = 0.1f;
+            float delta = 0.3f;
             switch (db.mType)
             {
                 case "Down":

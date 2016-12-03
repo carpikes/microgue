@@ -8,7 +8,6 @@ using Bundle = System.Collections.Generic.Dictionary<string, string>;
 public class GameplayManager : MonoBehaviour
 {
     public const string PREFAB_PATH = "Assets/Tiled2Unity/Prefabs/";
-    public const string DEBUG_ARENA = PREFAB_PATH + "leftright.prefab";
 
     [Header("Player")]
     public GameObject mPlayer;
@@ -38,7 +37,10 @@ public class GameplayManager : MonoBehaviour
     {
         Cursor.visible = false;
 
-        FetchLevels();
+        string lname = "demo";
+        if (mDebugArena)
+            lname = "debug";
+        FetchLevels(lname);
         GenerateLevels(3, 8);
         LoadFirstLevel();
     }
@@ -48,7 +50,6 @@ public class GameplayManager : MonoBehaviour
         mCurLevelNum = 0;
         mLevels[mCurLevelNum].Load();
 
-        // TODO?
         MovePlayerTo(mLevels[mCurLevelNum].GetPlayerStartPos("Down"));
     }
 
@@ -63,24 +64,18 @@ public class GameplayManager : MonoBehaviour
         Debug.Log("NumLevels: " + mNumLevels);
     }
 
-    private void FetchLevels()
+    private void FetchLevels(string name)
     {
         mAvailableLevels = new List<string>();
 
-        if (!mDebugArena)
+        foreach (string file in Directory.GetFiles(PREFAB_PATH))
         {
-            foreach (string file in Directory.GetFiles(PREFAB_PATH))
+            string fname = Path.GetFileNameWithoutExtension(file);
+            if (file.EndsWith(".prefab") && fname.StartsWith(name + "_"))
             {
-                if (file.EndsWith(".prefab") && file != DEBUG_ARENA)
-                {
-                    Debug.Log(file);
-                    mAvailableLevels.Add(Path.GetFileNameWithoutExtension(file));
-                }
+                Debug.Log(file);
+                mAvailableLevels.Add(fname);
             }
-        }
-        else
-        {
-            mAvailableLevels.Add(Path.GetFileNameWithoutExtension(DEBUG_ARENA));
         }
     }
 
@@ -106,7 +101,7 @@ public class GameplayManager : MonoBehaviour
         {
             case DoorBehavior.DOOR_DOWN: mLevels[--mCurLevelNum].Load(); break;
             case DoorBehavior.DOOR_UP: mLevels[++mCurLevelNum].Load(); break;
-            default: return;
+            default: mLevels[mCurLevelNum].Load(); break;
         }
 
         // TODO sistemare questo if temporaneo
