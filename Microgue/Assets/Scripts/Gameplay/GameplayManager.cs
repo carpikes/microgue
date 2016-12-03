@@ -8,7 +8,7 @@ using Bundle = System.Collections.Generic.Dictionary<string, string>;
 public class GameplayManager : MonoBehaviour
 {
     public const string PREFAB_PATH = "Assets/Tiled2Unity/Prefabs/";
-    public const string DEBUG_ARENA = PREFAB_PATH + "arena.prefab";
+    public const string DEBUG_ARENA = PREFAB_PATH + "leftright.prefab";
 
     [Header("Player")]
     public GameObject mPlayer;
