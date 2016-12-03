@@ -5,6 +5,16 @@ using System;
 
 public class StatManager : MonoBehaviour {
 
+    void OnEnable()
+    {
+        EventManager.StartListening(Events.ON_MAIN_CHAR_HIT, DecreaseEnergy);
+    }
+
+    void OnDisable()
+    {
+        EventManager.StopListening(Events.ON_MAIN_CHAR_HIT, DecreaseEnergy);
+    }
+
     public enum StatStates
     {
         CURRENT_HEALTH,
@@ -49,11 +59,9 @@ public class StatManager : MonoBehaviour {
 
     public float getStatValue( StatStates s ) { return stats[(int)s].CurrentValue; }
 
-    private void OnTriggerEnter2D(Collider2D other) {
-        if (other.CompareTag("EnemyShot"))
-        {
-            stats[(int)StatStates.CURRENT_HEALTH].CurrentValue--;
-            Destroy(other.gameObject);
-        }
+    private void DecreaseEnergy(Dictionary<string, string> arg0)
+    {
+        updateStatValue(StatStates.CURRENT_HEALTH, -1);
     }
+       
 }
