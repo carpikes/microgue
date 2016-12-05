@@ -173,7 +173,7 @@ public class Level
             BoxCollider2D coll = db.GetComponentInParent<BoxCollider2D>();
             Transform t = db.GetComponentInParent<Transform>();
             Vector2 spawnPos = t.position;
-            float delta = 0.3f;
+            float delta = 0.4f;
             switch (db.mType)
             {
                 case "Down":
@@ -186,11 +186,11 @@ public class Level
                     break;
                 case "Left":
                     spawnPos.x += coll.size.x + delta;
-                    spawnPos.y += coll.size.y / 2.0f;
+                    spawnPos.y -= coll.size.y / 2.0f;
                     break;
                 case "Right":
                     spawnPos.x -= coll.size.x + delta;
-                    spawnPos.y += coll.size.y / 2.0f;
+                    spawnPos.y -= coll.size.y / 2.0f;
                     break;
             }
             mSpawnPoints[db.mType] = spawnPos;

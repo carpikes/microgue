@@ -40,14 +40,14 @@ namespace RoomMapGenerator
                     continue;
 
                 // Remove some doors (otherwise center rooms always have 4 doors)
-                if(CheckIfRemovable(door, RoomMap.Door.LEFT, RoomMap.Door.RIGHT, x-1, y))
-                    door &= ~(int)RoomMap.Door.LEFT;
-                if(CheckIfRemovable(door, RoomMap.Door.RIGHT, RoomMap.Door.LEFT, x+1, y))
-                    door &= ~(int)RoomMap.Door.RIGHT;
-                if(CheckIfRemovable(door, RoomMap.Door.UP, RoomMap.Door.DOWN, x, y-1))
-                    door &= ~(int)RoomMap.Door.UP;
-                if(CheckIfRemovable(door, RoomMap.Door.DOWN, RoomMap.Door.UP, x, y+1))
-                    door &= ~(int)RoomMap.Door.DOWN;
+                //if(CheckIfRemovable(door, RoomMap.Door.LEFT, RoomMap.Door.RIGHT, x-1, y))
+                //    door &= ~(int)RoomMap.Door.LEFT;
+                //if(CheckIfRemovable(door, RoomMap.Door.RIGHT, RoomMap.Door.LEFT, x+1, y))
+                //    door &= ~(int)RoomMap.Door.RIGHT;
+                //if(CheckIfRemovable(door, RoomMap.Door.UP, RoomMap.Door.DOWN, x, y-1))
+                //    door &= ~(int)RoomMap.Door.UP;
+                //if(CheckIfRemovable(door, RoomMap.Door.DOWN, RoomMap.Door.UP, x, y+1))
+                //    door &= ~(int)RoomMap.Door.DOWN;
 
                 door &= 0x0f;
 

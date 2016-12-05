@@ -61,7 +61,7 @@ public class GameplayManager : MonoBehaviour
         // TRIGGER EVENT MAP_LOADING_COMPLETED
     }
 
-    private void LoadWorld(int n)
+    private void LoadWorld(int n, int spawnPoint = 0)
     {
         if (n == mCurWorldId)
             return;
@@ -81,9 +81,13 @@ public class GameplayManager : MonoBehaviour
         mCurWorld = mWorlds[n];
         mCurWorldId = n;
 
+        MovePlayerTo(new Vector2(-9000, -9000));
         mCurWorld.Load();
 
-        string door = DoorNumToString(mCurRoom.GetStartOrEndDoor());
+        if (spawnPoint == 0)
+            spawnPoint = mCurRoom.GetStartOrEndDoor();
+
+        string door = DoorNumToString(spawnPoint);
         MovePlayerTo(mCurWorld.GetPlayerStartPos(door));
     }
 
@@ -120,17 +124,17 @@ public class GameplayManager : MonoBehaviour
         if (mDebugArena)
             return;
 
-        string type, opposite;
-        RoomMap.Door door;
+        string type;
+        RoomMap.Door door, opposite;
 
         if (!args.TryGetValue(DoorBehavior.DOOR_TYPE_TAG, out type))
             return;
 
         switch (type) {
-            case DoorBehavior.DOOR_DOWN:  door = RoomMap.Door.DOWN;  opposite = DoorBehavior.DOOR_UP;    break;
-            case DoorBehavior.DOOR_UP:    door = RoomMap.Door.UP;    opposite = DoorBehavior.DOOR_DOWN;  break;
-            case DoorBehavior.DOOR_LEFT:  door = RoomMap.Door.LEFT;  opposite = DoorBehavior.DOOR_RIGHT; break;
-            case DoorBehavior.DOOR_RIGHT: door = RoomMap.Door.RIGHT; opposite = DoorBehavior.DOOR_LEFT;  break;
+            case DoorBehavior.DOOR_DOWN:  door = RoomMap.Door.DOWN;  opposite = RoomMap.Door.UP;    break;
+            case DoorBehavior.DOOR_UP:    door = RoomMap.Door.UP;    opposite = RoomMap.Door.DOWN;  break;
+            case DoorBehavior.DOOR_LEFT:  door = RoomMap.Door.LEFT;  opposite = RoomMap.Door.RIGHT; break;
+            case DoorBehavior.DOOR_RIGHT: door = RoomMap.Door.RIGHT; opposite = RoomMap.Door.LEFT;  break;
             default: return;
         }
 
@@ -139,9 +143,7 @@ public class GameplayManager : MonoBehaviour
 
         int newId = mCurRoom.GetRoomIdAt(door);
 
-        LoadWorld(newId);
-
-        MovePlayerTo(mCurWorld.GetPlayerStartPos(opposite));
+        LoadWorld(newId, (int)opposite);
     }
 
     void MovePlayerTo(Vector2 coords)

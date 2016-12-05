@@ -68,7 +68,7 @@ namespace RoomMapGenerator
             switch (door)
             {
                 case RoomMap.Door.DOWN:  return x + (y + 1) * w;
-                case RoomMap.Door.UP:    return x + (y + 1) * w;
+                case RoomMap.Door.UP:    return x + (y - 1) * w;
                 case RoomMap.Door.LEFT:  return x - 1 + y * w;
                 case RoomMap.Door.RIGHT: return x + 1 + y * w;
             }
