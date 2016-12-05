@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using RoomMapGenerator;
 
 using Random = UnityEngine.Random;
 using Bundle = System.Collections.Generic.Dictionary<string, string>;
@@ -16,11 +17,17 @@ public class GameplayManager : MonoBehaviour
     [Header("Load debug arena?")]
     public bool mDebugArena = false;
 
-    private int mNumLevels;
-    private int mCurLevelNum;
-    private Level[] mLevels;
+    private MapGenerator mMapGenerator;
+    private MapAssetManager mMapAssetManager;
 
-    List<string> mAvailableLevels;
+    // "Single map" vars
+    private Dictionary<int, Level> mWorlds;
+    private RoomInfo mCurRoom;
+    private Level mCurWorld;
+    private int mCurWorldId;
+
+    // list of available .prefab files
+    private List<string> mAvailableLevels;
 
     void OnEnable()
     {
@@ -40,28 +47,44 @@ public class GameplayManager : MonoBehaviour
         string lname = "demo";
         if (mDebugArena)
             lname = "debug";
+
+        // TRIGGER EVENT MAP_LOADING_STARTED
+        Debug.Log("Loading Started");
         FetchLevels(lname);
-        GenerateLevels(3, 8);
-        LoadFirstLevel();
+        mMapGenerator = new MapGenerator();
+        mMapAssetManager = new MapAssetManager(mAvailableLevels);
+        mWorlds = new Dictionary<int, Level>();
+        mMapGenerator.GenerateMap();
+
+        LoadWorld(mMapGenerator.GetStartRoomId());
+        Debug.Log("Loading Completed");
+        // TRIGGER EVENT MAP_LOADING_COMPLETED
     }
 
-    private void LoadFirstLevel()
+    private void LoadWorld(int n)
     {
-        mCurLevelNum = 0;
-        mLevels[mCurLevelNum].Load();
+        if (n == mCurWorldId)
+            return;
 
-        MovePlayerTo(mLevels[mCurLevelNum].GetPlayerStartPos("Down"));
-    }
+        if(mCurWorld != null)
+            mCurWorld.Unload();
 
-    private void GenerateLevels(int min, int max)
-    {
-        mNumLevels = Random.Range(min, max);
-        mLevels = new Level[mNumLevels];
+        mCurRoom = mMapGenerator.GetRoom(n);
 
-        for (int i = 0; i < mNumLevels; i++)
-            mLevels[i] = new Level(i + 1, mAvailableLevels[Random.Range(0, mAvailableLevels.Count)]);
+        if (!mWorlds.ContainsKey(n))
+        {
+            Level l = new Level(n, mMapAssetManager.GetMap(n, mCurRoom.GetDoors()));
+            mWorlds.Add(n, l);
+            mCurWorld = l;
+        }
 
-        Debug.Log("NumLevels: " + mNumLevels);
+        mCurWorld = mWorlds[n];
+        mCurWorldId = n;
+
+        mCurWorld.Load();
+
+        string door = DoorNumToString(mCurRoom.GetStartOrEndDoor());
+        MovePlayerTo(mCurWorld.GetPlayerStartPos(door));
     }
 
     private void FetchLevels(string name)
@@ -71,7 +94,7 @@ public class GameplayManager : MonoBehaviour
         foreach (string file in Directory.GetFiles(PREFAB_PATH))
         {
             string fname = Path.GetFileNameWithoutExtension(file);
-            if (file.EndsWith(".prefab") && fname.StartsWith(name + "_"))
+            if (file.EndsWith(".prefab")) // && fname.StartsWith(name + "_"))
             {
                 Debug.Log(file);
                 mAvailableLevels.Add(fname);
@@ -79,36 +102,46 @@ public class GameplayManager : MonoBehaviour
         }
     }
 
+    private string DoorNumToString(int door)
+    {
+        switch (door)
+        {
+            case (int) RoomMap.Door.DOWN:  return DoorBehavior.DOOR_DOWN;
+            case (int) RoomMap.Door.UP:    return DoorBehavior.DOOR_UP;
+            case (int) RoomMap.Door.LEFT:  return DoorBehavior.DOOR_LEFT;
+            case (int) RoomMap.Door.RIGHT: return DoorBehavior.DOOR_RIGHT;
+        }
+
+        return "";
+    }
+
     public void OnDoorEnter(Bundle args)
     {
         if (mDebugArena)
             return;
 
-        string type;
+        string type, opposite;
+        RoomMap.Door door;
 
         if (!args.TryGetValue(DoorBehavior.DOOR_TYPE_TAG, out type))
             return;
 
-        if (mCurLevelNum == 0 && type == DoorBehavior.DOOR_DOWN)
-            return;
-        if (mCurLevelNum == mNumLevels - 1 && type == DoorBehavior.DOOR_UP)
-            return;
-
-        mLevels[mCurLevelNum].Unload();
-
-        Debug.Log(type);
-        switch (type)
-        {
-            case DoorBehavior.DOOR_DOWN: mLevels[--mCurLevelNum].Load(); break;
-            case DoorBehavior.DOOR_UP: mLevels[++mCurLevelNum].Load(); break;
-            default: mLevels[mCurLevelNum].Load(); break;
+        switch (type) {
+            case DoorBehavior.DOOR_DOWN:  door = RoomMap.Door.DOWN;  opposite = DoorBehavior.DOOR_UP;    break;
+            case DoorBehavior.DOOR_UP:    door = RoomMap.Door.UP;    opposite = DoorBehavior.DOOR_DOWN;  break;
+            case DoorBehavior.DOOR_LEFT:  door = RoomMap.Door.LEFT;  opposite = DoorBehavior.DOOR_RIGHT; break;
+            case DoorBehavior.DOOR_RIGHT: door = RoomMap.Door.RIGHT; opposite = DoorBehavior.DOOR_LEFT;  break;
+            default: return;
         }
 
-        // TODO sistemare questo if temporaneo
-        MovePlayerTo(mLevels[mCurLevelNum].GetPlayerStartPos(
-            type == DoorBehavior.DOOR_DOWN
-            ? DoorBehavior.DOOR_UP
-            : DoorBehavior.DOOR_DOWN));
+        if (!mCurRoom.HasDoor(door))
+            return;
+
+        int newId = mCurRoom.GetRoomIdAt(door);
+
+        LoadWorld(newId);
+
+        MovePlayerTo(mCurWorld.GetPlayerStartPos(opposite));
     }
 
     void MovePlayerTo(Vector2 coords)
@@ -119,8 +152,8 @@ public class GameplayManager : MonoBehaviour
 
     public Vector3[] GetCameraBounds()
     {
-        if (mLevels == null)
+        if (mCurWorld == null)
             return null;
-        return mLevels[mCurLevelNum].GetCameraBounds();
+        return mCurWorld.GetCameraBounds();
     }
 }

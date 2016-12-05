@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-using RoomMapGenerator;
 using System.Collections.Generic;
+using RoomMapGenerator;
 
 namespace RoomMapGenerator
 {

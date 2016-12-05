@@ -5,13 +5,14 @@ using RoomMapGenerator;
 
 namespace RoomMapGenerator
 {
-    public class MapGenerator : MonoBehaviour
+    public class MapGenerator
     {
         public int mWidth = 6;
         public int mHeight = 6;
         public int mMaxRooms = 8;
         public int mMinRooms = 4;
 
+        private int mStartRoom, mEndRoom;
         private RoomMap mMap;
         private int mCurRooms = 0;
         private RandomQueue mQueue;
@@ -128,8 +129,10 @@ namespace RoomMapGenerator
                 e = Random.Range(0, candidates.Count);
             }
 
-            mMap.AddDoors(s, (int)RoomMap.Door.START_POINT);
-            mMap.AddDoors(e, (int)RoomMap.Door.END_POINT);
+            mMap.AddDoors(candidates[s], (int)RoomMap.Door.START_POINT);
+            mMap.AddDoors(candidates[e], (int)RoomMap.Door.END_POINT);
+            mStartRoom = candidates[s];
+            mEndRoom = candidates[e];
             return true;
         }
 
@@ -147,17 +150,23 @@ namespace RoomMapGenerator
             return mCurRooms;
         }
 
-        // Use this for initialization
-        void Start()
+        public MapGenerator()
         {
             mMap = new RoomMap(mWidth, mHeight);
             mQueue = new RandomQueue(ref mMap);
+            mStartRoom = mEndRoom = -1;
         }
 
-        // Update is called once per frame
-        void Update()
+        public int GetStartRoomId()
         {
+            return mStartRoom;
+        }
 
+        public RoomInfo GetRoom(int id)
+        {
+            RoomInfo info = new RoomInfo(mMap.GetWidth(), id, mMap.GetDoors(id));
+
+            return info;
         }
     };
 }

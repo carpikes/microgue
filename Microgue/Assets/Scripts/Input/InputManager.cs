@@ -173,12 +173,17 @@ public class InputManager : MonoBehaviour {
         if (Time.time - lastShootTime > shotCooldownTime)
         {
             GameObject lb = Instantiate(lightBall);
-            lb.transform.position = transform.position;
 
             Vector2 playerPos = transform.position;
             Vector2 pointer = mainCam.ScreenToWorldPoint(mInput.GetScreenPointerCoordinates());
             Vector2 direction = (pointer - playerPos).normalized;
-            ((Rigidbody2D)lb.GetComponent<Rigidbody2D>()).velocity = direction * shotSpeed;
+
+            Rigidbody2D ball2d = lb.GetComponent<Rigidbody2D>();
+            Vector3 offset = new Vector3(0.15f, -0.05f, 0.0f);
+            offset.x *= direction.x > 0.0f ? 1.0f : -1.0f;
+            
+            ball2d.position = transform.position + offset;
+            ball2d.velocity = direction * shotSpeed;
 
             lastShootTime = Time.time;
 

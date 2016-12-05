@@ -6,7 +6,8 @@ using Random = UnityEngine.Random;
 using Bundle = System.Collections.Generic.Dictionary<string, string>;
 using System;
 
-public class Level : MonoBehaviour {
+public class Level
+{
     //private List<GameObject> mSpawnedItems;
     private string mName, mAssetPath;
     private GameObject mCurWorld;
@@ -43,7 +44,7 @@ public class Level : MonoBehaviour {
             levelEventInfo.Add(LEVEL_NAME_TAG, mName);
             
             EventManager.TriggerEvent(Events.ON_LEVEL_BEFORE_LOADING, levelEventInfo);
-            mCurWorld = Instantiate(worldPrefab);
+            mCurWorld = GameObject.Instantiate(worldPrefab);
             mCurWorld.name = mName;
             LoadStuff();
             EventManager.TriggerEvent(Events.ON_LEVEL_BEFORE_LOADING, levelEventInfo);
@@ -65,7 +66,7 @@ public class Level : MonoBehaviour {
             else
                 Spawn(s, mCurWorld);
         }
-        Destroy(spawnerContainer);
+        GameObject.Destroy(spawnerContainer);
 
         GameObject itemContainer = GameObject.Find(mCurWorld.name + "/Items");
         GameObject items = new GameObject("Items");
@@ -75,7 +76,7 @@ public class Level : MonoBehaviour {
         {
             foreach (ItemBehavior s in itemContainer.GetComponentsInChildren<ItemBehavior>())
                 SpawnItem(s, items);
-            Destroy(itemContainer);
+            GameObject.Destroy(itemContainer);
         }
         LoadDoors();
     }
@@ -89,7 +90,7 @@ public class Level : MonoBehaviour {
             GameObject el = AssetDatabase.LoadAssetAtPath(prefabName, typeof(GameObject)) as GameObject;
             if (el != null)
             {
-                GameObject go = Instantiate(el);
+                GameObject go = GameObject.Instantiate(el);
                 go.transform.position = Random.insideUnitCircle * s.mRadius + s.mCenter;
                 go.transform.parent = childOf.transform;
             }
@@ -120,7 +121,7 @@ public class Level : MonoBehaviour {
 
         if (el != null)
         {
-            GameObject go = Instantiate(el);
+            GameObject go = GameObject.Instantiate(el);
 
             // set image
             SpriteRenderer sr = go.GetComponent<SpriteRenderer>();
@@ -183,8 +184,14 @@ public class Level : MonoBehaviour {
                     spawnPos.y -= coll.size.y + delta;
                     spawnPos.x += coll.size.x / 2.0f;
                     break;
-                    //case "Left": spawnPos.x += coll.size.x + delta; break;
-                    //case "Right":spawnPos.x -= coll.size.x + delta; break;
+                case "Left":
+                    spawnPos.x += coll.size.x + delta;
+                    spawnPos.y += coll.size.y / 2.0f;
+                    break;
+                case "Right":
+                    spawnPos.x -= coll.size.x + delta;
+                    spawnPos.y += coll.size.y / 2.0f;
+                    break;
             }
             mSpawnPoints[db.mType] = spawnPos;
         }

@@ -13,6 +13,8 @@ public class DoorBehavior : MonoBehaviour {
     public const string DOOR_ITEM_TAG = "DOOR_ITEM";
     public const string DOOR_UP = "Up";
     public const string DOOR_DOWN = "Down";
+    public const string DOOR_LEFT = "Left";
+    public const string DOOR_RIGHT = "Right";
 
     public void OnCollisionEnter2D(Collision2D other)
     {
