@@ -45,7 +45,7 @@ namespace RoomMapGenerator
 
         public void SetDoors(int x, int y, int d)
         {
-            mMap[x + y * mWidth] = d;
+            mMap[x + y * mWidth] = (char)d;
         }
 
         public void AddDoors(int x, int y, int d)
