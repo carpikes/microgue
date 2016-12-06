@@ -8,6 +8,10 @@ using StatPair = System.Collections.Generic.KeyValuePair<StatManager.StatStates,
 
 public class ItemData {
 
+    public static int PROB_COMMON = 80;
+    public static int PROB_RARE = 95;
+    public static int PROB_MYSTIC = 100;
+
     public enum ItemRarities
     {
         Common,

@@ -15,6 +15,8 @@ public class Level
     private Vector3[] mCameraBounds;
     private Dictionary<string, Vector2> mSpawnPoints;
 
+    System.Random rnd = new System.Random();
+
     public readonly static string LEVEL_NAME_TAG = "LEVEL_NAME";
     public readonly static string LEVEL_UNLOAD_TAG = "LEVEL_UNLOAD";
 
@@ -118,10 +120,9 @@ public class Level
 
     private void SpawnItem(ItemBehavior s, GameObject childOf)
     {
-        string category = s.mCategory;
         string prefabName = "Assets/Prefab/Item.prefab";
 
-        ItemData item = PickItemFromCategory(category);
+        ItemData item = PickItemFromCategory( ChooseCategory() );
         GameObject el = AssetDatabase.LoadAssetAtPath(prefabName, typeof(GameObject)) as GameObject;
 
         if (el != null)
@@ -142,6 +143,15 @@ public class Level
         }
         else
             Debug.LogError("I'm trying to spawn an invalid item: " + prefabName + " !");
+    }
+
+    private string ChooseCategory()
+    {
+        int n = rnd.Next(0, 100);
+
+        if (n < ItemData.PROB_COMMON) return "Common";
+        else if (n < ItemData.PROB_RARE) return "Rare";
+        else return "Mystic";
     }
 
     public void Unload()
