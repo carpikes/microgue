@@ -66,12 +66,14 @@ public class Level
 
         // Load enemies
         GameObject spawnerContainer = GameObject.Find(mCurWorld.name + "/Spawns");
+        GameObject enemies = new GameObject("Enemies");
+        enemies.transform.parent = mCurWorld.transform;
         foreach (SpawnBehavior s in spawnerContainer.GetComponentsInChildren<SpawnBehavior>())
         {
             if (s.mWhat == "Player")
                 mSpawnPoints["Spawn"] = s.mCenter;
             else
-                Spawn(s, mCurWorld);
+                SpawnEnemy(s, enemies);
         }
         GameObject.Destroy(spawnerContainer);
 
@@ -88,12 +90,11 @@ public class Level
         LoadDoors();
     }
 
-    private void Spawn(SpawnBehavior s, GameObject childOf)
+    private void SpawnEnemy(SpawnBehavior s, GameObject childOf)
     {
         int n = Random.Range(s.mNumberMin, s.mNumberMax + 1);
         for (int i = 0; i < n; i++)
         {
-            //Debug.Log("Dovrei fare " + s.mWhat);
             string enemy = GetEnemyFromType(s.mWhat);
             string prefabName = "Assets/Prefab/Enemies/" + enemy + ".prefab";
             GameObject el = AssetDatabase.LoadAssetAtPath(prefabName, typeof(GameObject)) as GameObject;
