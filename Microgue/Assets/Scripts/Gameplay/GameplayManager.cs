@@ -81,7 +81,7 @@ public class GameplayManager : MonoBehaviour
         mCurWorld = mWorlds[n];
         mCurWorldId = n;
 
-        MovePlayerTo(new Vector2(-9000, -9000));
+        mPlayer.transform.position = new Vector2(-9000, -9000);
         mCurWorld.Load();
 
         if (spawnPoint == 0)
@@ -150,6 +150,7 @@ public class GameplayManager : MonoBehaviour
     void MovePlayerTo(Vector2 coords)
     {
         Rigidbody2D p = mPlayer.GetComponent<Rigidbody2D>();
+        mPlayer.transform.position = coords;
         p.MovePosition(coords);
     }
 
