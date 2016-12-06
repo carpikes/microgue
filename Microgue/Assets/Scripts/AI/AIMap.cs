@@ -6,8 +6,30 @@ public class AIMap : MonoBehaviour
     GameplayManager mGameManager;
     GameObject mWorld;
     byte[] mArea;
+    int mMapRefreshes;
     int mWidth, mHeight;
     Bounds mWorldArea;
+
+    public byte[] GetMap()
+    {
+        return mArea;
+    }
+
+    public int GetMapRefreshId()
+    {
+        return mMapRefreshes;
+    }
+
+    public int GetWidth()
+    {
+        return mWidth;
+    }
+
+    public int GetHeight()
+    {
+        return mHeight;
+    }
+
 	// Use this for initialization
 	void Start () {
         mGameManager = GameObject.Find("GameplayManager").GetComponent<GameplayManager>();
@@ -76,13 +98,15 @@ public class AIMap : MonoBehaviour
         }
 
         string str = "";
-        for (int y = 0; y < mHeight; y++)
+        for (int y = mHeight-1; y >= 0; y--)
         {
             for (int x = 0; x < mWidth; x++)
                 str += mArea[x + y * mWidth];
             str += "\n";
         }
         Debug.Log(str);
+
+        mMapRefreshes++;
     }
 
     private void BlackRect(IntPoint dl, IntPoint ur)
