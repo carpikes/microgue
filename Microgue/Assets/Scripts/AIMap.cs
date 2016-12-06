@@ -115,8 +115,10 @@ public class AIMap : MonoBehaviour
         ret.x = (int)(((p.x - mWorldArea.min.x) / dx) * (mWidth - 1));
         ret.y = (int)(((p.y - mWorldArea.min.y) / dy) * (mHeight - 1));
 
-        if (ret.x >= mWidth || ret.y >= mHeight)
-            Debug.LogError("WAT");
+        if (ret.x >= mWidth) ret.x = mWidth - 1;
+        if (ret.y >= mHeight) ret.y = mHeight - 1;
+        if (ret.x < 0) ret.x = 0;
+        if (ret.y < 0) ret.y = 0;
         return ret;
     }
 

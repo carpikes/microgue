@@ -66,7 +66,9 @@ public class Level
         GameObject spawnerContainer = GameObject.Find(mCurWorld.name + "/Spawns");
         foreach (SpawnBehavior s in spawnerContainer.GetComponentsInChildren<SpawnBehavior>())
         {
-            if(s.mWhat != "Player" )
+            if (s.mWhat == "Player")
+                mSpawnPoints["Spawn"] = s.mCenter;
+            else
                 Spawn(s, mCurWorld);
         }
         GameObject.Destroy(spawnerContainer);

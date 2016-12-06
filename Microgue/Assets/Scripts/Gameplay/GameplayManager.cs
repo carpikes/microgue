@@ -85,10 +85,12 @@ public class GameplayManager : MonoBehaviour
         mCurWorld.Load();
 
         if (spawnPoint == 0)
-            spawnPoint = mCurRoom.GetStartOrEndDoor();
-
-        string door = DoorNumToString(spawnPoint);
-        MovePlayerTo(mCurWorld.GetPlayerStartPos(door));
+            MovePlayerTo(mCurWorld.GetPlayerStartPos("Spawn"));
+        else
+        {
+            string door = DoorNumToString(spawnPoint);
+            MovePlayerTo(mCurWorld.GetPlayerStartPos(door));
+        }
     }
 
     private void FetchLevels(string name)
