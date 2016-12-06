@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BadEnemy : MonoBehaviour
+public class AngrySoul : MonoBehaviour
 {
     public float mMovementRadius = 3.0f;
     public float mMinStillTime = 8.0f;

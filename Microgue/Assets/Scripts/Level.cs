@@ -93,7 +93,9 @@ public class Level
         int n = Random.Range(s.mNumberMin, s.mNumberMax + 1);
         for (int i = 0; i < n; i++)
         {
-            string prefabName = "Assets/Prefab/" + s.mWhat + ".prefab";
+            //Debug.Log("Dovrei fare " + s.mWhat);
+            string enemy = GetEnemyFromType(s.mWhat);
+            string prefabName = "Assets/Prefab/Enemies/" + enemy + ".prefab";
             GameObject el = AssetDatabase.LoadAssetAtPath(prefabName, typeof(GameObject)) as GameObject;
             if (el != null)
             {
@@ -104,6 +106,18 @@ public class Level
             else
                 Debug.LogError("I'm trying to spawn an invalid object: " + prefabName + " !");
         }
+    }
+
+    private string GetEnemyFromType(string enemyType)
+    {
+        List<string> enemyList;
+        if( EnemyManager.enemyDictionary.TryGetValue(enemyType, out enemyList) )
+        {
+            return enemyList[ Random.Range(0, enemyList.Count) ];
+        }
+
+        Debug.LogError("Cannot retrieve enemy type in my dictionary: " + enemyType);
+        return "ERROR";
     }
 
     private ItemData PickItemFromCategory(string str_category)

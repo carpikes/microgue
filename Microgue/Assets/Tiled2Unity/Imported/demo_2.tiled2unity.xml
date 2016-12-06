@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--Tiled2Unity generated xml data-->
 <!--Do not modify by hand-->
-<!--Last exported: 2016-12-06 18:56:25-->
+<!--Last exported: 2016-12-06 22:06:29-->
 <Tiled2Unity version="1.0.9.3">
   <AssignMaterial mesh="mesh_0001" material="water" />
   <AssignMaterial mesh="mesh_0002" material="grassalt" />
@@ -172,24 +172,23 @@
       </GameObject>
     </GameObject>
     <GameObject name="Spawns" x="0" y="0" z="0" tag="SpawnLayer">
-      <GameObject name="CircleObject" x="8.286699" y="-1.89332986" rotation="0" layer="">
-        <Property name="SpawnName" value="Enemy" />
-        <Property name="SpawnNumberMax" value="3" />
-        <Property name="SpawnNumberMin" value="2" />
-        <CircleCollider2D radius="0.75" />
+      <GameObject name="CircleObject" x="8.389999" y="-3.03" rotation="0" layer="">
+        <Property name="SpawnName" value="DifficultEnemy" />
+        <Property name="SpawnNumber" value="1" />
+        <CircleCollider2D radius="0.329999983" />
       </GameObject>
-      <GameObject name="CircleObject" x="1.34337008" y="-5.87" rotation="0" layer="">
-        <Property name="SpawnName" value="Enemy" />
+      <GameObject name="CircleObject" x="2.31" y="-5.81999969" rotation="0" layer="">
+        <Property name="SpawnName" value="EasyEnemy" />
         <Property name="SpawnNumberMax" value="2" />
         <Property name="SpawnNumberMin" value="1" />
-        <CircleCollider2D radius="1" />
+        <CircleCollider2D radius="0.5" />
       </GameObject>
-      <GameObject name="CircleObject" x="10.17" y="-6.32333" rotation="0" layer="">
-        <Property name="SpawnName" value="StompStompEnemy" />
+      <GameObject name="CircleObject" x="10.46" y="-6.33" rotation="0" layer="">
+        <Property name="SpawnName" value="DifficultEnemy" />
         <Property name="SpawnNumber" value="1" />
-        <CircleCollider2D radius="0.599999964" />
+        <CircleCollider2D radius="0.329999983" />
       </GameObject>
-      <GameObject name="CircleObject" x="3.17167" y="-8.99" rotation="0" layer="">
+      <GameObject name="Player" x="3.17167" y="-8.99" rotation="0" layer="">
         <Property name="SpawnName" value="Player" />
         <Property name="SpawnNumber" value="1" />
         <CircleCollider2D radius="0.049999997" />

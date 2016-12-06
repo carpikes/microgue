@@ -19,6 +19,6 @@ public class StompStompBall : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Stomp hit " + other.name + " " + Time.time + ": " + gameObject.transform.position);
+        //Debug.Log("Stomp hit " + other.name + " " + Time.time + ": " + gameObject.transform.position);
     }
 }

@@ -513,20 +513,20 @@
   </properties>
   <object id="1" x="183.667" y="470.333" width="230" height="230">
    <properties>
-    <property name="SpawnName" value="Enemy"/>
+    <property name="SpawnName" value="DifficultEnemy"/>
     <property name="SpawnNumber" value="3"/>
    </properties>
    <ellipse/>
   </object>
   <object id="2" x="935.67" y="477" width="100" height="100">
    <properties>
-    <property name="SpawnName" value="Enemy"/>
+    <property name="SpawnName" value="EasyEnemy"/>
     <property name="SpawnNumberMax" value="2"/>
     <property name="SpawnNumberMin" value="1"/>
    </properties>
    <ellipse/>
   </object>
-  <object id="3" x="623.5" y="926" width="10" height="10">
+  <object id="3" name="Player" x="623.5" y="870" width="10" height="10">
    <properties>
     <property name="SpawnName" value="Player"/>
     <property name="SpawnNumber" value="1"/>
