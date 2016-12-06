@@ -49,7 +49,7 @@ public class MiniMap : MonoBehaviour {
                     tile.transform.position = mContainer.transform.position + pos;
                     tile.SetActive(true);
                     mTiles[j + i * mMap.GetWidth()] = tile;
-                    Debug.Log("Aggiungo il tile" + j + "," + i);
+                    //Debug.Log("Aggiungo il tile" + j + "," + i);
                 }
     }
 	

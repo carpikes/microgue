@@ -10,12 +10,11 @@ public class ItemImporter : Tiled2Unity.ICustomTiledImporter
 {
     public void HandleCustomProperties(GameObject gameObject, IDictionary<string, string> props)
     {
-        if (!props.ContainsKey("ItemCategory"))
+        if (!props.ContainsKey("item"))
             return;
 
         ItemBehavior s = gameObject.AddComponent<ItemBehavior>();
-        s.mCategory = props["ItemCategory"];
-        Debug.Log("ITEM IMPORTING: " + s.mCategory);
+        s.mCategory = SelectRarity();
 
         CircleCollider2D cc = gameObject.GetComponent<CircleCollider2D>();
         if (cc == null)
@@ -23,6 +22,11 @@ public class ItemImporter : Tiled2Unity.ICustomTiledImporter
 
         Vector2 trpos = gameObject.transform.position;
         s.mCenter = trpos + cc.offset;
+    }
+
+    private string SelectRarity()
+    {
+        return "Common";
     }
 
     public void CustomizePrefab(GameObject prefab)

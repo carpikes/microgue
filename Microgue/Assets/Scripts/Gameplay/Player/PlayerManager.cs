@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 using StatPair = System.Collections.Generic.KeyValuePair<StatManager.StatStates, float>;
 
@@ -15,11 +16,11 @@ public class PlayerManager : MonoBehaviour {
 
     public void UseActiveItem()
     {
-        PickUpItem(currentActiveItem);
+        UseItem(currentActiveItem);
         currentActiveItem = null;
     }
 
-    public void PickUpItem(ItemData item)
+    public void UseItem(ItemData item)
     {
         if (item == null)
             return;
@@ -27,6 +28,8 @@ public class PlayerManager : MonoBehaviour {
         //EventManager.TriggerEvent(Events.ON_ITEM_USE, item);
         foreach (StatPair pair in item.Values)
             statManager.UpdateStatValue(pair.Key, pair.Value);
+
+        DoExtraActions();
     }
 
     public void StoreItem(ItemData item)
@@ -35,5 +38,10 @@ public class PlayerManager : MonoBehaviour {
             currentActiveItem = item;
         else
             Debug.LogError("Trying to store a non-active item!");
+    }
+
+    private void DoExtraActions()
+    {
+        // TODO
     }
 }

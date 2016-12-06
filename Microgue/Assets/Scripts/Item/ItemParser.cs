@@ -13,6 +13,8 @@ public class ItemParser : MonoBehaviour {
     [HideInInspector]
     public List<List<ItemData>> items;
 
+    public static readonly string ITEMS_FILE = "Assets/Scripts/Item/items.csv";
+
     void Awake()
     {
         if (instance == null)
@@ -30,7 +32,7 @@ public class ItemParser : MonoBehaviour {
     {
         items = new List<List<ItemData>>();
 
-        for( int i = 0; i < Enum.GetNames(typeof(ItemData.ItemCategories)).Length; ++i)
+        for( int i = 0; i < Enum.GetNames(typeof(ItemData.ItemRarities)).Length; ++i)
         {
             items.Add(new List<ItemData>());
         }
@@ -41,7 +43,7 @@ public class ItemParser : MonoBehaviour {
         StreamReader reader = null;
 
         try {
-            reader = File.OpenText("Assets/items.csv");
+            reader = File.OpenText(ITEMS_FILE);
 
             string line;
             while ((line = reader.ReadLine()) != null)
@@ -57,7 +59,7 @@ public class ItemParser : MonoBehaviour {
                 // Create item
                 ItemData item = new ItemData();
                 item.Name = item_info[0];
-                item.Category = (ItemData.ItemCategories)Enum.Parse(typeof(ItemData.ItemCategories), item_info[1]);
+                item.Rarity = (ItemData.ItemRarities)Enum.Parse(typeof(ItemData.ItemRarities), item_info[1]);
                 item.Image = item_info[2];
                 item.IsPassive = bool.Parse(item_info[3]);
 
@@ -68,7 +70,7 @@ public class ItemParser : MonoBehaviour {
                 }
 
                 // populate correct sublist
-                items[(int)item.Category].Add(item);
+                items[(int)item.Rarity].Add(item);
             }
         } catch( Exception e )
         {

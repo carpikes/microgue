@@ -105,7 +105,7 @@ public class Level
     private ItemData PickItemFromCategory(string str_category)
     {
         // retrieve list of items for the specified category
-        ItemData.ItemCategories category = (ItemData.ItemCategories)Enum.Parse(typeof(ItemData.ItemCategories), str_category);
+        ItemData.ItemRarities category = (ItemData.ItemRarities)Enum.Parse(typeof(ItemData.ItemRarities), str_category);
         List<ItemData> category_items = ItemParser.instance.items[(int)category];
 
         // pick a random item

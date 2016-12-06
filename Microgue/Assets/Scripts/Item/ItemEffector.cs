@@ -21,7 +21,7 @@ public class ItemEffector : MonoBehaviour {
         {
             //EventManager.TriggerEvent(Events.ON_ITEM_PICKUP, item);
             if ( item.IsPassive )
-                playerManager.PickUpItem(item);
+                playerManager.UseItem(item);
             else
                 playerManager.StoreItem(item);
 

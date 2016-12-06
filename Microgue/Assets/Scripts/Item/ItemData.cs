@@ -8,9 +8,11 @@ using StatPair = System.Collections.Generic.KeyValuePair<StatManager.StatStates,
 
 public class ItemData {
 
-    public enum ItemCategories
+    public enum ItemRarities
     {
-        Hearts
+        Common,
+        Rare,
+        Mystic
     }
 
     public ItemData()
@@ -19,7 +21,7 @@ public class ItemData {
     }
 
     private string name;
-    private ItemCategories category;
+    private ItemRarities rarity;
     private string image;
     private bool isPassive;
     private List<StatPair> values;
@@ -37,16 +39,16 @@ public class ItemData {
         }
     }
 
-    public ItemCategories Category
+    public ItemRarities Rarity
     {
         get
         {
-            return category;
+            return rarity;
         }
 
         set
         {
-            category = value;
+            rarity = value;
         }
     }
 
@@ -93,7 +95,7 @@ public class ItemData {
     {
         StringBuilder sb = new StringBuilder();
         sb.Append("NAME: " + name + "\n");
-        sb.Append("CATEGORY: " + category + "\n");
+        sb.Append("Rarity: " + rarity + "\n");
         sb.Append("IS PASSIVE? " + isPassive + "\n");
         sb.Append("IMAGE: " + image + "\n");
 

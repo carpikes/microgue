@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--Tiled2Unity generated xml data-->
 <!--Do not modify by hand-->
-<!--Last exported: 2016-12-06 17:28:35-->
+<!--Last exported: 2016-12-06 18:56:25-->
 <Tiled2Unity version="1.0.9.3">
   <AssignMaterial mesh="mesh_0001" material="water" />
   <AssignMaterial mesh="mesh_0002" material="grassalt" />
@@ -206,8 +206,16 @@
       </GameObject>
     </GameObject>
     <GameObject name="Items" x="0" y="0" z="0">
-      <GameObject name="CircleObject" x="9.20636" y="-5.09333" rotation="0" layer="">
-        <Property name="ItemCategory" value="Hearts" />
+      <GameObject name="CircleObject" x="6.12417" y="-2.52582979" rotation="0" layer="">
+        <Property name="item" value="item" />
+        <CircleCollider2D radius="0.12" />
+      </GameObject>
+      <GameObject name="CircleObject" x="2.81584" y="-4.20416975" rotation="0" layer="">
+        <Property name="item" value="item" />
+        <CircleCollider2D radius="0.12" />
+      </GameObject>
+      <GameObject name="CircleObject" x="8.86417" y="-5.61583" rotation="0" layer="">
+        <Property name="item" value="item" />
         <CircleCollider2D radius="0.12" />
       </GameObject>
     </GameObject>

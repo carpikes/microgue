@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--Tiled2Unity generated xml data-->
 <!--Do not modify by hand-->
-<!--Last exported: 2016-12-06 17:29:44-->
+<!--Last exported: 2016-12-06 18:56:38-->
 <Tiled2Unity version="1.0.9.3">
   <AssignMaterial mesh="mesh_0001" material="water" />
   <AssignMaterial mesh="mesh_0002" material="water" />
@@ -95,6 +95,20 @@
       <GameObject name="RectangleObject" x="0.832276" y="-5.40651" rotation="0" layer="">
         <Property name="DoorType" value="Down" />
         <BoxCollider2D width="8.54667" height="0.12" />
+      </GameObject>
+    </GameObject>
+    <GameObject name="Items" x="0" y="0" z="0">
+      <GameObject name="CircleObject" x="5.80416965" y="-0.83583504" rotation="0" layer="">
+        <Property name="item" value="item" />
+        <CircleCollider2D radius="0.12" />
+      </GameObject>
+      <GameObject name="CircleObject" x="7.99416971" y="-1.68582988" rotation="0" layer="">
+        <Property name="item" value="item" />
+        <CircleCollider2D radius="0.12" />
+      </GameObject>
+      <GameObject name="CircleObject" x="4.12584" y="-3.00417" rotation="0" layer="">
+        <Property name="item" value="item" />
+        <CircleCollider2D radius="0.12" />
       </GameObject>
     </GameObject>
   </Prefab>
