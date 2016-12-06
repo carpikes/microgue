@@ -66,7 +66,7 @@ namespace Tiled2Unity
             }
         }
 
-        // Meshes are guarenteed to be uniqe
+        // Meshes are guarenteed to be unique
         public static ImportBehaviour FindImportBehavior_ByWaitingMesh(string assetName)
         {
             foreach (var component in GameObject.FindObjectsOfType<Tiled2Unity.ImportBehaviour>())

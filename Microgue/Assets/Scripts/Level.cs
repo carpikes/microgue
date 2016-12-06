@@ -66,9 +66,7 @@ public class Level
         GameObject spawnerContainer = GameObject.Find(mCurWorld.name + "/Spawns");
         foreach (SpawnBehavior s in spawnerContainer.GetComponentsInChildren<SpawnBehavior>())
         {
-            if (s.mWhat == "Player")
-                Debug.LogError("Feature rimossa. Togliere lo spawn point dalla mappa!");
-            else
+            if(s.mWhat != "Player" )
                 Spawn(s, mCurWorld);
         }
         GameObject.Destroy(spawnerContainer);
