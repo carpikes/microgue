@@ -22,7 +22,7 @@ public class StatManager : MonoBehaviour {
         DEFENCE,
         DAMAGE,
         TEMP_DISTORSION,
-
+        SPEED,
 
         NULL
     };
@@ -45,6 +45,7 @@ public class StatManager : MonoBehaviour {
         SetupStat(StatStates.DEFENCE, 1, 10);
         SetupStat(StatStates.DAMAGE, 1, 10);
         SetupStat(StatStates.TEMP_DISTORSION, 1, 10);
+        SetupStat(StatStates.SPEED, 1, 10);
 
         stats[(int)StatStates.CURRENT_HEALTH].CurrentValue = stats[(int)StatStates.CURRENT_HEALTH].mMax;
     }

@@ -1,7 +1,31 @@
 # Questo è il file degli oggetti
 # I commenti iniziano per #, le righe vuote vengono ignorate
-# struttura: nome, categoria, immagine, isPassive, <stat, effetto>
+# struttura: nome, rarità, immagine, isPassive, <stat, effetto>
 
-Common Soul Heart,Common,heart1.png,true,MAX_HEALTH,1
-Hero Soul Heart,Rare,heart2.png,true,CURRENT_HEALTH,2,DEFENCE,2
-Eye In The Sky,Mystic,hearts3.png,false,MAX_HEALTH,2
+# IDEA per i moltiplicatori: iniziano per x (per esempio, x2)
+
+Common Soul Heart,Common,heart1.png,true,CURRENT_HEALTH,1
+Brave Soul Heart,Rare,heart2.png,true,CURRENT_HEALTH,2
+Hero Soul Heart,Mystic,hearts3.png,true,CURRENT_HEALTH,3
+
+Phantom Dust, Common, phantomdust.png,true,TEMP_DISTORSION,3
+
+Holy Sign, Common, holysign.png,true,DAMAGE,1
+Blue Fire Ball, Common, bluefire.png,true,DAMAGE,1
+Blood Ball, Rare, bloodball.png,true, CURRENT_HEALTH, -2, DAMAGE, 1
+Sun Ball, Rare, sunball.png, true, DAMAGE, 2, SPEED, 0.3
+
+Adrenaline, Rare, adrenaline.png, true, SPEED, 2
+Band-aid, Common, band-aid.png, true, CURRENT_HEALTH, 1
+
+# Pact with the Devil, Mystic, pactdevil.png, true, ....
+# Shadow shadows,...
+# Karma...
+
+Shadow Armor, Common, shadowarmor.png, true, DEFENCE, 0.1
+Dark Armor, Rare, darkarmor.png, true, DEFENCE, 0.2
+Death Armor, Mystic, deatharmor.png, true, DEFENCE, 0.5
+
+Eye In The Sky,Common,hearts3.png, true, CURRENT_HEALTH, -1, DAMAGE, 1
+
+Impatience, Rare, impatience.png, true, DAMAGE, 2, TEMP_DISTORSION, -5

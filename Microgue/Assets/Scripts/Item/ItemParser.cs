@@ -71,6 +71,8 @@ public class ItemParser : MonoBehaviour {
 
                 // populate correct sublist
                 items[(int)item.Rarity].Add(item);
+
+                //Debug.Log(item.Name + " added!");
             }
         } catch( Exception e )
         {
