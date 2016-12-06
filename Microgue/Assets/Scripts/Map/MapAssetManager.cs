@@ -61,7 +61,7 @@ namespace RoomMapGenerator
 
         public string GetMap(int n, int doors)
         {
-            //char[] numOfOnes = { 0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4 };
+            byte[] numOfOnes = { 0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4 };
 
             if (mMapCache.ContainsKey(n))
                 return mMaps[mMapCache[n]];
@@ -73,7 +73,8 @@ namespace RoomMapGenerator
             for (int i = 0; i < 16; i++)
                 if ((i & doors) == doors)
                     for (int j = 0; j < mDoorsCatalog[i].Count; j++)
-                        validDoors.Add(mDoorsCatalog[i][j]);
+                        for(int k=0;k< 5 - numOfOnes[i & 0x0f]; k++)
+                            validDoors.Add(mDoorsCatalog[i][j]);
 
             if (validDoors.Count == 0)
             {

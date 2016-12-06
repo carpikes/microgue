@@ -165,6 +165,10 @@ public class GameplayManager : MonoBehaviour
         return mMapGenerator.GetMap();
     }
 
+    public GameObject GetWorld() {
+        return mCurWorld.GetWorld();
+    }
+
     public int GetCurrentRoomId() {
         return mCurWorldId;
     }

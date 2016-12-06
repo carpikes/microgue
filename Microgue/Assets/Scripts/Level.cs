@@ -18,6 +18,11 @@ public class Level
     public readonly static string LEVEL_NAME_TAG = "LEVEL_NAME";
     public readonly static string LEVEL_UNLOAD_TAG = "LEVEL_UNLOAD";
 
+    public GameObject GetWorld()
+    {
+        return mCurWorld;
+    }
+
     public Level(int num, string name)
     {
         mAssetPath = "Assets/Tiled2Unity/Prefabs/" + name + ".prefab";
@@ -153,7 +158,7 @@ public class Level
         Renderer r = GameObject.Find(mCurWorld.name + "/Background/water").GetComponent<Renderer>();
         if (r == null)
         {
-            Debug.LogError("Cannot get renderer");
+            Debug.LogError("Cannot find 'water' layer used to get map size");
             return;
         }
         float ratio = Camera.main.aspect * 2.0f;
