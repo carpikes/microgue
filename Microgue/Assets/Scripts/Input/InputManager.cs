@@ -133,7 +133,8 @@ public class InputManager : MonoBehaviour {
 
     void CheckDirection()
     {
-        Vector2 aimCoords = GetNormalizedPointerCoordinates();
+        Vector2 p = mainCam.ScreenToWorldPoint(mInput.GetScreenPointerCoordinates());
+        Vector2 aimCoords = p - new Vector2(transform.position.x, transform.position.y);
         if( aimCoords.x * lastAimX < 0.0f )
         {
             Bundle dir = new Bundle();

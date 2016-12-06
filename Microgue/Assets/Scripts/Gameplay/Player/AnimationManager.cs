@@ -58,9 +58,7 @@ public class AnimationManager : MonoBehaviour {
         if( args.TryGetValue(InputManager.IS_FACING_RIGHT, out d) )
             isRight = bool.Parse(d);
 
-        Vector3 flip = mainChar.transform.localScale;
-        flip.x *= -1f;
-        mainChar.transform.localScale = flip;
+        mainChar.transform.localScale = new Vector3(isRight ? -1 : 1, 1, 1);
     }
 
     private void OnMainCharAttack(Bundle args)

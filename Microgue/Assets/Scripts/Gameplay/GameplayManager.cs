@@ -21,10 +21,10 @@ public class GameplayManager : MonoBehaviour
     private MapAssetManager mMapAssetManager;
 
     // "Single map" vars
-    private Dictionary<int, Level> mWorlds;
-    private RoomInfo mCurRoom;
-    private Level mCurWorld;
-    private int mCurWorldId;
+    private Dictionary<int, Level> mWorlds = null;
+    private RoomInfo mCurRoom = null;
+    private Level mCurWorld = null;
+    private int mCurWorldId = -1;
 
     // list of available .prefab files
     private List<string> mAvailableLevels;
