@@ -38,19 +38,24 @@ namespace RoomMapGenerator
 
             DoorBehavior[] doors = worldPrefab.GetComponentsInChildren<DoorBehavior>();
             if (doors == null)
+            {
+                // FIXME: dice che c'e` un data loss :(
+//                GameObject.Destroy(worldPrefab);
                 return 0;
+            }
 
             int ret = 0;
             foreach (DoorBehavior db in doors)
             {
                 switch (db.mType)
                 {
-                    case "Down": ret |= (int)RoomMap.Door.DOWN; break;
-                    case "Up": ret |= (int)RoomMap.Door.UP; break;
-                    case "Left": ret |= (int)RoomMap.Door.LEFT; break;
+                    case "Down":  ret |= (int)RoomMap.Door.DOWN; break;
+                    case "Up":    ret |= (int)RoomMap.Door.UP; break;
+                    case "Left":  ret |= (int)RoomMap.Door.LEFT; break;
                     case "Right": ret |= (int)RoomMap.Door.RIGHT; break;
                 }
             }
+//            GameObject.Destroy(worldPrefab);
             return ret;
         }
 

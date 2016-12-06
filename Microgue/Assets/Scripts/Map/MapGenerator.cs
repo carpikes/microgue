@@ -7,10 +7,10 @@ namespace RoomMapGenerator
 {
     public class MapGenerator
     {
-        public int mWidth = 6;
-        public int mHeight = 6;
-        public int mMaxRooms = 8;
-        public int mMinRooms = 4;
+        public int mWidth = 4;
+        public int mHeight = 4;
+        public int mMaxRooms = 6;
+        public int mMinRooms = 3;
 
         private int mStartRoom, mEndRoom;
         private RoomMap mMap;
@@ -107,6 +107,7 @@ namespace RoomMapGenerator
             if (!CalcStartEndPoints())
                 return false;
 
+            Debug.Log("Gen ok");
             return true;
         }
 
@@ -167,6 +168,13 @@ namespace RoomMapGenerator
             RoomInfo info = new RoomInfo(mMap.GetWidth(), id, mMap.GetDoors(id));
 
             return info;
+        }
+
+        public RoomMap GetMap()
+        {
+            if (GetStartRoomId() == -1)
+                return null;
+            return mMap;
         }
     };
 }

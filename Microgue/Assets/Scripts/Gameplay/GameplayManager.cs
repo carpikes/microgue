@@ -121,6 +121,7 @@ public class GameplayManager : MonoBehaviour
 
     public void OnDoorEnter(Bundle args)
     {
+        Debug.Log("OnDoorEnter");
         if (mDebugArena)
             return;
 
@@ -157,5 +158,13 @@ public class GameplayManager : MonoBehaviour
         if (mCurWorld == null)
             return null;
         return mCurWorld.GetCameraBounds();
+    }
+
+    public RoomMap GetMap() {
+        return mMapGenerator.GetMap();
+    }
+
+    public int GetCurrentRoomId() {
+        return mCurWorldId;
     }
 }

@@ -211,7 +211,4 @@ public class Level
 
         return mSpawnPoints[spawnPoint];
     }
-
-    
-
 }

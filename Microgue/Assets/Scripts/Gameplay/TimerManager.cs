@@ -25,9 +25,9 @@ public class TimerManager : MonoBehaviour {
 
     private void OnSecondPassed(object sender, ElapsedEventArgs e)
     {
-        EventManager.TriggerEvent(Events.ON_SECOND_PASSED, null);
+        //EventManager.TriggerEvent(Events.ON_SECOND_PASSED, null);
 
-        Debug.Log("Time is running out!");
+        //Debug.Log("Time is running out!");
         DecreaseCountdown();
     }
 
