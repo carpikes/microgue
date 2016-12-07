@@ -4,15 +4,31 @@ using System.Collections;
 public class AIMap : MonoBehaviour
 {
     GameplayManager mGameManager;
-    GameObject mWorld;
-    byte[] mArea;
+    GameObject mWorld = null;
+    GameObject mPlayer = null;
+    byte[] mArea, mEnemies;
     int mMapRefreshes;
     int mWidth, mHeight;
     Bounds mWorldArea;
 
+    public IntPoint GetPlayerPosition()
+    {
+        return GetPosition(mPlayer.transform.position);
+    }
+
+    public IntPoint GetPosition(Vector2 pos)
+    {
+        return toMap(pos);
+    }
+
     public byte[] GetMap()
     {
         return mArea;
+    }
+
+    public byte[] GetEnemies()
+    {
+        return mEnemies;
     }
 
     public int GetMapRefreshId()
@@ -34,6 +50,7 @@ public class AIMap : MonoBehaviour
 	void Start () {
         mGameManager = GameObject.Find("GameplayManager").GetComponent<GameplayManager>();
         mWorld = null;
+        mPlayer = GameObject.Find("MainCharacter");
 	}
 	
 	// Update is called once per frame
@@ -44,7 +61,24 @@ public class AIMap : MonoBehaviour
             mWorld = world;
             UpdateArea();
         }
+        if(mWorld != null && mWidth > 0 && mHeight > 0)
+            UpdateEnemies();
+
 	}
+
+    private void UpdateEnemies()
+    {
+        Transform[] mEnemiesTransform = GameObject.Find(mWorld.name + "/Enemies").GetComponentsInChildren<Transform>();
+
+        for (int i = 0; i < mWidth * mHeight; i++)
+            mEnemies[i] = 0;
+
+        foreach(Transform i in mEnemiesTransform)
+        {
+            IntPoint p = toMap(i.position);
+            mEnemies[p.x + mWidth * p.y] = 1;
+        }
+    }
 
     private void UpdateArea()
     {
@@ -65,9 +99,13 @@ public class AIMap : MonoBehaviour
         mHeight = map.TileHeight;
         mWorldArea = r.bounds;
         mArea = new byte[mWidth * mHeight];
+        mEnemies = new byte[mWidth * mHeight];
 
         for (int i = 0; i < mWidth * mHeight; i++)
+        {
             mArea[i] = 0;
+            mEnemies[i] = 0;
+        }
 
         foreach(EdgeCollider2D c in coll)
         {
@@ -129,7 +167,7 @@ public class AIMap : MonoBehaviour
         BlackLine(p[2], p[0]);
     }
 
-    private struct IntPoint { public int x, y; };
+    public struct IntPoint { public int x, y; };
 
     private IntPoint toMap(Vector2 p)
     {
