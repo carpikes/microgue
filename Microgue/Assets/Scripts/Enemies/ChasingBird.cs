@@ -50,10 +50,4 @@ public class ChasingBird : MonoBehaviour {
         mPoint.y /= 3.0f;
         mRemainingTime = Random.Range(0.1f, 0.3f);
     }
-
-    void OnTriggerEnter2D(Collider2D other) {
-        if (other.CompareTag("Shot"))
-        {
-        }
-    }
 }

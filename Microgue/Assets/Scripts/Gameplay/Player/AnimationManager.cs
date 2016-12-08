@@ -113,7 +113,7 @@ public class AnimationManager : MonoBehaviour {
 
     private void OnMainCharDash(Bundle args)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
 }

@@ -7,7 +7,7 @@ public class EnemyManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        List<string> easyEnemies = new List<string> { "AngrySoul", "ChasingBird", "DesperateSoul" };
+        List<string> easyEnemies = new List<string> { "AngrySoul", "ChasingBird", "DesperateSoul", "LittleJohnny" };
         List<string> difficultEnemies = new List<string> { "StompStomp", "ChasingBird" };
 
         enemyDictionary.Add("EasyEnemy", easyEnemies);
