@@ -19,6 +19,7 @@ public class InputManager : MonoBehaviour {
     Camera mainCam;
     GameplayManager mGameManager = null;
     PlayerManager playerManager = null;
+    StatManager statManager = null;
 
     float lastAimX = 0.0f;
     private float mShakeTime = 0.0f, mShakeForce = 0.0f;
@@ -27,7 +28,8 @@ public class InputManager : MonoBehaviour {
     public Transform aimTransform;
 
     [Header("Parameters for speed")]
-    public float speed = 100f;
+    public float initialSpeed = 100f;
+    private float speed;
 
     [Header("Shots parameters")]
     public GameObject lightBall;
@@ -42,6 +44,8 @@ public class InputManager : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+        speed = initialSpeed;
+
         if (mInputChoice == InputChoiches.KeyboardMouse)
         {
             mInput = gameObject.AddComponent<KeyboardInput>();
@@ -52,6 +56,7 @@ public class InputManager : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         
         playerManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<PlayerManager>();
+        statManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<StatManager>();
 
         mainCam = Camera.main;
         SetPositionCamera();
@@ -117,6 +122,11 @@ public class InputManager : MonoBehaviour {
         rb.velocity = delta * speed * Time.fixedDeltaTime;
     }
 
+    internal void setSpeed(int v)
+    {
+        speed = initialSpeed + v * 10;
+    }
+
     private void Aim()
     {
         Vector2 p = mainCam.ScreenToWorldPoint(mInput.GetScreenPointerCoordinates());
@@ -174,6 +184,7 @@ public class InputManager : MonoBehaviour {
         if (Time.time - lastShootTime > shotCooldownTime)
         {
             GameObject lb = Instantiate(lightBall);
+            lightBall.GetComponent<ShotDamage>().Damage = statManager.GetStatValue(StatManager.StatStates.DAMAGE);
 
             Vector2 playerPos = transform.position;
             Vector2 pointer = mainCam.ScreenToWorldPoint(mInput.GetScreenPointerCoordinates());

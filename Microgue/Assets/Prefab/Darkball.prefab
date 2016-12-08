@@ -24,6 +24,7 @@ GameObject:
   - 58: {fileID: 58000012040469000}
   - 114: {fileID: 114000011276079020}
   - 114: {fileID: 114000014080461380}
+  - 114: {fileID: 114000010133574906}
   m_Layer: 0
   m_Name: Darkball
   m_TagString: EnemyShot
@@ -75,6 +76,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.08
+--- !u!114 &114000010133574906
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012785091142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4476efd6feca77e4b85f34a01f9b6402, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
 --- !u!114 &114000011276079020
 MonoBehaviour:
   m_ObjectHideFlags: 1

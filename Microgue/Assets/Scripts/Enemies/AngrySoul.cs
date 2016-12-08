@@ -36,7 +36,7 @@ public class AngrySoul : MonoBehaviour
 
     private float lastShootTime = 0.0f;
     private const float shotCooldownTime = 1.0f;
-    public GameObject lightBall;
+    public GameObject darkBall;
     private GameObject playerChar = null;
 
     // Update is called once per frame
@@ -45,7 +45,7 @@ public class AngrySoul : MonoBehaviour
         if (mCurState == EnemyStates.TARGETING) {
             if (Time.time - lastShootTime > shotCooldownTime)
             {
-                GameObject lb = Instantiate(lightBall);
+                GameObject lb = Instantiate(darkBall);
                 lb.transform.position = transform.position;
 
                 if(playerChar == null) 

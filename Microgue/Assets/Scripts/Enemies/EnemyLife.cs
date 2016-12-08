@@ -5,8 +5,8 @@ using POLIMIGameCollective;
 public class EnemyLife : MonoBehaviour {
 
     private GameObject mHealthBar;
-    public int hp = 2;
-    private int totalHp;
+    public float hp = 2;
+    private float totalHp;
 	// Use this for initialization
 	void Start () {
         mHealthBar = transform.GetChild(0).gameObject;
@@ -24,10 +24,10 @@ public class EnemyLife : MonoBehaviour {
         if (other.CompareTag("Shot"))
         {
             EventManager.TriggerEvent(Events.ON_ENEMY_HIT, null);
-            hp--;
+            hp -= other.GetComponent<ShotDamage>().Damage;
             UpdateHPBar();
         }
-        if (hp <= 0)
+        if (hp <= 0.0f)
         {
             EventManager.TriggerEvent(Events.ON_ENEMY_DEATH, null);
             Destroy(gameObject);
@@ -40,7 +40,7 @@ public class EnemyLife : MonoBehaviour {
 
         mHealthBar.SetActive(true);
 
-        float perc = hp / (float)totalHp;
+        float perc = hp / totalHp;
         float x_off = -0.29f * (1.0f - perc);
 
         Transform tr = mHealthBar.transform.GetChild(1);

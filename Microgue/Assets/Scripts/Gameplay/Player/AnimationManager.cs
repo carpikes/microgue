@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using Bundle = System.Collections.Generic.Dictionary<string, string>;
 
 public class AnimationManager : MonoBehaviour {
-
     Animator animator;
     GameObject mainChar;
     SpriteRenderer spriteRenderer;
