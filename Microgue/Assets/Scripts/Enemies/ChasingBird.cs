@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 
 public class ChasingBird : MonoBehaviour {
     private float mAcceleration = 5.0f;
-    private float mFriction = 0.01f;
+    //private float mFriction = 0.01f;
     private Vector2 mPoint;
 
     private GameObject mTarget;
@@ -45,7 +45,6 @@ public class ChasingBird : MonoBehaviour {
     }
 
     void ChooseNewPoint() {
-        Vector2 oldPoint = mPoint;
         mPoint = Random.onUnitSphere;
         mPoint.y /= 3.0f;
         mRemainingTime = Random.Range(0.1f, 0.3f);

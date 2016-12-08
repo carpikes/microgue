@@ -13,6 +13,8 @@ public class Startup : MonoBehaviour {
     public readonly static float TIME_BETWEEN_FRAMES = .03f;
     public readonly static float TIME_BETWEEN_SCREENS = 1f;
 
+    public bool isDebug = false;
+
     // Use this for initialization
     void Start () {
         polimiSplash.enabled = false;
@@ -23,11 +25,14 @@ public class Startup : MonoBehaviour {
 
     private IEnumerator LoadSplash( )
     {
-        yield return Load(polimiSplash);
-        yield return new WaitForSeconds(TIME_BETWEEN_SCREENS);
+        if (!isDebug)
+        {
+            yield return Load(polimiSplash);
+            yield return new WaitForSeconds(TIME_BETWEEN_SCREENS);
 
-        yield return Load(developerSplash);
-        yield return new WaitForSeconds(TIME_BETWEEN_SCREENS);
+            yield return Load(developerSplash);
+            yield return new WaitForSeconds(TIME_BETWEEN_SCREENS);
+        }
 
         canvas.SetActive(true);
     }

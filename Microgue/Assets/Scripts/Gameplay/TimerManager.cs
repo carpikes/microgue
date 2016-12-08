@@ -37,7 +37,6 @@ public class TimerManager : MonoBehaviour {
 
         if( secondsLeft <= 0 )
         {
-            Debug.Log("Goodbye cruel world, I'm leaving you today!");
             EventManager.TriggerEvent(Events.ON_TIME_ENDED, null);
             everySecondTimer.Stop();
         }

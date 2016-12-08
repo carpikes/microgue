@@ -97,6 +97,11 @@ public class StatManager : MonoBehaviour {
         if (!isInvulnerable)
         {
             UpdateStatValue(StatStates.CURRENT_HEALTH, -1);
+
+            if( stats[(int)StatStates.CURRENT_HEALTH].CurrentValue <= 0 )
+            {
+                EventManager.TriggerEvent(Events.ON_MAIN_CHAR_DEATH, null);
+            }
         }
     }
     
