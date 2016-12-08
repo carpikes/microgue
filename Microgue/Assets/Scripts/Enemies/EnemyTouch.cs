@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyShot : MonoBehaviour {
+public class EnemyTouch : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -11,6 +11,14 @@ public class EnemyShot : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
+        {
+            EventManager.TriggerEvent(Events.ON_MAIN_CHAR_HIT, null);
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.collider.CompareTag("Player"))
         {
             EventManager.TriggerEvent(Events.ON_MAIN_CHAR_HIT, null);
         }

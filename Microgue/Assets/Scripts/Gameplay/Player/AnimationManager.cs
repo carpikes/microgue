@@ -9,6 +9,7 @@ public class AnimationManager : MonoBehaviour {
 
     Animator animator;
     GameObject mainChar;
+    SpriteRenderer spriteRenderer;
 
     public static string ANIM_MAIN_ATTACK = "mainAttack";
     public static string ANIM_DEATH = "death";
@@ -49,11 +50,11 @@ public class AnimationManager : MonoBehaviour {
     {
         mainChar = GameObject.FindGameObjectWithTag("Player");
         animator = mainChar.GetComponent<Animator>();
+        spriteRenderer = mainChar.GetComponent<SpriteRenderer>();
     }
 
     private void OnMainCharChangeDir(Bundle args)
     {
-        /* NOT USING THIS INFO! */
         string d = null;
         if( args.TryGetValue(InputManager.IS_FACING_RIGHT, out d) )
             isRight = bool.Parse(d);
@@ -83,8 +84,26 @@ public class AnimationManager : MonoBehaviour {
 
     private void OnMainCharHit(Bundle args)
     {
-        // flashing effect??
         animator.SetTrigger(ANIM_HIT);
+
+        StartCoroutine(MainCharFlashing());
+    }
+
+    private IEnumerator MainCharFlashing()
+    {
+        const int iterations = 10;
+
+        EventManager.TriggerEvent(Events.ON_MAIN_CHAR_INVULNERABLE_BEGIN, null);
+
+        for (int i = 0; i < iterations; ++i)
+        {
+            spriteRenderer.enabled = false;
+            yield return new WaitForSeconds(0.1f);
+            spriteRenderer.enabled = true;
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        EventManager.TriggerEvent(Events.ON_MAIN_CHAR_INVULNERABLE_END, null);
     }
 
     private void OnMainCharDeath(Bundle args)

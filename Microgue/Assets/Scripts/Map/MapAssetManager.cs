@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
-using System.Collections;
 using System.Collections.Generic;
-using RoomMapGenerator;
 
 using Random = UnityEngine.Random;
 

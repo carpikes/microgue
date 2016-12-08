@@ -4,17 +4,7 @@ using System.Collections.Generic;
 using System;
 
 public class StatManager : MonoBehaviour {
-
-    void OnEnable()
-    {
-        EventManager.StartListening(Events.ON_MAIN_CHAR_HIT, DecreaseEnergy);
-    }
-
-    void OnDisable()
-    {
-        EventManager.StopListening(Events.ON_MAIN_CHAR_HIT, DecreaseEnergy);
-    }
-
+    
     public enum StatStates
     {
         CURRENT_HEALTH,
@@ -28,8 +18,34 @@ public class StatManager : MonoBehaviour {
     };
 
     const int numberOfStates = (int)StatStates.NULL;
-
     public Stat[] stats;
+
+    bool isInvulnerable = false;
+
+    void OnEnable()
+    {
+        EventManager.StartListening(Events.ON_MAIN_CHAR_HIT, DecreaseEnergy);
+        EventManager.StartListening(Events.ON_MAIN_CHAR_INVULNERABLE_BEGIN, SetInvulnerable);
+        EventManager.StartListening(Events.ON_MAIN_CHAR_INVULNERABLE_END, SetVulnerable);
+    }
+
+    void OnDisable()
+    {
+        EventManager.StopListening(Events.ON_MAIN_CHAR_HIT, DecreaseEnergy);
+        EventManager.StopListening(Events.ON_MAIN_CHAR_INVULNERABLE_BEGIN, SetInvulnerable);
+        EventManager.StopListening(Events.ON_MAIN_CHAR_INVULNERABLE_END, SetVulnerable);
+
+    }
+
+    private void SetVulnerable(Dictionary<string, string> arg0)
+    {
+        isInvulnerable = false;
+    }
+
+    private void SetInvulnerable(Dictionary<string, string> arg0)
+    {
+        isInvulnerable = true;
+    }
 
     private void SetupStat(StatStates s, float min, float max)
     {
@@ -78,7 +94,10 @@ public class StatManager : MonoBehaviour {
 
     private void DecreaseEnergy(Dictionary<string, string> arg0)
     {
-        UpdateStatValue(StatStates.CURRENT_HEALTH, -1);
+        if (!isInvulnerable)
+        {
+            UpdateStatValue(StatStates.CURRENT_HEALTH, -1);
+        }
     }
-       
+    
 }
