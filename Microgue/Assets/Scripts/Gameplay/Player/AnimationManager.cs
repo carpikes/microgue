@@ -10,6 +10,7 @@ public class AnimationManager : MonoBehaviour {
     Animator animator;
     GameObject mainChar;
     SpriteRenderer spriteRenderer;
+    StatManager statManager;
 
     public static string ANIM_MAIN_ATTACK = "mainAttack";
     public static string ANIM_DEATH = "death";
@@ -51,6 +52,8 @@ public class AnimationManager : MonoBehaviour {
         mainChar = GameObject.FindGameObjectWithTag("Player");
         animator = mainChar.GetComponent<Animator>();
         spriteRenderer = mainChar.GetComponent<SpriteRenderer>();
+
+        statManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<StatManager>();
     }
 
     private void OnMainCharChangeDir(Bundle args)
@@ -84,9 +87,11 @@ public class AnimationManager : MonoBehaviour {
 
     private void OnMainCharHit(Bundle args)
     {
-        animator.SetTrigger(ANIM_HIT);
-
-        StartCoroutine(MainCharFlashing());
+        if (!statManager.IsInvulnerable)
+        {
+            animator.SetTrigger(ANIM_HIT);
+            StartCoroutine(MainCharFlashing());
+        }
     }
 
     private IEnumerator MainCharFlashing()
@@ -97,9 +102,9 @@ public class AnimationManager : MonoBehaviour {
 
         for (int i = 0; i < iterations; ++i)
         {
-            spriteRenderer.enabled = false;
+            if( spriteRenderer) spriteRenderer.enabled = false;
             yield return new WaitForSeconds(0.1f);
-            spriteRenderer.enabled = true;
+            if (spriteRenderer) spriteRenderer.enabled = true;
             yield return new WaitForSeconds(0.1f);
         }
 

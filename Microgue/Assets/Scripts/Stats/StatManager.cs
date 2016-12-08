@@ -39,12 +39,12 @@ public class StatManager : MonoBehaviour {
 
     private void SetVulnerable(Dictionary<string, string> arg0)
     {
-        isInvulnerable = false;
+        IsInvulnerable = false;
     }
 
     private void SetInvulnerable(Dictionary<string, string> arg0)
     {
-        isInvulnerable = true;
+        IsInvulnerable = true;
     }
 
     private void SetupStat(StatStates s, float min, float max)
@@ -56,7 +56,7 @@ public class StatManager : MonoBehaviour {
     {
         stats = new Stat[ numberOfStates ];
 
-        SetupStat(StatStates.MAX_HEALTH, 3, 10);
+        SetupStat(StatStates.MAX_HEALTH, 1, 10);
         SetupStat(StatStates.CURRENT_HEALTH, 0, stats[(int)StatStates.MAX_HEALTH].CurrentValue);
         SetupStat(StatStates.DEFENCE, 1, 10);
         SetupStat(StatStates.DAMAGE, 1, 10);
@@ -94,7 +94,7 @@ public class StatManager : MonoBehaviour {
 
     private void DecreaseEnergy(Dictionary<string, string> arg0)
     {
-        if (!isInvulnerable)
+        if (!IsInvulnerable)
         {
             UpdateStatValue(StatStates.CURRENT_HEALTH, -1);
 
@@ -104,5 +104,18 @@ public class StatManager : MonoBehaviour {
             }
         }
     }
-    
+
+    public bool IsInvulnerable
+    {
+        get
+        {
+            return isInvulnerable;
+        }
+
+        set
+        {
+            isInvulnerable = value;
+        }
+    }
+
 }

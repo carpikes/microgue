@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Bundle = System.Collections.Generic.Dictionary<string, string>;
+using UnityEngine.SceneManagement;
 
 public class GameOverManager : MonoBehaviour {
 
@@ -38,6 +39,13 @@ public class GameOverManager : MonoBehaviour {
         if (debugCanvas)
             debugCanvas.SetActive(false);
 
+        Cursor.visible = true;
         gameOverCanvas.SetActive(true);
+    }
+
+    public void ReloadMenu()
+    {
+        SceneManager.UnloadScene(SceneManager.GetActiveScene());
+        SceneManager.LoadScene("Menu");
     }
 }

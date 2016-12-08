@@ -2,12 +2,12 @@
 using System.Collections;
 using System;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Startup : MonoBehaviour {
 
     public Image polimiSplash;
     public Image developerSplash;
-    public GameObject canvas;
 
     public readonly static float TIME_STILL = 3f; // seconds
     public readonly static float TIME_BETWEEN_FRAMES = .03f;
@@ -34,7 +34,7 @@ public class Startup : MonoBehaviour {
             yield return new WaitForSeconds(TIME_BETWEEN_SCREENS);
         }
 
-        canvas.SetActive(true);
+        SceneManager.LoadScene("Menu");
     }
 
     private static void ChangeTransparency(Image img, float alpha)
