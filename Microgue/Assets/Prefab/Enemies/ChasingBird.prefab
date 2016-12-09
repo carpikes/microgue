@@ -60,6 +60,7 @@ GameObject:
   - 114: {fileID: 114000013576789140}
   - 114: {fileID: 114000010650985096}
   - 114: {fileID: 114000014221629720}
+  - 114: {fileID: 114000013634858598}
   m_Layer: 0
   m_Name: ChasingBird
   m_TagString: Untagged
@@ -225,6 +226,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 10
+--- !u!114 &114000013634858598
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011746347044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d450a9ef03c96bc48862c9984e4b97f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000014221629720
 MonoBehaviour:
   m_ObjectHideFlags: 1

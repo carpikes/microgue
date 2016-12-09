@@ -15,7 +15,7 @@ public class BFSMap
 	public BFSMap (int w, int h)
 	{
 		mMap = new byte[w * h];
-		mVisited = new byte[w * h];
+		mVisited = new bool[w * h];
 		mWidth = w;
 		mHeight = h;
 
@@ -29,7 +29,7 @@ public class BFSMap
 	byte[] StepAndGetMap(byte[] obstacles)
 	{
 		mObstacles = obstacles;
-		for (int i = 0; i < w * h; i++)
+		for (int i = 0; i < mWidth * mHeight; i++)
 		{
 			mMap [i] = 0;
 			mVisited [i] = false;
@@ -49,7 +49,7 @@ public class BFSMap
 				if (!mVisited [n.x + mWidth * n.y]) 
 				{
 					mVisited [n.x + mWidth * n.y] = true;
-					mMap [n.x + mWidth * n.y] = dist + 1;
+					mMap [n.x + mWidth * n.y] = (byte)(dist + 1);
 					queue.Enqueue (n);
 				}
 			}
@@ -60,13 +60,13 @@ public class BFSMap
 	IntPoint[] GetNeigh(IntPoint p)
 	{
 		List<IntPoint> points = new List<IntPoint> ();
-		if (p.x > 0 && mObstables [(p.x - 1) + mWidth * p.y] == 0)
+		if (p.x > 0 && mObstacles[(p.x - 1) + mWidth * p.y] == 0)
 			points.Add (new IntPoint (p.x - 1, p.y));
-		if (p.y > 0 && mObstables [p.x + mWidth * (p.y-1)] == 0)
+		if (p.y > 0 && mObstacles[p.x + mWidth * (p.y-1)] == 0)
 			points.Add (new IntPoint (p.x, p.y-1));
-		if (p.x < mWidth - 1 && mObstables [(p.x + 1) + mWidth * p.y] == 0)
+		if (p.x < mWidth - 1 && mObstacles[(p.x + 1) + mWidth * p.y] == 0)
 			points.Add (new IntPoint (p.x + 1, p.y));
-		if (p.y < mHeight - 1 && mObstables [p.x + mWidth * (p.y+1)] == 0)
+		if (p.y < mHeight - 1 && mObstacles[p.x + mWidth * (p.y+1)] == 0)
 			points.Add (new IntPoint (p.x, p.y+1));		
 		return points.ToArray();
 	}

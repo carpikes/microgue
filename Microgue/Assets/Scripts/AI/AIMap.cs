@@ -15,10 +15,6 @@ public class AIMap : MonoBehaviour
 	public struct IntPoint 
 	{ 
 		public int x, y; 
-		public IntPoint() 
-		{
-			
-		}
 		public IntPoint(int x, int y)
 		{
 			this.x = x;

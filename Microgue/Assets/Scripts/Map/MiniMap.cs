@@ -62,7 +62,7 @@ public class MiniMap : MonoBehaviour {
 
         if (mMap == null && mGameManager.GetMap() != null)
         {
-            Debug.Log("Disegno la minimap");
+            //Debug.Log("Disegno la minimap");
             mMap = mGameManager.GetMap();
             DrawMap();
         }
