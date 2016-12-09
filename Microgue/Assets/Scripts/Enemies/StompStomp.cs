@@ -49,6 +49,7 @@ public class StompStomp : MonoBehaviour {
 
         Vector2 pos = new Vector2(0.0f, 10.0f);
         mRigidBody.position = mRigidBody.position + pos;
+        transform.GetChild(0).GetComponent<Transform>().position = mRigidBody.position + pos;
 		mEnemyAI = GetComponent<EnemyAI>();
 		mEnemyAI.SetEnabled(false);
 	}
