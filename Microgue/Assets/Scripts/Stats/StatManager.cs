@@ -25,6 +25,7 @@ public class StatManager : MonoBehaviour {
     bool isInvulnerable;
     TimerManager timerMgr;
     InputManager inputMgr;
+    AnimationManager animMgr;
 
     void OnEnable()
     {
@@ -75,6 +76,7 @@ public class StatManager : MonoBehaviour {
 
         timerMgr = GameObject.FindGameObjectWithTag("GameController").GetComponent<TimerManager>();
         inputMgr = GameObject.FindGameObjectWithTag("Player").GetComponent<InputManager>();
+        animMgr = GameObject.FindGameObjectWithTag("GameController").GetComponent<AnimationManager>();
     }
 
     public void UpdateStatValue( StatStates s, float delta )
@@ -95,7 +97,7 @@ public class StatManager : MonoBehaviour {
                 Stat currHealth = stats[(int)StatStates.CURRENT_HEALTH];
                 currHealth.mMax = currentStat.CurrentValue;
 
-                // if I decrease the max health, maybe the current healt is invalid now, fix with clamp
+                // if I decrease the max health, maybe the current health is invalid now, fix with clamp
                 Mathf.Clamp(currHealth.CurrentValue, currHealth.mMin, currHealth.mMax);
                 break;
             case StatStates.CURRENT_HEALTH:
@@ -113,6 +115,11 @@ public class StatManager : MonoBehaviour {
                 inputMgr.setSpeed((int)GetStatValue(StatStates.SPEED));
                 break;
 
+            case StatStates.DAMAGE:
+                // you cannot set a different value to the prefab at runtime, only to their instances
+                // therefore the values are set to the clones in the InputManager script.
+                break;
+
             default:
                 Debug.Log("Trying to set invalid stat");
                 break;
@@ -125,16 +132,19 @@ public class StatManager : MonoBehaviour {
 
     private void DecreaseEnergy(Dictionary<string, string> args)
     {
+        Debug.Log("INVULN? " + isInvulnerable);
         if (!IsInvulnerable)
         {
             float defence = GetStatValue(StatStates.DEFENCE);
 
             // TODO USE ACTUAL ATTACK POINT ENEMY
             float amountHitPoints = Mathf.Floor(1 * (MAX_DEFENCE + 1 - defence));
+            Debug.Log(amountHitPoints);
 
             UpdateStatValue(StatStates.CURRENT_HEALTH, -amountHitPoints);
+            animMgr.OnMainCharHit(null);
 
-            if( GetStatValue(StatStates.CURRENT_HEALTH) <= 0 )
+            if ( GetStatValue(StatStates.CURRENT_HEALTH) <= 0 )
             {
                 EventManager.TriggerEvent(Events.ON_MAIN_CHAR_DEATH, null);
             }

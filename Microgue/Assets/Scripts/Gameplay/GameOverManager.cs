@@ -15,13 +15,13 @@ public class GameOverManager : MonoBehaviour {
     void OnEnable()
     {
         EventManager.StartListening(Events.ON_MAIN_CHAR_DEATH, GameOver);
-        //EventManager.StartListening(Events.ON_TIME_ENDED, GameOver);
+        EventManager.StartListening(Events.ON_TIME_ENDED, GameOver);
     }
 
     void OnDisable()
     {
         EventManager.StopListening(Events.ON_MAIN_CHAR_DEATH, GameOver);
-        //EventManager.StopListening(Events.ON_TIME_ENDED, GameOver);
+        EventManager.StopListening(Events.ON_TIME_ENDED, GameOver);
     }
 
     // Use this for initialization

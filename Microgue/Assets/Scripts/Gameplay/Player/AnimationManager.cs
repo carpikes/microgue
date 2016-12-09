@@ -25,7 +25,7 @@ public class AnimationManager : MonoBehaviour {
         EventManager.StartListening(Events.ON_MAIN_CHAR_ATTACK, OnMainCharAttack);
         EventManager.StartListening(Events.ON_MAIN_CHAR_DASH, OnMainCharDash);
         EventManager.StartListening(Events.ON_MAIN_CHAR_DEATH, OnMainCharDeath);
-        EventManager.StartListening(Events.ON_MAIN_CHAR_HIT, OnMainCharHit);
+        //EventManager.StartListening(Events.ON_MAIN_CHAR_HIT, OnMainCharHit);
         EventManager.StartListening(Events.ON_MAIN_CHAR_IDLE, OnMainCharIdle);
         EventManager.StartListening(Events.ON_MAIN_CHAR_MOVE, OnMainCharMove);
         EventManager.StartListening(Events.ON_MAIN_CHAR_SECOND_ATTACK, OnMainCharSecondAttack);
@@ -38,7 +38,7 @@ public class AnimationManager : MonoBehaviour {
         EventManager.StopListening(Events.ON_MAIN_CHAR_ATTACK, OnMainCharAttack);
         EventManager.StopListening(Events.ON_MAIN_CHAR_DASH, OnMainCharDash);
         EventManager.StopListening(Events.ON_MAIN_CHAR_DEATH, OnMainCharDeath);
-        EventManager.StopListening(Events.ON_MAIN_CHAR_HIT, OnMainCharHit);
+        //EventManager.StopListening(Events.ON_MAIN_CHAR_HIT, OnMainCharHit);
         EventManager.StopListening(Events.ON_MAIN_CHAR_IDLE, OnMainCharIdle);
         EventManager.StopListening(Events.ON_MAIN_CHAR_MOVE, OnMainCharMove);
         EventManager.StopListening(Events.ON_MAIN_CHAR_SECOND_ATTACK, OnMainCharSecondAttack);
@@ -84,7 +84,7 @@ public class AnimationManager : MonoBehaviour {
         animator.SetBool(ANIM_IS_MOVING, false);
     }
 
-    private void OnMainCharHit(Bundle args)
+    public void OnMainCharHit(Bundle args)
     {
         if (!statManager.IsInvulnerable)
         {

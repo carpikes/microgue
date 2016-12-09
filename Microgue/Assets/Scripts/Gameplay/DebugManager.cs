@@ -20,13 +20,13 @@ public class DebugManager : MonoBehaviour {
     void OnEnable()
     {
         EventManager.StartListening(Events.ON_STAT_CHANGED, OnStatChanged);
-        EventManager.StartListening(Events.ON_SECOND_PASSED, OnSecondPassed);
+        EventManager.StartListening(Events.ON_TICK, OnSecondPassed);
     }
 
     void OnDisable()
     {
         EventManager.StopListening(Events.ON_STAT_CHANGED, OnStatChanged);
-        EventManager.StopListening(Events.ON_SECOND_PASSED, OnSecondPassed);
+        EventManager.StopListening(Events.ON_TICK, OnSecondPassed);
     }
 
     private void OnSecondPassed(Bundle args)

@@ -5,66 +5,57 @@ using System;
 
 public class TimerManager : MonoBehaviour {
 
-    public const long MAX_TIME = 1000;
+    // how much time the player has in total
+    public const float MAX_TIME = 200.0f;
 
-    Timer everySecondTimer = null;
-    private long secondsLeft = MAX_TIME;
+    // in the format seconds.milliseconds
+    private float ticksLeft;
+    private int lastSecond;
+    private float scaleTimer; // divide time delta time according to stat value, to make time go to different speeds
 
-    private int intervalTime = 1000;
-    public int IntervalTime
-    {
-        get
-        {
-            return intervalTime;
-        }
-
-        set
-        {
-            intervalTime = value;
-        }
-    }
+    private bool isTimerOn;
 
     public void Start()
     {
-        StartEverySecondTimer();
+        ticksLeft = MAX_TIME;
+        lastSecond = (int)ticksLeft;
+
+        isTimerOn = true;
+        scaleTimer = 1.0f;
     }
 
-    private void StartEverySecondTimer()
+    public void Update()
     {
-        everySecondTimer = new System.Timers.Timer();
-        everySecondTimer.Elapsed += new ElapsedEventHandler(OnTick);
-        everySecondTimer.Interval = IntervalTime;
-        everySecondTimer.Enabled = true;
-    }
+        if( isTimerOn )
+        {
+            ticksLeft -= Time.deltaTime / scaleTimer;
 
-    private void OnTick(object sender, ElapsedEventArgs e)
-    {
-        //EventManager.TriggerEvent(Events.ON_SECOND_PASSED, null);
-        Debug.Log("TICK");
-        DecreaseCountdown();
+            if ((int)ticksLeft < lastSecond)
+            {
+                DecreaseCountdown();
+            }
+        }
     }
 
     private void DecreaseCountdown()
     {
-        secondsLeft--;
+        Debug.Log("TICK!");
+        EventManager.TriggerEvent(Events.ON_TICK, null);
+        lastSecond = (int)ticksLeft;
 
-        if( secondsLeft <= 0 )
+        if( ticksLeft <= 0 )
         {
+            Debug.Log("END OF TIME!");
             EventManager.TriggerEvent(Events.ON_TIME_ENDED, null);
-            everySecondTimer.Stop();
+
+            isTimerOn = false;
         }
     }
 
-    public void OnDisable()
+    public void setInterval(int s)
     {
-        if (everySecondTimer != null)
-            everySecondTimer.Stop();
+        // linear interpolation between 1 second interval (s=1) and 2 second interval (s=10)
+        scaleTimer = (s - 1) / 9.0f + 1;
     }
 
-    public void setInterval(int v)
-    {
-        IntervalTime = 1000 + 100 * v;
-        Debug.Log(intervalTime);
-        everySecondTimer.Interval = IntervalTime;
-    }
 }

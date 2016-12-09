@@ -36,7 +36,7 @@ public enum Events
     ON_ITEM_USE,
 
     // time related
-    ON_SECOND_PASSED,
+    ON_TICK,
     //ON_TIME_FINISHING,
     ON_TIME_ENDED,
 
