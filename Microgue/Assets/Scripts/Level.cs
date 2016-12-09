@@ -241,4 +241,9 @@ public class Level
 
         return mSpawnPoints[spawnPoint];
     }
+
+    public int CountEnemies()
+    {
+        return GameObject.Find(mCurWorld.name + "/Enemies").transform.childCount; // do not consider Enemies itself
+    }
 }

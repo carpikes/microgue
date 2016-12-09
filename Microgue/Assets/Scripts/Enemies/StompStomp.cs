@@ -144,7 +144,7 @@ public class StompStomp : MonoBehaviour {
             mStatus = EnemyStatus.FALLING;
             mCurTarget = mShadowTransform.position;
             mCurTarget -= mShadowOffset;
-            Debug.Log("Changed status to Falling");
+            //Debug.Log("Changed status to Falling");
         }
     }
 }

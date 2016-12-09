@@ -132,14 +132,14 @@ public class StatManager : MonoBehaviour {
 
     private void DecreaseEnergy(Dictionary<string, string> args)
     {
-        Debug.Log("INVULN? " + isInvulnerable);
+        //Debug.Log("INVULN? " + isInvulnerable);
         if (!IsInvulnerable)
         {
             float defence = GetStatValue(StatStates.DEFENCE);
 
             // TODO USE ACTUAL ATTACK POINT ENEMY
             float amountHitPoints = Mathf.Floor(1 * (MAX_DEFENCE + 1 - defence));
-            Debug.Log(amountHitPoints);
+            //Debug.Log(amountHitPoints);
 
             UpdateStatValue(StatStates.CURRENT_HEALTH, -amountHitPoints);
             animMgr.OnMainCharHit(null);

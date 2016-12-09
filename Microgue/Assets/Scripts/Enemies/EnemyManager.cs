@@ -16,5 +16,5 @@ public class EnemyManager : MonoBehaviour {
         enemyDictionary.Add("DifficultEnemy", difficultEnemies);
     }
 	
-	
+
 }

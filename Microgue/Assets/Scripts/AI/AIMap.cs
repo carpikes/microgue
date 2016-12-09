@@ -68,14 +68,15 @@ public class AIMap : MonoBehaviour
 
     private void UpdateEnemies()
     {
-        Transform[] mEnemiesTransform = GameObject.Find(mWorld.name + "/Enemies").GetComponentsInChildren<Transform>();
+        Transform tr = GameObject.Find(mWorld.name + "/Enemies").transform;
+        int countEnemies = tr.childCount;
 
         for (int i = 0; i < mWidth * mHeight; i++)
             mEnemies[i] = 0;
 
-        foreach(Transform i in mEnemiesTransform)
+        for(int i = 0; i < countEnemies; ++i)
         {
-            IntPoint p = toMap(i.position);
+            IntPoint p = toMap(tr.GetChild(i).position);
             mEnemies[p.x + mWidth * p.y] = 1;
         }
     }
@@ -142,7 +143,7 @@ public class AIMap : MonoBehaviour
                 str += mArea[x + y * mWidth];
             str += "\n";
         }
-        Debug.Log(str);
+        //Debug.Log(str);
 
         mMapRefreshes++;
     }
