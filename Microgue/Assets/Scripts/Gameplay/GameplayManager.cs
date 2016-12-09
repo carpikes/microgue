@@ -18,6 +18,8 @@ public class GameplayManager : MonoBehaviour
     [Header("Load debug arena?")]
     public bool mDebugArena = false;
 
+    public bool isInvincible = false;
+
     private MapGenerator mMapGenerator;
     private MapAssetManager mMapAssetManager;
 

@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class StatManager : MonoBehaviour {
-    
+public class StatManager : MonoBehaviour
+{
+
     public enum StatStates
     {
         CURRENT_HEALTH,
@@ -23,6 +24,7 @@ public class StatManager : MonoBehaviour {
     public float MAX_DEFENCE = 2f;
 
     bool isInvulnerable;
+    GameplayManager gameplayMgr;
     TimerManager timerMgr;
     InputManager inputMgr;
     AnimationManager animMgr;
@@ -32,8 +34,6 @@ public class StatManager : MonoBehaviour {
         EventManager.StartListening(Events.ON_MAIN_CHAR_HIT, DecreaseEnergy);
         EventManager.StartListening(Events.ON_MAIN_CHAR_INVULNERABLE_BEGIN, SetInvulnerable);
         EventManager.StartListening(Events.ON_MAIN_CHAR_INVULNERABLE_END, SetVulnerable);
-
-        isInvulnerable = false;
     }
 
     void OnDisable()
@@ -46,7 +46,7 @@ public class StatManager : MonoBehaviour {
 
     private void SetVulnerable(Dictionary<string, string> arg0)
     {
-        IsInvulnerable = true;
+        IsInvulnerable = false;
     }
 
     private void SetInvulnerable(Dictionary<string, string> arg0)
@@ -61,7 +61,7 @@ public class StatManager : MonoBehaviour {
 
     public void Start()
     {
-        stats = new Stat[ numberOfStates ];
+        stats = new Stat[numberOfStates];
 
         SetupStat(StatStates.MAX_HEALTH, 3, 10);
         SetupStat(StatStates.CURRENT_HEALTH, 0, stats[(int)StatStates.MAX_HEALTH].CurrentValue);
@@ -72,26 +72,27 @@ public class StatManager : MonoBehaviour {
 
         stats[(int)StatStates.CURRENT_HEALTH].CurrentValue = stats[(int)StatStates.CURRENT_HEALTH].mMax;
 
-        isInvulnerable = true;
-
         timerMgr = GameObject.FindGameObjectWithTag("GameController").GetComponent<TimerManager>();
         inputMgr = GameObject.FindGameObjectWithTag("Player").GetComponent<InputManager>();
         animMgr = GameObject.FindGameObjectWithTag("GameController").GetComponent<AnimationManager>();
+        gameplayMgr = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameplayManager>();
+
+        isInvulnerable = gameplayMgr.isInvincible;
     }
 
-    public void UpdateStatValue( StatStates s, float delta )
+    public void UpdateStatValue(StatStates s, float delta)
     {
         SetStatValue(s, stats[(int)s].CurrentValue + delta);
     }
 
-    public void SetStatValue( StatStates s, float v )
+    public void SetStatValue(StatStates s, float v)
     {
         Stat currentStat = stats[(int)s];
 
         currentStat.CurrentValue = v;
         Mathf.Clamp(currentStat.CurrentValue, currentStat.mMin, currentStat.mMax);
-        
-        switch( s )
+
+        switch (s)
         {
             case StatStates.MAX_HEALTH:
                 Stat currHealth = stats[(int)StatStates.CURRENT_HEALTH];
@@ -108,7 +109,7 @@ public class StatManager : MonoBehaviour {
                 break;
 
             case StatStates.TEMP_DISTORSION:
-                timerMgr.setInterval( (int)GetStatValue(StatStates.TEMP_DISTORSION) );
+                timerMgr.setInterval((int)GetStatValue(StatStates.TEMP_DISTORSION));
                 break;
 
             case StatStates.SPEED:
@@ -120,6 +121,9 @@ public class StatManager : MonoBehaviour {
                 // therefore the values are set to the clones in the InputManager script.
                 break;
 
+            case StatStates.DEFENCE:
+                break;
+
             default:
                 Debug.Log("Trying to set invalid stat");
                 break;
@@ -128,7 +132,7 @@ public class StatManager : MonoBehaviour {
         EventManager.TriggerEvent(Events.ON_STAT_CHANGED, null);
     }
 
-    public float GetStatValue( StatStates s ) { return stats[(int)s].CurrentValue; }
+    public float GetStatValue(StatStates s) { return stats[(int)s].CurrentValue; }
 
     private void DecreaseEnergy(Dictionary<string, string> args)
     {
@@ -144,7 +148,7 @@ public class StatManager : MonoBehaviour {
             UpdateStatValue(StatStates.CURRENT_HEALTH, -amountHitPoints);
             animMgr.OnMainCharHit(null);
 
-            if ( GetStatValue(StatStates.CURRENT_HEALTH) <= 0 )
+            if (GetStatValue(StatStates.CURRENT_HEALTH) <= 0)
             {
                 EventManager.TriggerEvent(Events.ON_MAIN_CHAR_DEATH, null);
             }
