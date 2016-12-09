@@ -194,7 +194,7 @@ public class InputManager : MonoBehaviour {
             Vector3 offset = new Vector3(0.15f, -0.05f, 0.0f);
             offset.x *= direction.x > 0.0f ? 1.0f : -1.0f;
             
-            ball2d.position = transform.position + offset;
+            lb.transform.position = transform.position + offset;
             ball2d.velocity = direction * shotSpeed;
 
             lastShootTime = Time.time;

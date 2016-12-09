@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<items>
+  <item>
+    <info>
+      <name>Example Item</name>
+      <image>example.png</image>
+      <rarity>Rare</rarity>
+      <isPassive>True</isPassive>
+    </info>
+
+    <stats>
+      <stat>
+        <name>CURRENT_HEALTH</name>
+        <typeValue>m</typeValue>
+        <value>3</value>
+      </stat>
+    </stats>
+
+    <effects>
+      <effect>
+        <function>scale</function>
+        <subject>player</subject>
+        <param>2</param>
+      </effect>
+    </effects>
+  </item>
+</items>

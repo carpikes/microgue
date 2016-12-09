@@ -46,7 +46,8 @@ public class StompStomp : MonoBehaviour {
         mInputManager = GameObject.Find("MainCharacter").GetComponent<InputManager>();
 
         Vector2 pos = new Vector2(0.0f, 10.0f);
-        mRigidBody.position = mRigidBody.position + pos;
+
+        transform.GetChild(0).GetComponent<Transform>().position = mRigidBody.position + pos;
 	}
 
     IEnumerator JumpCoroutine()
