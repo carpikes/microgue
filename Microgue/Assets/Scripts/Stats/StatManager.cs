@@ -63,7 +63,7 @@ public class StatManager : MonoBehaviour {
     {
         stats = new Stat[ numberOfStates ];
 
-        SetupStat(StatStates.MAX_HEALTH, 3, 10);
+        SetupStat(StatStates.MAX_HEALTH, 6, 10);
         SetupStat(StatStates.CURRENT_HEALTH, 0, stats[(int)StatStates.MAX_HEALTH].CurrentValue);
         SetupStat(StatStates.DEFENCE, 1, 10);
         SetupStat(StatStates.DAMAGE, 1, 10);
@@ -120,6 +120,9 @@ public class StatManager : MonoBehaviour {
                 // therefore the values are set to the clones in the InputManager script.
                 break;
 
+            case StatStates.DEFENCE:
+                break;
+
             default:
                 Debug.Log("Trying to set invalid stat");
                 break;
@@ -138,8 +141,8 @@ public class StatManager : MonoBehaviour {
             float defence = GetStatValue(StatStates.DEFENCE);
 
             // TODO USE ACTUAL ATTACK POINT ENEMY
-            float amountHitPoints = Mathf.Floor(1 * (MAX_DEFENCE + 1 - defence));
-            //Debug.Log(amountHitPoints);
+            float amountHitPoints = Mathf.Floor((MAX_DEFENCE + 1 - defence)*2)/2;
+            Debug.Log(amountHitPoints);
 
             UpdateStatValue(StatStates.CURRENT_HEALTH, -amountHitPoints);
             animMgr.OnMainCharHit(null);
