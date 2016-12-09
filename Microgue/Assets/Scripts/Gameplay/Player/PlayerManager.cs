@@ -29,7 +29,7 @@ public class PlayerManager : MonoBehaviour {
         foreach (StatPair pair in item.Values)
             statManager.UpdateStatValue(pair.Key, pair.Value);
 
-        DoExtraActions();
+        DoExtraActions(item);
     }
 
     public void StoreItem(ItemData item)
@@ -40,8 +40,8 @@ public class PlayerManager : MonoBehaviour {
             Debug.LogError("Trying to store a non-active item!");
     }
 
-    private void DoExtraActions()
+    private void DoExtraActions(ItemData item)
     {
-        // TODO
+        
     }
 }

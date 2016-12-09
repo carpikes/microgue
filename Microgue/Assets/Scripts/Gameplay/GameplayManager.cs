@@ -129,7 +129,10 @@ public class GameplayManager : MonoBehaviour
             return;
 
         if (!AreAllEnemiesKilled())
+        {
             Debug.Log("YOU MUST KILL ALL ENEMIES FIRST!");
+            return;
+        }
 
         string type;
         RoomMap.Door door, opposite;
