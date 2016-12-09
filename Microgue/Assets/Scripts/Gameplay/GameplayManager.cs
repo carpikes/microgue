@@ -16,7 +16,7 @@ public class GameplayManager : MonoBehaviour
     public GameObject mAimCursor;
 
     [Header("Load debug arena?")]
-    public bool mDebugArena = false;
+    public bool debugArena = false;
 
     public bool isInvincible = false;
 
@@ -48,7 +48,7 @@ public class GameplayManager : MonoBehaviour
         Cursor.visible = false;
 
         string lname = "demo";
-        if (mDebugArena)
+        if (debugArena)
             lname = "debug";
 
         // TRIGGER EVENT MAP_LOADING_STARTED
@@ -126,13 +126,12 @@ public class GameplayManager : MonoBehaviour
 
     public void OnDoorEnter(Bundle args)
     {
-        Debug.Log("OnDoorEnter");
-        if (mDebugArena)
+        if (debugArena)
             return;
 
         if (!AreAllEnemiesKilled())
         {
-            Debug.Log("YOU MUST KILL ALL ENEMIES FIRST!");
+            EventManager.TriggerEvent(Events.ON_STILL_ENEMIES_LEFT, null);
             return;
         }
 

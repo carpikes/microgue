@@ -71,7 +71,7 @@ public class AnimationManager : MonoBehaviour {
 
     private void OnMainCharSecondAttack(Bundle args)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     private void OnMainCharMove(Bundle args)

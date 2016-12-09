@@ -3,6 +3,8 @@ using System.Collections;
 using System.Timers;
 using System;
 
+using Bundle = System.Collections.Generic.Dictionary<string, string>;
+
 public class TimerManager : MonoBehaviour {
 
     // how much time the player has in total
@@ -14,6 +16,8 @@ public class TimerManager : MonoBehaviour {
     private float scaleTimer; // divide time delta time according to stat value, to make time go to different speeds
 
     private bool isTimerOn;
+
+    public static readonly string TICKS_LEFT_TAG = "TICKS_LEFT";
 
     public void Start()
     {
@@ -39,8 +43,10 @@ public class TimerManager : MonoBehaviour {
 
     private void DecreaseCountdown()
     {
-        Debug.Log("TICK!");
-        EventManager.TriggerEvent(Events.ON_TICK, null);
+        Bundle tickBundle = new Bundle();
+        tickBundle.Add(TICKS_LEFT_TAG, Mathf.RoundToInt(ticksLeft).ToString());
+        EventManager.TriggerEvent(Events.ON_TICK, tickBundle);
+
         lastSecond = (int)ticksLeft;
 
         if( ticksLeft <= 0 )

@@ -2,6 +2,7 @@
 using System.Collections;
 
 using StatPair = System.Collections.Generic.KeyValuePair<StatManager.StatStates, float>;
+using Bundle = System.Collections.Generic.Dictionary<string, string>;
 
 public class ItemEffector : MonoBehaviour {
 
@@ -9,6 +10,8 @@ public class ItemEffector : MonoBehaviour {
 
     [HideInInspector]
     public ItemData item;
+
+    public static readonly string ITEM_PICKUP_TAG = "ITEM_PICKUP";
 
     void Start()
     {
@@ -19,7 +22,10 @@ public class ItemEffector : MonoBehaviour {
     {
         if (other.CompareTag("Player"))
         {
-            //EventManager.TriggerEvent(Events.ON_ITEM_PICKUP, item);
+            Bundle itemBundle = new Bundle();
+            itemBundle.Add(ITEM_PICKUP_TAG, item.Name);
+            EventManager.TriggerEvent(Events.ON_ITEM_PICKUP, itemBundle);
+
             if ( item.IsPassive )
                 playerManager.UseItem(item);
             else

@@ -30,6 +30,7 @@ public enum Events
     ON_ENEMY_HIT,
     ON_ENEMY_DEATH,
     ON_ENEMY_TRIGGER,
+    ON_STILL_ENEMIES_LEFT,
 
     // object related
     ON_ITEM_PICKUP,
@@ -42,5 +43,4 @@ public enum Events
 
     // stat related
     ON_STAT_CHANGED,
-    
 }

@@ -8,9 +8,8 @@ public class GameOverManager : MonoBehaviour {
     GameObject mPlayer;
     GameObject mAimCursor;
 
-    public GameObject uiCanvas;
     public GameObject gameOverCanvas;
-    public GameObject debugCanvas;
+    public GameObject UICanvas;
 
     void OnEnable()
     {
@@ -35,9 +34,7 @@ public class GameOverManager : MonoBehaviour {
         mPlayer.SetActive(false);
         mAimCursor.SetActive(false);
 
-        uiCanvas.SetActive(false);
-        if (debugCanvas)
-            debugCanvas.SetActive(false);
+        UICanvas.SetActive(false);
 
         Cursor.visible = true;
         gameOverCanvas.SetActive(true);
