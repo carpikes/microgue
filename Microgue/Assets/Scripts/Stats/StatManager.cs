@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using UnityEngine.UI;
 
 public class StatManager : MonoBehaviour
 {
@@ -54,9 +55,9 @@ public class StatManager : MonoBehaviour
         IsInvulnerable = true;
     }
 
-    private void SetupStat(StatStates s, float min, float max)
+    private void SetupStat(StatStates s, float min, float max, Image img = null)
     {
-        stats[(int)s] = new Stat(s.ToString(), min, max);
+        stats[(int)s] = new Stat(s.ToString(), min, max/*, img*/);
     }
 
     public void Start()

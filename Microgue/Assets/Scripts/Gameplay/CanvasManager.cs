@@ -110,7 +110,7 @@ public class CanvasManager : MonoBehaviour {
         {
             foreach( Stat s in playerStats.stats )
             {
-                statText.text += s.mName + ": " + s.CurrentValue + "\n";
+                statText.text += s.mName + ": " + s.CurrentValue + " || ";
             }
         } else
         {

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class Stat {
@@ -10,12 +11,14 @@ public class Stat {
     public float mMin, mMax;
     
     private float mCurrValue;
+    Image mImg;
 
-    public Stat( string name, float min, float max )
+    public Stat( string name, float min, float max, Image image = null )
     {
         mName = name;
         mMin = min;
         mMax = max;
+        mImg = image;
 
         ResetToMin();
     }
