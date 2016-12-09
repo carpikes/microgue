@@ -11,6 +11,7 @@ public class DesperateSoul : MonoBehaviour
 
     private Rigidbody2D mRb;
     private Vector2 mInitialPosition;
+	private EnemyAI mEnemyAI;
 
     private Vector2 mVelocity = Vector2.zero;
     private Vector3 mCurTarget;
@@ -25,6 +26,8 @@ public class DesperateSoul : MonoBehaviour
     {
         mRb = GetComponent<Rigidbody2D>();
         mInitialPosition = transform.position;
+		mEnemyAI = GetComponent<EnemyAI>();
+		mEnemyAI.SetEnabled(false);
         ChooseNewTarget();
     }
 

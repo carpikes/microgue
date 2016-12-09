@@ -10,6 +10,21 @@ public class AIMap : MonoBehaviour
     int mMapRefreshes;
     int mWidth, mHeight;
     Bounds mWorldArea;
+	private float mEnemyUpdateInterval = 0.1f;
+	private float mNextEnemyUpdate = 0.0f;
+	public struct IntPoint 
+	{ 
+		public int x, y; 
+		public IntPoint() 
+		{
+			
+		}
+		public IntPoint(int x, int y)
+		{
+			this.x = x;
+			this.y = y;
+		}
+	};
 
     public IntPoint GetPlayerPosition()
     {
@@ -52,7 +67,7 @@ public class AIMap : MonoBehaviour
         mWorld = null;
         mPlayer = GameObject.Find("MainCharacter");
 	}
-	
+		
 	// Update is called once per frame
 	void Update () {
         GameObject world = mGameManager.GetWorld();
@@ -61,22 +76,28 @@ public class AIMap : MonoBehaviour
             mWorld = world;
             UpdateArea();
         }
-        if(mWorld != null && mWidth > 0 && mHeight > 0)
-            UpdateEnemies();
-
+		if (mWorld != null && mWidth > 0 && mHeight > 0)
+		{
+			if (mNextEnemyUpdate < Time.time)
+			{
+				UpdateEnemies();
+				mNextEnemyUpdate = Time.time + mEnemyUpdateInterval;
+			}
+		}
 	}
 
     private void UpdateEnemies()
     {
-        Transform tr = GameObject.Find(mWorld.name + "/Enemies").transform;
-        int countEnemies = tr.childCount;
+		EnemyAI[] arr = GameObject.Find(mWorld.name + "/Enemies").GetComponentsInChildren<EnemyAI>();
 
         for (int i = 0; i < mWidth * mHeight; i++)
             mEnemies[i] = 0;
 
-        for(int i = 0; i < countEnemies; ++i)
+		foreach(EnemyAI ai in arr)
         {
-            IntPoint p = toMap(tr.GetChild(i).position);
+			if (!ai.IsEnabled ())
+				continue;
+			IntPoint p = toMap(ai.GetPosition());
             mEnemies[p.x + mWidth * p.y] = 1;
         }
     }
@@ -168,8 +189,6 @@ public class AIMap : MonoBehaviour
         BlackLine(p[2], p[0]);
     }
 
-    public struct IntPoint { public int x, y; };
-
     private IntPoint toMap(Vector2 p)
     {
         IntPoint ret;
@@ -193,6 +212,7 @@ public class AIMap : MonoBehaviour
                 mArea[x + s.y * mWidth] = 1;
             return;
         }
+
         if (s.x == e.x)
         {
             for(int y = s.y; y <= e.y; y++)

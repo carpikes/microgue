@@ -11,6 +11,7 @@ public class ChasingBird : MonoBehaviour {
     private GameObject mTarget;
     private Rigidbody2D mPlayerRb;
     private Rigidbody2D mRb;
+	private EnemyAI mEnemyAI;
 
     private Vector2 mVelocity = Vector2.zero;
     private Vector2 mCurTarget;
@@ -22,6 +23,8 @@ public class ChasingBird : MonoBehaviour {
         mRb = GetComponent<Rigidbody2D>();
         mTarget = GameObject.Find("MainCharacter");
         mPlayerRb = mTarget.GetComponent<Rigidbody2D>();
+		mEnemyAI = GetComponent<EnemyAI>();
+		mEnemyAI.SetEnabled(true);
         ChooseNewPoint();
     }
 
@@ -42,9 +45,12 @@ public class ChasingBird : MonoBehaviour {
         } 
 
         mRb.position += mVelocity * Time.fixedDeltaTime;
+		if(mEnemyAI != null)
+			mEnemyAI.SetPosition (mRb.position);
     }
 
-    void ChooseNewPoint() {
+    void ChooseNewPoint()
+	{
         mPoint = Random.onUnitSphere;
         mPoint.y /= 3.0f;
         mRemainingTime = Random.Range(0.1f, 0.3f);

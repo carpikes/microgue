@@ -24,6 +24,7 @@ public class StompStomp : MonoBehaviour {
     private Collider2D mCollider;
     private Transform mPlayerTransform;
     private InputManager mInputManager;
+	private EnemyAI mEnemyAI;
 
     // Used for shadow projection
     private Vector2 mMovingDirection, mJumpStartPosition, mShadowOffset;
@@ -32,7 +33,8 @@ public class StompStomp : MonoBehaviour {
     private SpriteRenderer mSpriteRenderer;
 
 	// Use this for initialization
-	void Start () {
+	void Start () 
+	{
         mRigidBody = transform.GetChild(0).GetComponent<Rigidbody2D>();
         mCollider = transform.GetChild(0).GetComponent<Collider2D>();
         mSpriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
@@ -47,6 +49,8 @@ public class StompStomp : MonoBehaviour {
 
         Vector2 pos = new Vector2(0.0f, 10.0f);
         mRigidBody.position = mRigidBody.position + pos;
+		mEnemyAI = GetComponent<EnemyAI>();
+		mEnemyAI.SetEnabled(false);
 	}
 
     IEnumerator JumpCoroutine()
@@ -101,7 +105,8 @@ public class StompStomp : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void FixedUpdate () {
+    void FixedUpdate ()
+	{
         if (mStatus != EnemyStatus.JUMPING && mStatus != EnemyStatus.FALLING)
             return;
 
@@ -135,12 +140,19 @@ public class StompStomp : MonoBehaviour {
                 mShadowTransform.position = mJumpStartPosition + dot * mMovingDirection + mShadowOffset;
         }
 
+		if(mEnemyAI != null)
+			mEnemyAI.SetPosition (mShadowTransform.position);
         mRigidBody.transform.position = newPosition;
 	}
 
     public void OnShadowTouch() {
         if (mStatus == EnemyStatus.WAITING)
         {
+			if (mEnemyAI != null)
+			{
+				mEnemyAI.SetEnabled (true);
+				mEnemyAI.SetPosition (mShadowTransform.position);
+			}
             mStatus = EnemyStatus.FALLING;
             mCurTarget = mShadowTransform.position;
             mCurTarget -= mShadowOffset;

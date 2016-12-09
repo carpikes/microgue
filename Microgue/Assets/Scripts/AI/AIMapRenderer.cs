@@ -4,6 +4,9 @@ using System.Collections;
 
 public class AIMapRenderer : MonoBehaviour {
     private AIMap mAIMap;
+	private float mTimer = 0;
+	private float mUpdateSeconds = 0.1f;
+
 	// Use this for initialization
 	void Start () {
         mAIMap = GameObject.Find("GameplayManager").GetComponent<AIMap>();
@@ -17,14 +20,21 @@ public class AIMapRenderer : MonoBehaviour {
             mId = mAIMap.GetMapRefreshId();
             UpdateMap();
         }
-        UpdateMap();
+
+		if (mId != -1 && mTimer < Time.time)
+		{
+			UpdateMap ();
+			mTimer = Time.time + mUpdateSeconds;
+		}
 	}
 
-    void UpdateMap() {
+    void UpdateMap()
+	{
         byte[] map = mAIMap.GetMap();
         byte[] enemies = mAIMap.GetEnemies();
         int w = mAIMap.GetWidth();
         int h = mAIMap.GetHeight();
+
         Texture2D texture = new Texture2D(w,h);
         for (int i = 0; i < h; i++)
             for (int j = 0; j < w; j++)

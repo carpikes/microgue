@@ -14,6 +14,7 @@ public class AngrySoul : MonoBehaviour
     private Rigidbody2D mRb;
     private Vector2 mInitialPosition;
     private Vector2 mTargetDist;
+	private EnemyAI mEnemyAI;
 
     private Vector2 mVelocity = Vector2.zero;
     private Vector2 mCurTarget;
@@ -24,6 +25,7 @@ public class AngrySoul : MonoBehaviour
         TARGETING,
     };
     private EnemyStates mCurState;
+
     // Use this for initialization
     void Start()
     {
@@ -31,6 +33,8 @@ public class AngrySoul : MonoBehaviour
         mInitialPosition = transform.position;
         mTarget = GameObject.Find("MainCharacter");
         mPlayerRb = mTarget.GetComponent<Rigidbody2D>();
+		mEnemyAI = GetComponent<EnemyAI>();
+		mEnemyAI.SetEnabled(false);
         ChooseNewTarget();
     }
 
@@ -42,7 +46,8 @@ public class AngrySoul : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (mCurState == EnemyStates.TARGETING) {
+        if (mCurState == EnemyStates.TARGETING)
+		{
             if (Time.time - lastShootTime > shotCooldownTime)
             {
                 GameObject lb = Instantiate(darkBall);
@@ -62,7 +67,8 @@ public class AngrySoul : MonoBehaviour
     {
         Vector2 playerdelta = (mPlayerRb.transform.position - transform.position);
         float dist = playerdelta.magnitude;
-        if (dist < 2.0f && mCurState != EnemyStates.TARGETING) {
+        if (dist < 2.0f && mCurState != EnemyStates.TARGETING)
+		{
             mCurState = EnemyStates.TARGETING;
             mTargetDist = Random.onUnitSphere;
             Debug.Log("Targeting player");
@@ -75,7 +81,8 @@ public class AngrySoul : MonoBehaviour
         }
 
         Vector2 delta = mCurTarget - new Vector2(transform.position.x, transform.position.y);
-        if (mCurState == EnemyStates.MOVING || mCurState == EnemyStates.TARGETING) {
+        if (mCurState == EnemyStates.MOVING || mCurState == EnemyStates.TARGETING)
+		{
             if (Mathf.Abs(delta.sqrMagnitude) < 0.05f)
             {
                 if(mCurState != EnemyStates.TARGETING)
@@ -88,6 +95,8 @@ public class AngrySoul : MonoBehaviour
 
         mVelocity *= (1.0f - mFriction);
         mRb.position += mVelocity * Time.fixedDeltaTime;
+		if(mEnemyAI != null) 
+			mEnemyAI.SetPosition (mRb.position);
     }
 
     IEnumerator stillCoroutine()
@@ -105,6 +114,7 @@ public class AngrySoul : MonoBehaviour
         float sleepTime = Random.Range(0.4f, 0.5f);
         yield return new WaitForSeconds(sleepTime);
         mCurState = EnemyStates.TARGETING;
+		mEnemyAI.SetEnabled(true);
         mTargetDist = Random.onUnitSphere;
         ChooseNewTarget(); 
     }
