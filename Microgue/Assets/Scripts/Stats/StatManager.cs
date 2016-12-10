@@ -55,21 +55,21 @@ public class StatManager : MonoBehaviour
         IsInvulnerable = true;
     }
 
-    private void SetupStat(StatStates s, float min, float max, Image img = null)
+    private void SetupStat(StatStates s, float min, float max, bool show)
     {
-        stats[(int)s] = new Stat(s.ToString(), min, max/*, img*/);
+        stats[(int)s] = new Stat(s.ToString(), min, max, show);
     }
 
     public void Start()
     {
         stats = new Stat[numberOfStates];
 
-        SetupStat(StatStates.MAX_HEALTH, 3, 10);
-        SetupStat(StatStates.CURRENT_HEALTH, 0, stats[(int)StatStates.MAX_HEALTH].CurrentValue);
-        SetupStat(StatStates.DEFENCE, 1, 10);
-        SetupStat(StatStates.DAMAGE, 1, 10);
-        SetupStat(StatStates.TEMP_DISTORSION, 1, 10);
-        SetupStat(StatStates.SPEED, 1, 10);
+        SetupStat(StatStates.MAX_HEALTH, 3, 10, false);
+        SetupStat(StatStates.CURRENT_HEALTH, 0, stats[(int)StatStates.MAX_HEALTH].CurrentValue, false);
+        SetupStat(StatStates.DEFENCE, 1, 10, true);
+        SetupStat(StatStates.DAMAGE, 1, 10, true);
+        SetupStat(StatStates.TEMP_DISTORSION, 1, 10, true);
+        SetupStat(StatStates.SPEED, 1, 10, true);
 
         stats[(int)StatStates.CURRENT_HEALTH].CurrentValue = stats[(int)StatStates.CURRENT_HEALTH].mMax;
 

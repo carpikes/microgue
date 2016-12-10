@@ -13,6 +13,12 @@ public class CanvasManager : MonoBehaviour {
     public Text timerText;
     public Text additionalInfoText;
 
+    [Header("Health UI")]
+    public Transform healthContainer;
+    public Sprite fullHeart;
+    public Sprite halfHeart;
+    public Sprite emptyHeart;
+
     GameObject mainCharacter;
     StatManager playerStats;
 
@@ -22,8 +28,12 @@ public class CanvasManager : MonoBehaviour {
     void Start()
     {
         mainCharacter = GameObject.FindGameObjectWithTag("Player");
+        playerStats = GameObject.FindGameObjectWithTag("GameController").GetComponent<StatManager>();
+
         UpdateStatText();
+        UpdateHealth();
         additionalInfoText.text = "";
+
     }
 
     void OnEnable()
@@ -95,6 +105,7 @@ public class CanvasManager : MonoBehaviour {
     private void OnStatChanged(Bundle args)
     {
         UpdateStatText();
+        UpdateHealth();
     }
 
     private void UpdateStatText()
@@ -103,14 +114,40 @@ public class CanvasManager : MonoBehaviour {
         ShowPlayerStats();
     }
 
+    private void UpdateHealth()
+    {
+        float currentHealth = playerStats.GetStatValue(StatManager.StatStates.CURRENT_HEALTH);
+        float maxHealth = playerStats.GetStatValue(StatManager.StatStates.MAX_HEALTH);
+
+        int i;
+        for ( i = 0; i < Mathf.Floor(currentHealth); ++i )
+            SetHeartImage(i, fullHeart);
+
+        if ( Mathf.Abs( currentHealth - (int)currentHealth - 0.5f) < 0.0001f )
+            SetHeartImage(i++, halfHeart);
+
+        for (; i < Mathf.Floor(maxHealth); ++i)
+            SetHeartImage(i, emptyHeart);
+
+        for(; i < 10; ++i)
+            healthContainer.GetChild(i).gameObject.SetActive(false);
+    }
+
+    private void SetHeartImage(int i, Sprite s)
+    {
+        GameObject go = healthContainer.GetChild(i).gameObject;
+        go.GetComponent<Image>().sprite = s;
+        go.SetActive(true);
+    }
+
     private void ShowPlayerStats()
     {
-        playerStats = GameObject.FindGameObjectWithTag("GameController").GetComponent<StatManager>();
         if ( playerStats )
         {
             foreach( Stat s in playerStats.stats )
             {
-                statText.text += s.mName + ": " + s.CurrentValue + " || ";
+                if (s.showOnStatCanvas)
+                    statText.text += s.mName + ": " + s.CurrentValue + "\n";
             }
         } else
         {

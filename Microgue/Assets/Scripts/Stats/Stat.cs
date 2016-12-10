@@ -11,14 +11,15 @@ public class Stat {
     public float mMin, mMax;
     
     private float mCurrValue;
-    Image mImg;
+    public bool showOnStatCanvas;
+    // Image mImg;
 
-    public Stat( string name, float min, float max, Image image = null )
+    public Stat( string name, float min, float max, bool show)
     {
         mName = name;
         mMin = min;
         mMax = max;
-        mImg = image;
+        showOnStatCanvas = show;
 
         ResetToMin();
     }
