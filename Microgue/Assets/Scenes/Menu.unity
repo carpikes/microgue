@@ -139,7 +139,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.29411763, g: 0.16219722, b: 0.16219722, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -334,6 +334,27 @@ Prefab:
     - target: {fileID: 224000013272870046, guid: 7c30a5d13a72ebb48a494c6a4bf156b4,
         type: 2}
       propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013703350354, guid: 7c30a5d13a72ebb48a494c6a4bf156b4,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2320326fdaa619d4b86b7e1030159eaa,
+        type: 3}
+    - target: {fileID: 224000013790367832, guid: 7c30a5d13a72ebb48a494c6a4bf156b4,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000013790367832, guid: 7c30a5d13a72ebb48a494c6a4bf156b4,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000013790367832, guid: 7c30a5d13a72ebb48a494c6a4bf156b4,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

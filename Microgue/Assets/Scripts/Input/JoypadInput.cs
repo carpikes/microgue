@@ -122,7 +122,7 @@ public class JoypadInput : MonoBehaviour, InputInterface {
         return delta;
     }
 
-    public bool IsShootingButtonPressed()
+    public bool IsShootingButtonKeepPressed()
     {
         throw new NotImplementedException();
     }
@@ -138,6 +138,16 @@ public class JoypadInput : MonoBehaviour, InputInterface {
     }
 
     public bool isSecondaryAttackButtonPressed()
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool IsShootingButtonReleased()
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool IsShootingButtonPressed()
     {
         throw new NotImplementedException();
     }

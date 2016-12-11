@@ -158,10 +158,20 @@ public class InputManager : MonoBehaviour {
 
     void Update()
     {
-        if (mInput.IsShootingButtonPressed())
+        if( mInput.IsShootingButtonPressed() && CanShoot() )
         {
+            EventManager.TriggerEvent(Events.ON_MAIN_CHAR_START_ATTACK, null);
             Shoot();
         }
+        else if (mInput.IsShootingButtonReleased())
+        {
+            EventManager.TriggerEvent(Events.ON_MAIN_CHAR_STOP_ATTACK, null);
+        }
+        else if (mInput.IsShootingButtonKeepPressed() )
+        {
+            EventManager.TriggerEvent(Events.ON_MAIN_CHAR_KEEP_ATTACK, null);
+            if( CanShoot() ) Shoot();
+        } 
 
         if (mInput.IsItemButtonPressed())
         {
@@ -181,26 +191,26 @@ public class InputManager : MonoBehaviour {
 
     private void Shoot()
     {
-        if (Time.time - lastShootTime > shotCooldownTime)
-        {
-            GameObject lb = Instantiate(lightBall);
-            lightBall.GetComponent<ShotDamage>().Damage = statManager.GetStatValue(StatManager.StatStates.DAMAGE);
+        GameObject lb = Instantiate(lightBall);
+        lightBall.GetComponent<ShotDamage>().Damage = statManager.GetStatValue(StatManager.StatStates.DAMAGE);
 
-            Vector2 playerPos = transform.position;
-            Vector2 pointer = mainCam.ScreenToWorldPoint(mInput.GetScreenPointerCoordinates());
-            Vector2 direction = (pointer - playerPos).normalized;
+        Vector2 playerPos = transform.position;
+        Vector2 pointer = mainCam.ScreenToWorldPoint(mInput.GetScreenPointerCoordinates());
+        Vector2 direction = (pointer - playerPos).normalized;
 
-            Rigidbody2D ball2d = lb.GetComponent<Rigidbody2D>();
-            Vector3 offset = new Vector3(0.15f, -0.05f, 0.0f);
-            offset.x *= direction.x > 0.0f ? 1.0f : -1.0f;
-            
-            lb.transform.position = transform.position + offset;
-            ball2d.velocity = direction * shotSpeed;
+        Rigidbody2D ball2d = lb.GetComponent<Rigidbody2D>();
+        Vector3 offset = new Vector3(0.15f, -0.05f, 0.0f);
+        offset.x *= direction.x > 0.0f ? 1.0f : -1.0f;
 
-            lastShootTime = Time.time;
+        lb.transform.position = transform.position + offset;
+        ball2d.velocity = direction * shotSpeed;
 
-            EventManager.TriggerEvent(Events.ON_MAIN_CHAR_ATTACK, null);
-        }
+        lastShootTime = Time.time;
+    }
+
+    private bool CanShoot()
+    {
+        return Time.time - lastShootTime > shotCooldownTime;
     }
 
     private void SecondaryAttack()
