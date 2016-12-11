@@ -73,7 +73,14 @@ public class MiniMap : MonoBehaviour {
             foreach (KeyValuePair<int, GameObject> i in mTiles)
             {
                 Image r = i.Value.GetComponent<Image>();
-                if (i.Key == mLastRoom)
+
+                if( i.Key == mGameManager.GetEndRoomId() )
+                {
+                    r.color = Color.green;
+                } else if( i.Key == mGameManager.GetStartRoomId())
+                {
+                    r.color = Color.yellow;
+                } else if (i.Key == mLastRoom)
                     r.color = Color.white;
                 else
                     r.color = Color.blue;

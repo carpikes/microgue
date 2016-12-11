@@ -52,7 +52,7 @@ public class GameplayManager : MonoBehaviour
             lname = "debug";
 
         // TRIGGER EVENT MAP_LOADING_STARTED
-        Debug.Log("Loading Started");
+        //Debug.Log("Loading Started");
         FetchLevels(lname);
         mMapGenerator = new MapGenerator();
         mMapAssetManager = new MapAssetManager(mAvailableLevels);
@@ -181,6 +181,16 @@ public class GameplayManager : MonoBehaviour
 
     public int GetCurrentRoomId() {
         return mCurWorldId;
+    }
+
+    public int GetStartRoomId()
+    {
+        return mMapGenerator.GetStartRoomId();
+    }
+
+    public int GetEndRoomId()
+    {
+        return mMapGenerator.GetEndRoomId();
     }
 
     private bool AreAllEnemiesKilled()

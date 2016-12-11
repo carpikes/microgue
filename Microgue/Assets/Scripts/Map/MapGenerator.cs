@@ -107,7 +107,7 @@ namespace RoomMapGenerator
             if (!CalcStartEndPoints())
                 return false;
 
-            Debug.Log("Gen ok");
+            //Debug.Log("Gen ok");
             return true;
         }
 
@@ -161,6 +161,11 @@ namespace RoomMapGenerator
         public int GetStartRoomId()
         {
             return mStartRoom;
+        }
+
+        public int GetEndRoomId()
+        {
+            return mEndRoom;
         }
 
         public RoomInfo GetRoom(int id)

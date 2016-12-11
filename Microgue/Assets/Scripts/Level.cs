@@ -10,7 +10,7 @@ public class Level
 {
     //private List<GameObject> mSpawnedItems;
     private string mName, mAssetPath;
-    private GameObject mCurWorld;
+    private GameObject mCurrentRoom;
 
     private Vector3[] mCameraBounds;
     private Dictionary<string, Vector2> mSpawnPoints;
@@ -22,7 +22,7 @@ public class Level
 
     public GameObject GetWorld()
     {
-        return mCurWorld;
+        return mCurrentRoom;
     }
 
     public Level(int num, string name)
@@ -30,7 +30,7 @@ public class Level
         mAssetPath = "Assets/Tiled2Unity/Prefabs/" + name + ".prefab";
         mName = name + " - " + num;
 
-        mCurWorld = null;
+        mCurrentRoom = null;
         mSpawnPoints = new Dictionary<string, Vector2>();
         //mSpawnedItems = new ArrayList<GameObject>();
         mCameraBounds = new Vector3[2];
@@ -38,7 +38,7 @@ public class Level
 
     public void Load()
     {
-        if (mCurWorld == null)
+        if (mCurrentRoom == null)
         {
             GameObject worldPrefab = AssetDatabase.LoadAssetAtPath(mAssetPath, typeof(GameObject)) as GameObject;
             if (worldPrefab == null)
@@ -51,12 +51,12 @@ public class Level
             levelEventInfo.Add(LEVEL_NAME_TAG, mName);
             
             EventManager.TriggerEvent(Events.ON_LEVEL_BEFORE_LOADING, levelEventInfo);
-            mCurWorld = GameObject.Instantiate(worldPrefab);
-            mCurWorld.name = mName;
+            mCurrentRoom = GameObject.Instantiate(worldPrefab);
+            mCurrentRoom.name = mName;
             LoadStuff();
             EventManager.TriggerEvent(Events.ON_LEVEL_BEFORE_LOADING, levelEventInfo);
         } else {
-            mCurWorld.SetActive(true);
+            mCurrentRoom.SetActive(true);
         }
 
     }
@@ -65,9 +65,9 @@ public class Level
         GetBoundsOnLoad();
 
         // Load enemies
-        GameObject spawnerContainer = GameObject.Find(mCurWorld.name + "/Spawns");
+        GameObject spawnerContainer = GameObject.Find(mCurrentRoom.name + "/Spawns");
         GameObject enemies = new GameObject("Enemies");
-        enemies.transform.parent = mCurWorld.transform;
+        enemies.transform.parent = mCurrentRoom.transform;
         foreach (SpawnBehavior s in spawnerContainer.GetComponentsInChildren<SpawnBehavior>())
         {
             if (s.mWhat == "Player")
@@ -77,9 +77,9 @@ public class Level
         }
         GameObject.Destroy(spawnerContainer);
 
-        GameObject itemContainer = GameObject.Find(mCurWorld.name + "/Items");
+        GameObject itemContainer = GameObject.Find(mCurrentRoom.name + "/Items");
         GameObject items = new GameObject("Items");
-        items.transform.parent = mCurWorld.transform;
+        items.transform.parent = mCurrentRoom.transform;
 
         if (itemContainer)
         {
@@ -172,15 +172,15 @@ public class Level
     public void Unload()
     {
         Bundle b = new Bundle();
-        b.Add(LEVEL_UNLOAD_TAG, mCurWorld.ToString());
+        b.Add(LEVEL_UNLOAD_TAG, mCurrentRoom.ToString());
         EventManager.TriggerEvent(Events.ON_LEVEL_UNLOADING, b);
 
-        mCurWorld.SetActive(false);
+        mCurrentRoom.SetActive(false);
     }
 
     private void GetBoundsOnLoad()
     {
-        Renderer r = GameObject.Find(mCurWorld.name + "/Background/water").GetComponent<Renderer>();
+        Renderer r = GameObject.Find(mCurrentRoom.name + "/Background/water").GetComponent<Renderer>();
         if (r == null)
         {
             Debug.LogError("Cannot find 'water' layer used to get map size");
@@ -193,7 +193,7 @@ public class Level
 
     private void LoadDoors()
     {
-        GameObject doorContainer = GameObject.Find(mCurWorld.name + "/Doors");
+        GameObject doorContainer = GameObject.Find(mCurrentRoom.name + "/Doors");
         if (doorContainer == null) return;
         DoorBehavior[] doors = doorContainer.GetComponentsInChildren<DoorBehavior>();
         if (doors == null) return;
@@ -244,6 +244,6 @@ public class Level
 
     public int CountEnemies()
     {
-        return GameObject.Find(mCurWorld.name + "/Enemies").transform.childCount; // do not consider Enemies itself
+        return GameObject.Find(mCurrentRoom.name + "/Enemies").transform.childCount; // do not consider Enemies itself
     }
 }
