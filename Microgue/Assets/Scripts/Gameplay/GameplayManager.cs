@@ -105,7 +105,6 @@ public class GameplayManager : MonoBehaviour
             string fname = Path.GetFileNameWithoutExtension(file);
             if (file.EndsWith(".prefab")) // && fname.StartsWith(name + "_"))
             {
-                //Debug.Log(file);
                 mAvailableLevels.Add(fname);
             }
         }
