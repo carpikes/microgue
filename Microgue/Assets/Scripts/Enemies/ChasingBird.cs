@@ -45,6 +45,9 @@ public class ChasingBird : MonoBehaviour {
         } 
 
         mRb.position += mVelocity * Time.fixedDeltaTime;
+
+        transform.localScale = new Vector3(mRb.position.x >= mPlayerRb.position.x ? 1 : -1, 1, 1);
+
 		if(mEnemyAI != null)
 			mEnemyAI.SetPosition (mRb.position);
     }
