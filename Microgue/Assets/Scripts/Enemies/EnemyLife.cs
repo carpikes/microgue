@@ -1,16 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 using POLIMIGameCollective;
+using System;
 
 public class EnemyLife : MonoBehaviour {
 
     private GameObject mHealthBar;
     public float hp = 2;
     private float totalHp;
+
+    private Animator mAnimator;
+
 	// Use this for initialization
 	void Start () {
         mHealthBar = transform.GetChild(0).gameObject;
         totalHp = hp;
+
+        mAnimator = GetComponent<Animator>();
 
         if (mHealthBar != null)
             mHealthBar.SetActive(false);
@@ -29,9 +35,21 @@ public class EnemyLife : MonoBehaviour {
         }
         if (hp <= 0.0f)
         {
-            EventManager.TriggerEvent(Events.ON_ENEMY_DEATH, null);
-            Destroy(gameObject);
+            //EventManager.TriggerEvent(Events.ON_ENEMY_DEATH, null);
+            DeathAnimation();
         }
+    }
+
+    private void DeathAnimation()
+    {
+        mHealthBar.SetActive(false);
+        mAnimator.SetTrigger("enemy_death");
+        // destroy is invoked by animation thru an animation event
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
     }
 
     void UpdateHPBar() {

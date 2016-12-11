@@ -60,7 +60,7 @@ public class GameplayManager : MonoBehaviour
         mMapGenerator.GenerateMap();
 
         LoadWorld(mMapGenerator.GetStartRoomId());
-        Debug.Log("Loading Completed");
+  
         // TRIGGER EVENT MAP_LOADING_COMPLETED
     }
 
