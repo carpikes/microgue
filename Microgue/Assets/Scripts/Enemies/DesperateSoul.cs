@@ -10,6 +10,7 @@ public class DesperateSoul : MonoBehaviour
     public float mFriction = 0.01f;
 
     private Rigidbody2D mRb;
+    private Rigidbody2D mPlayerRb;
     private Vector2 mInitialPosition;
 	private EnemyAI mEnemyAI;
 
@@ -24,6 +25,7 @@ public class DesperateSoul : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        mPlayerRb = GameObject.Find("MainCharacter").GetComponent<Rigidbody2D>();
         mRb = GetComponent<Rigidbody2D>();
         mInitialPosition = transform.position;
 		mEnemyAI = GetComponent<EnemyAI>();
@@ -54,6 +56,8 @@ public class DesperateSoul : MonoBehaviour
 
         mVelocity *= (1.0f - mFriction); // * Time.fixedDeltaTime);
         mRb.position += mVelocity * Time.fixedDeltaTime;
+
+        transform.localScale = new Vector3(mRb.position.x >= mPlayerRb.position.x ? -1 : 1, 1, 1);
     }
 
     IEnumerator stillCoroutine()

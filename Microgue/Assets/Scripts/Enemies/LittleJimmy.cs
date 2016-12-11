@@ -21,7 +21,9 @@ public class LittleJimmy : MonoBehaviour {
 
     void FixedUpdate()
     {
-		if(mEnemyAI != null)
+        transform.localScale = new Vector3(mRb.position.x >= mPlayerRb.position.x ? 1 : -1, 1, 1);
+
+        if (mEnemyAI != null)
 			mEnemyAI.SetPosition (transform.position);
     }
 
