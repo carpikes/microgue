@@ -32,6 +32,11 @@ public class AIMap : MonoBehaviour
         return toMap(pos);
     }
 
+    public Vector2 GetWorldPosition(IntPoint pos)
+    {
+        return fromMap(pos);
+    }
+
     public byte[] GetMap()
     {
         return mArea;
@@ -153,22 +158,13 @@ public class AIMap : MonoBehaviour
             BlackRect(dl, ur);
         }
 
-        string str = "";
-        for (int y = mHeight-1; y >= 0; y--)
-        {
-            for (int x = 0; x < mWidth; x++)
-                str += mArea[x + y * mWidth];
-            str += "\n";
-        }
-        //Debug.Log(str);
-
         mMapRefreshes++;
     }
 
     private void BlackRect(IntPoint dl, IntPoint ur)
     {
-        for (int x = dl.x; x < ur.x; x++)
-            for (int y = dl.y; y < ur.y; y++)
+        for (int x = dl.x; x <= ur.x; x++)
+            for (int y = dl.y; y <= ur.y; y++)
                 mArea[x + y * mWidth] = 1;
     }
 
@@ -185,13 +181,28 @@ public class AIMap : MonoBehaviour
         BlackLine(p[2], p[0]);
     }
 
+    private Vector2 fromMap(IntPoint p)
+    {
+        Vector2 ret;
+        float dx = mWorldArea.max.x - mWorldArea.min.x;
+        float dy = mWorldArea.max.y - mWorldArea.min.y;
+        float tsize = dx / mWidth / 2.0f;
+
+        ret.x = (((float)p.x / (mWidth-1)) * dx) + mWorldArea.min.x + tsize;
+        ret.y = (((float)p.y / (mHeight-1)) * dy) + mWorldArea.min.y + tsize;
+
+        IntPoint test = toMap(ret);
+        Debug.Log(string.Format("FromMap: {0},{1} -> {2},{3}; ToMap: {4},{5}", p.x, p.y, ret.x, ret.y, test.x, test.y));
+        return ret;
+    }
+
     private IntPoint toMap(Vector2 p)
     {
         IntPoint ret;
         float dx = mWorldArea.max.x - mWorldArea.min.x;
         float dy = mWorldArea.max.y - mWorldArea.min.y;
-        ret.x = (int)(((p.x - mWorldArea.min.x) / dx) * (mWidth - 1));
-        ret.y = (int)(((p.y - mWorldArea.min.y) / dy) * (mHeight - 1));
+        ret.x = Mathf.FloorToInt(((p.x - mWorldArea.min.x) / dx) * (mWidth-1));
+        ret.y = Mathf.FloorToInt(((p.y - mWorldArea.min.y) / dy) * (mHeight-1));
 
         if (ret.x >= mWidth) ret.x = mWidth - 1;
         if (ret.y >= mHeight) ret.y = mHeight - 1;

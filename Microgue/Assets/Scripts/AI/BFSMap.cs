@@ -8,66 +8,77 @@ public class BFSMap
 {
 	private byte[] mMap;
 	private int mWidth, mHeight;
-	private IntPoint mPlayerPos;
-	private bool[] mVisited;
 	private byte[] mObstacles;
 
 	public BFSMap (int w, int h)
 	{
 		mMap = new byte[w * h];
-		mVisited = new bool[w * h];
 		mWidth = w;
 		mHeight = h;
 
-		for (int i = 0; i < w * h; i++)
-		{
-			mMap [i] = 0;
-			mVisited [i] = false;
-		}
+        ResetMap();
 	}
 
-	byte[] StepAndGetMap(byte[] obstacles)
+    public void ResetMap()
+    {
+		for (int i = 0; i < mMap.Length; i++)
+			mMap [i] = 255;
+    }
+
+    public void SetMap(byte[] map)
+    {
+        mMap = map;
+    }
+
+	public byte[] StepAndGetMap(IntPoint playerPos, byte[] obstacles)
 	{
 		mObstacles = obstacles;
-		for (int i = 0; i < mWidth * mHeight; i++)
+
+        if (!(playerPos.x < 0 || playerPos.x >= mWidth || playerPos.y < 0 || playerPos.y >= mHeight))
+        {
+            mMap[playerPos.x + mWidth * playerPos.y] = 1;
+            mObstacles[playerPos.x + mWidth * playerPos.y] = 0;
+        } 
+        else
+            Debug.Log("NANAN");
+
+        bool stop = false;
+		while (!stop)
 		{
-			mMap [i] = 0;
-			mVisited [i] = false;
-		}
-
-		mMap [mPlayerPos.x + mWidth * mPlayerPos.y] = 0;
-		Queue<IntPoint> queue = new Queue<IntPoint> ();
-
-		while (queue.Count > 0)
-		{
-			IntPoint p = queue.Dequeue();
-
-			IntPoint[] neigh = GetNeigh (p);
-			byte dist = mMap [p.x + mWidth * p.y];
-			foreach (IntPoint n in neigh) 
-			{
-				if (!mVisited [n.x + mWidth * n.y]) 
-				{
-					mVisited [n.x + mWidth * n.y] = true;
-					mMap [n.x + mWidth * n.y] = (byte)(dist + 1);
-					queue.Enqueue (n);
-				}
-			}
+            stop = true;
+            for (int y = 0; y < mHeight; y++)
+                for (int x = 0; x < mWidth; x++)
+                {
+                    if (obstacles[y * mWidth + x] != 0)
+                    {
+                        mMap[y * mWidth + x] = 255;
+                        continue;
+                    }
+                    int[] neigh = GetNeigh (x,y);
+                    foreach (int p in neigh)
+                    {
+                        if (mMap[y * mWidth + x] - mMap[p] > 1)
+                        {
+                            mMap[y * mWidth + x] = (byte)(mMap[p] + 1);
+                            stop = false;
+                        }
+                    }
+                }
 		}
 		return mMap;
 	}
 
-	IntPoint[] GetNeigh(IntPoint p)
+	private int[] GetNeigh(int x, int y)
 	{
-		List<IntPoint> points = new List<IntPoint> ();
-		if (p.x > 0 && mObstacles[(p.x - 1) + mWidth * p.y] == 0)
-			points.Add (new IntPoint (p.x - 1, p.y));
-		if (p.y > 0 && mObstacles[p.x + mWidth * (p.y-1)] == 0)
-			points.Add (new IntPoint (p.x, p.y-1));
-		if (p.x < mWidth - 1 && mObstacles[(p.x + 1) + mWidth * p.y] == 0)
-			points.Add (new IntPoint (p.x + 1, p.y));
-		if (p.y < mHeight - 1 && mObstacles[p.x + mWidth * (p.y+1)] == 0)
-			points.Add (new IntPoint (p.x, p.y+1));		
+		List<int> points = new List<int> ();
+		if (x > 0 && mObstacles[(x - 1) + mWidth * y] == 0)
+			points.Add (x - 1 + mWidth * y);
+		if (y > 0 && mObstacles[x + mWidth * (y-1)] == 0)
+			points.Add (x + mWidth * (y-1));
+		if (x < mWidth - 1 && mObstacles[(x + 1) + mWidth * y] == 0)
+			points.Add (x + 1 + mWidth * y);
+		if (y < mHeight - 1 && mObstacles[x + mWidth * (y+1)] == 0)
+			points.Add (x + mWidth * (y+1));		
 		return points.ToArray();
 	}
 }
