@@ -10,11 +10,13 @@ public class MiniMap : MonoBehaviour {
     private GameObject mTile;
     private GameObject mContainer;
     private Dictionary<int, GameObject> mTiles;
+    private MapGenerator mMapGen;
 
 	// Use this for initialization
 	void Start () {
         GameObject gm = GameObject.Find("GameplayManager");
         mGameManager = gm.GetComponent<GameplayManager>();
+        mMapGen = mGameManager.GetMapGen();
 
         mContainer = gameObject.transform.GetChild(0).gameObject;
         mTile = gameObject.transform.GetChild(1).gameObject;
@@ -67,6 +69,8 @@ public class MiniMap : MonoBehaviour {
             DrawMap();
         }
 
+        Color notVisited = new Color(0.3f, 0.3f, 0.3f);
+        Color bossColor = new Color(0.8f, 0.3f, 0.3f);
         if (mMap != null && mLastRoom != mGameManager.GetCurrentRoomId())
         {
             mLastRoom = mGameManager.GetCurrentRoomId();
@@ -74,16 +78,17 @@ public class MiniMap : MonoBehaviour {
             {
                 Image r = i.Value.GetComponent<Image>();
 
-                if( i.Key == mGameManager.GetEndRoomId() )
-                {
-                    r.color = Color.green;
-                } else if( i.Key == mGameManager.GetStartRoomId())
-                {
-                    r.color = Color.yellow;
-                } else if (i.Key == mLastRoom)
-                    r.color = Color.white;
+                if ((mMap.GetDoors(i.Key) & (int)RoomMap.Door.VISITED) == 0)
+                    r.color = notVisited;
                 else
-                    r.color = Color.blue;
+                {
+                    if (i.Key == mGameManager.GetEndRoomId())
+                        r.color = bossColor;
+                    else if (i.Key == mLastRoom)
+                        r.color = Color.white;
+                    else
+                        r.color = Color.blue;
+                }
             }
         }
 	}

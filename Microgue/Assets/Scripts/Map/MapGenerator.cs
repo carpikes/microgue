@@ -7,9 +7,9 @@ namespace RoomMapGenerator
 {
     public class MapGenerator
     {
-        public int mWidth = 4;
-        public int mHeight = 4;
-        public int mMaxRooms = 6;
+        public int mWidth = 8;
+        public int mHeight = 5;
+        public int mMaxRooms = 7;
         public int mMinRooms = 3;
 
         private int mStartRoom, mEndRoom;

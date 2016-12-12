@@ -39,8 +39,6 @@ public class BFSMap
             mMap[playerPos.x + mWidth * playerPos.y] = 1;
             mObstacles[playerPos.x + mWidth * playerPos.y] = 0;
         } 
-        else
-            Debug.Log("NANAN");
 
         bool stop = false;
 		while (!stop)

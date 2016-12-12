@@ -68,7 +68,7 @@ public class LittleJimmy : MonoBehaviour
             if (p.x != where.x || p.y != where.y)
             {
                 Vector2 pos = transform.position;
-                pos += dir.normalized * 1.0f * Time.fixedDeltaTime;
+                pos += dir.normalized * 3.0f * Time.fixedDeltaTime;
                 mRb.position = pos;
             }
         }

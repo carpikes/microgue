@@ -14,6 +14,7 @@ namespace RoomMapGenerator
             RIGHT = 0x08,
             START_POINT = 0x10,
             END_POINT = 0x20,
+            VISITED = 0x40,
         };
 
         private byte[] mMap;

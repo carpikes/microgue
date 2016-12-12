@@ -45,4 +45,7 @@ public enum Events
     ON_STAT_CHANGED,
     ON_MAIN_CHAR_STOP_ATTACK,
     ON_MAIN_CHAR_KEEP_ATTACK,
+
+    // trying to access boss room
+    ON_WORLD_UNEXPLORED,
 }

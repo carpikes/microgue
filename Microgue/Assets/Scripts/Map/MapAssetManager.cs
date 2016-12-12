@@ -29,6 +29,10 @@ namespace RoomMapGenerator
                 mDoorsCatalog[GetMapDoors(mMaps[i]) & 0x0f].Add(i);
         }
 
+        public int GetNumOfLoadedMaps() {
+            return mMapCache.Count;
+        }
+
         // la mappa name verra` usata SOLO come starting point
         public void SetStartMap(string name)
         {
@@ -81,6 +85,8 @@ namespace RoomMapGenerator
                 return mMaps[mMapCache[n]];
 
             doors &= 0x0f;
+            if (mMapGenerator.GetEndRoomId() == n)
+                doors |= mMapGenerator.GetRoom(n).GetStartOrEndDoor();
 
             int chosen;
 

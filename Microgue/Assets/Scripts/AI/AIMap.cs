@@ -191,8 +191,8 @@ public class AIMap : MonoBehaviour
         ret.x = (((float)p.x / (mWidth-1)) * dx) + mWorldArea.min.x + tsize;
         ret.y = (((float)p.y / (mHeight-1)) * dy) + mWorldArea.min.y + tsize;
 
-        IntPoint test = toMap(ret);
-        Debug.Log(string.Format("FromMap: {0},{1} -> {2},{3}; ToMap: {4},{5}", p.x, p.y, ret.x, ret.y, test.x, test.y));
+        //IntPoint test = toMap(ret);
+        //Debug.Log(string.Format("FromMap: {0},{1} -> {2},{3}; ToMap: {4},{5}", p.x, p.y, ret.x, ret.y, test.x, test.y));
         return ret;
     }
 

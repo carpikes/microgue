@@ -49,7 +49,7 @@ public class GameplayManager : MonoBehaviour
     {
         Cursor.visible = false;
 
-        string lname = "demo";
+        string lname = "new";
         if (debugArena)
             lname = "debug";
 
@@ -65,6 +65,32 @@ public class GameplayManager : MonoBehaviour
         LoadWorld(mMapGenerator.GetStartRoomId());
   
         // TRIGGER EVENT MAP_LOADING_COMPLETED
+    }
+
+    private void LoadBossRoom()
+    {
+        if (mMapAssetManager.GetNumOfLoadedMaps() != mMapGenerator.NumberOfRooms())
+        {
+            // non sono esplorate tutte le mappe
+            EventManager.TriggerEvent(Events.ON_WORLD_UNEXPLORED, null);
+            return;
+        }
+
+        if (GameObject.FindGameObjectsWithTag("Enemy").Length > 0)
+        {
+            EventManager.TriggerEvent(Events.ON_STILL_ENEMIES_LEFT, null);
+            return;
+        }
+
+        if(mCurWorld != null)
+            mCurWorld.Unload();
+
+        Level l = new Level(-1, "new_start");
+        mCurWorld = l;
+        mCurWorldId = -1;
+        mPlayer.transform.position = new Vector2(-9000, -9000);
+        mCurWorld.Load();
+        MovePlayerTo(mCurWorld.GetPlayerStartPos("Spawn"));
     }
 
     private void LoadWorld(int n, int spawnPoint = 0)
@@ -83,6 +109,8 @@ public class GameplayManager : MonoBehaviour
             mWorlds.Add(n, l);
             mCurWorld = l;
         }
+
+        mMapGenerator.GetMap().AddDoors(n, (int)RoomMap.Door.VISITED);
 
         mCurWorld = mWorlds[n];
         mCurWorldId = n;
@@ -106,7 +134,7 @@ public class GameplayManager : MonoBehaviour
         foreach (string file in Directory.GetFiles(PREFAB_PATH))
         {
             string fname = Path.GetFileNameWithoutExtension(file);
-            if (file.EndsWith(".prefab")) // && fname.StartsWith(name + "_"))
+            if (file.EndsWith(".prefab") && fname.StartsWith(name + "_"))
             {
                 mAvailableLevels.Add(fname);
             }
@@ -151,6 +179,16 @@ public class GameplayManager : MonoBehaviour
             default: return;
         }
 
+        if (mCurRoom.GetId() == mMapGenerator.GetEndRoomId())
+        {
+            if (mCurRoom.GetStartOrEndDoor() == (int)door)
+            {
+                Debug.Log("Boss door");
+                LoadBossRoom();
+                return;
+            }
+        }
+
         if (!mCurRoom.HasDoor(door))
             return;
 
@@ -171,6 +209,11 @@ public class GameplayManager : MonoBehaviour
         if (mCurWorld == null)
             return null;
         return mCurWorld.GetCameraBounds();
+    }
+
+    public MapGenerator GetMapGen()
+    {
+        return mMapGenerator;
     }
 
     public RoomMap GetMap() {
