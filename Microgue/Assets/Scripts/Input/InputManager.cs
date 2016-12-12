@@ -21,6 +21,8 @@ public class InputManager : MonoBehaviour {
     PlayerManager playerManager = null;
     StatManager statManager = null;
 
+    AnimationManager animManager;
+
     float lastAimX = 0.0f;
     private float mShakeTime = 0.0f, mShakeForce = 0.0f;
 
@@ -57,6 +59,7 @@ public class InputManager : MonoBehaviour {
         
         playerManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<PlayerManager>();
         statManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<StatManager>();
+        animManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<AnimationManager>();
 
         mainCam = Camera.main;
         SetPositionCamera();
@@ -119,6 +122,16 @@ public class InputManager : MonoBehaviour {
     private void ChangeVelocity()
     {
         Vector2 delta = mInput.GetVelocityDelta();
+
+        // TODO HACK
+        if( delta == Vector2.zero )
+        {
+            EventManager.TriggerEvent(Events.ON_MAIN_CHAR_IDLE, null);
+        } else
+        {
+            EventManager.TriggerEvent(Events.ON_MAIN_CHAR_MOVE, null);
+        }
+
         rb.velocity = delta * speed * Time.fixedDeltaTime;
     }
 
@@ -158,8 +171,9 @@ public class InputManager : MonoBehaviour {
 
     void Update()
     {
-        if( mInput.IsShootingButtonPressed() && CanShoot() )
+        if( mInput.IsShootingButtonPressed() && CanShoot())
         {
+            Debug.Log("pressed");
             EventManager.TriggerEvent(Events.ON_MAIN_CHAR_START_ATTACK, null);
             Shoot();
         }
@@ -167,10 +181,11 @@ public class InputManager : MonoBehaviour {
         {
             EventManager.TriggerEvent(Events.ON_MAIN_CHAR_STOP_ATTACK, null);
         }
-        else if (mInput.IsShootingButtonKeepPressed() )
+        else if (mInput.IsShootingButtonKeepPressed() && CanShoot())
         {
-            EventManager.TriggerEvent(Events.ON_MAIN_CHAR_KEEP_ATTACK, null);
-            if( CanShoot() ) Shoot();
+            Debug.Log("down");
+            EventManager.TriggerEvent(Events.ON_MAIN_CHAR_START_ATTACK, null);
+            Shoot();
         } 
 
         if (mInput.IsItemButtonPressed())

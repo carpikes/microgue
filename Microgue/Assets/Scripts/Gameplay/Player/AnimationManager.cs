@@ -12,7 +12,7 @@ public class AnimationManager : MonoBehaviour {
     StatManager statManager;
 
     public static string ANIM_MAIN_ATTACK = "mainAttack";
-    public static string ANIM_STOP_MAIN_ATTACK = "stopMainAttack";
+    //public static string ANIM_STOP_MAIN_ATTACK = "stopMainAttack";
     public static string ANIM_MAIN_KEEP_ATTACK = "keepAttack";
     public static string ANIM_DEATH = "death";
     public static string ANIM_HIT = "hit";
@@ -21,12 +21,14 @@ public class AnimationManager : MonoBehaviour {
     // to mirror animations
     bool isRight = true;
 
+    bool hasStartedAttacking = false;
+
     void OnEnable()
     {
         EventManager.StartListening(Events.ON_MAIN_CHAR_CHANGE_DIR, OnMainCharChangeDir);
         EventManager.StartListening(Events.ON_MAIN_CHAR_START_ATTACK, OnMainCharAttack);
         EventManager.StartListening(Events.ON_MAIN_CHAR_STOP_ATTACK, OnMainCharStopAttack);
-        EventManager.StartListening(Events.ON_MAIN_CHAR_KEEP_ATTACK, OnMainCharKeepAttack);
+        //EventManager.StartListening(Events.ON_MAIN_CHAR_KEEP_ATTACK, OnMainCharKeepAttack);
         EventManager.StartListening(Events.ON_MAIN_CHAR_DASH, OnMainCharDash);
         EventManager.StartListening(Events.ON_MAIN_CHAR_DEATH, OnMainCharDeath);
 
@@ -42,7 +44,7 @@ public class AnimationManager : MonoBehaviour {
         EventManager.StopListening(Events.ON_MAIN_CHAR_CHANGE_DIR, OnMainCharChangeDir);
         EventManager.StopListening(Events.ON_MAIN_CHAR_START_ATTACK, OnMainCharAttack);
         EventManager.StopListening(Events.ON_MAIN_CHAR_STOP_ATTACK, OnMainCharStopAttack);
-        EventManager.StopListening(Events.ON_MAIN_CHAR_KEEP_ATTACK, OnMainCharKeepAttack);
+        //EventManager.StopListening(Events.ON_MAIN_CHAR_KEEP_ATTACK, OnMainCharKeepAttack);
         EventManager.StopListening(Events.ON_MAIN_CHAR_DASH, OnMainCharDash);
         EventManager.StopListening(Events.ON_MAIN_CHAR_DEATH, OnMainCharDeath);
         //EventManager.StopListening(Events.ON_MAIN_CHAR_HIT, OnMainCharHit);
@@ -73,17 +75,15 @@ public class AnimationManager : MonoBehaviour {
 
     private void OnMainCharAttack(Bundle args)
     {
-        animator.SetTrigger(ANIM_MAIN_ATTACK);
-    }
-
-    private void OnMainCharKeepAttack(Bundle arg0)
-    {
-        animator.SetTrigger(ANIM_MAIN_KEEP_ATTACK);
+        animator.SetBool(ANIM_MAIN_KEEP_ATTACK, true);
+        //animator.SetTrigger(ANIM_MAIN_ATTACK);
+        IsShooting = true;
     }
 
     private void OnMainCharStopAttack(Bundle arg0)
     {
-        animator.SetTrigger(ANIM_STOP_MAIN_ATTACK);
+        animator.SetBool(ANIM_MAIN_KEEP_ATTACK, false);
+        IsShooting = false;
     }
 
     private void OnMainCharSecondAttack(Bundle args)
@@ -137,4 +137,16 @@ public class AnimationManager : MonoBehaviour {
         //throw new NotImplementedException();
     }
 
+    public bool IsShooting
+    {
+        get
+        {
+            return hasStartedAttacking;
+        }
+
+        set
+        {
+            hasStartedAttacking = value;
+        }
+    }
 }
