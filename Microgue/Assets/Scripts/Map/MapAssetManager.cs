@@ -9,12 +9,15 @@ namespace RoomMapGenerator
 
     public class MapAssetManager
     {
+        private MapGenerator mMapGenerator = null;
         private string[] mMaps;
         private List<int>[] mDoorsCatalog;
         private Dictionary<int, int> mMapCache;
+        private int mStartMap = -1;
 
-        public MapAssetManager(List<string> maps)
+        public MapAssetManager(MapGenerator mapGen, List<string> maps)
         {
+            mMapGenerator = mapGen;
             mMaps = maps.ToArray();
             mMapCache = new Dictionary<int,int>();
 
@@ -24,6 +27,19 @@ namespace RoomMapGenerator
 
             for (int i = 0; i < mMaps.Length; i++)
                 mDoorsCatalog[GetMapDoors(mMaps[i]) & 0x0f].Add(i);
+        }
+
+        // la mappa name verra` usata SOLO come starting point
+        public void SetStartMap(string name)
+        {
+            for (int i = 0; i < mMaps.Length; i++)
+                if (mMaps[i] == name)
+                {
+                    mStartMap = i;
+                    return;
+                }
+
+            Debug.LogError("Cannot find start map in my array.");
         }
 
         private int GetMapDoors(string mapname)
@@ -66,23 +82,30 @@ namespace RoomMapGenerator
 
             doors &= 0x0f;
 
-            List<int> validDoors = new List<int>();
+            int chosen;
 
-            for (int i = 0; i < 16; i++)
-                if ((i & doors) == doors)
-                    for (int j = 0; j < mDoorsCatalog[i].Count; j++)
-                        for(int k=0;k< 5 - numOfOnes[i & 0x0f]; k++)
-                            validDoors.Add(mDoorsCatalog[i][j]);
-
-            if (validDoors.Count == 0)
+            if (mMapGenerator.GetStartRoomId() == n && mStartMap >= 0)
+                chosen = mStartMap;
+            else
             {
-                Debug.LogError("Cannot load a map with at least these doors: " + doors);
-                return "";
-            }
-            int choosen = validDoors[Random.Range(0, validDoors.Count)];
+                List<int> validDoors = new List<int>();
 
-            mMapCache[n] = choosen;
-            return mMaps[choosen];
+                for (int i = 0; i < 16; i++)
+                    if ((i & doors) == doors)
+                        for (int j = 0; j < mDoorsCatalog[i].Count; j++)
+                            for (int k = 0; k < 5 - numOfOnes[i & 0x0f]; k++)
+                                validDoors.Add(mDoorsCatalog[i][j]);
+
+                if (validDoors.Count == 0)
+                {
+                    Debug.LogError("Cannot load a map with at least these doors: " + doors);
+                    return "";
+                }
+                chosen = validDoors[Random.Range(0, validDoors.Count)];
+            }
+
+            mMapCache[n] = chosen;
+            return mMaps[chosen];
         }
     };
 }

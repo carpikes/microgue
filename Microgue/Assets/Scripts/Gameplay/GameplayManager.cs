@@ -55,9 +55,10 @@ public class GameplayManager : MonoBehaviour
         //Debug.Log("Loading Started");
         FetchLevels(lname);
         mMapGenerator = new MapGenerator();
-        mMapAssetManager = new MapAssetManager(mAvailableLevels);
+        mMapAssetManager = new MapAssetManager(mMapGenerator, mAvailableLevels);
         mWorlds = new Dictionary<int, Level>();
         mMapGenerator.GenerateMap();
+        mMapAssetManager.SetStartMap("new32");
 
         LoadWorld(mMapGenerator.GetStartRoomId());
   
