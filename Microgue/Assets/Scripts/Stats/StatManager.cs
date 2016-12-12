@@ -64,10 +64,10 @@ public class StatManager : MonoBehaviour
     {
         stats = new Stat[numberOfStates];
 
-        SetupStat(StatStates.MAX_HEALTH, 3, 10, false);
+        SetupStat(StatStates.MAX_HEALTH, 5, 10, false);
         SetupStat(StatStates.CURRENT_HEALTH, 0, stats[(int)StatStates.MAX_HEALTH].CurrentValue, false);
         SetupStat(StatStates.DEFENCE, 1, 10, true);
-        SetupStat(StatStates.DAMAGE, 3, 10, true);
+        SetupStat(StatStates.DAMAGE, 2, 10, true);
         SetupStat(StatStates.TEMP_DISTORSION, 1, 10, true);
         SetupStat(StatStates.SPEED, 1, 10, true);
 
