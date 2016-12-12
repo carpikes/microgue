@@ -107,7 +107,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: mainAttack
+    m_ConditionEvent: keepAttack
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102000010627015136}
@@ -648,7 +648,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: MainAttackStart
-  m_Speed: 8
+  m_Speed: 10
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1101000012197158872}
@@ -853,6 +853,6 @@ AnimatorStateMachine:
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 348, y: 84, z: 0}
   m_EntryPosition: {x: 12, y: -216, z: 0}
-  m_ExitPosition: {x: 480, y: -324, z: 0}
+  m_ExitPosition: {x: 444, y: -360, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 1102000010950649154}

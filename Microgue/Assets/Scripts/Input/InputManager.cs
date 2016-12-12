@@ -173,7 +173,6 @@ public class InputManager : MonoBehaviour {
     {
         if( mInput.IsShootingButtonPressed() && CanShoot())
         {
-            Debug.Log("pressed");
             EventManager.TriggerEvent(Events.ON_MAIN_CHAR_START_ATTACK, null);
             Shoot();
         }
@@ -183,7 +182,6 @@ public class InputManager : MonoBehaviour {
         }
         else if (mInput.IsShootingButtonKeepPressed() && CanShoot())
         {
-            Debug.Log("down");
             EventManager.TriggerEvent(Events.ON_MAIN_CHAR_START_ATTACK, null);
             Shoot();
         } 
