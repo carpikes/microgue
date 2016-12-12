@@ -13,6 +13,7 @@ public class DesperateSoul : MonoBehaviour
     private Rigidbody2D mPlayerRb;
     private Vector2 mInitialPosition;
 	private EnemyAI mEnemyAI;
+    private EnemyLife mEnemyLife;
 
     private Vector2 mVelocity = Vector2.zero;
     private Vector3 mCurTarget;
@@ -29,7 +30,8 @@ public class DesperateSoul : MonoBehaviour
         mRb = GetComponent<Rigidbody2D>();
         mInitialPosition = transform.position;
 		mEnemyAI = GetComponent<EnemyAI>();
-		mEnemyAI.SetEnabled(false);
+        mEnemyLife = GetComponent<EnemyLife>();
+        mEnemyAI.SetEnabled(false);
         ChooseNewTarget();
     }
 

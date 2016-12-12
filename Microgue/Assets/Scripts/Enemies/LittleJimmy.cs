@@ -8,7 +8,8 @@ public class LittleJimmy : MonoBehaviour {
     private Rigidbody2D mPlayerRb;
     private Rigidbody2D mRb;
 	private EnemyAI mEnemyAI;
-    
+    private EnemyLife mEnemyLife;
+
     // Use this for initialization
     void Start()
     {
@@ -16,7 +17,8 @@ public class LittleJimmy : MonoBehaviour {
         mTarget = GameObject.Find("MainCharacter");
         mPlayerRb = mTarget.GetComponent<Rigidbody2D>();
 		mEnemyAI = GetComponent<EnemyAI>();
-		mEnemyAI.SetEnabled(true);
+        mEnemyLife = GetComponent<EnemyLife>();
+        mEnemyAI.SetEnabled(true);
     }
 
     void FixedUpdate()

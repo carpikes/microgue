@@ -10,6 +10,7 @@ using System;
 public class GameplayManager : MonoBehaviour
 {
     public const string PREFAB_PATH = "Assets/Tiled2Unity/Prefabs/";
+    public static readonly string STARTING_MAP = "new_start";
 
     [Header("Player")]
     public GameObject mPlayer;
@@ -31,7 +32,7 @@ public class GameplayManager : MonoBehaviour
 
     // list of available .prefab files
     private List<string> mAvailableLevels;
-    static readonly string STARTING_MAP = "new_1";
+    
 
     void OnEnable()
     {

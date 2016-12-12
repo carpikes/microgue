@@ -23,11 +23,13 @@ public class StompStomp : MonoBehaviour
     public float mJumpSize = 1.0f;
 
     private Rigidbody2D mRigidBody;
+    private Rigidbody2D mPlayerRb;
     private Transform mShadowTransform;
     private Collider2D mCollider;
     private Transform mPlayerTransform;
     private InputManager mInputManager;
 	private EnemyAI mEnemyAI;
+    private EnemyLife mEnemyLife;
 
     // Used for shadow projection
     private Vector2 mMovingDirection, mJumpStartPosition, mShadowOffset;
@@ -37,6 +39,7 @@ public class StompStomp : MonoBehaviour
 	void Start () 
 	{
         mRigidBody = transform.GetChild(0).GetComponent<Rigidbody2D>();
+        mPlayerRb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
         mCollider = transform.GetChild(0).GetComponent<Collider2D>();
         mPlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         mShadowTransform = transform.GetChild(1).transform;
@@ -56,7 +59,8 @@ public class StompStomp : MonoBehaviour
         mRigidBody.position = mRigidBody.position + pos + mRenderingOffset;
         transform.GetChild(0).GetComponent<Transform>().position = mRigidBody.position + pos + mRenderingOffset;
 		mEnemyAI = GetComponent<EnemyAI>();
-		mEnemyAI.SetEnabled(false);
+        mEnemyLife = GetComponent<EnemyLife>();
+        mEnemyAI.SetEnabled(false);
 	}
 
     IEnumerator JumpCoroutine()
@@ -147,7 +151,9 @@ public class StompStomp : MonoBehaviour
                 mShadowTransform.position = mJumpStartPosition + dot * mMovingDirection + mShadowOffset;
         }
 
-		if(mEnemyAI != null)
+        transform.localScale = new Vector3(mRigidBody.position.x >= mPlayerRb.position.x ? 1 : -1, 1, 1);
+
+        if (mEnemyAI != null)
 			mEnemyAI.SetPosition (mShadowTransform.position);
         mRigidBody.transform.position = newPosition + mRenderingOffset;
 	}
