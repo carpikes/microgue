@@ -93,8 +93,9 @@ namespace RoomMapGenerator
                 for (int i = 0; i < 16; i++)
                     if ((i & doors) == doors)
                         for (int j = 0; j < mDoorsCatalog[i].Count; j++)
-                            for (int k = 0; k < 5 - numOfOnes[i & 0x0f]; k++)
-                                validDoors.Add(mDoorsCatalog[i][j]);
+                            if(mDoorsCatalog[i][j] != mStartMap)
+                                for (int k = 0; k < 5 - numOfOnes[i & 0x0f]; k++)
+                                    validDoors.Add(mDoorsCatalog[i][j]);
 
                 if (validDoors.Count == 0)
                 {

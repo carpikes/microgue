@@ -1,17 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class StompStomp : MonoBehaviour {
+public class StompStomp : MonoBehaviour
+{
 
-    enum EnemyStatus {
+    enum EnemyStatus
+    {
         WAITING,
         FALLING,
         STILL,
         JUMPING,
     };
     private EnemyStatus mStatus;
-    private Vector2 mVelocity = new Vector2(0,0);
-    private Vector2 mCurTarget = new Vector2(0, 0);
+    private Vector2 mVelocity = Vector2.zero;
+    private Vector2 mCurTarget = Vector2.zero;
+    private Vector2 mRenderingOffset = Vector2.zero;
 
     public float mGravity = 9.80665f;
     public float mJumpAccel = 3.0f;
@@ -30,14 +33,11 @@ public class StompStomp : MonoBehaviour {
     private Vector2 mMovingDirection, mJumpStartPosition, mShadowOffset;
     private bool mDontMoveShadow;
 
-    private SpriteRenderer mSpriteRenderer;
-
 	// Use this for initialization
 	void Start () 
 	{
         mRigidBody = transform.GetChild(0).GetComponent<Rigidbody2D>();
         mCollider = transform.GetChild(0).GetComponent<Collider2D>();
-        mSpriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
         mPlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         mShadowTransform = transform.GetChild(1).transform;
         mShadowOffset = mShadowTransform.localPosition;
@@ -47,9 +47,12 @@ public class StompStomp : MonoBehaviour {
         mStatus = EnemyStatus.WAITING;
         mInputManager = GameObject.Find("MainCharacter").GetComponent<InputManager>();
 
+        mRenderingOffset = mRigidBody.transform.localPosition;
+        Debug.Log("Rendering offset: " + mRenderingOffset);
+
         Vector2 pos = new Vector2(0.0f, 10.0f);
-        mRigidBody.position = mRigidBody.position + pos;
-        transform.GetChild(0).GetComponent<Transform>().position = mRigidBody.position + pos;
+        mRigidBody.position = mRigidBody.position + pos + mRenderingOffset;
+        transform.GetChild(0).GetComponent<Transform>().position = mRigidBody.position + pos + mRenderingOffset;
 		mEnemyAI = GetComponent<EnemyAI>();
 		mEnemyAI.SetEnabled(false);
 	}
@@ -59,7 +62,6 @@ public class StompStomp : MonoBehaviour {
         float waitTime = Random.Range(mMinWait, mMaxWait);
         yield return new WaitForSeconds(waitTime);
         mCollider.enabled = false;
-        mSpriteRenderer.color = Color.magenta;
         BeginJumpToTarget();
     }
 
@@ -67,6 +69,8 @@ public class StompStomp : MonoBehaviour {
     {
         Vector2 newTarget = mPlayerTransform.position;
         Vector2 pos = mRigidBody.transform.position;
+        pos -= mRenderingOffset;
+
         Vector2 ds = newTarget - pos;
 
         // Clamp jump magnitude
@@ -99,7 +103,7 @@ public class StompStomp : MonoBehaviour {
         mVelocity.y = mJumpAccel * Mathf.Sin(angle);
         mCurTarget = newTarget;
         mMovingDirection = ds.normalized;
-        mJumpStartPosition = mRigidBody.position;
+        mJumpStartPosition = mRigidBody.position - mRenderingOffset;
 
         mDontMoveShadow = ((mJumpStartPosition - mCurTarget).magnitude < 0.1);
         mStatus = EnemyStatus.JUMPING;
@@ -114,6 +118,7 @@ public class StompStomp : MonoBehaviour {
         mVelocity.y -= mGravity * Time.fixedDeltaTime;
 
         Vector2 newPosition = mRigidBody.transform.position;
+        newPosition -= mRenderingOffset;
         newPosition.x += mVelocity.x * Time.fixedDeltaTime;
         newPosition.y += mVelocity.y * Time.fixedDeltaTime;
 
@@ -129,7 +134,6 @@ public class StompStomp : MonoBehaviour {
             mVelocity = Vector2.zero;
             mStatus = EnemyStatus.STILL;
             mCollider.enabled = true;
-            mSpriteRenderer.color = Color.white;
             StartCoroutine(JumpCoroutine());
         }
 
@@ -143,7 +147,7 @@ public class StompStomp : MonoBehaviour {
 
 		if(mEnemyAI != null)
 			mEnemyAI.SetPosition (mShadowTransform.position);
-        mRigidBody.transform.position = newPosition;
+        mRigidBody.transform.position = newPosition + mRenderingOffset;
 	}
 
     public void OnShadowTouch() {

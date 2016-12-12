@@ -22,10 +22,10 @@ GameObject:
   - 212: {fileID: 212000012435237486}
   - 50: {fileID: 50000011535855692}
   - 114: {fileID: 114000012039792014}
-  - 58: {fileID: 58000012735854108}
   - 114: {fileID: 114000010211494602}
   - 114: {fileID: 114000013874071828}
   - 95: {fileID: 95000011668293764}
+  - 61: {fileID: 61000011172764526}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -126,7 +126,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013275891318}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.2, y: -8.426906, z: 0}
+  m_LocalPosition: {x: 8.3, y: -6.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -180,7 +180,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010076958456}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -204,20 +204,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!58 &58000012735854108
-CircleCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010076958456}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: -0.1}
-  serializedVersion: 2
-  m_Radius: 0.23242092
 --- !u!60 &60000010352525948
 PolygonCollider2D:
   m_ObjectHideFlags: 1
@@ -240,6 +226,20 @@ PolygonCollider2D:
       - {x: -0.43621922, y: -0.19357039}
       - {x: -0.5888114, y: 0.060089335}
       - {x: -0.34451294, y: 0.20977853}
+--- !u!61 &61000011172764526
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010076958456}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: -0.9}
+  serializedVersion: 2
+  m_Size: {x: 0.4, y: 1.2}
 --- !u!95 &95000011668293764
 Animator:
   serializedVersion: 3
