@@ -31,6 +31,7 @@ public class GameplayManager : MonoBehaviour
 
     // list of available .prefab files
     private List<string> mAvailableLevels;
+    static readonly string STARTING_MAP = "new_1";
 
     void OnEnable()
     {
@@ -58,7 +59,7 @@ public class GameplayManager : MonoBehaviour
         mMapAssetManager = new MapAssetManager(mMapGenerator, mAvailableLevels);
         mWorlds = new Dictionary<int, Level>();
         mMapGenerator.GenerateMap();
-        mMapAssetManager.SetStartMap("new32");
+        mMapAssetManager.SetStartMap( STARTING_MAP );
 
         LoadWorld(mMapGenerator.GetStartRoomId());
   
