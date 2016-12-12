@@ -42,13 +42,15 @@ public class StompStomp : MonoBehaviour
         mShadowTransform = transform.GetChild(1).transform;
         mShadowOffset = mShadowTransform.localPosition;
 
+        mRenderingOffset = mRigidBody.transform.localPosition;
+        Debug.Log("Rendering offset: " + mRenderingOffset);
+
         mJumpStartPosition = mRigidBody.transform.position;
+        mJumpStartPosition -= mRenderingOffset;
+
         mMovingDirection = new Vector2(0, 0);
         mStatus = EnemyStatus.WAITING;
         mInputManager = GameObject.Find("MainCharacter").GetComponent<InputManager>();
-
-        mRenderingOffset = mRigidBody.transform.localPosition;
-        Debug.Log("Rendering offset: " + mRenderingOffset);
 
         Vector2 pos = new Vector2(0.0f, 10.0f);
         mRigidBody.position = mRigidBody.position + pos + mRenderingOffset;
