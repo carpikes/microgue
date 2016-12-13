@@ -85,7 +85,7 @@ public class GameplayManager : MonoBehaviour
         if(mCurWorld != null)
             mCurWorld.Unload();
 
-        Level l = new Level(-1, "new_start");
+        Level l = new Level(-1, "new_boss");
         mCurWorld = l;
         mCurWorldId = -1;
         mPlayer.transform.position = new Vector2(-9000, -9000);
