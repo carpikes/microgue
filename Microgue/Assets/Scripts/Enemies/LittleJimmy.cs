@@ -14,6 +14,8 @@ public class LittleJimmy : MonoBehaviour
     private BFSMap mBFS;
     private byte[] mAwayMap = null;
     private byte[] mObstacleMap = null;
+
+    public int scale;
     
     // Use this for initialization
     void Start()
@@ -76,7 +78,7 @@ public class LittleJimmy : MonoBehaviour
         t += mSpeed * Time.fixedDeltaTime;
         transform.position = t;
 
-        transform.localScale = new Vector3(mRb.position.x >= mPlayerRb.position.x ? 1 : -1, 1, 1);
+        transform.localScale = new Vector3(mRb.position.x >= mPlayerRb.position.x ? scale : -scale, scale, scale);
     }
     /*
     void Update()

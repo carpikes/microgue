@@ -63,7 +63,7 @@ GameObject:
   - 114: {fileID: 114000010619946180}
   - 95: {fileID: 95000011866168674}
   m_Layer: 0
-  m_Name: LittleJimmy
+  m_Name: BigLittleJimmy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -119,7 +119,7 @@ Transform:
   m_GameObject: {fileID: 1000011746347044}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 10, y: -8, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 224000010845048700}
@@ -243,9 +243,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f5deb24500be3f458532d97cc8502ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scale: 1
-  Kconst: 8
-  Friction: 0.05
+  scale: 3
+  Kconst: 4
+  Friction: 0.1
 --- !u!114 &114000013576789140
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -257,7 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aede8658bda6b7499b7f8cd1b5d4c68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 10
+  hp: 50
 --- !u!114 &114000014221629720
 MonoBehaviour:
   m_ObjectHideFlags: 1
