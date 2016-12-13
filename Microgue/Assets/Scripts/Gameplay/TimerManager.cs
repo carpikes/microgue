@@ -8,7 +8,7 @@ using Bundle = System.Collections.Generic.Dictionary<string, string>;
 public class TimerManager : MonoBehaviour {
 
     // how much time the player has in total
-    public const float MAX_TIME = 200.0f;
+    public const float MAX_TIME = 300.0f;
 
     // in the format seconds.milliseconds
     private float ticksLeft;

@@ -10,7 +10,7 @@ namespace RoomMapGenerator
         public int mWidth = 8;
         public int mHeight = 5;
         public int mMaxRooms = 7;
-        public int mMinRooms = 3;
+        public int mMinRooms = 5;
 
         private int mStartRoom, mEndRoom;
         private RoomMap mMap;
