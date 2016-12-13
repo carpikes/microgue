@@ -37,20 +37,31 @@ public class LittleJimmy : MonoBehaviour
     IntPoint lastTile;
     bool ltset = false;
 
+    public float Kconst = 8.0f;
+    public float Friction = 0.05f;
+
     float timeout = 0;
-    float dist;
+    float dist,newdist;
     float tget;
     float newtget;
     Vector2 mSpeed = Vector2.zero;
+
+    void OnTriggerEnter2D(Collider2D other) {
+        timeout = 0;
+    }
+
     void FixedUpdate()
     {
         if (Time.time > timeout) {
             timeout = Time.time + Random.Range(2, 3);
             newtget = Random.Range(0, 2.0f * Mathf.PI);
+            newdist = Random.Range(2.0f, 3.0f);
         }
 
         if (newtget != tget)
             tget = Mathf.LerpAngle(tget, newtget, Time.fixedDeltaTime);
+        if (newdist != dist)
+            dist = Mathf.Lerp(newdist, dist, Time.fixedDeltaTime);
 
         Vector2 delta = mTarget.transform.position - transform.position;
         delta += dist * new Vector2(Mathf.Cos(tget), Mathf.Sin(tget));
@@ -58,13 +69,14 @@ public class LittleJimmy : MonoBehaviour
         float dl = delta.magnitude;
         delta.Normalize();
 
-        mSpeed += delta * dl * 10.0f * Time.fixedDeltaTime;
-        mSpeed *= 0.95f;
+        mSpeed += delta * dl * Kconst * Time.fixedDeltaTime;
+        mSpeed *= (1.0f - Friction);
 
         Vector2 t = transform.position;
         t += mSpeed * Time.fixedDeltaTime;
         transform.position = t;
 
+        transform.localScale = new Vector3(mRb.position.x >= mPlayerRb.position.x ? 1 : -1, 1, 1);
     }
     /*
     void Update()
