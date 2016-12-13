@@ -15,12 +15,14 @@ public class GameOverManager : MonoBehaviour {
     {
         EventManager.StartListening(Events.ON_MAIN_CHAR_DEATH, GameOver);
         EventManager.StartListening(Events.ON_TIME_ENDED, GameOver);
+        EventManager.StartListening(Events.ON_WIN, OnWin);
     }
 
     void OnDisable()
     {
         EventManager.StopListening(Events.ON_MAIN_CHAR_DEATH, GameOver);
         EventManager.StopListening(Events.ON_TIME_ENDED, GameOver);
+        EventManager.StopListening(Events.ON_WIN, OnWin);
     }
 
     // Use this for initialization
@@ -38,6 +40,11 @@ public class GameOverManager : MonoBehaviour {
 
         Cursor.visible = true;
         gameOverCanvas.SetActive(true);
+    }
+
+    private void OnWin(Bundle args)
+    {
+        Debug.Log("Win");
     }
 
     public void ReloadMenu()
