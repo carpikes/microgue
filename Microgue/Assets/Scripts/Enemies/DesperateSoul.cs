@@ -15,7 +15,7 @@ public class DesperateSoul : Enemy
     private Vector2 mVelocity = Vector2.zero;
 
     private Vector2 mInitialPosition;
-    private Vector3 mCurTarget;
+    private Vector2 mCurrentTarget;
 
     // State machine
     private StateMachine<DesperateSoul> mStateMachine;
@@ -65,7 +65,7 @@ public class DesperateSoul : Enemy
 
         void ChooseNewTarget(DesperateSoul owner)
         {
-            owner.mCurTarget = owner.mInitialPosition + Random.insideUnitCircle * owner.mMovementRadius;
+            owner.mCurrentTarget = owner.mInitialPosition + Random.insideUnitCircle * owner.mMovementRadius;
             owner.mStateMachine.ChangeState(DesperateSoul.mMovingState);
         }
     }
@@ -76,7 +76,13 @@ public class DesperateSoul : Enemy
 
         public void FixedUpdate(DesperateSoul owner)
         {
-            Vector2 delta = owner.mCurTarget - owner.transform.position;
+            Debug.Log("Moving");
+            Move(owner);
+        }
+
+        private static void Move(DesperateSoul owner)
+        {
+            Vector2 delta = owner.mCurrentTarget - new Vector2(owner.transform.position.x, owner.transform.position.y);
             if (Mathf.Abs(delta.sqrMagnitude) < 0.05f)
                 owner.mStateMachine.ChangeState(DesperateSoul.mIdleState);
             else

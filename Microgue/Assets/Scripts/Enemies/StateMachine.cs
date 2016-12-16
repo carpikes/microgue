@@ -41,6 +41,8 @@ public class StateMachine<Enemy> {
         ChangeState(mPreviousState);
     }
 
+    public bool IsCurrentState( State<Enemy> state ) { return state == CurrentState; }
+
     public State<Enemy> CurrentState
     {
         get
