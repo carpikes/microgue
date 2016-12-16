@@ -10,7 +10,7 @@ public class EnemyManager : MonoBehaviour {
         enemyDictionary.Clear();
 
         List<string> boss = new List<string> { "BigLittleJimmy" };
-        List<string> firstRoomEnemies = new List<string> { "AngrySoul" };
+        List<string> firstRoomEnemies = new List<string> { "DesperateSoul" };
         List<string> easyEnemies = new List<string> { "AngrySoul", "ChasingBird", "DesperateSoul", "LittleJimmy" };
         List<string> difficultEnemies = new List<string> { "StompStomp", "ChasingBird" };
 

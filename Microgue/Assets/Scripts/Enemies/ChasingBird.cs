@@ -2,32 +2,24 @@
 using System.Collections;
 
 using Random = UnityEngine.Random;
+using System;
 
-public class ChasingBird : MonoBehaviour {
-    private float mAcceleration = 5.0f;
-    //private float mFriction = 0.01f;
-    private Vector2 mPoint;
-
+public class ChasingBird : Enemy {
     private GameObject mTarget;
     private Rigidbody2D mPlayerRb;
     private Rigidbody2D mRb;
-	private EnemyPosition mEnemyAI;
-    private EnemyLife mEnemyLife;
 
     private Vector2 mVelocity = Vector2.zero;
     private Vector2 mCurTarget;
     private float mRemainingTime = 0.0f;
+    private float mAcceleration = 5.0f;
+    private Vector2 mPoint;
 
-    // Use this for initialization
-    void Start()
+    protected override void SetupEnemy()
     {
         mRb = GetComponent<Rigidbody2D>();
-        mEnemyLife = GetComponent<EnemyLife>();
         mTarget = GameObject.Find("MainCharacter");
-        mPlayerRb = mTarget.GetComponent<Rigidbody2D>();
-		mEnemyAI = GetComponent<EnemyPosition>();
-		mEnemyAI.SetEnabled(true);
-        ChooseNewPoint();
+        mPlayerRb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
     }
 
     void FixedUpdate()
@@ -47,16 +39,10 @@ public class ChasingBird : MonoBehaviour {
         } 
 
         mRb.position += mVelocity * Time.fixedDeltaTime;
-
-        transform.localScale = new Vector3(mRb.position.x >= mPlayerRb.position.x ? 1 : -1, 1, 1);
-
-
-        if (mEnemyAI != null)
-			mEnemyAI.SetPosition (mRb.position);
     }
 
     void ChooseNewPoint()
-	{
+    {
         mPoint = Random.onUnitSphere;
         mPoint.y /= 3.0f;
         mRemainingTime = Random.Range(0.1f, 0.3f);

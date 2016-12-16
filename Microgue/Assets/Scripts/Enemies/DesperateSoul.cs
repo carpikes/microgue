@@ -79,7 +79,7 @@ public class DesperateSoul : Enemy
             Move(owner);
         }
 
-        private static void Move(DesperateSoul owner)
+        private void Move(DesperateSoul owner)
         {
             Vector2 delta = owner.mCurrentTarget - new Vector2(owner.transform.position.x, owner.transform.position.y);
             if (Mathf.Abs(delta.sqrMagnitude) < 0.05f)

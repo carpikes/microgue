@@ -59,7 +59,6 @@ public class AngrySoul : Enemy
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(mShootingStateMachine.CurrentState.ToString());
         mStateMachine.Update();
         mShootingStateMachine.Update();
     }

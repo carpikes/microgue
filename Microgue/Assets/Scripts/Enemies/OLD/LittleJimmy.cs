@@ -54,7 +54,13 @@ public class LittleJimmy : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Time.time > timeout) {
+        OLD_BEHAVIOUR();
+    }
+
+    private void OLD_BEHAVIOUR()
+    {
+        if (Time.time > timeout)
+        {
             timeout = Time.time + Random.Range(2, 3);
             newtget = Random.Range(0, 2.0f * Mathf.PI);
             newdist = Random.Range(2.0f, 3.0f);
@@ -80,6 +86,7 @@ public class LittleJimmy : MonoBehaviour
 
         transform.localScale = new Vector3(mRb.position.x >= mPlayerRb.position.x ? scale : -scale, scale, scale);
     }
+
     /*
     void Update()
     {

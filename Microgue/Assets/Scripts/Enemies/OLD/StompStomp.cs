@@ -3,7 +3,6 @@ using System.Collections;
 
 public class StompStomp : MonoBehaviour
 {
-
     enum EnemyStatus
     {
         WAITING,
