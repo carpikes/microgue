@@ -35,11 +35,10 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013769900324}
+  - 114: {fileID: 114000011006340116}
   - 212: {fileID: 212000013107995498}
   - 61: {fileID: 61000011466504666}
-  - 114: {fileID: 114000010940225388}
   - 50: {fileID: 50000013215055664}
-  - 114: {fileID: 114000011006340116}
   - 114: {fileID: 114000013953945192}
   - 114: {fileID: 114000011294468174}
   - 114: {fileID: 114000012936140830}
@@ -174,22 +173,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114000010940225388
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013049728874}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c0815a918f8b8a4da2a59658aa95eb3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mMovementRadius: 1
-  mMinStillTime: 1
-  mMaxStillTime: 4
-  mAcceleration: 0.7
-  mFriction: 0.95
 --- !u!114 &114000011006340116
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -201,10 +184,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c0815a918f8b8a4da2a59658aa95eb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mMovementRadius: 3
+  mMovementRadius: 2
   mMinStillTime: 1
-  mMaxStillTime: 10
-  mAcceleration: 0.5
+  mMaxStillTime: 3
+  mAcceleration: 3
   mFriction: 0.05
 --- !u!114 &114000011294468174
 MonoBehaviour:

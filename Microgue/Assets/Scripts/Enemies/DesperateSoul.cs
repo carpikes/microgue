@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DesperateSoul : MonoBehaviour
+public class DesperateSoul : Enemy
 {
+    [Header("Movement Parameters")]
     public float mMovementRadius = 3.0f;
     public float mMinStillTime = 8.0f;
     public float mMaxStillTime = 10.0f;
@@ -11,67 +12,96 @@ public class DesperateSoul : MonoBehaviour
 
     private Rigidbody2D mRb;
     private Rigidbody2D mPlayerRb;
-    private Vector2 mInitialPosition;
-	private EnemyPosition mEnemyAI;
-    private EnemyLife mEnemyLife;
-
     private Vector2 mVelocity = Vector2.zero;
+
+    private Vector2 mInitialPosition;
     private Vector3 mCurTarget;
-    private enum EnemyStates
+
+    // State machine
+    private StateMachine<DesperateSoul> mStateMachine;
+    static State<DesperateSoul> mIdleState = new IdleState();
+    static State<DesperateSoul> mMovingState = new MovingState();
+    static State<DesperateSoul> mGlobalState = new GlobalState();
+
+    protected override void SetupEnemy()
     {
-        STILL,
-        MOVING,
-    };
-    private EnemyStates mCurState;
-    // Use this for initialization
-    void Start()
-    {
-        mPlayerRb = GameObject.Find("MainCharacter").GetComponent<Rigidbody2D>();
+        mPlayerRb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
         mRb = GetComponent<Rigidbody2D>();
         mInitialPosition = transform.position;
-		mEnemyAI = GetComponent<EnemyPosition>();
-        mEnemyLife = GetComponent<EnemyLife>();
-        mEnemyAI.SetEnabled(false);
-        ChooseNewTarget();
+
+        mStateMachine = new StateMachine<DesperateSoul>(this, mIdleState, mGlobalState);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Update()
     {
-     
+        mStateMachine.Update();
     }
 
-    void FixedUpdate()
+    public void FixedUpdate()
     {
-        Vector2 delta = mCurTarget - transform.position;
+        mStateMachine.FixedUpdate();
+    }
 
-        if (mCurState == EnemyStates.MOVING)
+    sealed class IdleState : State<DesperateSoul>
+    {
+        public void Update(DesperateSoul owner) { }
+
+        public void FixedUpdate(DesperateSoul owner) { }
+
+        public void OnEnter(DesperateSoul owner)
         {
-            if (Mathf.Abs(delta.sqrMagnitude) < 0.05f)
-            {
-                mCurState = EnemyStates.STILL;
-                StartCoroutine(stillCoroutine());
-            }
-            else
-                mVelocity += delta.normalized * Time.fixedDeltaTime * mAcceleration;
+            owner.StartCoroutine(IdleCoroutine(owner));
         }
 
-        mVelocity *= (1.0f - mFriction); // * Time.fixedDeltaTime);
-        mRb.position += mVelocity * Time.fixedDeltaTime;
+        public void OnExit(DesperateSoul owner) { }
 
-        transform.localScale = new Vector3(mRb.position.x >= mPlayerRb.position.x ? -1 : 1, 1, 1);
+        IEnumerator IdleCoroutine(DesperateSoul owner)
+        {
+            float sleepTime = Random.Range(owner.mMinStillTime, owner.mMaxStillTime);
+            yield return new WaitForSeconds(sleepTime);
+
+            ChooseNewTarget(owner);
+        }
+
+        void ChooseNewTarget(DesperateSoul owner)
+        {
+            owner.mCurTarget = owner.mInitialPosition + Random.insideUnitCircle * owner.mMovementRadius;
+            owner.mStateMachine.ChangeState(DesperateSoul.mMovingState);
+        }
     }
 
-    IEnumerator stillCoroutine()
+    sealed class MovingState : State<DesperateSoul>
     {
-        float sleepTime = Random.Range(mMinStillTime, mMaxStillTime);
-        yield return new WaitForSeconds(sleepTime);
-        ChooseNewTarget(); 
+        public void Update(DesperateSoul owner) { }
+
+        public void FixedUpdate(DesperateSoul owner)
+        {
+            Vector2 delta = owner.mCurTarget - owner.transform.position;
+            if (Mathf.Abs(delta.sqrMagnitude) < 0.05f)
+                owner.mStateMachine.ChangeState(DesperateSoul.mIdleState);
+            else
+                owner.mVelocity += delta.normalized * Time.fixedDeltaTime * owner.mAcceleration;
+        }
+
+        public void OnEnter(DesperateSoul owner) { }
+
+        public void OnExit(DesperateSoul owner) { }
     }
 
-    void ChooseNewTarget()
+    sealed class GlobalState : State<DesperateSoul>
     {
-        mCurTarget = mInitialPosition + Random.insideUnitCircle * mMovementRadius;
-        mCurState = EnemyStates.MOVING;
+        public void FixedUpdate(DesperateSoul owner)
+        {
+            owner.mVelocity *= (1.0f - owner.mFriction); // * Time.fixedDeltaTime);
+            owner.mRb.position += owner.mVelocity * Time.fixedDeltaTime;
+
+            // owner.transform.localScale = new Vector3(owner.mRb.position.x >= owner.mPlayerRb.position.x ? -1 : 1, 1, 1);
+        }
+
+        public void OnEnter(DesperateSoul owner) { }
+
+        public void OnExit(DesperateSoul owner) { }
+
+        public void Update(DesperateSoul owner) { }
     }
 }
