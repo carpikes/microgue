@@ -11,7 +11,7 @@ public class ChasingBird : MonoBehaviour {
     private GameObject mTarget;
     private Rigidbody2D mPlayerRb;
     private Rigidbody2D mRb;
-	private EnemyAI mEnemyAI;
+	private EnemyPosition mEnemyAI;
     private EnemyLife mEnemyLife;
 
     private Vector2 mVelocity = Vector2.zero;
@@ -25,7 +25,7 @@ public class ChasingBird : MonoBehaviour {
         mEnemyLife = GetComponent<EnemyLife>();
         mTarget = GameObject.Find("MainCharacter");
         mPlayerRb = mTarget.GetComponent<Rigidbody2D>();
-		mEnemyAI = GetComponent<EnemyAI>();
+		mEnemyAI = GetComponent<EnemyPosition>();
 		mEnemyAI.SetEnabled(true);
         ChooseNewPoint();
     }

@@ -12,6 +12,7 @@ public class AIMap : MonoBehaviour
     Bounds mWorldArea;
 	private float mEnemyUpdateInterval = 0.1f;
 	private float mNextEnemyUpdate = 0.0f;
+
 	public struct IntPoint 
 	{ 
 		public int x, y; 
@@ -24,17 +25,17 @@ public class AIMap : MonoBehaviour
 
     public IntPoint GetPlayerPosition()
     {
-        return GetPosition(mPlayer.transform.position);
+        return GetTilePosition(mPlayer.transform.position);
     }
 
-    public IntPoint GetPosition(Vector2 pos)
+    public IntPoint GetTilePosition(Vector2 pos)
     {
-        return toMap(pos);
+        return WorldToTileCoordinates(pos);
     }
 
     public Vector2 GetWorldPosition(IntPoint pos)
     {
-        return fromMap(pos);
+        return TileToWorldCoordinates(pos);
     }
 
     public byte[] GetMap()
@@ -72,6 +73,8 @@ public class AIMap : MonoBehaviour
 	// Update is called once per frame
 	void Update () {
         GameObject world = mGameManager.GetWorld();
+
+        // TODO EVENTO!!
         if (world != mWorld)
         {
             mWorld = world;
@@ -89,16 +92,16 @@ public class AIMap : MonoBehaviour
 
     private void UpdateEnemies()
     {
-		EnemyAI[] arr = GameObject.Find(mWorld.name + "/Enemies").GetComponentsInChildren<EnemyAI>();
+		EnemyPosition[] arr = GameObject.Find(mWorld.name + "/Enemies").GetComponentsInChildren<EnemyPosition>();
 
         for (int i = 0; i < mWidth * mHeight; i++)
             mEnemies[i] = 0;
 
-		foreach(EnemyAI ai in arr)
+		foreach(EnemyPosition pos in arr)
         {
-			if (!ai.IsEnabled ())
+			if (!pos.IsEnabled ())
 				continue;
-			IntPoint p = toMap(ai.GetPosition());
+			IntPoint p = WorldToTileCoordinates(pos.GetPosition());
             mEnemies[p.x + mWidth * p.y] = 1;
         }
     }
@@ -110,6 +113,7 @@ public class AIMap : MonoBehaviour
         PolygonCollider2D[] poly = GameObject.Find(mWorld.name + "/Collision").GetComponentsInChildren<PolygonCollider2D>();
         BoxCollider2D[] box = GameObject.Find(mWorld.name + "/Doors").GetComponentsInChildren<BoxCollider2D>();
         
+        // TODO si riesce a fixare?
         Renderer r = GameObject.Find(mWorld.name + "/Background/water").GetComponent<Renderer>();
 
         if (map == null || coll == null || r == null || poly == null)
@@ -136,7 +140,7 @@ public class AIMap : MonoBehaviour
             for (int i = 0; i < p.Length; i++)
             {
                 Vector2 other = p[(i + 1) % p.Length];
-                BlackLine(toMap(p[i]), toMap(other));
+                DrawLine(WorldToTileCoordinates(p[i]), WorldToTileCoordinates(other));
             }
         }
 
@@ -146,14 +150,14 @@ public class AIMap : MonoBehaviour
             for (int i = 0; i < p.Length; i++)
             {
                 Vector2 other = p[(i + 1) % p.Length];
-                BlackLine(toMap(p[i]), toMap(other));
+                DrawLine(WorldToTileCoordinates(p[i]), WorldToTileCoordinates(other));
             }
         }
 
         foreach (BoxCollider2D c in box)
         {
-            IntPoint dl = toMap(c.bounds.min);
-            IntPoint ur = toMap(c.bounds.max);
+            IntPoint dl = WorldToTileCoordinates(c.bounds.min);
+            IntPoint ur = WorldToTileCoordinates(c.bounds.max);
 
             BlackRect(dl, ur);
         }
@@ -176,12 +180,13 @@ public class AIMap : MonoBehaviour
             return;
         }
 
-        BlackLine(p[0], p[1]);
-        BlackLine(p[1], p[2]);
-        BlackLine(p[2], p[0]);
+        DrawLine(p[0], p[1]);
+        DrawLine(p[1], p[2]);
+        DrawLine(p[2], p[0]);
     }
 
-    private Vector2 fromMap(IntPoint p)
+    /* TODO MICHELE */
+    private Vector2 TileToWorldCoordinates(IntPoint p)
     {
         Vector2 ret;
         float dx = mWorldArea.max.x - mWorldArea.min.x;
@@ -196,7 +201,7 @@ public class AIMap : MonoBehaviour
         return ret;
     }
 
-    private IntPoint toMap(Vector2 p)
+    private IntPoint WorldToTileCoordinates(Vector2 p)
     {
         IntPoint ret;
         float dx = mWorldArea.max.x - mWorldArea.min.x;
@@ -211,7 +216,7 @@ public class AIMap : MonoBehaviour
         return ret;
     }
 
-    private void BlackLine(IntPoint s, IntPoint e)
+    private void DrawLine(IntPoint s, IntPoint e)
     {
         if (s.y == e.y)
         {

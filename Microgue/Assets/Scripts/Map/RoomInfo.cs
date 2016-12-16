@@ -39,6 +39,7 @@ namespace RoomMapGenerator
             return (mDoors & (int)RoomMap.Door.END_POINT) != 0;
         }
 
+        // TODO fix vita
         public int GetStartOrEndDoor()
         {
             if (!HasStartPoint() && !HasEndPoint())

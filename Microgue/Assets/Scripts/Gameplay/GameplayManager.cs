@@ -25,7 +25,7 @@ public class GameplayManager : MonoBehaviour
     private MapAssetManager mMapAssetManager;
 
     // "Single map" vars
-    private Dictionary<int, Level> mWorlds = null;
+    private Dictionary<int, Level> mLevels = null;
     private RoomInfo mCurRoom = null;
     private Level mCurWorld = null;
     private int mCurWorldId = -1;
@@ -58,15 +58,16 @@ public class GameplayManager : MonoBehaviour
         FetchLevels(lname);
         mMapGenerator = new MapGenerator();
         mMapAssetManager = new MapAssetManager(mMapGenerator, mAvailableLevels);
-        mWorlds = new Dictionary<int, Level>();
-        mMapGenerator.GenerateMap();
+        mLevels = new Dictionary<int, Level>();
+        mMapGenerator.GenerateMap(); // TODO: sistemare con ciclo
         mMapAssetManager.SetStartMap( STARTING_MAP );
 
-        LoadWorld(mMapGenerator.GetStartRoomId());
+        LoadLevel(mMapGenerator.GetStartRoomId());
   
         // TRIGGER EVENT MAP_LOADING_COMPLETED
     }
 
+    /* TODO questa va in LevelLoader */
     private void LoadBossRoom()
     {
         if (mMapAssetManager.GetNumOfLoadedMaps() != mMapGenerator.NumberOfRooms())
@@ -93,7 +94,8 @@ public class GameplayManager : MonoBehaviour
         MovePlayerTo(mCurWorld.GetPlayerStartPos("Spawn"));
     }
 
-    private void LoadWorld(int n, int spawnPoint = 0)
+    /* TODO LevelLoader */
+    private void LoadLevel(int n, int spawnPoint = 0)
     {
         if (n == mCurWorldId)
             return;
@@ -103,16 +105,16 @@ public class GameplayManager : MonoBehaviour
 
         mCurRoom = mMapGenerator.GetRoom(n);
 
-        if (!mWorlds.ContainsKey(n))
+        if (!mLevels.ContainsKey(n))
         {
             Level l = new Level(n, mMapAssetManager.GetMap(n, mCurRoom.GetDoors()));
-            mWorlds.Add(n, l);
+            mLevels.Add(n, l);
             mCurWorld = l;
         }
 
         mMapGenerator.GetMap().AddDoors(n, (int)RoomMap.Door.VISITED);
 
-        mCurWorld = mWorlds[n];
+        mCurWorld = mLevels[n];
         mCurWorldId = n;
 
         mPlayer.transform.position = new Vector2(-9000, -9000);
@@ -127,6 +129,7 @@ public class GameplayManager : MonoBehaviour
         }
     }
 
+    /* TODO va in LevelFileFetcher */
     private void FetchLevels(string name)
     {
         mAvailableLevels = new List<string>();
@@ -141,6 +144,7 @@ public class GameplayManager : MonoBehaviour
         }
     }
 
+    /* TODO gestore porte */
     private string DoorNumToString(int door)
     {
         switch (door)
@@ -154,6 +158,7 @@ public class GameplayManager : MonoBehaviour
         return "";
     }
 
+    /* TODO gestore porte */
     public void OnDoorEnter(Bundle args)
     {
         if (debugArena)
@@ -194,9 +199,10 @@ public class GameplayManager : MonoBehaviour
 
         int newId = mCurRoom.GetRoomIdAt(door);
 
-        LoadWorld(newId, (int)opposite);
+        LoadLevel(newId, (int)opposite);
     }
 
+    // TODO sposta
     void MovePlayerTo(Vector2 coords)
     {
         Rigidbody2D p = mPlayer.GetComponent<Rigidbody2D>();
@@ -204,6 +210,7 @@ public class GameplayManager : MonoBehaviour
         p.MovePosition(coords);
     }
 
+    // TODO spostare?
     public Vector3[] GetCameraBounds()
     {
         if (mCurWorld == null)

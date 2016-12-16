@@ -14,7 +14,7 @@ public class AngrySoul : MonoBehaviour
     private Rigidbody2D mRb;
     private Vector2 mInitialPosition;
     private Vector2 mTargetDist;
-	private EnemyAI mEnemyAI;
+	private EnemyPosition mEnemyAI;
 
     private Vector2 mVelocity = Vector2.zero;
     private Vector2 mCurTarget;
@@ -33,7 +33,7 @@ public class AngrySoul : MonoBehaviour
         mInitialPosition = transform.position;
         mTarget = GameObject.Find("MainCharacter");
         mPlayerRb = mTarget.GetComponent<Rigidbody2D>();
-		mEnemyAI = GetComponent<EnemyAI>();
+		mEnemyAI = GetComponent<EnemyPosition>();
 		mEnemyAI.SetEnabled(false);
         ChooseNewTarget();
     }
@@ -56,7 +56,7 @@ public class AngrySoul : MonoBehaviour
                 if(playerChar == null) 
                     playerChar = GameObject.Find("MainCharacter");
                 Vector2 direction = (playerChar.transform.position - transform.position).normalized;
-                ((Rigidbody2D)lb.GetComponent<Rigidbody2D>()).velocity = direction * 5.0f;
+                (lb.GetComponent<Rigidbody2D>()).velocity = direction * 5.0f;
 
                 lastShootTime = Time.time;
             }

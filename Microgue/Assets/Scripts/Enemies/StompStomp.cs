@@ -11,6 +11,7 @@ public class StompStomp : MonoBehaviour
         STILL,
         JUMPING,
     };
+
     private EnemyStatus mStatus;
     private Vector2 mVelocity = Vector2.zero;
     private Vector2 mCurTarget = Vector2.zero;
@@ -27,7 +28,7 @@ public class StompStomp : MonoBehaviour
     private Collider2D mCollider;
     private Transform mPlayerTransform;
     private InputManager mInputManager;
-	private EnemyAI mEnemyAI;
+	private EnemyPosition mEnemyAI;
 
     // Used for shadow projection
     private Vector2 mMovingDirection, mJumpStartPosition, mShadowOffset;
@@ -54,7 +55,7 @@ public class StompStomp : MonoBehaviour
         Vector2 pos = new Vector2(0.0f, 10.0f);
         mRigidBody.position = mRigidBody.position + pos + mRenderingOffset;
         transform.GetChild(0).GetComponent<Transform>().position = mRigidBody.position + pos + mRenderingOffset;
-		mEnemyAI = GetComponent<EnemyAI>();
+		mEnemyAI = GetComponent<EnemyPosition>();
 		mEnemyAI.SetEnabled(false);
 	}
 
@@ -108,7 +109,7 @@ public class StompStomp : MonoBehaviour
 
         mDontMoveShadow = ((mJumpStartPosition - mCurTarget).magnitude < 0.1);
         mStatus = EnemyStatus.JUMPING;
-    }
+    }   
 
     // Update is called once per frame
     void FixedUpdate ()

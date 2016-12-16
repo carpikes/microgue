@@ -9,7 +9,7 @@ public class LittleJimmy : MonoBehaviour
     private GameObject mTarget;
     private Rigidbody2D mPlayerRb;
     private Rigidbody2D mRb;
-	private EnemyAI mEnemyAI;
+	private EnemyPosition mEnemyAI;
     private AIMap mAIMap;
     private BFSMap mBFS;
     private byte[] mAwayMap = null;
@@ -24,7 +24,7 @@ public class LittleJimmy : MonoBehaviour
         mTarget = GameObject.Find("MainCharacter");
         mPlayerRb = mTarget.GetComponent<Rigidbody2D>();
         mAIMap = GameObject.Find("GameplayManager").GetComponent<AIMap>();
-		mEnemyAI = GetComponent<EnemyAI>();
+		mEnemyAI = GetComponent<EnemyPosition>();
 		mEnemyAI.SetEnabled(true);
         dist = Random.Range(2.0f, 3.0f);
     }
