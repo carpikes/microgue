@@ -244,11 +244,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68bfe5c816d437c4485a480f2f99beeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mMovementRadius: 3
+  mMovementRadius: 1
   mMinStillTime: 3
   mMaxStillTime: 5
   mAcceleration: 1
   mFriction: 0.02
+  mTargetingDistance: 5
+  mNotShootingColor: {r: 1, g: 1, b: 1, a: 1}
+  mShootingColor: {r: 1, g: 0.09558821, b: 0.09558821, a: 1}
   darkBall: {fileID: 1000012785091142, guid: aea1448c22951e14996fe2fb2f894994, type: 2}
 --- !u!114 &114000012172340558
 MonoBehaviour:
@@ -335,7 +338,7 @@ SpriteRenderer:
   m_SortingLayerID: -1573465145
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 08f6266de0616784dbde2e0ffd10ebab, type: 3}
-  m_Color: {r: 1, g: 0.24264705, b: 0.24264705, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!212 &212000012843203882

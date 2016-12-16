@@ -13,7 +13,11 @@ public class AngrySoul : Enemy
     public float mFriction = 0.01f;
 
     [Header("Targeting Params")]
-    public float mTargetingDistance = 2.0f;
+    public float mTargetingEntryDistance = 5f;
+
+    [Header("Sprite Colors")]
+    public Color mNotShootingColor;
+    public Color mShootingColor;
 
     private GameObject mPlayer;
     private Rigidbody2D mPlayerRb;
@@ -23,16 +27,21 @@ public class AngrySoul : Enemy
     private Vector2 mInitialPosition;
     private Vector2 mCurrentTarget;
 
+    private SpriteRenderer mSpriteRenderer;
+
     // TODO? Moving to a common shooting script?
     private float lastShootTime = 0.0f;
     private const float shotCooldownTime = 1.0f;
     public GameObject darkBall;
 
-    // State machine
-    private StateMachine<AngrySoul> mStateMachine;
+    // State machines
+    StateMachine<AngrySoul> mStateMachine;
     static State<AngrySoul> mIdleState = new IdleState();
     static State<AngrySoul> mMovingState = new MovingState();
-    static State<AngrySoul> mTargetingState = new TargetingState();
+
+    StateMachine<AngrySoul> mShootingStateMachine;
+    static State<AngrySoul> mNotShootingState = new NotShootingState();
+    static State<AngrySoul> mShootingState = new ShootingState();
     static State<AngrySoul> mGlobalState = new GlobalState();
 
     protected override void SetupEnemy()
@@ -41,42 +50,24 @@ public class AngrySoul : Enemy
         mInitialPosition = transform.position;
         mPlayer = GameObject.FindGameObjectWithTag("Player");
         mPlayerRb = mPlayer.GetComponent<Rigidbody2D>();
+        mSpriteRenderer = GetComponent<SpriteRenderer>();
 
         mStateMachine = new StateMachine<AngrySoul>(this, mIdleState, mGlobalState);
+        mShootingStateMachine = new StateMachine<AngrySoul>(this, mNotShootingState, null);
     }
 
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(mShootingStateMachine.CurrentState.ToString());
         mStateMachine.Update();
+        mShootingStateMachine.Update();
     }
 
     void FixedUpdate()
     {
-        Debug.Log(mStateMachine.CurrentState.ToString());
         mStateMachine.FixedUpdate();
-    }
-
-    void CheckIfStillReached()
-    {
-        Vector2 delta = mCurrentTarget - new Vector2(transform.position.x, transform.position.y);
-
-        if (Mathf.Abs(delta.sqrMagnitude) < 0.05f)
-            if ( !mStateMachine.IsCurrentState(mTargetingState) )
-                mStateMachine.ChangeState(mIdleState);
-        else
-            mVelocity += delta.normalized * Time.fixedDeltaTime * mAcceleration;
-    }
-
-    void CheckIfTargetingPlayer()
-    {
-        Vector2 playerDelta = mPlayerRb.transform.position - transform.position;
-        float distance = playerDelta.magnitude;
-
-        if (distance < mTargetingDistance)
-        {
-            mStateMachine.ChangeState(mTargetingState);
-        }
+        mShootingStateMachine.FixedUpdate();
     }
 
     void Shoot()
@@ -97,122 +88,118 @@ public class AngrySoul : Enemy
 
     void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Shot"))
-            mStateMachine.ChangeState(mTargetingState);
+            mShootingStateMachine.ChangeState(mShootingState);
+    }
+
+    void ChangeSpriteColor( Color color )
+    {
+        mSpriteRenderer.color = color;
     }
 
     sealed class IdleState : State<AngrySoul>
     {
-        public void FixedUpdate(AngrySoul owner)
-        {
-            owner.CheckIfTargetingPlayer();
-        }
+        public void Update(AngrySoul owner) { }
+
+        public void FixedUpdate(AngrySoul owner) { }
 
         public void OnEnter(AngrySoul owner)
         {
             owner.StartCoroutine(IdleCoroutine(owner));
         }
 
+        public void OnExit(AngrySoul owner) { }
+
         IEnumerator IdleCoroutine(AngrySoul owner)
         {
             float sleepTime = Random.Range(owner.mMinStillTime, owner.mMaxStillTime);
             yield return new WaitForSeconds(sleepTime);
+
             ChooseNewTarget(owner);
         }
 
         void ChooseNewTarget(AngrySoul owner)
         {
-            owner.mCurrentTarget = owner.mInitialPosition + Random.insideUnitCircle * owner.mMovementRadius;
-            owner.mStateMachine.ChangeState(mMovingState);
-        }
+            if( owner.mShootingStateMachine.IsCurrentState(mShootingState) )
+                owner.mCurrentTarget = new Vector2(owner.mPlayer.transform.position.x, owner.mPlayer.transform.position.y) 
+                    + Random.insideUnitCircle * owner.mMovementRadius;
+            else
+                owner.mCurrentTarget = owner.mInitialPosition + Random.insideUnitCircle * owner.mMovementRadius;
 
-        public void OnExit(AngrySoul owner)
-        {
-            // ;
-        }
-
-        public void Update(AngrySoul owner)
-        {
-            owner.Shoot();
+            owner.mStateMachine.ChangeState(AngrySoul.mMovingState);
         }
     }
 
     sealed class MovingState : State<AngrySoul>
     {
+        public void Update(AngrySoul owner) { }
+
         public void FixedUpdate(AngrySoul owner)
         {
-            owner.CheckIfTargetingPlayer();
-            owner.CheckIfStillReached();
+            Move(owner);
         }
 
-        public void OnEnter(AngrySoul owner)
+        private static void Move(AngrySoul owner)
         {
-            // ;
+            Vector2 delta = owner.mCurrentTarget - new Vector2(owner.transform.position.x, owner.transform.position.y);
+
+            if (delta.sqrMagnitude < 0.05f)
+                owner.mStateMachine.ChangeState(AngrySoul.mIdleState);
+            else
+                owner.mVelocity += delta.normalized * Time.fixedDeltaTime * owner.mAcceleration;
         }
 
-        public void OnExit(AngrySoul owner)
-        {
-            // ;
-        }
+        public void OnEnter(AngrySoul owner) { }
 
-        public void Update(AngrySoul owner)
-        {
-            // ;
-        }
+        public void OnExit(AngrySoul owner) { }
     }
 
-    sealed class TargetingState : State<AngrySoul>
+    sealed class NotShootingState : State<AngrySoul>
     {
-        public void FixedUpdate(AngrySoul owner)
-        {
-            owner.mCurrentTarget = owner.mPlayerRb.transform.position + Random.onUnitSphere * 2.0f;
-            owner.CheckIfStillReached();
+        public void Update(AngrySoul owner) {
+            Vector2 delta = owner.mPlayer.transform.position - owner.transform.position;
+
+            if (Mathf.Abs(delta.sqrMagnitude) < owner.mTargetingEntryDistance)
+                owner.mShootingStateMachine.ChangeState(mShootingState);
         }
 
-        public void OnEnter(AngrySoul owner)
-        {
-            owner.StartCoroutine(EntryTargetCoroutine(owner));
+        public void FixedUpdate(AngrySoul owner) { }
+
+        public void OnEnter(AngrySoul owner) {
+            owner.ChangeSpriteColor(owner.mNotShootingColor);
         }
 
-        IEnumerator EntryTargetCoroutine(AngrySoul owner)
-        {
-            float sleepTime = Random.Range(0.4f, 0.5f);
-            yield return new WaitForSeconds(sleepTime);
+        public void OnExit(AngrySoul owner) { }
+    }
+
+    sealed class ShootingState : State<AngrySoul>
+    {
+        public void Update(AngrySoul owner) { }
+
+        public void FixedUpdate(AngrySoul owner) {
+            owner.Shoot();
         }
 
-        public void OnExit(AngrySoul owner)
-        {
-            // ;
+        public void OnEnter(AngrySoul owner) {
+            owner.ChangeSpriteColor(owner.mShootingColor);
         }
 
-        public void Update(AngrySoul owner)
-        {
-            // ;
-        }
+        public void OnExit(AngrySoul owner) { }
     }
 
     sealed class GlobalState : State<AngrySoul>
     {
         public void FixedUpdate(AngrySoul owner)
         {
-            owner.mVelocity *= (1.0f - owner.mFriction);
+            owner.mVelocity *= (1.0f - owner.mFriction); // * Time.fixedDeltaTime);
             owner.mRb.position += owner.mVelocity * Time.fixedDeltaTime;
 
-            // transform.localScale = new Vector3(mRb.position.x >= mPlayerRb.position.x ? -1 : +1, 1, 1);
+            // owner.transform.localScale = new Vector3(owner.mRb.position.x >= owner.mPlayerRb.position.x ? -1 : 1, 1, 1);
         }
 
-        public void OnEnter(AngrySoul owner)
-        {
-            // ;
-        }
+        public void OnEnter(AngrySoul owner) { }
 
-        public void OnExit(AngrySoul owner)
-        {
-            // ;
-        }
+        public void OnExit(AngrySoul owner) { }
 
-        public void Update(AngrySoul owner)
-        {
-            // ;
-        }
+        public void Update(AngrySoul owner) { }
     }
 }

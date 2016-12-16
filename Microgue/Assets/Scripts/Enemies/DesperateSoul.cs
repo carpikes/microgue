@@ -76,7 +76,6 @@ public class DesperateSoul : Enemy
 
         public void FixedUpdate(DesperateSoul owner)
         {
-            Debug.Log("Moving");
             Move(owner);
         }
 
