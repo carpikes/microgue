@@ -1,29 +1,29 @@
 # Questo è il file degli oggetti
 # I commenti iniziano per #, le righe vuote vengono ignorate
-# struttura: nome, rarità, immagine, isPassive, <stat, effetto>
+# struttura: nome, rarità, immagine, isPassive, OnUseAction, OnUseAction Param, <stat, effetto>
 
-Common Soul Heart,Common,Red Heart.png,true,CURRENT_HEALTH,1
-Brave Soul Heart,Rare,Green Heart.png,true,CURRENT_HEALTH,2
-Hero Soul Heart,Mystic,Blue Heart.png,true,CURRENT_HEALTH,3
+Common Soul Heart,Common,Red Heart.png,true,,,CURRENT_HEALTH,1
+Brave Soul Heart,Rare,Green Heart.png,true,,,CURRENT_HEALTH,2
+Hero Soul Heart,Mystic,Blue Heart.png,true,,,CURRENT_HEALTH,3
 
-Phantom Dust, Common, Blue Clessidra.png,true,TEMP_DISTORSION,3
+Phantom Dust, Common, Blue Clessidra.png,true,,,TEMP_DISTORSION,3
 
-Holy Sign, Common, Holy Sign.png,true,DAMAGE,1
+Holy Sign, Common, Holy Sign.png,true,,,DAMAGE,1
 
 Blue Fire Ball, Common, Blue Bubble.png,true,DAMAGE,1
-Blood Ball, Rare, Red Bubble,true, CURRENT_HEALTH, -2, DAMAGE, 1
-Sun Ball, Rare, Green Bubble.png, true, DAMAGE, 2, SPEED, 0.3
+Blood Ball, Rare, Red Bubble,true,,, CURRENT_HEALTH, -2, DAMAGE, 1
+Sun Ball, Rare, Green Bubble.png, true,,, DAMAGE, 2, SPEED, 0.3
 
-Adrenaline, Rare, Purple Bottle.png, true, SPEED, 2
-# Band-aid, Common, band-aid.png, true, CURRENT_HEALTH, 1
+Adrenaline, Rare, Purple Bottle.png, true,,, SPEED, 2
+# Band-aid, Common, band-aid.png, true,,, CURRENT_HEALTH, 1
 
 # Pact with the Devil, Mystic, pactdevil.png, true, ....
 # Shadow shadows,...
 # Karma...
 
-Shadow Armor, Common, Red Armor.png, true, DEFENCE, 0.1
-Dark Armor, Rare, Green Armor.png, true, DEFENCE, 0.2
-Death Armor, Mystic, Blue Armor.png, true, DEFENCE, 0.5
+Shadow Armor, Common, Red Armor.png, true,,, DEFENCE, 0.1
+Dark Armor, Rare, Green Armor.png, true,,, DEFENCE, 0.2
+Death Armor, Mystic, Blue Armor.png, true,,, DEFENCE, 0.5
 
-# Eye In The Sky,Common,hearts3.png, true, CURRENT_HEALTH, 1, DAMAGE, 1
-# Impatience, Rare, impatience.png, true, DAMAGE, 2, TEMP_DISTORSION, -5
+# Eye In The Sky,Common,hearts3.png, true,,, CURRENT_HEALTH, 1, DAMAGE, 1
+# Impatience, Rare, impatience.png, true,,, DAMAGE, 2, TEMP_DISTORSION, -5

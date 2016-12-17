@@ -21,87 +21,25 @@ public class ItemData {
 
     public ItemData()
     {
-        values = new List<StatPair>();
+        Values = new List<StatPair>();
     }
 
-    private string name;
-    private ItemRarities rarity;
-    private string image;
-    private bool isPassive;
-    private List<StatPair> values;
-
-    public string Name
-    {
-        get
-        {
-            return name;
-        }
-
-        set
-        {
-            name = value;
-        }
-    }
-
-    public ItemRarities Rarity
-    {
-        get
-        {
-            return rarity;
-        }
-
-        set
-        {
-            rarity = value;
-        }
-    }
-
-    public List<StatPair> Values
-    {
-        get
-        {
-            return values;
-        }
-
-        set
-        {
-            values = value;
-        }
-    }
-
-    public string Image
-    {
-        get
-        {
-            return image;
-        }
-
-        set
-        {
-            image = value;
-        }
-    }
-
-    public bool IsPassive
-    {
-        get
-        {
-            return isPassive;
-        }
-
-        set
-        {
-            isPassive = value;
-        }
-    }
+    public string Name;
+    public ItemRarities Rarity;
+    public List<StatPair> Values;
+    public string Image;
+    public bool IsPassive;
+    public string OnUseMethod, OnUseParams;
 
     public override string ToString()
     {
         StringBuilder sb = new StringBuilder();
-        sb.Append("NAME: " + name + "\n");
-        sb.Append("Rarity: " + rarity + "\n");
-        sb.Append("IS PASSIVE? " + isPassive + "\n");
-        sb.Append("IMAGE: " + image + "\n");
+        sb.Append("NAME: " + Name + "\n");
+        sb.Append("RARITY: " + Rarity + "\n");
+        sb.Append("IS PASSIVE? " + IsPassive + "\n");
+        sb.Append("IMAGE: " + Image + "\n");
+        sb.Append("ONUSEM: " + OnUseMethod + "\n");
+        sb.Append("ONUSEP: " + OnUseParams + "\n");
 
         foreach (StatPair sp in Values)
         {

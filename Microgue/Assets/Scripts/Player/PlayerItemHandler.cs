@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using UnityEngine;
 
 using StatPair = System.Collections.Generic.KeyValuePair<StatManager.StatStates, float>;
@@ -28,7 +29,7 @@ public class PlayerItemHandler : MonoBehaviour {
         foreach (StatPair pair in item.Values)
             statManager.UpdateStatValue(pair.Key, pair.Value);
 
-        DoExtraActions(item);
+        Invoke(item.OnUseMethod, item.OnUseParams);
     }
 
     public void StoreItem(ItemData item)
@@ -37,8 +38,18 @@ public class PlayerItemHandler : MonoBehaviour {
         currentActiveItem = item;
     }
 
-    private void DoExtraActions(ItemData item)
+    void Invoke(string method, string param)
     {
-        
+        if (method.Length > 0)
+        {
+            MethodInfo mi = typeof(ItemActions).GetMethod(method, BindingFlags.Static | BindingFlags.Public);
+            if (mi == null)
+            {
+                Debug.Log("Cannot invoke: ItemActions::" + method + "()");
+                return;
+            }
+            object[] parameters = new object[] { param };
+            mi.Invoke(null, parameters);
+        }
     }
 }

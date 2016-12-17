@@ -48,6 +48,7 @@ public class ItemParser : MonoBehaviour {
             string line;
             while ((line = reader.ReadLine()) != null)
             {
+                line = line.Trim();
                 if (line.StartsWith("#") || line == "")
                     continue;
 
@@ -62,8 +63,10 @@ public class ItemParser : MonoBehaviour {
                 item.Rarity = (ItemData.ItemRarities)Enum.Parse(typeof(ItemData.ItemRarities), item_info[1]);
                 item.Image = item_info[2];
                 item.IsPassive = bool.Parse(item_info[3]);
+                item.OnUseMethod = item_info[4].Trim();
+                item.OnUseParams = item_info[5].Trim();
 
-                for (int i = 4; i < item_info.Length; i += 2)
+                for (int i = 6; i < item_info.Length; i += 2)
                 {
                     StatManager.StatStates stat = (StatManager.StatStates)Enum.Parse(typeof(StatManager.StatStates), item_info[i]);
                     item.Values.Add(new StatPair(stat, float.Parse(item_info[i + 1])));
