@@ -44,7 +44,7 @@ public class AngrySoul : Enemy
     static State<AngrySoul> mShootingState = new ShootingState();
     static State<AngrySoul> mGlobalState = new GlobalState();
 
-    protected override void SetupEnemy()
+    void Start()
     {
         mRb = GetComponent<Rigidbody2D>();
         mInitialPosition = transform.position;

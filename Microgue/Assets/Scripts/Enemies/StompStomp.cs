@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class StompStomp : MonoBehaviour
+public class StompStomp : Enemy
 {
     enum EnemyStatus
     {
         WAITING,
         FALLING,
-        STILL,
+        IDLE,
         JUMPING,
     };
+
+    Transform mStompStompEnemy;
+    Transform mStompStompShadow;
 
     private EnemyStatus mStatus;
     private Vector2 mVelocity = Vector2.zero;
@@ -22,29 +25,39 @@ public class StompStomp : MonoBehaviour
     public float mMaxWait = 0.5f;
     public float mJumpSize = 1.0f;
 
-    private Rigidbody2D mRigidBody;
-    private Transform mShadowTransform;
-    private Collider2D mCollider;
+    private Rigidbody2D mEnemyRb;
+    private Collider2D mEnemyCollider;
     private Transform mPlayerTransform;
     private InputManager mInputManager;
-	private EnemyPosition mEnemyAI;
 
     // Used for shadow projection
     private Vector2 mMovingDirection, mJumpStartPosition, mShadowOffset;
     private bool mDontMoveShadow;
 
-	// Use this for initialization
-	void Start () 
+    // State machine
+    /*
+    private StateMachine<StompStomp> mStateMachine;
+    static State<StompStomp> mWaitingState= new WaitingState();
+    static State<StompStomp> mFallingState = new FallingState();
+    static State<StompStomp> mIdleState = new IdleState();
+    static State<StompStomp> mJumpingState = new JumpingState();
+    //static State<StompStomp> mGlobalState = new GlobalState();
+    */
+
+    // Use this for initialization
+    void Start () 
 	{
-        mRigidBody = transform.GetChild(0).GetComponent<Rigidbody2D>();
-        mCollider = transform.GetChild(0).GetComponent<Collider2D>();
+        mStompStompEnemy = transform.FindChild("StompStompEnemy");
+        mStompStompShadow = transform.FindChild("StompStompShadow");
+
+        mEnemyRb = mStompStompEnemy.GetComponent<Rigidbody2D>();
+        mEnemyCollider = mStompStompEnemy.GetComponent<Collider2D>();
         mPlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        mShadowTransform = transform.GetChild(1).transform;
-        mShadowOffset = mShadowTransform.localPosition;
 
-        mRenderingOffset = mRigidBody.transform.localPosition;
+        mShadowOffset = mStompStompShadow.localPosition;
+        mRenderingOffset = mEnemyRb.transform.localPosition;
 
-        mJumpStartPosition = mRigidBody.transform.position;
+        mJumpStartPosition = mEnemyRb.transform.position;
         mJumpStartPosition -= mRenderingOffset;
 
         mMovingDirection = new Vector2(0, 0);
@@ -52,24 +65,29 @@ public class StompStomp : MonoBehaviour
         mInputManager = GameObject.Find("MainCharacter").GetComponent<InputManager>();
 
         Vector2 pos = new Vector2(0.0f, 10.0f);
-        mRigidBody.position = mRigidBody.position + pos + mRenderingOffset;
-        transform.GetChild(0).GetComponent<Transform>().position = mRigidBody.position + pos + mRenderingOffset;
-		mEnemyAI = GetComponent<EnemyPosition>();
-		mEnemyAI.SetEnabled(false);
-	}
+        mEnemyRb.position = mEnemyRb.position + pos + mRenderingOffset;
+        mStompStompEnemy.position = mEnemyRb.position + pos + mRenderingOffset;
+
+        // mStateMachine = new StateMachine<StompStomp>(this, mIdleState, null); // mGlobalState);
+    }
+
+    void Update()
+    {
+        // mStateMachine.Update();
+    }
 
     IEnumerator JumpCoroutine()
     {
         float waitTime = Random.Range(mMinWait, mMaxWait);
         yield return new WaitForSeconds(waitTime);
-        mCollider.enabled = false;
+        mEnemyCollider.enabled = false;
         BeginJumpToTarget();
     }
 
     void BeginJumpToTarget()
     {
         Vector2 newTarget = mPlayerTransform.position;
-        Vector2 pos = mRigidBody.transform.position;
+        Vector2 pos = mEnemyRb.transform.position;
         pos -= mRenderingOffset;
 
         Vector2 ds = newTarget - pos;
@@ -104,7 +122,7 @@ public class StompStomp : MonoBehaviour
         mVelocity.y = mJumpAccel * Mathf.Sin(angle);
         mCurTarget = newTarget;
         mMovingDirection = ds.normalized;
-        mJumpStartPosition = mRigidBody.position - mRenderingOffset;
+        mJumpStartPosition = mEnemyRb.position - mRenderingOffset;
 
         mDontMoveShadow = ((mJumpStartPosition - mCurTarget).magnitude < 0.1);
         mStatus = EnemyStatus.JUMPING;
@@ -113,12 +131,14 @@ public class StompStomp : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate ()
 	{
+        // mStateMachine.FixedUpdate();
+
         if (mStatus != EnemyStatus.JUMPING && mStatus != EnemyStatus.FALLING)
             return;
 
         mVelocity.y -= mGravity * Time.fixedDeltaTime;
 
-        Vector2 newPosition = mRigidBody.transform.position;
+        Vector2 newPosition = mEnemyRb.transform.position;
         newPosition -= mRenderingOffset;
         newPosition.x += mVelocity.x * Time.fixedDeltaTime;
         newPosition.y += mVelocity.y * Time.fixedDeltaTime;
@@ -133,36 +153,87 @@ public class StompStomp : MonoBehaviour
                 mInputManager.ShakeCamera(0.13f, 1.0f);
 
             mVelocity = Vector2.zero;
-            mStatus = EnemyStatus.STILL;
-            mCollider.enabled = true;
+            mStatus = EnemyStatus.IDLE;
+            mEnemyCollider.enabled = true;
             StartCoroutine(JumpCoroutine());
         }
 
-        if (mStatus == EnemyStatus.JUMPING || mStatus == EnemyStatus.STILL)
+        if (mStatus == EnemyStatus.JUMPING || mStatus == EnemyStatus.IDLE)
         {
             // Shadow Projection
             float dot = Vector2.Dot(newPosition - mJumpStartPosition, mMovingDirection);
             if(!mDontMoveShadow)
-                mShadowTransform.position = mJumpStartPosition + dot * mMovingDirection + mShadowOffset;
+                mStompStompShadow.position = mJumpStartPosition + dot * mMovingDirection + mShadowOffset;
         }
 
-		if(mEnemyAI != null)
-			mEnemyAI.SetPosition (mShadowTransform.position);
-        mRigidBody.transform.position = newPosition + mRenderingOffset;
+        mEnemyRb.transform.position = newPosition + mRenderingOffset;
 	}
 
     public void OnShadowTouch() {
         if (mStatus == EnemyStatus.WAITING)
         {
-			if (mEnemyAI != null)
-			{
-				mEnemyAI.SetEnabled (true);
-				mEnemyAI.SetPosition (mShadowTransform.position);
-			}
             mStatus = EnemyStatus.FALLING;
-            mCurTarget = mShadowTransform.position;
+            mCurTarget = mStompStompShadow.position;
             mCurTarget -= mShadowOffset;
             //Debug.Log("Changed status to Falling");
         }
     }
+
+    /*
+    sealed class IdleState : State<StompStomp>
+    {
+        public void Update(StompStomp owner) { }
+
+        public void FixedUpdate(StompStomp owner) { }
+
+        public void OnEnter(StompStomp owner)
+        {
+            
+        }
+
+        public void OnExit(StompStomp owner) { }
+    }
+
+    sealed class FallingState : State<StompStomp>
+    {
+        public void Update(StompStomp owner) { }
+
+        public void FixedUpdate(StompStomp owner) { }
+
+        public void OnEnter(StompStomp owner)
+        {
+
+        }
+
+        public void OnExit(StompStomp owner) { }
+    }
+
+    sealed class WaitingState : State<StompStomp>
+    {
+        public void Update(StompStomp owner) { }
+
+        public void FixedUpdate(StompStomp owner) { }
+
+        public void OnEnter(StompStomp owner)
+        {
+
+        }
+
+        public void OnExit(StompStomp owner) { }
+    }
+
+    sealed class JumpingState : State<StompStomp>
+    {
+        public void Update(StompStomp owner) { }
+
+        public void FixedUpdate(StompStomp owner) { }
+
+        public void OnEnter(StompStomp owner)
+        {
+
+        }
+
+        public void OnExit(StompStomp owner) { }
+    }
+    */
 }

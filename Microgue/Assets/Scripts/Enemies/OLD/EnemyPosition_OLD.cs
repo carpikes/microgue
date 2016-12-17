@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyPosition : MonoBehaviour 
+public class EnemyPosition1 : MonoBehaviour 
 {
 	private Vector2 mIntentPosition;
 	private bool mIsEnabled = false;

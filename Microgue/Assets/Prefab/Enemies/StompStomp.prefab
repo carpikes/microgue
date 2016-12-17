@@ -22,12 +22,12 @@ GameObject:
   - 212: {fileID: 212000012435237486}
   - 50: {fileID: 50000011535855692}
   - 114: {fileID: 114000012039792014}
-  - 114: {fileID: 114000010211494602}
   - 114: {fileID: 114000013874071828}
   - 95: {fileID: 95000011668293764}
   - 61: {fileID: 61000011172764526}
+  - 114: {fileID: 114000013531893908}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: StompStompEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +79,7 @@ GameObject:
   - 60: {fileID: 60000010352525948}
   - 114: {fileID: 114000013120344014}
   m_Layer: 0
-  m_Name: Shadow
+  m_Name: StompStompShadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -273,17 +273,6 @@ MonoBehaviour:
   mMinWait: 0.1
   mMaxWait: 0.5
   mJumpSize: 1
---- !u!114 &114000010211494602
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010076958456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa1b8f77ef5e7334fb8a82cab756edb5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114000010366553684
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -322,7 +311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aede8658bda6b7499b7f8cd1b5d4c68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 15
+  mCurrentHP: 2
 --- !u!114 &114000012494020472
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -364,6 +353,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e5df06d7f4d3a948ad57c6f3c0cee63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114000013531893908
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010076958456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a335dc59bc961a047bd77cbfbf0b5e08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114000013874071828

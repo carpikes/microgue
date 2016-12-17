@@ -23,7 +23,7 @@ public class DesperateSoul : Enemy
     static State<DesperateSoul> mMovingState = new MovingState();
     static State<DesperateSoul> mGlobalState = new GlobalState();
 
-    protected override void SetupEnemy()
+    void Start()
     {
         mPlayerRb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
         mRb = GetComponent<Rigidbody2D>();

@@ -92,7 +92,7 @@ public class AIMap : MonoBehaviour
 
     private void UpdateEnemies()
     {
-		EnemyPosition[] arr = GameObject.Find(mWorld.name + "/Enemies").GetComponentsInChildren<EnemyPosition>();
+		/*EnemyPosition[] arr = GameObject.Find(mWorld.name + "/Enemies").GetComponentsInChildren<EnemyPosition>();
 
         for (int i = 0; i < mWidth * mHeight; i++)
             mEnemies[i] = 0;
@@ -103,7 +103,7 @@ public class AIMap : MonoBehaviour
 				continue;
 			IntPoint p = WorldToTileCoordinates(pos.GetPosition());
             mEnemies[p.x + mWidth * p.y] = 1;
-        }
+        }*/
     }
 
     private void UpdateArea()

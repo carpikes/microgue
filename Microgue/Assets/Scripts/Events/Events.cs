@@ -25,12 +25,17 @@ public enum Events
     ON_MAIN_CHAR_MOVE,
     ON_MAIN_CHAR_CHANGE_DIR,
     ON_MAIN_CHAR_IDLE,
+    ON_MAIN_CHAR_STOP_ATTACK,
+    ON_MAIN_CHAR_KEEP_ATTACK,
 
     // enemy related
     ON_ENEMY_HIT,
     ON_ENEMY_DEATH,
     ON_ENEMY_TRIGGER,
     ON_STILL_ENEMIES_LEFT,
+
+    // specific enemies related
+    ON_STOMP_STOMP_SHADOW_TOUCH,
 
     // object related
     ON_ITEM_PICKUP,
@@ -43,8 +48,6 @@ public enum Events
 
     // stat related
     ON_STAT_CHANGED,
-    ON_MAIN_CHAR_STOP_ATTACK,
-    ON_MAIN_CHAR_KEEP_ATTACK,
 
     // trying to access boss room
     ON_WORLD_UNEXPLORED,
