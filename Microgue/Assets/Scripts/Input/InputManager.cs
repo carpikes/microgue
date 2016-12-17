@@ -30,8 +30,11 @@ public class InputManager : MonoBehaviour {
     public Transform aimTransform;
 
     [Header("Parameters for speed")]
-    public float initialSpeed = 100f;
-    private float speed;
+    public float mAcceleration = 100f;
+    public float mInitialSpeed = 20.0f;
+    [Header("Friction")]
+    public float mFriction = 5.0f;
+    private float mMaxSpeed;
 
     [Header("Shots parameters")]
     public GameObject lightBall;
@@ -42,11 +45,12 @@ public class InputManager : MonoBehaviour {
     [Header("Keyboard or joypad?")]
     InputInterface mInput;
     public InputChoiches mInputChoice;
+    public Color mBallColor;
 
     // Use this for initialization
     void Start ()
     {
-        speed = initialSpeed;
+        mMaxSpeed = mInitialSpeed;
 
         if (mInputChoice == InputChoiches.KeyboardMouse)
         {
@@ -61,6 +65,7 @@ public class InputManager : MonoBehaviour {
         statManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<StatManager>();
         animManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<PlayerAnimationManager>();
 
+        mBallColor = Color.white;
         mainCam = Camera.main;
         SetPositionCamera();
 
@@ -116,14 +121,10 @@ public class InputManager : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate ()
     {
-        ChangeVelocity();
-    }
-
-    private void ChangeVelocity()
-    {
         Vector2 delta = mInput.GetVelocityDelta();
 
         // TODO HACK
+        /*
         if( delta == Vector2.zero )
         {
             EventManager.TriggerEvent(Events.ON_MAIN_CHAR_IDLE, null);
@@ -131,13 +132,23 @@ public class InputManager : MonoBehaviour {
         {
             EventManager.TriggerEvent(Events.ON_MAIN_CHAR_MOVE, null);
         }
+        */
 
-        rb.velocity = delta * speed * Time.fixedDeltaTime;
+        Vector2 newVelocity = rb.velocity;
+        Vector2 friction = mFriction * newVelocity * Time.fixedDeltaTime;
+
+        newVelocity += delta * mAcceleration * Time.fixedDeltaTime;
+        newVelocity = (friction.magnitude >= newVelocity.magnitude) ? Vector2.zero : newVelocity - friction;
+
+        if (newVelocity.magnitude > mMaxSpeed)
+            newVelocity = newVelocity.normalized * mMaxSpeed;
+
+        rb.velocity = newVelocity;
     }
 
     internal void setSpeed(int v)
     {
-        speed = initialSpeed + v * 10;
+        mMaxSpeed = mInitialSpeed + v * 10;
     }
 
     private void Aim()
@@ -205,7 +216,8 @@ public class InputManager : MonoBehaviour {
     private void Shoot()
     {
         GameObject lb = Instantiate(lightBall);
-        lightBall.GetComponent<ShotProperties>().mDamage = statManager.GetStatValue(StatManager.StatStates.DAMAGE);
+        lb.GetComponent<ShotProperties>().mDamage = statManager.GetStatValue(StatManager.StatStates.DAMAGE);
+        lb.GetComponent<SpriteRenderer>().color = mBallColor;
 
         Vector2 playerPos = transform.position;
         Vector2 pointer = mainCam.ScreenToWorldPoint(mInput.GetScreenPointerCoordinates());
