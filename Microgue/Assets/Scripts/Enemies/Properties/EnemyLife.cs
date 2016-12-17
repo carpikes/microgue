@@ -22,7 +22,7 @@ public class EnemyLife : MonoBehaviour {
         if (other.CompareTag("Shot"))
         {
             EventManager.TriggerEvent(Events.ON_ENEMY_HIT, null);
-            mCurrentHP -= other.GetComponent<ShotDamage>().Damage;
+            mCurrentHP -= other.GetComponent<ShotProperties>().mDamage;
             UpdateHPBar();
         }
 

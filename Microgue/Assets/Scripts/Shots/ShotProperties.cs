@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ShotVisual : MonoBehaviour
+public class ShotProperties : MonoBehaviour
 {
     private float mEndTime = 0.0f;
     private float mShotDuration = 0.0f;
     private SpriteRenderer mSprite;
-    
+
+    public float mDamage;
+
     void Start()
     {
         mSprite = GetComponent<SpriteRenderer>();

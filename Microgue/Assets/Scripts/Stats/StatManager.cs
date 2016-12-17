@@ -28,7 +28,7 @@ public class StatManager : MonoBehaviour
     GameplayManager gameplayMgr;
     TimerManager timerMgr;
     InputManager inputMgr;
-    AnimationManager animMgr;
+    PlayerAnimationManager animMgr;
 
     void OnEnable()
     {
@@ -75,7 +75,7 @@ public class StatManager : MonoBehaviour
 
         timerMgr = GameObject.FindGameObjectWithTag("GameController").GetComponent<TimerManager>();
         inputMgr = GameObject.FindGameObjectWithTag("Player").GetComponent<InputManager>();
-        animMgr = GameObject.FindGameObjectWithTag("GameController").GetComponent<AnimationManager>();
+        animMgr = GameObject.FindGameObjectWithTag("GameController").GetComponent<PlayerAnimationManager>();
         gameplayMgr = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameplayManager>();
 
         isInvulnerable = gameplayMgr.isInvincible;

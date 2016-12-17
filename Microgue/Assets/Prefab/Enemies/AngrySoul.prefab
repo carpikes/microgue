@@ -76,7 +76,6 @@ GameObject:
   - 114: {fileID: 114000012171516190}
   - 114: {fileID: 114000011817798800}
   - 114: {fileID: 114000013742065824}
-  - 114: {fileID: 114000010224296744}
   - 95: {fileID: 95000010951662004}
   m_Layer: 0
   m_Name: AngrySoul
@@ -173,17 +172,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114000010224296744
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013733487062}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d450a9ef03c96bc48862c9984e4b97f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114000011403715980
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -232,7 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aede8658bda6b7499b7f8cd1b5d4c68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 10
+  mCurrentHP: 2
 --- !u!114 &114000012171516190
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -249,7 +237,7 @@ MonoBehaviour:
   mMaxStillTime: 5
   mAcceleration: 1
   mFriction: 0.02
-  mTargetingDistance: 5
+  mTargetingEntryDistance: 5
   mNotShootingColor: {r: 1, g: 1, b: 1, a: 1}
   mShootingColor: {r: 1, g: 0.09558821, b: 0.09558821, a: 1}
   darkBall: {fileID: 1000012785091142, guid: aea1448c22951e14996fe2fb2f894994, type: 2}

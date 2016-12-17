@@ -18,10 +18,10 @@ public class InputManager : MonoBehaviour {
 
     Camera mainCam;
     GameplayManager mGameManager = null;
-    PlayerManager playerManager = null;
+    PlayerItemHandler playerManager = null;
     StatManager statManager = null;
 
-    AnimationManager animManager;
+    PlayerAnimationManager animManager;
 
     float lastAimX = 0.0f;
     private float mShakeTime = 0.0f, mShakeForce = 0.0f;
@@ -57,9 +57,9 @@ public class InputManager : MonoBehaviour {
 
         rb = GetComponent<Rigidbody2D>();
         
-        playerManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<PlayerManager>();
+        playerManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<PlayerItemHandler>();
         statManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<StatManager>();
-        animManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<AnimationManager>();
+        animManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<PlayerAnimationManager>();
 
         mainCam = Camera.main;
         SetPositionCamera();
@@ -205,7 +205,7 @@ public class InputManager : MonoBehaviour {
     private void Shoot()
     {
         GameObject lb = Instantiate(lightBall);
-        lightBall.GetComponent<ShotDamage>().Damage = statManager.GetStatValue(StatManager.StatStates.DAMAGE);
+        lightBall.GetComponent<ShotProperties>().mDamage = statManager.GetStatValue(StatManager.StatStates.DAMAGE);
 
         Vector2 playerPos = transform.position;
         Vector2 pointer = mainCam.ScreenToWorldPoint(mInput.GetScreenPointerCoordinates());

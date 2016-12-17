@@ -23,7 +23,6 @@ GameObject:
   - 50: {fileID: 50000011849943918}
   - 58: {fileID: 58000013669518060}
   - 114: {fileID: 114000010641721718}
-  - 114: {fileID: 114000011461263846}
   m_Layer: 0
   m_Name: Lightball
   m_TagString: Shot
@@ -86,18 +85,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08a6c77a8d8589e4fac2eb71ad81718b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114000011461263846
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010376868484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4476efd6feca77e4b85f34a01f9b6402, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 1
+  mDamage: 1
 --- !u!212 &212000013960311172
 SpriteRenderer:
   m_ObjectHideFlags: 1

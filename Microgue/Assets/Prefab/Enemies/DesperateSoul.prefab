@@ -42,7 +42,6 @@ GameObject:
   - 114: {fileID: 114000013953945192}
   - 114: {fileID: 114000011294468174}
   - 114: {fileID: 114000012936140830}
-  - 114: {fileID: 114000011469953776}
   - 95: {fileID: 95000014210738340}
   m_Layer: 0
   m_Name: DesperateSoul
@@ -200,7 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aede8658bda6b7499b7f8cd1b5d4c68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 6
+  mCurrentHP: 2
 --- !u!114 &114000011421409986
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -222,17 +221,6 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!114 &114000011469953776
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013049728874}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d450a9ef03c96bc48862c9984e4b97f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114000012936140830
 MonoBehaviour:
   m_ObjectHideFlags: 1

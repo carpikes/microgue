@@ -6,7 +6,7 @@ using Bundle = System.Collections.Generic.Dictionary<string, string>;
 
 public class ItemEffector : MonoBehaviour {
 
-    PlayerManager playerManager;
+    PlayerItemHandler playerManager;
 
     [HideInInspector]
     public ItemData item;
@@ -15,7 +15,7 @@ public class ItemEffector : MonoBehaviour {
 
     void Start()
     {
-        playerManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<PlayerManager>();
+        playerManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<PlayerItemHandler>();
     }
 
 	void OnTriggerEnter2D( Collider2D other )

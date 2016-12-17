@@ -11,30 +11,30 @@ public class TimerManager : MonoBehaviour {
     public const float MAX_TIME = 300.0f;
 
     // in the format seconds.milliseconds
-    private float ticksLeft;
-    private int lastSecond;
-    private float scaleTimer; // divide time delta time according to stat value, to make time go to different speeds
+    private float mTicksLeft;
+    private int mLastSecond;
+    private float mScaleTimer; // divide time delta time according to stat value, to make time go to different speeds
 
-    private bool isTimerOn;
+    private bool mIsTimerOn;
 
     public static readonly string TICKS_LEFT_TAG = "TICKS_LEFT";
 
     public void Start()
     {
-        ticksLeft = MAX_TIME;
-        lastSecond = (int)ticksLeft;
+        mTicksLeft = MAX_TIME;
+        mLastSecond = (int)mTicksLeft;
 
-        isTimerOn = true;
-        scaleTimer = 1.0f;
+        mIsTimerOn = true;
+        mScaleTimer = 1.0f;
     }
 
     public void Update()
     {
-        if( isTimerOn )
+        if( mIsTimerOn )
         {
-            ticksLeft -= Time.deltaTime / scaleTimer;
+            mTicksLeft -= Time.deltaTime / mScaleTimer;
 
-            if ((int)ticksLeft < lastSecond)
+            if ((int)mTicksLeft < mLastSecond)
             {
                 DecreaseCountdown();
             }
@@ -44,24 +44,24 @@ public class TimerManager : MonoBehaviour {
     private void DecreaseCountdown()
     {
         Bundle tickBundle = new Bundle();
-        tickBundle.Add(TICKS_LEFT_TAG, Mathf.RoundToInt(ticksLeft).ToString());
+        tickBundle.Add(TICKS_LEFT_TAG, Mathf.RoundToInt(mTicksLeft).ToString());
         EventManager.TriggerEvent(Events.ON_TICK, tickBundle);
 
-        lastSecond = (int)ticksLeft;
+        mLastSecond = (int)mTicksLeft;
 
-        if( ticksLeft <= 0 )
+        if( mTicksLeft <= 0 )
         {
             Debug.Log("END OF TIME!");
             EventManager.TriggerEvent(Events.ON_TIME_ENDED, null);
 
-            isTimerOn = false;
+            mIsTimerOn = false;
         }
     }
 
     public void setInterval(int s)
     {
         // linear interpolation between 1 second interval (s=1) and 2 second interval (s=10)
-        scaleTimer = (s - 1) / 9.0f + 1;
+        mScaleTimer = (s - 1) / 9.0f + 1;
     }
 
 }
