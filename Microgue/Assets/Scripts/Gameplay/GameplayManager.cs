@@ -164,7 +164,7 @@ public class GameplayManager : MonoBehaviour
         if (debugArena)
             return;
 
-        if (!AreAllEnemiesKilled())
+        if (!AreAllEnemiesKilled() && !isInvincible)
         {
             EventManager.TriggerEvent(Events.ON_STILL_ENEMIES_LEFT, null);
             return;
