@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class AIMap : MonoBehaviour
 {
@@ -33,14 +34,6 @@ public class AIMap : MonoBehaviour
     public IntPoint GetPlayerPosition()
     {
         return GetTilePosition(mPlayer.transform.position);
-    }
-
-    public IntPoint GetTilePosition(Vector2 pos)
-    {
-        Debug.Log(pos + ", " + WorldToTileCoordinates(pos) + ", "); // + TileToWorldCoordinates(WorldToTileCoordinates(pos)));
-        Debug.Log(TileToWorldCoordinates(WorldToTileCoordinates(pos)));
-
-        return WorldToTileCoordinates(pos);
     }
 
     public Vector2 GetWorldPosition(IntPoint pos)
@@ -90,9 +83,6 @@ public class AIMap : MonoBehaviour
         }
 		if (mWorld != null && mRowTiles > 0 && mColTiles > 0)
 		{
-            // DEBUG TODO TOGLI
-            GetTilePosition(new Vector2(3f, -6f));
-
             if (mNextEnemyUpdate < Time.time)
 			{
 				UpdateEnemies();
@@ -240,8 +230,8 @@ public class AIMap : MonoBehaviour
         tileCoords.y = Mathf.FloorToInt(p.x / mTileWidthWC);
         tileCoords.x = Mathf.FloorToInt((-p.y) / mTileHeightWC); // NB the minus sign!
 
-        tileCoords.y = Mathf.Clamp(tileCoords.y, 0, mRowTiles - 1);
-        tileCoords.x = Mathf.Clamp(tileCoords.x, 0, mColTiles - 1);
+        tileCoords.y = Mathf.Clamp(tileCoords.y, 0, mColTiles - 1);
+        tileCoords.x = Mathf.Clamp(tileCoords.x, 0, mRowTiles - 1);
 
         return tileCoords;
     }
