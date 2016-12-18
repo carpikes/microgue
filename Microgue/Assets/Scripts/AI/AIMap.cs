@@ -107,17 +107,15 @@ public class AIMap : MonoBehaviour
             if (!pos.IsEnabled())
                 continue;
 
-            IntPoint p = WorldToTileCoordinates(pos.GetWorldPosition());
-            Debug.Log("Enemy in position: " + p + " - " + pos.GetWorldPosition());
-            mEnemies[p.x, p.y] = true;
+            IntPoint enemyTilePos = WorldToTileCoordinates(pos.GetWorldPosition());
+            mEnemies[enemyTilePos.x, enemyTilePos.y] = true;
         }
     }
 
-    private void ShowRedTilePlayer()
+    private void ShowRedTile(IntPoint tilePos)
     {
         mDebugTileForPlayerPos.SetActive(true);
-        Debug.Log(GetPlayerPosition());
-        mDebugTileForPlayerPos.transform.position = TileToWorldCoordinates(GetPlayerPosition());
+        mDebugTileForPlayerPos.transform.position = TileToWorldCoordinates(tilePos);
     }
 
     private void UpdateArea()
