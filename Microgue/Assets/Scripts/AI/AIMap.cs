@@ -37,7 +37,9 @@ public class AIMap : MonoBehaviour
 
     public IntPoint GetTilePosition(Vector2 pos)
     {
-        Debug.Log(pos + ", " + WorldToTileCoordinates(pos).x + "-" + WorldToTileCoordinates(pos).y + ", "); // + TileToWorldCoordinates(WorldToTileCoordinates(pos)));
+        Debug.Log(pos + ", " + WorldToTileCoordinates(pos) + ", "); // + TileToWorldCoordinates(WorldToTileCoordinates(pos)));
+        Debug.Log(TileToWorldCoordinates(WorldToTileCoordinates(pos)));
+
         return WorldToTileCoordinates(pos);
     }
 
@@ -88,6 +90,9 @@ public class AIMap : MonoBehaviour
         }
 		if (mWorld != null && mRowTiles > 0 && mColTiles > 0)
 		{
+            // DEBUG TODO TOGLI
+            GetTilePosition(new Vector2(3f, -6f));
+
             if (mNextEnemyUpdate < Time.time)
 			{
 				UpdateEnemies();
@@ -223,8 +228,7 @@ public class AIMap : MonoBehaviour
     {
         Debug.Assert(p.x >= 0 && p.x < mRowTiles && p.y >= 0 && p.y < mColTiles, "Invalid tile coords: " + p.x + ", " + p.y);
 
-        Vector2 result = new Vector2((p.x + 0.5f) * mTileWidthWC, (p.y + 0.5f) * mTileHeightWC);
-        Debug.Log(result);
+        Vector2 result = new Vector2((p.y + 0.5f) * mTileHeightWC, -(p.x + 0.5f) * mTileWidthWC);
         return result;
     }
 
