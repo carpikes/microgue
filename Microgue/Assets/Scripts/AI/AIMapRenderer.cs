@@ -30,8 +30,8 @@ public class AIMapRenderer : MonoBehaviour {
 
     void UpdateMap()
 	{
-        byte[] map = mAIMap.GetMap();
-        byte[] enemies = mAIMap.GetEnemies();
+        bool[,] map = mAIMap.GetMap();
+        bool[,] enemies = mAIMap.GetEnemies();
         int w = mAIMap.GetWidth();
         int h = mAIMap.GetHeight();
 
@@ -39,10 +39,10 @@ public class AIMapRenderer : MonoBehaviour {
         for (int i = 0; i < h; i++)
             for (int j = 0; j < w; j++)
             {
-                if (enemies[i * w + j] == 1)
+                if (enemies[i, j])
                     texture.SetPixel(j, i, Color.red);
                 else
-                    texture.SetPixel(j, i, map[i * w + j] == 1 ? Color.white : Color.black);
+                    texture.SetPixel(j, i, map[i, j] ? Color.white : Color.black);
             }
         texture.Apply();
         GetComponent<RawImage>().texture = texture;

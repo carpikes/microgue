@@ -104,6 +104,7 @@ public class DesperateSoul : Enemy
             owner.mVelocity *= (1.0f - owner.mFriction); // * Time.fixedDeltaTime);
             owner.mRb.position += owner.mVelocity * Time.fixedDeltaTime;
 
+            owner.mEnemyPosition.SetWorldPosition(owner.mRb.position);
             // owner.transform.localScale = new Vector3(owner.mRb.position.x >= owner.mPlayerRb.position.x ? -1 : 1, 1, 1);
         }
 

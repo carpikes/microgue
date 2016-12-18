@@ -12,12 +12,12 @@ public class EnemyPosition : MonoBehaviour
 		mIntentPosition = transform.position;
 	}
 
-	public void SetPosition(Vector2 pos)
+	public void SetWorldPosition(Vector2 pos)
 	{
 		mIntentPosition = pos;
 	}
 
-	public Vector2 GetPosition()
+	public Vector2 GetWorldPosition()
 	{
 		return mIntentPosition;
 	}

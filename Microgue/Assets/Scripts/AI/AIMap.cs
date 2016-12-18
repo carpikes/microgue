@@ -7,11 +7,11 @@ public class AIMap : MonoBehaviour
     GameplayManager mGameManager;
     GameObject mWorld = null;
     GameObject mPlayer = null;
-    byte[] mArea, mEnemies;
+    bool[,] mArea, mEnemies;
     int mMapRefreshes;
-    int mRowTiles, mColTiles;
-    float mMapWidthWC, mMapHeightWC;
-    float mTileWidthWC, mTileHeightWC;
+    static int mColTiles, mRowTiles;
+    static float mMapWidthWC, mMapHeightWC;
+    static float mTileWidthWC, mTileHeightWC;
     Bounds mWorldArea;
 	private float mEnemyUpdateInterval = 0.1f;
 	private float mNextEnemyUpdate = 0.0f;
@@ -52,8 +52,8 @@ public class AIMap : MonoBehaviour
 
     private void InitializeMapMeasures(Tiled2Unity.TiledMap map)
     {
-        mRowTiles = map.NumTilesWide;
-        mColTiles = map.NumTilesHigh;
+        mColTiles = map.NumTilesWide;
+        mRowTiles = map.NumTilesHigh;
 
         // 32 x 24 ok!
         //Debug.Log("DIMENSIONI MAPPA: " + mRowTiles + " " + mColTiles);
@@ -83,7 +83,7 @@ public class AIMap : MonoBehaviour
             mWorld = world;
             UpdateArea();
         }
-		if (mWorld != null && mRowTiles > 0 && mColTiles > 0)
+		if (mWorld != null && mColTiles > 0 && mRowTiles > 0)
 		{
             if (mNextEnemyUpdate < Time.time)
 			{
@@ -98,17 +98,18 @@ public class AIMap : MonoBehaviour
     {
         EnemyPosition[] arr = GameObject.Find(mWorld.name + "/Enemies").GetComponentsInChildren<EnemyPosition>();
 
-        for (int i = 0; i < mRowTiles * mColTiles; i++)
-            mEnemies[i] = 0;
+        for( int j = 0; j < mColTiles; ++j )
+            for (int i = 0; i < mRowTiles; i++)
+                mEnemies[i, j] = false;
 
         foreach (EnemyPosition pos in arr)
         {
             if (!pos.IsEnabled())
                 continue;
 
-            IntPoint p = WorldToTileCoordinates(pos.GetPosition());
-            Debug.Log("Enemy in position: " + p);
-            mEnemies[p.x + mRowTiles * p.y] = 1;
+            IntPoint p = WorldToTileCoordinates(pos.GetWorldPosition());
+            Debug.Log("Enemy in position: " + p + " - " + pos.GetWorldPosition());
+            mEnemies[p.x, p.y] = true;
         }
     }
 
@@ -137,13 +138,16 @@ public class AIMap : MonoBehaviour
 
         InitializeMapMeasures(map);
 
-        mArea = new byte[mRowTiles * mColTiles];
-        mEnemies = new byte[mRowTiles * mColTiles];
+        mArea = new bool[mRowTiles, mColTiles];
+        mEnemies = new bool[mRowTiles, mColTiles];
 
-        for (int i = 0; i < mRowTiles * mColTiles; i++)
+        for (int j = 0; j < mColTiles; j++)
         {
-            mArea[i] = 0;
-            mEnemies[i] = 0;
+            for(int i = 0; i < mRowTiles; ++i)
+            {
+                mArea[i,j] = false;
+                mEnemies[i, j] = false;
+            }
         }
 
         foreach (EdgeCollider2D c in coll)
@@ -182,14 +186,14 @@ public class AIMap : MonoBehaviour
         if (s.y == e.y)
         {
             for (int x = s.x; x <= e.x; x++)
-                mArea[x + s.y * mRowTiles] = 1;
+                mArea[x, s.y] = true;
             return;
         }
 
         if (s.x == e.x)
         {
             for (int y = s.y; y <= e.y; y++)
-                mArea[s.x + y * mRowTiles] = 1;
+                mArea[s.x, y] = true;
             return;
         }
 
@@ -201,7 +205,7 @@ public class AIMap : MonoBehaviour
         for (int x = s.x; x <= e.x; x++)
         {
             float y = s.y + (x - s.x) * d;
-            mArea[x + (int)y * mRowTiles] = 1;
+            mArea[x, (int)y] = true;
         }
     }
 
@@ -209,7 +213,7 @@ public class AIMap : MonoBehaviour
     {
         for (int x = dl.x; x <= ur.x; x++)
             for (int y = dl.y; y <= ur.y; y++)
-                mArea[x + y * mRowTiles] = 1;
+                mArea[x, y] = true;
     }
 
     private void BlackTri(IntPoint[] p)
@@ -225,9 +229,9 @@ public class AIMap : MonoBehaviour
         DrawLine(p[2], p[0]);
     }
 
-    private Vector2 TileToWorldCoordinates(IntPoint p)
+    public static Vector2 TileToWorldCoordinates(IntPoint p)
     {
-        Debug.Assert(p.x >= 0 && p.x < mColTiles && p.y >= 0 && p.y < mRowTiles, "Invalid tile coords: " + p.x + ", " + p.y);
+        Debug.Assert(p.x >= 0 && p.x < mRowTiles && p.y >= 0 && p.y < mColTiles, "Invalid tile coords: " + p.x + ", " + p.y);
 
         // Return center of the tile
         // NB x and y are inverted, BEWARE!
@@ -235,7 +239,7 @@ public class AIMap : MonoBehaviour
         return result;
     }
 
-    private IntPoint WorldToTileCoordinates(Vector2 p)
+    public static IntPoint WorldToTileCoordinates(Vector2 p)
     {
         IntPoint tileCoords;
 
@@ -243,18 +247,18 @@ public class AIMap : MonoBehaviour
         tileCoords.y = Mathf.FloorToInt(p.x / mTileWidthWC);
         tileCoords.x = Mathf.FloorToInt((-p.y) / mTileHeightWC); // NB the minus sign!
 
-        tileCoords.y = Mathf.Clamp(tileCoords.y, 0, mRowTiles - 1);
-        tileCoords.x = Mathf.Clamp(tileCoords.x, 0, mColTiles - 1);
+        tileCoords.y = Mathf.Clamp(tileCoords.y, 0, mColTiles - 1);
+        tileCoords.x = Mathf.Clamp(tileCoords.x, 0, mRowTiles - 1);
 
         return tileCoords;
     }
 
-    public byte[] GetMap()
+    public bool[,] GetMap()
     {
         return mArea;
     }
 
-    public byte[] GetEnemies()
+    public bool[,] GetEnemies()
     {
         return mEnemies;
     }
@@ -266,12 +270,12 @@ public class AIMap : MonoBehaviour
 
     public int GetWidth()
     {
-        return mRowTiles;
+        return mColTiles;
     }
 
     public int GetHeight()
     {
-        return mColTiles;
+        return mRowTiles;
     }
 
 }
