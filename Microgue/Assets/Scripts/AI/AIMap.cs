@@ -16,6 +16,8 @@ public class AIMap : MonoBehaviour
 	private float mEnemyUpdateInterval = 0.1f;
 	private float mNextEnemyUpdate = 0.0f;
 
+    public GameObject mDebugTileForPlayerPos;
+
 	public struct IntPoint 
 	{ 
 		public int x, y;
@@ -33,7 +35,7 @@ public class AIMap : MonoBehaviour
 
     public IntPoint GetPlayerPosition()
     {
-        return GetTilePosition(mPlayer.transform.position);
+        return WorldToTileCoordinates(mPlayer.transform.position);
     }
 
     public Vector2 GetWorldPosition(IntPoint pos)
@@ -85,7 +87,8 @@ public class AIMap : MonoBehaviour
 		{
             if (mNextEnemyUpdate < Time.time)
 			{
-				UpdateEnemies();
+                //ShowRedTilePlayer();
+                UpdateEnemies();
 				mNextEnemyUpdate = Time.time + mEnemyUpdateInterval;
 			}
 		}
@@ -93,18 +96,27 @@ public class AIMap : MonoBehaviour
 
     private void UpdateEnemies()
     {
-		/*EnemyPosition[] arr = GameObject.Find(mWorld.name + "/Enemies").GetComponentsInChildren<EnemyPosition>();
+        EnemyPosition[] arr = GameObject.Find(mWorld.name + "/Enemies").GetComponentsInChildren<EnemyPosition>();
 
-        for (int i = 0; i < mWidth * mHeight; i++)
+        for (int i = 0; i < mRowTiles * mColTiles; i++)
             mEnemies[i] = 0;
 
-		foreach(EnemyPosition pos in arr)
+        foreach (EnemyPosition pos in arr)
         {
-			if (!pos.IsEnabled ())
-				continue;
-			IntPoint p = WorldToTileCoordinates(pos.GetPosition());
-            mEnemies[p.x + mWidth * p.y] = 1;
-        }*/
+            if (!pos.IsEnabled())
+                continue;
+
+            IntPoint p = WorldToTileCoordinates(pos.GetPosition());
+            Debug.Log("Enemy in position: " + p);
+            mEnemies[p.x + mRowTiles * p.y] = 1;
+        }
+    }
+
+    private void ShowRedTilePlayer()
+    {
+        mDebugTileForPlayerPos.SetActive(true);
+        Debug.Log(GetPlayerPosition());
+        mDebugTileForPlayerPos.transform.position = TileToWorldCoordinates(GetPlayerPosition());
     }
 
     private void UpdateArea()
@@ -213,11 +225,12 @@ public class AIMap : MonoBehaviour
         DrawLine(p[2], p[0]);
     }
 
-    /* TODO MICHELE */
     private Vector2 TileToWorldCoordinates(IntPoint p)
     {
-        Debug.Assert(p.x >= 0 && p.x < mRowTiles && p.y >= 0 && p.y < mColTiles, "Invalid tile coords: " + p.x + ", " + p.y);
+        Debug.Assert(p.x >= 0 && p.x < mColTiles && p.y >= 0 && p.y < mRowTiles, "Invalid tile coords: " + p.x + ", " + p.y);
 
+        // Return center of the tile
+        // NB x and y are inverted, BEWARE!
         Vector2 result = new Vector2((p.y + 0.5f) * mTileHeightWC, -(p.x + 0.5f) * mTileWidthWC);
         return result;
     }
@@ -230,8 +243,8 @@ public class AIMap : MonoBehaviour
         tileCoords.y = Mathf.FloorToInt(p.x / mTileWidthWC);
         tileCoords.x = Mathf.FloorToInt((-p.y) / mTileHeightWC); // NB the minus sign!
 
-        tileCoords.y = Mathf.Clamp(tileCoords.y, 0, mColTiles - 1);
-        tileCoords.x = Mathf.Clamp(tileCoords.x, 0, mRowTiles - 1);
+        tileCoords.y = Mathf.Clamp(tileCoords.y, 0, mRowTiles - 1);
+        tileCoords.x = Mathf.Clamp(tileCoords.x, 0, mColTiles - 1);
 
         return tileCoords;
     }

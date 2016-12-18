@@ -17,6 +17,8 @@ public class DesperateSoul : Enemy
     private Vector2 mInitialPosition;
     private Vector2 mCurrentTarget;
 
+    private EnemyPosition mEnemyPosition;
+
     // State machine
     private StateMachine<DesperateSoul> mStateMachine;
     static State<DesperateSoul> mIdleState = new IdleState();
@@ -27,8 +29,10 @@ public class DesperateSoul : Enemy
     {
         mPlayerRb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
         mRb = GetComponent<Rigidbody2D>();
+        mEnemyPosition = GetComponent<EnemyPosition>();
         mInitialPosition = transform.position;
 
+        mEnemyPosition.SetEnabled(true);
         mStateMachine = new StateMachine<DesperateSoul>(this, mIdleState, mGlobalState);
     }
 
