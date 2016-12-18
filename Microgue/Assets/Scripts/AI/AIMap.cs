@@ -104,11 +104,13 @@ public class AIMap : MonoBehaviour
 
         foreach (EnemyPosition pos in arr)
         {
-            if (!pos.IsEnabled())
+            Debug.Log(pos.IsOutOfTileMap());
+            if (!pos.IsEnabled() || pos.IsOutOfTileMap())
                 continue;
 
             IntPoint enemyTilePos = WorldToTileCoordinates(pos.GetWorldPosition());
             mEnemies[enemyTilePos.x, enemyTilePos.y] = true;
+            Debug.Log(enemyTilePos);
         }
     }
 
@@ -266,12 +268,22 @@ public class AIMap : MonoBehaviour
         return mMapRefreshes;
     }
 
-    public int GetWidth()
+    static public float GetWidth()
+    {
+        return mMapWidthWC;
+    }
+
+    static public float GetHeight()
+    {
+        return mMapHeightWC;
+    }
+
+    static public int GetNrTileColumns()
     {
         return mColTiles;
     }
 
-    public int GetHeight()
+    static public int GetNrTileRows()
     {
         return mRowTiles;
     }

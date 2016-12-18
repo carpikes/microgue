@@ -32,10 +32,11 @@ public class AIMapRenderer : MonoBehaviour {
 	{
         bool[,] map = mAIMap.GetMap();
         bool[,] enemies = mAIMap.GetEnemies();
-        int w = mAIMap.GetWidth();
-        int h = mAIMap.GetHeight();
+        int w = AIMap.GetNrTileColumns();
+        int h = AIMap.GetNrTileRows();
 
         Texture2D texture = new Texture2D(w,h);
+
         for (int i = 0; i < h; i++)
             for (int j = 0; j < w; j++)
             {

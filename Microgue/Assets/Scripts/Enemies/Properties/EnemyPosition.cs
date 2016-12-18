@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class EnemyPosition : MonoBehaviour 
 {
@@ -31,4 +32,11 @@ public class EnemyPosition : MonoBehaviour
 	{ 
 		return mIsEnabled;
 	}
+
+    internal bool IsOutOfTileMap()
+    {
+        // REMEMBER THAT Ys are negative!
+        return mIntentPosition.x < 0 || mIntentPosition.x >= AIMap.GetWidth() 
+            || mIntentPosition.y > 0 || mIntentPosition.y <= -AIMap.GetHeight();
+    }
 }
