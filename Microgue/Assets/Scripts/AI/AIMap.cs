@@ -150,7 +150,7 @@ public class AIMap : MonoBehaviour
             }
         }
 
-        /*foreach (EdgeCollider2D c in coll)
+        foreach (EdgeCollider2D c in coll)
         {
             Vector2[] p = c.points;
             for (int i = 0; i < p.Length; i++)
@@ -158,9 +158,9 @@ public class AIMap : MonoBehaviour
                 Vector2 other = p[(i + 1) % p.Length];
                 DrawLine(WorldToTileCoordinates(p[i]), WorldToTileCoordinates(other));
             }
-        }*/
+        }
 
-        /*foreach (PolygonCollider2D c in poly)
+        foreach (PolygonCollider2D c in poly)
         {
             Vector2[] p = c.points;
             for (int i = 0; i < p.Length; i++)
@@ -168,14 +168,14 @@ public class AIMap : MonoBehaviour
                 Vector2 other = p[(i + 1) % p.Length];
                 DrawLine(WorldToTileCoordinates(p[i]), WorldToTileCoordinates(other));
             }
-        }*/
+        }
 
         foreach (BoxCollider2D c in box)
         {
             IntPoint dl = WorldToTileCoordinates(c.bounds.min);
             IntPoint ur = WorldToTileCoordinates(c.bounds.max);
 
-            Debug.Log("DOOR: dl " + dl + " - ur " + ur);
+            //Debug.Log("DOOR: dl " + dl + " - ur " + ur);
 
             DrawRectangle(dl, ur);
         }
@@ -185,30 +185,43 @@ public class AIMap : MonoBehaviour
 
     private void DrawLine(IntPoint s, IntPoint e)
     {
-        if (s.y == e.y)
+        if( Mathf.Abs(e.x - s.x) >= Mathf.Abs(e.y - s.y) )
         {
-            for (int x = s.x; x <= e.x; x++)
-                mArea[x, s.y] = true;
-            return;
+            // always start with s on the left
+            if( s.x > e.x )
+                Swap<IntPoint>(ref s, ref e);
+
+            float y = s.y;
+            float dy = (float)(e.y - s.y) / (e.x - s.x);
+
+            for (int x = s.x; x <= e.x; ++x)
+            {
+                mArea[x, (int)Mathf.Round(y)] = true;
+                y += dy;
+            }             
+        } else {
+            if (s.y > e.y)
+                Swap<IntPoint>(ref s, ref e);
+
+            Debug.Log(s + " " + e);
+
+            float x = s.x;
+            float dx = (float)(e.x - s.x) / (e.y - s.y);
+
+            for( int y = s.y; y <= e.y; y++ )
+            {
+                Debug.Log("DRAWING: " + x + " " + y);
+                mArea[(int)Mathf.Round(x), y] = true;
+                x += dx;
+            }
         }
+    }
 
-        if (s.x == e.x)
-        {
-            for (int y = s.y; y <= e.y; y++)
-                mArea[s.x, y] = true;
-            return;
-        }
-
-        float dy = e.y - s.y;
-        float dx = e.x - s.x;
-
-        float d = dy / dx;
-
-        for (int x = s.x; x <= e.x; x++)
-        {
-            float y = s.y + (x - s.x) * d;
-            mArea[x, (int)y] = true;
-        }
+    private void Swap<T>(ref T a, ref T b)
+    {
+        T tmp = a;
+        a = b;
+        b = tmp;
     }
 
     private void DrawRectangle(IntPoint p1, IntPoint p2)
