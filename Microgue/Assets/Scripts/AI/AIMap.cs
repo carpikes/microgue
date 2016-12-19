@@ -203,14 +203,14 @@ public class AIMap : MonoBehaviour
             if (s.y > e.y)
                 Swap<IntPoint>(ref s, ref e);
 
-            Debug.Log(s + " " + e);
+            //Debug.Log(s + " " + e);
 
             float x = s.x;
             float dx = (float)(e.x - s.x) / (e.y - s.y);
 
             for( int y = s.y; y <= e.y; y++ )
             {
-                Debug.Log("DRAWING: " + x + " " + y);
+                //Debug.Log("DRAWING: " + x + " " + y);
                 mArea[(int)Mathf.Round(x), y] = true;
                 x += dx;
             }
