@@ -3,7 +3,7 @@ using System.Collections;
 using System;
 using Random = UnityEngine.Random;
 
-public class AngrySoul : Enemy
+public class AngrySoul : MonoBehaviour
 {
     [Header("Movement Parameters")]
     public float mMovementRadius = 3.0f;

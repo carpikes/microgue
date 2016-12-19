@@ -4,7 +4,7 @@ using System.Collections;
 using Random = UnityEngine.Random;
 using System;
 
-public class ChasingBird : Enemy {
+public class ChasingBird : MonoBehaviour {
     private Rigidbody2D mPlayerRb;
     private Rigidbody2D mRb;
 
