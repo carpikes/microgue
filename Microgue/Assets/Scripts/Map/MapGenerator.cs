@@ -9,8 +9,6 @@ namespace RoomMapGenerator
     {
         public int mWidth = 8;
         public int mHeight = 5;
-        public int mMaxRooms = 8;
-        public int mMinRooms = 6;
 
         private int mStartRoom, mEndRoom;
         private RoomMap mMap;
@@ -59,7 +57,22 @@ namespace RoomMapGenerator
             return 0xff;
         }
 
-        public bool GenerateMap()
+        // Genera una mappa con stanze [minRooms,maxRooms] (limiti inclusi)
+        // Impostare minRooms > maxRooms fa ritornare falso.
+        public bool GenerateMap(int minRooms, int maxRooms)
+        {
+            if (minRooms > maxRooms)
+                return false;
+
+            do
+            {
+                if (!RealGenerateMap(minRooms))
+                    return false;
+            } while (mCurRooms < minRooms || mCurRooms > maxRooms);
+            return true;
+        }
+
+        private bool RealGenerateMap(int minRooms)
         {
             mMap.Clear();
             mQueue.Clear();
@@ -75,7 +88,7 @@ namespace RoomMapGenerator
                 return false;
             mQueue.Push(startX, startY, d);
 
-            int maxCtr = mMinRooms;
+            int maxCtr = minRooms;
 
             // Build rooms
             while (!mQueue.IsEmpty() && maxCtr-- > 0)

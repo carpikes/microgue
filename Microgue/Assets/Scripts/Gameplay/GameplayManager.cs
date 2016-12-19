@@ -32,7 +32,12 @@ public class GameplayManager : MonoBehaviour
 
     // list of available .prefab files
     private List<string> mAvailableLevels;
-    
+
+    [Header("Min Rooms for this level")]
+    public int mMinRooms = 3;
+
+    [Header("Max Rooms for this level")]
+    public int mMaxRooms = 5;
 
     void OnEnable()
     {
@@ -59,7 +64,8 @@ public class GameplayManager : MonoBehaviour
         mMapGenerator = new MapGenerator();
         mMapAssetManager = new MapAssetManager(mMapGenerator, mAvailableLevels);
         mLevels = new Dictionary<int, Level>();
-        mMapGenerator.GenerateMap(); // TODO: sistemare con ciclo
+
+        mMapGenerator.GenerateMap(mMinRooms, mMaxRooms); // TODO: sistemare con ciclo
         mMapAssetManager.SetStartMap( STARTING_MAP );
 
         LoadLevel(mMapGenerator.GetStartRoomId());
