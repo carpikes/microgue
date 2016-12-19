@@ -22,7 +22,6 @@ public class JoypadInput : MonoBehaviour, InputInterface {
 
     public Vector2 GetScreenPointerCoordinates()
     {
-        Debug.Log(mCurPlayerPos);
         return mCurPlayerPos + mCurRStick;
     }
 
@@ -78,7 +77,7 @@ public class JoypadInput : MonoBehaviour, InputInterface {
 
     public bool IsItemButtonPressed()
     {
-        return Input.GetKeyDown(KeyCode.Joystick1Button3);
+        return Input.GetKeyDown(KeyCode.Joystick1Button2);
     }
 
     public bool IsDashButtonPressed()
@@ -89,7 +88,7 @@ public class JoypadInput : MonoBehaviour, InputInterface {
 
     public bool IsSecondaryAttackButtonPressed()
     {
-        return Input.GetKeyDown(KeyCode.Joystick1Button6);
+        return Input.GetKeyDown(KeyCode.Joystick1Button5);
     }
 
     public bool IsShootingButtonPressed()

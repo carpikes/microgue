@@ -114,12 +114,6 @@ public class InputManager : MonoBehaviour {
             mShakeForce = force;
     }
 
-    private Vector2 GetNormalizedPlayerCoordinates()
-    {
-        Vector2 sp = mainCam.WorldToScreenPoint(transform.position); 
-        return new Vector2((sp.x / Screen.width) * 2 - 1, (sp.y / Screen.height) * 2 - 1);
-    }
-
     private Vector2 GetNormalizedPointerCoordinates()
     {
         Vector2 sp = mInput.GetScreenPointerCoordinates();
@@ -207,7 +201,10 @@ public class InputManager : MonoBehaviour {
             Shoot();
 
         if (mInput.IsItemButtonPressed())
+        {
+            Debug.Log("Item");
             playerManager.UseActiveItem();
+        }
 
         if (mInput.IsDashButtonPressed())
             Dash();
