@@ -34,6 +34,7 @@ public class AIMapRenderer : MonoBehaviour {
         bool[,] enemies = mAIMap.GetEnemies();
         int cols = AIMap.GetNrTileColumns();
         int rows = AIMap.GetNrTileRows();
+        AIMap.IntPoint playerPosition = mAIMap.GetPlayerPosition();
 
         Texture2D texture = new Texture2D(cols,rows);
 
@@ -46,7 +47,7 @@ public class AIMapRenderer : MonoBehaviour {
                     texture.SetPixel(j, rows - i - 1, map[i, j] ? Color.white : Color.black);
             }
 
-        texture.SetPixel(5, 0, Color.cyan);
+        texture.SetPixel(playerPosition.y, rows - playerPosition.x - 1, Color.cyan);
         texture.Apply();
         GetComponent<RawImage>().texture = texture;
     }

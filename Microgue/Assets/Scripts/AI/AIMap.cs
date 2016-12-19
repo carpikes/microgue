@@ -104,13 +104,13 @@ public class AIMap : MonoBehaviour
 
         foreach (EnemyPosition pos in arr)
         {
-            Debug.Log(pos.IsOutOfTileMap());
+            //Debug.Log(pos.IsOutOfTileMap());
             if (!pos.IsEnabled() || pos.IsOutOfTileMap())
                 continue;
 
             IntPoint enemyTilePos = WorldToTileCoordinates(pos.GetWorldPosition());
             mEnemies[enemyTilePos.x, enemyTilePos.y] = true;
-            Debug.Log(enemyTilePos);
+            //Debug.Log(enemyTilePos);
         }
     }
 
@@ -150,7 +150,7 @@ public class AIMap : MonoBehaviour
             }
         }
 
-        foreach (EdgeCollider2D c in coll)
+        /*foreach (EdgeCollider2D c in coll)
         {
             Vector2[] p = c.points;
             for (int i = 0; i < p.Length; i++)
@@ -158,9 +158,9 @@ public class AIMap : MonoBehaviour
                 Vector2 other = p[(i + 1) % p.Length];
                 DrawLine(WorldToTileCoordinates(p[i]), WorldToTileCoordinates(other));
             }
-        }
+        }*/
 
-        foreach (PolygonCollider2D c in poly)
+        /*foreach (PolygonCollider2D c in poly)
         {
             Vector2[] p = c.points;
             for (int i = 0; i < p.Length; i++)
@@ -168,14 +168,16 @@ public class AIMap : MonoBehaviour
                 Vector2 other = p[(i + 1) % p.Length];
                 DrawLine(WorldToTileCoordinates(p[i]), WorldToTileCoordinates(other));
             }
-        }
+        }*/
 
         foreach (BoxCollider2D c in box)
         {
             IntPoint dl = WorldToTileCoordinates(c.bounds.min);
             IntPoint ur = WorldToTileCoordinates(c.bounds.max);
 
-            BlackRect(dl, ur);
+            Debug.Log("DOOR: dl " + dl + " - ur " + ur);
+
+            DrawRectangle(dl, ur);
         }
 
         mMapRefreshes++;
@@ -209,20 +211,22 @@ public class AIMap : MonoBehaviour
         }
     }
 
-    private void BlackRect(IntPoint dl, IntPoint ur)
+    private void DrawRectangle(IntPoint p1, IntPoint p2)
     {
-        for (int x = dl.x; x <= ur.x; x++)
-            for (int y = dl.y; y <= ur.y; y++)
+        int xMin = Mathf.Min(p1.x, p2.x);
+        int xMax = Mathf.Max(p1.x, p2.x);
+
+        int yMin = Mathf.Min(p1.y, p2.y);
+        int yMax = Mathf.Max(p1.y, p2.y);
+
+        for (int x = xMin; x <= xMax; x++)
+            for (int y = yMin; y <= yMax; y++)
                 mArea[x, y] = true;
     }
 
-    private void BlackTri(IntPoint[] p)
+    private void DrawTriangle(IntPoint[] p)
     {
-        if (p.Length != 3)
-        {
-            Debug.LogError("p must have 3 points");
-            return;
-        }
+        Debug.Assert(p.Length == 3, "p must have 3 points!");
 
         DrawLine(p[0], p[1]);
         DrawLine(p[1], p[2]);
