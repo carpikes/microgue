@@ -47,6 +47,9 @@ public class InputManager : MonoBehaviour {
     public InputChoiches mInputChoice;
     public Color mBallColor;
 
+    // True se e` in shooting.
+    private bool mIsShooting = false;
+
     // Use this for initialization
     void Start ()
     {
@@ -71,6 +74,7 @@ public class InputManager : MonoBehaviour {
 
         // set cursor to player position
         aimTransform.position = mainCam.ScreenToWorldPoint(new Vector3(0, 0, 1));
+        mIsShooting = false;
     }
 
 
@@ -182,35 +186,29 @@ public class InputManager : MonoBehaviour {
 
     void Update()
     {
-        if( mInput.IsShootingButtonPressed() && CanShoot())
+        if (!mIsShooting && mInput.IsShootingButtonPressed() && CanShoot())
         {
             EventManager.TriggerEvent(Events.ON_MAIN_CHAR_START_ATTACK, null);
-            Shoot();
+            mIsShooting = true;
         }
-        else if (mInput.IsShootingButtonReleased())
+
+        if (mIsShooting && !mInput.IsShootingButtonPressed())
         {
-            EventManager.TriggerEvent(Events.ON_MAIN_CHAR_STOP_ATTACK, null);
+                EventManager.TriggerEvent(Events.ON_MAIN_CHAR_STOP_ATTACK, null);
+                mIsShooting = false;
         }
-        else if (mInput.IsShootingButtonKeepPressed() && CanShoot())
-        {
-            EventManager.TriggerEvent(Events.ON_MAIN_CHAR_START_ATTACK, null);
+
+        if(mIsShooting && CanShoot())
             Shoot();
-        } 
 
         if (mInput.IsItemButtonPressed())
-        {
             playerManager.UseActiveItem();
-        }
 
         if (mInput.isDashButtonPressed())
-        {
             Dash();
-        }
 
         if (mInput.isSecondaryAttackButtonPressed())
-        {
             SecondaryAttack();
-        }
     }
 
     private void Shoot()

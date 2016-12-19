@@ -74,33 +74,25 @@ public class JoypadInput : MonoBehaviour, InputInterface {
         return delta;
     }
 
-    public bool IsShootingButtonKeepPressed()
-    {
-        return false;
-    }
-
     public bool IsItemButtonPressed()
     {
-        return false;
+        return Input.GetKeyDown(KeyCode.Joystick1Button3);
     }
 
     public bool isDashButtonPressed()
     {
-        return false;
+        float v = Input.GetAxisRaw("JShoot");
+        return (v > 0.2);
     }
 
     public bool isSecondaryAttackButtonPressed()
     {
-        return false;
-    }
-
-    public bool IsShootingButtonReleased()
-    {
-        return false;
+        return Input.GetKeyDown(KeyCode.Joystick1Button6);
     }
 
     public bool IsShootingButtonPressed()
     {
-        return false;
+        float v = Input.GetAxisRaw("JShoot");
+        return (v < -0.2);
     }
 }

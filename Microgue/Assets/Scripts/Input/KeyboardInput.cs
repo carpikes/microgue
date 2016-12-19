@@ -51,11 +51,6 @@ public class KeyboardInput : MonoBehaviour, InputInterface {
         return delta;
     }
 
-    public bool IsShootingButtonKeepPressed()
-    {
-        return Input.GetKey(KeyCode.Mouse0);
-    }
-
     public bool IsShootingButtonPressed()
     {
         return Input.GetKeyDown(KeyCode.Mouse0);
@@ -74,10 +69,5 @@ public class KeyboardInput : MonoBehaviour, InputInterface {
     public bool isSecondaryAttackButtonPressed()
     {
         return Input.GetKeyDown(KeyCode.LeftShift);
-    }
-
-    public bool IsShootingButtonReleased()
-    {
-        return Input.GetKeyUp(KeyCode.Mouse0);
     }
 }
