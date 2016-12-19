@@ -6,6 +6,11 @@ public interface InputInterface {
     Vector2 GetVelocityDelta();
     bool IsShootingButtonPressed();
     bool IsItemButtonPressed();
-    bool isDashButtonPressed();
-    bool isSecondaryAttackButtonPressed();
+    bool IsDashButtonPressed();
+    bool IsSecondaryAttackButtonPressed();
+
+    // Usata dal joystick per centrare
+    // il mirino anche quando il player
+    // non e` centrato
+    void FeedPlayerPosition(Vector2 pos);
 }

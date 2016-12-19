@@ -61,13 +61,17 @@ public class KeyboardInput : MonoBehaviour, InputInterface {
         return Input.GetKeyDown(KeyCode.E);
     }
 
-    public bool isDashButtonPressed()
+    public bool IsDashButtonPressed()
     {
         return Input.GetKeyDown(KeyCode.Mouse1);
     }
 
-    public bool isSecondaryAttackButtonPressed()
+    public bool IsSecondaryAttackButtonPressed()
     {
         return Input.GetKeyDown(KeyCode.LeftShift);
+    }
+
+    public void FeedPlayerPosition(Vector2 pos)
+    {
     }
 }

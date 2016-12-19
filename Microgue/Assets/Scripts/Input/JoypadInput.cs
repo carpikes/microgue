@@ -6,6 +6,7 @@ public class JoypadInput : MonoBehaviour, InputInterface {
     private Vector2 mCurRStick;
     public float mCutOffFrequency = 2.0f;
     public float mCircleArea = 0.5f;
+    public Vector2 mCurPlayerPos = Vector2.zero;
 
     void Start () {
         mCurRStick = new Vector2(0, 0);
@@ -21,7 +22,8 @@ public class JoypadInput : MonoBehaviour, InputInterface {
 
     public Vector2 GetScreenPointerCoordinates()
     {
-        return mCurRStick;
+        Debug.Log(mCurPlayerPos);
+        return mCurPlayerPos + mCurRStick;
     }
 
     private Vector2 GetRawPointerCoordinates()
@@ -79,13 +81,13 @@ public class JoypadInput : MonoBehaviour, InputInterface {
         return Input.GetKeyDown(KeyCode.Joystick1Button3);
     }
 
-    public bool isDashButtonPressed()
+    public bool IsDashButtonPressed()
     {
         float v = Input.GetAxisRaw("JShoot");
         return (v > 0.2);
     }
 
-    public bool isSecondaryAttackButtonPressed()
+    public bool IsSecondaryAttackButtonPressed()
     {
         return Input.GetKeyDown(KeyCode.Joystick1Button6);
     }
@@ -94,5 +96,10 @@ public class JoypadInput : MonoBehaviour, InputInterface {
     {
         float v = Input.GetAxisRaw("JShoot");
         return (v < -0.2);
+    }
+
+    public void FeedPlayerPosition(Vector2 pos)
+    {
+        mCurPlayerPos = pos;
     }
 }

@@ -114,12 +114,16 @@ public class InputManager : MonoBehaviour {
             mShakeForce = force;
     }
 
+    private Vector2 GetNormalizedPlayerCoordinates()
+    {
+        Vector2 sp = mainCam.WorldToScreenPoint(transform.position); 
+        return new Vector2((sp.x / Screen.width) * 2 - 1, (sp.y / Screen.height) * 2 - 1);
+    }
+
     private Vector2 GetNormalizedPointerCoordinates()
     {
         Vector2 sp = mInput.GetScreenPointerCoordinates();
-        Vector2 normCoords =
-            new Vector2((sp.x / Screen.width) * 2 - 1, (sp.y / Screen.height) * 2 - 1);
-        return normCoords;
+        return new Vector2((sp.x / Screen.width) * 2 - 1, (sp.y / Screen.height) * 2 - 1);
     }
 
     // Update is called once per frame
@@ -157,6 +161,7 @@ public class InputManager : MonoBehaviour {
 
     private void Aim()
     {
+        mInput.FeedPlayerPosition(mainCam.WorldToScreenPoint(transform.position) - new Vector3(mainCam.pixelWidth / 2.0f, mainCam.pixelHeight / 2.0f, 0));
         Vector2 p = mainCam.ScreenToWorldPoint(mInput.GetScreenPointerCoordinates());
 
         aimTransform.transform.position = p;
@@ -194,8 +199,8 @@ public class InputManager : MonoBehaviour {
 
         if (mIsShooting && !mInput.IsShootingButtonPressed())
         {
-                EventManager.TriggerEvent(Events.ON_MAIN_CHAR_STOP_ATTACK, null);
-                mIsShooting = false;
+            EventManager.TriggerEvent(Events.ON_MAIN_CHAR_STOP_ATTACK, null);
+            mIsShooting = false;
         }
 
         if(mIsShooting && CanShoot())
@@ -204,10 +209,10 @@ public class InputManager : MonoBehaviour {
         if (mInput.IsItemButtonPressed())
             playerManager.UseActiveItem();
 
-        if (mInput.isDashButtonPressed())
+        if (mInput.IsDashButtonPressed())
             Dash();
 
-        if (mInput.isSecondaryAttackButtonPressed())
+        if (mInput.IsSecondaryAttackButtonPressed())
             SecondaryAttack();
     }
 
@@ -238,11 +243,13 @@ public class InputManager : MonoBehaviour {
 
     private void SecondaryAttack()
     {
+        Debug.Log("SecondaryAttack()");
         EventManager.TriggerEvent(Events.ON_MAIN_CHAR_SECOND_ATTACK, null);
     }
 
     private void Dash()
     {
+        Debug.Log("Dash()");
         EventManager.TriggerEvent(Events.ON_MAIN_CHAR_DASH, null);
     }
 }
