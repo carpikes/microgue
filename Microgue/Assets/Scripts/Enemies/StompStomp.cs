@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class StompStomp : Enemy
+public class StompStomp : MonoBehaviour
 {
     enum EnemyStatus
     {

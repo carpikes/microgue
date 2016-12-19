@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DesperateSoul : Enemy
+public class DesperateSoul : MonoBehaviour
 {
     [Header("Movement Parameters")]
     public float mMovementRadius = 3.0f;
@@ -36,12 +36,12 @@ public class DesperateSoul : Enemy
         mStateMachine = new StateMachine<DesperateSoul>(this, mIdleState, mGlobalState);
     }
 
-    public void Update()
+    void Update()
     {
         mStateMachine.Update();
     }
 
-    public void FixedUpdate()
+    void FixedUpdate()
     {
         mStateMachine.FixedUpdate();
     }
