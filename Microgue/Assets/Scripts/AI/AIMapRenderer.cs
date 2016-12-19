@@ -32,19 +32,21 @@ public class AIMapRenderer : MonoBehaviour {
 	{
         bool[,] map = mAIMap.GetMap();
         bool[,] enemies = mAIMap.GetEnemies();
-        int w = AIMap.GetNrTileColumns();
-        int h = AIMap.GetNrTileRows();
+        int cols = AIMap.GetNrTileColumns();
+        int rows = AIMap.GetNrTileRows();
 
-        Texture2D texture = new Texture2D(w,h);
+        Texture2D texture = new Texture2D(cols,rows);
 
-        for (int i = 0; i < h; i++)
-            for (int j = 0; j < w; j++)
+        for (int i = 0; i < rows; i++)
+            for (int j = 0; j < cols; j++)
             {
                 if (enemies[i, j])
-                    texture.SetPixel(j, i, Color.red);
+                    texture.SetPixel(j, rows - i - 1, Color.red);
                 else
-                    texture.SetPixel(j, i, map[i, j] ? Color.white : Color.black);
+                    texture.SetPixel(j, rows - i - 1, map[i, j] ? Color.white : Color.black);
             }
+
+        texture.SetPixel(5, 0, Color.cyan);
         texture.Apply();
         GetComponent<RawImage>().texture = texture;
     }
