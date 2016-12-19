@@ -14,6 +14,14 @@ public class InputManager : MonoBehaviour {
         Joypad
     }
 
+    enum PlayerDirection
+    {
+        LEFT,
+        RIGHT,
+        NONE,
+    };
+
+
     Rigidbody2D rb;
 
     Camera mainCam;
@@ -49,6 +57,7 @@ public class InputManager : MonoBehaviour {
 
     // True se e` in shooting.
     private bool mIsShooting = false;
+    PlayerDirection mLastDirection = PlayerDirection.NONE;
 
     // Use this for initialization
     void Start ()
@@ -168,19 +177,50 @@ public class InputManager : MonoBehaviour {
         Aim();
     }
 
-    void CheckDirection()
+    PlayerDirection GetAimDirection()
     {
         Vector2 p = mainCam.ScreenToWorldPoint(mInput.GetScreenPointerCoordinates());
-        Vector2 aimCoords = p - new Vector2(transform.position.x, transform.position.y);
-        if( aimCoords.x * lastAimX < 0.0f )
+        Vector2 aimCoords = (p - new Vector2(transform.position.x, transform.position.y)).normalized;
+        if(aimCoords.x < -0.05f)
+            return PlayerDirection.LEFT;
+        if(aimCoords.x > 0.05f)
+            return PlayerDirection.RIGHT;
+        return PlayerDirection.NONE;
+    }
+
+    PlayerDirection GetMovingDirection()
+    {
+        if (rb.velocity.x < -0.05f)
+            return PlayerDirection.LEFT;
+        if (rb.velocity.x > 0.05f)
+            return PlayerDirection.RIGHT;
+        return PlayerDirection.NONE;
+    }
+
+
+    void UpdateDirection(PlayerDirection dir)
+    {
+        if (dir == PlayerDirection.NONE)
+            return;
+
+        if (mLastDirection == PlayerDirection.NONE && dir == PlayerDirection.NONE)
+            dir = PlayerDirection.LEFT;
+
+        if (dir != mLastDirection)
         {
-            Bundle dir = new Bundle();
-            dir.Add(IS_FACING_RIGHT, (aimCoords.x >= 0.0f ? true : false).ToString() );
+            Bundle d = new Bundle();
+            d.Add(IS_FACING_RIGHT, (dir == PlayerDirection.RIGHT ? true : false).ToString());
 
-            EventManager.TriggerEvent(Events.ON_MAIN_CHAR_CHANGE_DIR, dir);
+            EventManager.TriggerEvent(Events.ON_MAIN_CHAR_CHANGE_DIR, d);
         }
+    }
 
-        lastAimX = aimCoords.x;
+    void CheckDirection()
+    {
+        if (mIsShooting)
+            UpdateDirection(GetAimDirection());
+        else
+            UpdateDirection(GetMovingDirection());
     }
 
     void Update()
