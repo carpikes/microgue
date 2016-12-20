@@ -86,7 +86,6 @@ public class InputManager : MonoBehaviour {
         mIsShooting = false;
     }
 
-
     private void SetPositionCamera()
     {
         Vector2 normCoords = GetNormalizedPointerCoordinates();
@@ -100,7 +99,8 @@ public class InputManager : MonoBehaviour {
             GameObject gm = GameObject.Find("GameplayManager");
             mGameManager = gm.GetComponent<GameplayManager>();
         }
-        Vector3[] cameraBound = mGameManager.GetCameraBounds();
+
+        Vector3[] cameraBound = mGameManager.GetWorldManager().GetCameraBounds();
         if (cameraBound != null)
         {
             cameraPos.x = Mathf.Clamp(cameraPos.x, cameraBound[0].x, cameraBound[1].x);
@@ -196,7 +196,6 @@ public class InputManager : MonoBehaviour {
             return PlayerDirection.RIGHT;
         return PlayerDirection.NONE;
     }
-
 
     void UpdateDirection(PlayerDirection dir)
     {

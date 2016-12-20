@@ -53,7 +53,7 @@ public class KeyboardInput : MonoBehaviour, InputInterface {
 
     public bool IsShootingButtonPressed()
     {
-        return Input.GetKeyDown(KeyCode.Mouse0);
+        return Input.GetKey(KeyCode.Mouse0);
     }
 
     public bool IsItemButtonPressed()

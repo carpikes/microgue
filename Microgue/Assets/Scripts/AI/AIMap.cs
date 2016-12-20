@@ -75,7 +75,7 @@ public class AIMap : MonoBehaviour
 
     // Update is called once per frame
     void Update () {
-        GameObject world = mGameManager.GetWorld();
+        GameObject world = mGameManager.GetWorldManager().GetWorld();
 
         // TODO EVENTO!!
         if (world != mWorld)

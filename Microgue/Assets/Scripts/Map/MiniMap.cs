@@ -10,13 +10,11 @@ public class MiniMap : MonoBehaviour {
     private GameObject mTile;
     private GameObject mContainer;
     private Dictionary<int, GameObject> mTiles;
-    private MapGenerator mMapGen;
 
 	// Use this for initialization
 	void Start () {
         GameObject gm = GameObject.Find("GameplayManager");
         mGameManager = gm.GetComponent<GameplayManager>();
-        mMapGen = mGameManager.GetMapGen();
 
         mContainer = gameObject.transform.GetChild(0).gameObject;
         mTile = gameObject.transform.GetChild(1).gameObject;
@@ -58,22 +56,20 @@ public class MiniMap : MonoBehaviour {
     private int mLastRoom = -1;
 	// Update is called once per frame
 	void Update () {
-        //int n = mGameManager.GetCurrentRoomId();
-        //int x = n % mMap.GetWidth();
-        //int y = n / mMap.GetWidth();
+        WorldManager wm = mGameManager.GetWorldManager();
 
-        if (mMap == null && mGameManager.GetMap() != null)
+        if (mMap == null && wm.GetMap() != null)
         {
             //Debug.Log("Disegno la minimap");
-            mMap = mGameManager.GetMap();
+            mMap = wm.GetMap();
             DrawMap();
         }
 
         Color notVisited = new Color(0.3f, 0.3f, 0.3f);
         Color bossColor = new Color(0.8f, 0.3f, 0.3f);
-        if (mMap != null && mLastRoom != mGameManager.GetCurrentRoomId())
+        if (mMap != null && mLastRoom != wm.GetCurrentRoomId())
         {
-            mLastRoom = mGameManager.GetCurrentRoomId();
+            mLastRoom = wm.GetCurrentRoomId();
             foreach (KeyValuePair<int, GameObject> i in mTiles)
             {
                 Image r = i.Value.GetComponent<Image>();
@@ -82,7 +78,7 @@ public class MiniMap : MonoBehaviour {
                     r.color = notVisited;
                 else
                 {
-                    if (i.Key == mGameManager.GetEndRoomId())
+                    if (i.Key == wm.GetEndRoomId())
                         r.color = bossColor;
                     else if (i.Key == mLastRoom)
                         r.color = Color.white;
