@@ -123,14 +123,14 @@ public class AIMap : MonoBehaviour
     private void UpdateArea()
     {
         Tiled2Unity.TiledMap map = mWorld.GetComponent<Tiled2Unity.TiledMap>();
-        EdgeCollider2D[] coll = GameObject.Find(mWorld.name + "/Collision").GetComponentsInChildren<EdgeCollider2D>();
+        //EdgeCollider2D[] coll = GameObject.Find(mWorld.name + "/Collision").GetComponentsInChildren<EdgeCollider2D>();
         PolygonCollider2D[] poly = GameObject.Find(mWorld.name + "/Collision").GetComponentsInChildren<PolygonCollider2D>();
         BoxCollider2D[] box = GameObject.Find(mWorld.name + "/Doors").GetComponentsInChildren<BoxCollider2D>();
 
         // TODO si riesce a fixare?
         //Renderer r = GameObject.Find(mWorld.name + "/Background/water").GetComponent<Renderer>();
 
-        if (map == null || coll == null || poly == null)
+        if (map == null || /*coll == null ||*/ poly == null)
         {
             Debug.LogError("Cannot find map or colliders or 'water' layer in this map");
             return;
@@ -150,7 +150,7 @@ public class AIMap : MonoBehaviour
             }
         }
 
-        foreach (EdgeCollider2D c in coll)
+        /*foreach (EdgeCollider2D c in coll)
         {
             Vector2[] p = c.points;
             for (int i = 0; i < p.Length; i++)
@@ -158,7 +158,7 @@ public class AIMap : MonoBehaviour
                 Vector2 other = p[(i + 1) % p.Length];
                 DrawLine(WorldToTileCoordinates(p[i]), WorldToTileCoordinates(other));
             }
-        }
+        }*/
 
         foreach (PolygonCollider2D c in poly)
         {

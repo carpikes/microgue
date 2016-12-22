@@ -86,6 +86,17 @@ public class Level
             GameObject.Destroy(itemContainer);
         }
         LoadDoors();
+
+        SetMaterialOnWalls();
+    }
+
+    private void SetMaterialOnWalls()
+    {
+        PhysicsMaterial2D mat = Resources.Load<PhysicsMaterial2D>("Materials/Wall");
+        PolygonCollider2D[] poly = GameObject.Find(mCurrentRoom.name + "/Collision").GetComponentsInChildren<PolygonCollider2D>();
+
+        foreach (var p in poly)
+            p.sharedMaterial = mat;
     }
 
     private void SpawnEnemy(SpawnBehavior s, GameObject childOf)
@@ -190,9 +201,13 @@ public class Level
         DoorBehavior[] doors = doorContainer.GetComponentsInChildren<DoorBehavior>();
         if (doors == null) return;
 
+        // load material for wall
+        PhysicsMaterial2D mat = Resources.Load<PhysicsMaterial2D>("Materials/Wall");
+
         foreach (DoorBehavior db in doors)
         {
             BoxCollider2D coll = db.GetComponentInParent<BoxCollider2D>();
+            coll.sharedMaterial = mat;
             Transform t = db.GetComponentInParent<Transform>();
             Vector2 spawnPos = t.position;
             float delta = 0.4f;
