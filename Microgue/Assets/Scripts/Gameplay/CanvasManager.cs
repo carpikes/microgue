@@ -79,7 +79,7 @@ public class CanvasManager : MonoBehaviour {
     private IEnumerator ItemPickupCoroutine(Bundle args)
     {
         string itemName;
-        if (args.TryGetValue(ItemEffector.ITEM_PICKUP_TAG, out itemName))
+        if (args.TryGetValue(ItemPrefabProperties.ITEM_PICKUP_TAG, out itemName))
         {
             additionalInfoText.text = "You picked up: " + itemName.ToUpper();
         }

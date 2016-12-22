@@ -155,7 +155,7 @@ public class Level
         sr.sprite = sprite;
 
         // load item info: this will be needed to retrieve stat and effect
-        ItemEffector itemInfo = go.GetComponent<ItemEffector>();
+        ItemPrefabProperties itemInfo = go.GetComponent<ItemPrefabProperties>();
         itemInfo.item = item;
 
         go.transform.position = s.mCenter;
