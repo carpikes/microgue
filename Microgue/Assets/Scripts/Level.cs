@@ -140,8 +140,7 @@ public class Level
 
         // set image
         SpriteRenderer sr = go.GetComponent<SpriteRenderer>();
-        Sprite sprite = Resources.Load(item.Image) as Sprite;
-        Debug.Log(item.Image);
+        Sprite sprite = Resources.Load<Sprite>(item.Image);
         sr.sprite = sprite;
 
         // load item info: this will be needed to retrieve stat and effect
