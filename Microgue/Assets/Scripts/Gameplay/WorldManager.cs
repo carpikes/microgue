@@ -9,7 +9,7 @@ using System.IO;
 
 public class WorldManager
 {
-    public const string PREFAB_PATH = "Assets/Tiled2Unity/Prefabs/";
+    public const string PREFAB_PATH = "Assets/Tiled2Unity/Prefabs/Resources";
     public static readonly string STARTING_MAP = "new_start";
 
     private string mWorldName;

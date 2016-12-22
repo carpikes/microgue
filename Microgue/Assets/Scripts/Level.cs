@@ -27,8 +27,10 @@ public class Level
 
     public Level(int num, string name)
     {
-        mAssetPath = "Assets/Tiled2Unity/Prefabs/" + name + ".prefab";
+        mAssetPath = name;
         mName = name + " - " + num;
+
+        //Debug.Log("CREATING LEVEL: " + mAssetPath);
 
         mCurrentRoom = null;
         mSpawnPoints = new Dictionary<string, Vector2>();
@@ -40,12 +42,8 @@ public class Level
     {
         if (mCurrentRoom == null)
         {
-            GameObject worldPrefab = AssetDatabase.LoadAssetAtPath(mAssetPath, typeof(GameObject)) as GameObject;
-            if (worldPrefab == null)
-            {
-                Debug.LogError("Cannot load world: " + mName);
-                return;
-            }
+            GameObject worldPrefab = Resources.Load(mAssetPath) as GameObject;
+            Debug.Assert(worldPrefab != null, "Cannot load world at: " + mAssetPath);
 
             Bundle levelEventInfo = new Bundle();
             levelEventInfo.Add(LEVEL_NAME_TAG, mName);
@@ -96,16 +94,13 @@ public class Level
         for (int i = 0; i < n; i++)
         {
             string enemy = GetEnemyFromType(s.mWhat);
-            string prefabName = "Assets/Prefab/Enemies/" + enemy + ".prefab";
-            GameObject el = AssetDatabase.LoadAssetAtPath(prefabName, typeof(GameObject)) as GameObject;
-            if (el != null)
-            {
-                GameObject go = GameObject.Instantiate(el);
-                go.transform.position = Random.insideUnitCircle * s.mRadius + s.mCenter;
-                go.transform.parent = childOf.transform;
-            }
-            else
-                Debug.LogError("I'm trying to spawn an invalid object: " + prefabName + " !");
+            string prefabName = enemy;
+            GameObject el = Resources.Load(prefabName) as GameObject;
+            Debug.Assert(el != null, "Cannot load enemy: " + prefabName);
+
+            GameObject go = GameObject.Instantiate(el);
+            go.transform.position = Random.insideUnitCircle * s.mRadius + s.mCenter;
+            go.transform.parent = childOf.transform;
         }
     }
 
@@ -135,29 +130,27 @@ public class Level
 
     private void SpawnItem(ItemBehavior s, GameObject childOf)
     {
-        string prefabName = "Assets/Prefab/Item.prefab";
+        string prefabName = "Item";
 
         ItemData item = PickItemFromCategory( ChooseCategory() );
-        GameObject el = AssetDatabase.LoadAssetAtPath(prefabName, typeof(GameObject)) as GameObject;
+        GameObject el = Resources.Load(prefabName) as GameObject;
+        Debug.Assert(el != null, "Cannot spawn object: " + prefabName);
 
-        if (el != null)
-        {
-            GameObject go = GameObject.Instantiate(el);
+        GameObject go = GameObject.Instantiate(el);
 
-            // set image
-            SpriteRenderer sr = go.GetComponent<SpriteRenderer>();
-            Sprite sprite = AssetDatabase.LoadAssetAtPath("Assets/Images/Sprites/Items/" + item.Image, typeof(Sprite)) as Sprite;
-            sr.sprite = sprite;
+        // set image
+        SpriteRenderer sr = go.GetComponent<SpriteRenderer>();
+        Sprite sprite = Resources.Load(item.Image) as Sprite;
+        Debug.Log(item.Image);
+        sr.sprite = sprite;
 
-            // load item info: this will be needed to retrieve stat and effect
-            ItemEffector itemInfo = go.GetComponent<ItemEffector>();
-            itemInfo.item = item;
+        // load item info: this will be needed to retrieve stat and effect
+        ItemEffector itemInfo = go.GetComponent<ItemEffector>();
+        itemInfo.item = item;
 
-            go.transform.position = s.mCenter;
-            go.transform.parent = childOf.transform;
-        }
-        else
-            Debug.LogError("I'm trying to spawn an invalid item: " + prefabName + " !");
+        go.transform.position = s.mCenter;
+        go.transform.parent = childOf.transform;
+        
     }
 
     private string ChooseCategory()

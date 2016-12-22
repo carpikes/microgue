@@ -37,22 +37,24 @@ namespace RoomMapGenerator
         public void SetStartMap(string name)
         {
             for (int i = 0; i < mMaps.Length; i++)
+            {
+                //Debug.Log("CONSIDERING MAP: " + mMaps[i]);
                 if (mMaps[i] == name)
                 {
                     mStartMap = i;
                     return;
                 }
+            }
 
             Debug.LogError("Cannot find start map in my array.");
         }
 
         private int GetMapDoors(string mapname)
         {
-            string assetPath = "Assets/Tiled2Unity/Prefabs/" + mapname + ".prefab";
+            string assetPath = mapname;
 
-            GameObject worldPrefab = AssetDatabase.LoadAssetAtPath(assetPath, typeof(GameObject)) as GameObject;
-            if (worldPrefab == null)
-                return 0;
+            GameObject worldPrefab = Resources.Load(assetPath) as GameObject;
+            Debug.Assert(worldPrefab != null, "Cannot load world prefab");
 
             DoorBehavior[] doors = worldPrefab.GetComponentsInChildren<DoorBehavior>();
             if (doors == null)
