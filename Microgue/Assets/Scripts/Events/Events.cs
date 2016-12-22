@@ -51,4 +51,9 @@ public enum Events
 
     // trying to access boss room
     ON_WORLD_UNEXPLORED,
+
+    // trigger a fade out
+    FADE_OUT,
+    // trigger a fade in
+    FADE_IN
 }

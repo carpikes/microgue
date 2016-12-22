@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 using RoomMapGenerator;
 
 using Random = UnityEngine.Random;
 using Bundle = System.Collections.Generic.Dictionary<string, string>;
 using System;
+using System.Collections;
 
 public class GameplayManager : MonoBehaviour
 {
@@ -20,6 +22,7 @@ public class GameplayManager : MonoBehaviour
 
     private WorldManager mWorldManager;
 
+    private RawImage mRawImage;
     // Use this for initialization
     void Start()
     {
@@ -31,6 +34,10 @@ public class GameplayManager : MonoBehaviour
 
         mWorldManager = new WorldManager(lname);
         mWorldManager.Load();
+
+    }
+
+    void Update() {
     }
 
     public WorldManager GetWorldManager()

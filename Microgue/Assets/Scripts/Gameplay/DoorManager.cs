@@ -5,6 +5,8 @@ using Bundle = System.Collections.Generic.Dictionary<string, string>;
 
 public class DoorManager : MonoBehaviour
 {
+    private RoomMap.Door mLastDoor, mLastOpposite;
+    private WorldManager mWorldManager;
     void OnEnable()
     {
         EventManager.StartListening(Events.ON_DOOR_TOUCH, OnDoorEnter);
@@ -15,11 +17,18 @@ public class DoorManager : MonoBehaviour
         EventManager.StopListening(Events.ON_DOOR_TOUCH, OnDoorEnter);
     }
 
+    IEnumerator FadeOut() {
+        EventManager.TriggerEvent(Events.FADE_OUT, null);
+        yield return new WaitForSeconds(0.2f);
+        mWorldManager.OnDoorEnter(mLastDoor, mLastOpposite);
+        EventManager.TriggerEvent(Events.FADE_IN, null);
+    }
+
     public void OnDoorEnter(Bundle args)
     {
-        WorldManager wm = GameObject.Find("GameplayManager").GetComponent<GameplayManager>().GetWorldManager();
+        mWorldManager = GameObject.Find("GameplayManager").GetComponent<GameplayManager>().GetWorldManager();
 
-        if (!wm.AreAllEnemiesKilled())
+        if (!mWorldManager.AreAllEnemiesKilled())
         {
             EventManager.TriggerEvent(Events.ON_STILL_ENEMIES_LEFT, null);
             return;
@@ -39,6 +48,8 @@ public class DoorManager : MonoBehaviour
             default: return;
         }
 
-        wm.OnDoorEnter(door, opposite);
+        mLastDoor = door;
+        mLastOpposite = opposite;
+        StartCoroutine(FadeOut());
     }
 }
