@@ -1,179 +1,90 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-using Random = UnityEngine.Random;
 using IntPoint = AIMap.IntPoint;
+using System.Collections.Generic;
+using System.Linq;
 
 public class LittleJimmy : MonoBehaviour
 {
-    private GameObject mTarget;
-    private Rigidbody2D mPlayerRb;
-    private Rigidbody2D mRb;
     private AIMap mAIMap;
-    private BFSMap mBFS;
-    private byte[] mAwayMap = null;
-    private byte[] mObstacleMap = null;
+    private Rigidbody2D mRb;
+    private Rigidbody2D mPlayerRb;
 
-    public int scale;
-    
-    // Use this for initialization
+    private IntPoint mNextPosition;
+    private EnemyPosition mEnemyPosition;
+
+    int cnt = 0;
+
     void Start()
     {
+        mEnemyPosition = GetComponent<EnemyPosition>();
+        mEnemyPosition.SetEnabled(true);
+
         mRb = GetComponent<Rigidbody2D>();
-        mTarget = GameObject.Find("MainCharacter");
-        mPlayerRb = mTarget.GetComponent<Rigidbody2D>();
+        mPlayerRb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
+
         mAIMap = GameObject.Find("GameplayManager").GetComponent<AIMap>();
-        dist = Random.Range(2.0f, 3.0f);
-    }
-
-    float wait = 0;
-
-    public byte[] GetMap()
-    {
-        return mAwayMap;
-    }
-
-    IntPoint lastTile;
-    bool ltset = false;
-
-    public float Kconst = 8.0f;
-    public float Friction = 0.05f;
-
-    float timeout = 0;
-    float dist,newdist;
-    float tget;
-    float newtget;
-    Vector2 mSpeed = Vector2.zero;
-
-    void OnTriggerEnter2D(Collider2D other) {
-        timeout = 0;
     }
 
     void FixedUpdate()
     {
-        OLD_BEHAVIOUR();
-    }
+        ++cnt;
 
-    private void OLD_BEHAVIOUR()
-    {
-        if (Time.time > timeout)
+        if (mAIMap.IsMapReady && cnt % 5 == 0)
         {
-            timeout = Time.time + Random.Range(2, 3);
-            newtget = Random.Range(0, 2.0f * Mathf.PI);
-            newdist = Random.Range(2.0f, 3.0f);
+            cnt = 0;
+            UpdatePosition();
         }
 
-        if (newtget != tget)
-            tget = Mathf.LerpAngle(tget, newtget, Time.fixedDeltaTime);
-        if (newdist != dist)
-            dist = Mathf.Lerp(newdist, dist, Time.fixedDeltaTime);
-
-        Vector2 delta = mTarget.transform.position - transform.position;
-        delta += dist * new Vector2(Mathf.Cos(tget), Mathf.Sin(tget));
-
-        float dl = delta.magnitude;
-        delta.Normalize();
-
-        mSpeed += delta * dl * Kconst * Time.fixedDeltaTime;
-        mSpeed *= (1.0f - Friction);
-
-        Vector2 t = transform.position;
-        t += mSpeed * Time.fixedDeltaTime;
-        transform.position = t;
-
-        transform.localScale = new Vector3(mRb.position.x >= mPlayerRb.position.x ? scale : -scale, scale, scale);
+        mEnemyPosition.SetWorldPosition(mRb.position);
     }
 
-    /*
-    void Update()
+    private void UpdatePosition()
     {
-        transform.localScale = new Vector3(mRb.position.x >= mPlayerRb.position.x ? 1 : -1, 1, 1);
+        int[,] bfsMap = null;
 
-        if (mEnemyAI != null)
-			mEnemyAI.SetPosition (transform.position);
+        IntPoint pos = AIMap.WorldToTileCoordinates(mPlayerRb.position);
+        bfsMap = BFS.CalculateBFSMap(mAIMap.GetMap(), pos);
 
-        if (wait < Time.time)
-        {
-            lol();
-            wait = Time.time + 0.3f;
-        }
+        // look for neighbours
+        mNextPosition = PickMaxNeighbour(bfsMap, AIMap.WorldToTileCoordinates(mRb.position));
 
-        if (mAwayMap != null)
-        {
-            int w = mAIMap.GetWidth();
-            int h = mAIMap.GetHeight();
-            if (!ltset)
+        mRb.position = AIMap.TileToWorldCoordinates(mNextPosition);
+    }
+
+    private IntPoint PickMaxNeighbour(int[,] map, IntPoint pos)
+    {
+        int x = pos.x;
+        int y = pos.y;
+
+        IntPoint maxPos = new IntPoint(-5, -10);
+        int max = -1;
+
+        Dictionary<IntPoint, int> v = new Dictionary<AIMap.IntPoint, int>();
+        for (int i = -1; i <= 1; ++i)
+            for (int j = -1; j <= 1; ++j)
+                if (IsInside(map, x + i, y + j)) v.Add(new IntPoint(x + i, y + j), map[x + i, y + j]);
+
+        if (v.Count == 0)
+            return pos;
+
+        foreach (var pair in v)
+            if (pair.Value > max)
             {
-                lastTile = mAIMap.GetPosition(mRb.position);
-                ltset = true;
+                max = pair.Value;
+                maxPos = pair.Key;
             }
 
-            int q = mAwayMap[lastTile.x + w * lastTile.y];
-            IntPoint where = lastTile;
-
-            IntPoint p = lastTile;
-            if (p.x < w-1 && mAwayMap[p.x + 1 + w * p.y]   <= q && mObstacleMap[p.x + 1 + w * p.y]   == 0) { q = mAwayMap[p.x + 1 + w * p.y]; where = new IntPoint(p.x + 1, p.y); }
-            if (p.x > 0   && mAwayMap[p.x - 1 + w * p.y]   <= q && mObstacleMap[p.x - 1 + w * p.y]   == 0) { q = mAwayMap[p.x - 1 + w * p.y]; where = new IntPoint(p.x - 1, p.y); }
-            if (p.y < h-1 && mAwayMap[p.x + w * (p.y + 1)] <= q && mObstacleMap[p.x + w * (p.y + 1)] == 0) { q = mAwayMap[p.x + w * (p.y+1)]; where = new IntPoint(p.x, p.y+1); }
-            if (p.y > 0   && mAwayMap[p.x + w * (p.y - 1)] <= q && mObstacleMap[p.x + w * (p.y - 1)] == 0) { q = mAwayMap[p.x + w * (p.y-1)]; where = new IntPoint(p.x, p.y-1); }
-
-            //Debug.Log("Passo dal tile" + p.x + "," + p.y + " al " + where.x + "," + where.y);
-
-            Vector2 whereWS = mAIMap.GetWorldPosition(where);
-            Vector2 dir = (whereWS - mRb.position);
-
-            if (lastTile.x != where.x || lastTile.y != where.y)
-            {
-                //Vector2 pos = transform.position;
-                //pos += dir.normalized * 3.0f * Time.deltaTime;
-                mRb.position = mAIMap.GetWorldPosition(where);
-                lastTile = where;
-            }
-        }
+        return maxPos;
     }
 
-    void lol()
+    private bool IsInside(int[,] map, int x, int y)
     {
-        if (mAIMap.GetWidth() <= 0)
-            return;
+        int rows = map.GetLength(0);
+        int cols = map.GetLength(1);
 
-        mBFS = new BFSMap(mAIMap.GetWidth(), mAIMap.GetHeight());
-        IntPoint player = mAIMap.GetPosition(mTarget.transform.position);
-
-        byte[] m1 = mAIMap.GetEnemies(), m2 = mAIMap.GetMap();
-        byte[] mm = new byte[m1.Length];
-        for (int i = 0; i < m1.Length; i++)
-            mm[i] = (m1[i] != 0) || (m2[i] != 0) ? (byte)1 : (byte)0;
-        mObstacleMap = mm;
-
-        byte[] map = mBFS.StepAndGetMap(player, mm);
-        for (int i = 0; i < map.Length; i++)
-        {
-            if (mm[i] == 0)
-                map[i] = (byte)(255 - map[i]);
-            else
-                map[i] = 255;
-        }
-
-        map = mBFS.StepAndGetMap(new IntPoint(-1,-1), mm);
-        mAwayMap = map;
+        return (x >= 0 && x < rows) && (y >= 0 && y < cols);
     }
-    void ChooseNewPoint()
-    {
-        
-    }
-
-    void Print(byte[] map, int w, int h)
-    {
-        string str = "";
-        for (int y = h-1; y >= 0; y--)
-        {
-            for (int x = 0; x < w; x++)
-                str += string.Format("{0,2:X}", map[x + y * w]);
-            str += "\n";
-        }
-        Debug.Log(str);
-    }
-
-    */
 }

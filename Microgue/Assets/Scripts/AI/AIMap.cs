@@ -18,7 +18,11 @@ public class AIMap : MonoBehaviour
 
     public GameObject mDebugTileForPlayerPos;
 
-	public struct IntPoint 
+    private bool mapReady = false;
+
+    public bool IsMapReady { get { return mapReady; } }
+
+    public struct IntPoint 
 	{ 
 		public int x, y;
         public IntPoint(int x, int y)
@@ -122,6 +126,8 @@ public class AIMap : MonoBehaviour
 
     private void UpdateArea()
     {
+        mapReady = false;
+
         Tiled2Unity.TiledMap map = mWorld.GetComponent<Tiled2Unity.TiledMap>();
         //EdgeCollider2D[] coll = GameObject.Find(mWorld.name + "/Collision").GetComponentsInChildren<EdgeCollider2D>();
         PolygonCollider2D[] poly = GameObject.Find(mWorld.name + "/Collision").GetComponentsInChildren<PolygonCollider2D>();
@@ -180,6 +186,7 @@ public class AIMap : MonoBehaviour
             DrawRectangle(dl, ur);
         }
 
+        mapReady = true;
         mMapRefreshes++;
     }
 
