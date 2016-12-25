@@ -53,6 +53,8 @@ public class InputManager : MonoBehaviour {
     [Header("Keyboard or joypad?")]
     InputInterface mInput;
     public InputChoiches mInputChoice;
+    private Vector3 mLastMouseCoords; // usato per switchare a mouse se mosso
+
     public Color mBallColor;
 
     // True se e` in shooting.
@@ -65,11 +67,9 @@ public class InputManager : MonoBehaviour {
         mMaxSpeed = mInitialSpeed;
 
         if (mInputChoice == InputChoiches.KeyboardMouse)
-        {
             mInput = gameObject.AddComponent<KeyboardInput>();
-        } else {
+        else
             mInput = gameObject.AddComponent<JoypadInput>();
-        }
 
         rb = GetComponent<Rigidbody2D>();
         
@@ -84,6 +84,29 @@ public class InputManager : MonoBehaviour {
         // set cursor to player position
         aimTransform.position = mainCam.ScreenToWorldPoint(new Vector3(0, 0, 1));
         mIsShooting = false;
+        mLastMouseCoords = Input.mousePosition;
+    }
+
+    private void DetectDevice() {
+        if (mInputChoice == InputChoiches.KeyboardMouse) {
+            if (Mathf.Abs(Input.GetAxisRaw("Shoot Camera Horizontal")) > 0.1f)
+            {
+                Destroy(gameObject.GetComponent<KeyboardInput>());
+                mInput = gameObject.AddComponent<JoypadInput>();
+                mInputChoice = InputChoiches.Joypad;
+                mLastMouseCoords = Input.mousePosition;
+                Debug.Log("Switching to Joypad");
+            }
+        } else {
+            if ((mLastMouseCoords - Input.mousePosition).magnitude > 10.0f)
+            {
+                Destroy(gameObject.GetComponent<JoypadInput>());
+                mInput = gameObject.AddComponent<KeyboardInput>();
+                mInputChoice = InputChoiches.KeyboardMouse;
+                mLastMouseCoords = Input.mousePosition;
+                Debug.Log("Switching to Keyboard");
+            }
+        }
     }
 
     private void SetPositionCamera()
@@ -146,9 +169,10 @@ public class InputManager : MonoBehaviour {
         */
 
         Vector2 newVelocity = rb.velocity;
-        Vector2 friction = mFriction * newVelocity * Time.fixedDeltaTime;
 
         newVelocity += delta * mAcceleration * Time.fixedDeltaTime;
+        Vector2 friction = mFriction * newVelocity * Time.fixedDeltaTime;
+
         newVelocity = (friction.magnitude >= newVelocity.magnitude) ? Vector2.zero : newVelocity - friction;
 
         if (newVelocity.magnitude > mMaxSpeed)
@@ -172,6 +196,7 @@ public class InputManager : MonoBehaviour {
 
     void LateUpdate()
     {
+        DetectDevice();
         CheckDirection();
         SetPositionCamera();
         Aim();

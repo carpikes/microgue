@@ -5,7 +5,7 @@ using System;
 public class JoypadInput : MonoBehaviour, InputInterface {
     private Vector2 mCurRStick;
     public float mCutOffFrequency = 2.0f;
-    public float mCircleArea = 0.5f;
+    public float mCircleArea = 0.8f;
     public Vector2 mCurPlayerPos = Vector2.zero;
 
     void Start () {
@@ -27,8 +27,8 @@ public class JoypadInput : MonoBehaviour, InputInterface {
 
     private Vector2 GetRawPointerCoordinates()
     {
-        float horR = Input.GetAxis("JRHorizontal");
-        float verR = Input.GetAxis("JRVertical");
+        float horR = Input.GetAxis("Shoot Camera Horizontal");
+        float verR = Input.GetAxis("Shoot Camera Vertical");
 
         float w = Camera.main.pixelWidth;
         float h = Camera.main.pixelHeight;
@@ -56,8 +56,9 @@ public class JoypadInput : MonoBehaviour, InputInterface {
     {
         Vector2 delta = new Vector2(0, 0);
 
-        float hor = Input.GetAxis("JHorizontal");
-        float ver = Input.GetAxis("JVertical");
+        float hor = Input.GetAxis("Horizontal");
+        float ver = Input.GetAxis("Vertical");
+        ver = -ver;
 
         if (hor < -float.Epsilon)
             delta += Vector2.left;
@@ -77,23 +78,23 @@ public class JoypadInput : MonoBehaviour, InputInterface {
 
     public bool IsItemButtonPressed()
     {
-        return Input.GetKeyDown(KeyCode.Joystick1Button2);
+        return Input.GetButtonDown("Item");
     }
 
     public bool IsDashButtonPressed()
     {
-        float v = Input.GetAxisRaw("JShoot");
+        float v = Input.GetAxisRaw("Shoot");
         return (v > 0.2);
     }
 
     public bool IsSecondaryAttackButtonPressed()
     {
-        return Input.GetKeyDown(KeyCode.Joystick1Button5);
+        return Input.GetButton("Shoot 2");
     }
 
     public bool IsShootingButtonPressed()
     {
-        float v = Input.GetAxisRaw("JShoot");
+        float v = Input.GetAxisRaw("Shoot");
         return (v < -0.2);
     }
 

@@ -33,16 +33,16 @@ public class KeyboardInput : MonoBehaviour, InputInterface {
     {
         Vector2 delta = new Vector2(0, 0);
 
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetAxisRaw("Horizontal") < -0.01)
             delta += Vector2.left;
 
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetAxisRaw("Horizontal") > 0.01)
             delta += Vector2.right;
 
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetAxisRaw("Vertical") > 0.01)
             delta += Vector2.up;
 
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetAxisRaw("Vertical") < -0.01)
             delta += Vector2.down;
 
         if (delta != Vector2.zero)
@@ -58,7 +58,7 @@ public class KeyboardInput : MonoBehaviour, InputInterface {
 
     public bool IsItemButtonPressed()
     {
-        return Input.GetKeyDown(KeyCode.E);
+        return Input.GetButtonDown("Item");
     }
 
     public bool IsDashButtonPressed()
@@ -68,10 +68,11 @@ public class KeyboardInput : MonoBehaviour, InputInterface {
 
     public bool IsSecondaryAttackButtonPressed()
     {
-        return Input.GetKeyDown(KeyCode.LeftShift);
+        return Input.GetButton("Shoot 2");
     }
 
     public void FeedPlayerPosition(Vector2 pos)
     {
+        // not used here
     }
 }
