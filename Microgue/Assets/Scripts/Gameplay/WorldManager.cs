@@ -26,8 +26,8 @@ public class WorldManager
     // list of available .prefab files
     private List<string> mAvailableLevels;
 
-    public int mMinRooms = 3;
-    public int mMaxRooms = 5;
+    public int mMinRooms = 5;
+    public int mMaxRooms = 7;
 
     public WorldManager(string worldName)
     {

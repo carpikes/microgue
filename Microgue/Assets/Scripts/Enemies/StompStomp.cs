@@ -34,6 +34,8 @@ public class StompStomp : MonoBehaviour
     private Transform mPlayerTransform;
     private InputManager mInputManager;
 
+    private Animator mAnimator;
+
     // Used for shadow projection
     private Vector2 mMovingDirection, mJumpStartPosition, mShadowOffset;
     private bool mDontMoveShadow;
@@ -62,6 +64,9 @@ public class StompStomp : MonoBehaviour
         mEnemyRb = mStompStompEnemy.GetComponent<Rigidbody2D>();
         mEnemyCollider = mStompStompEnemy.GetComponent<Collider2D>();
         mPlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+
+        mAnimator = mStompStompEnemy.GetComponent<Animator>();
+        Debug.Assert(mAnimator != null, "Cannot find animator");
 
         mShadowOffset = mStompStompShadow.localPosition;
         mRenderingOffset = mEnemyRb.transform.localPosition;
@@ -141,6 +146,7 @@ public class StompStomp : MonoBehaviour
         mDontMoveShadow = ((mJumpStartPosition - mCurTarget).magnitude < 0.1);
         mStatus = EnemyStatus.JUMPING;
         mEnemyTouch.DamageEnabled = false;
+        mAnimator.SetTrigger("jumping");
     }   
 
     // Update is called once per frame
@@ -162,15 +168,22 @@ public class StompStomp : MonoBehaviour
         {
             if (mStatus == EnemyStatus.FALLING)
             {
+                // INITIAL FALLING
                 newPosition.y = mCurTarget.y;
                 mInputManager.ShakeCamera(0.15f, 2.0f);
-            } else 
+            }
+            else {
+                // falling from usual jump
                 mInputManager.ShakeCamera(0.13f, 1.0f);
+                mAnimator.SetTrigger("end_jump");
+            }
 
             mVelocity = Vector2.zero;
-            mEnemyTouch.DamageEnabled = true;
             mStatus = EnemyStatus.IDLE;
+            mEnemyTouch.DamageEnabled = true;
             mEnemyCollider.enabled = true;
+            mAnimator.SetTrigger("idle");
+
             StartCoroutine(JumpCoroutine());
         }
 
@@ -191,6 +204,7 @@ public class StompStomp : MonoBehaviour
             mStatus = EnemyStatus.FALLING;
             mCurTarget = mStompStompShadow.position;
             mCurTarget -= mShadowOffset;
+            //mAnimator.SetTrigger("falling");
         }
     }
     
