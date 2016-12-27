@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
+using System.Collections.Generic;
 
 public class StompStomp : MonoBehaviour
 {
@@ -13,6 +15,8 @@ public class StompStomp : MonoBehaviour
 
     Transform mStompStompEnemy;
     Transform mStompStompShadow;
+
+    private EnemyTouch mEnemyTouch;
 
     private EnemyStatus mStatus;
     private Vector2 mVelocity = Vector2.zero;
@@ -34,15 +38,20 @@ public class StompStomp : MonoBehaviour
     private Vector2 mMovingDirection, mJumpStartPosition, mShadowOffset;
     private bool mDontMoveShadow;
 
-    // State machine
-    /*
-    private StateMachine<StompStomp> mStateMachine;
-    static State<StompStomp> mWaitingState= new WaitingState();
-    static State<StompStomp> mFallingState = new FallingState();
-    static State<StompStomp> mIdleState = new IdleState();
-    static State<StompStomp> mJumpingState = new JumpingState();
-    //static State<StompStomp> mGlobalState = new GlobalState();
-    */
+    void OnEnable()
+    {
+        EventManager.StartListening(Events.ON_STILL_ENEMIES_LEFT, DoorTouch);
+    }
+
+    void OnDisable()
+    {
+        EventManager.StopListening(Events.ON_STILL_ENEMIES_LEFT, DoorTouch);
+    }
+
+    private void DoorTouch(Dictionary<string, string> arg0)
+    {
+        OnShadowTouch();
+    }
 
     // Use this for initialization
     void Start () 
@@ -57,16 +66,21 @@ public class StompStomp : MonoBehaviour
         mShadowOffset = mStompStompShadow.localPosition;
         mRenderingOffset = mEnemyRb.transform.localPosition;
 
+        mEnemyTouch = mStompStompEnemy.GetComponent<EnemyTouch>();
+        Debug.Assert(mEnemyTouch != null, "no enemy touch found!");
+
         mJumpStartPosition = mEnemyRb.transform.position;
         mJumpStartPosition -= mRenderingOffset;
 
         mMovingDirection = new Vector2(0, 0);
         mStatus = EnemyStatus.WAITING;
+        mEnemyTouch.DamageEnabled = false;
         mInputManager = GameObject.Find("MainCharacter").GetComponent<InputManager>();
 
         Vector2 pos = new Vector2(0.0f, 10.0f);
         mEnemyRb.position = mEnemyRb.position + pos + mRenderingOffset;
         mStompStompEnemy.position = mEnemyRb.position + pos + mRenderingOffset;
+
 
         // mStateMachine = new StateMachine<StompStomp>(this, mIdleState, null); // mGlobalState);
     }
@@ -78,7 +92,7 @@ public class StompStomp : MonoBehaviour
 
     IEnumerator JumpCoroutine()
     {
-        float waitTime = Random.Range(mMinWait, mMaxWait);
+        float waitTime = UnityEngine.Random.Range(mMinWait, mMaxWait);
         yield return new WaitForSeconds(waitTime);
         mEnemyCollider.enabled = false;
         BeginJumpToTarget();
@@ -126,6 +140,7 @@ public class StompStomp : MonoBehaviour
 
         mDontMoveShadow = ((mJumpStartPosition - mCurTarget).magnitude < 0.1);
         mStatus = EnemyStatus.JUMPING;
+        mEnemyTouch.DamageEnabled = false;
     }   
 
     // Update is called once per frame
@@ -153,6 +168,7 @@ public class StompStomp : MonoBehaviour
                 mInputManager.ShakeCamera(0.13f, 1.0f);
 
             mVelocity = Vector2.zero;
+            mEnemyTouch.DamageEnabled = true;
             mStatus = EnemyStatus.IDLE;
             mEnemyCollider.enabled = true;
             StartCoroutine(JumpCoroutine());
@@ -175,65 +191,7 @@ public class StompStomp : MonoBehaviour
             mStatus = EnemyStatus.FALLING;
             mCurTarget = mStompStompShadow.position;
             mCurTarget -= mShadowOffset;
-            //Debug.Log("Changed status to Falling");
         }
     }
-
-    /*
-    sealed class IdleState : State<StompStomp>
-    {
-        public void Update(StompStomp owner) { }
-
-        public void FixedUpdate(StompStomp owner) { }
-
-        public void OnEnter(StompStomp owner)
-        {
-            
-        }
-
-        public void OnExit(StompStomp owner) { }
-    }
-
-    sealed class FallingState : State<StompStomp>
-    {
-        public void Update(StompStomp owner) { }
-
-        public void FixedUpdate(StompStomp owner) { }
-
-        public void OnEnter(StompStomp owner)
-        {
-
-        }
-
-        public void OnExit(StompStomp owner) { }
-    }
-
-    sealed class WaitingState : State<StompStomp>
-    {
-        public void Update(StompStomp owner) { }
-
-        public void FixedUpdate(StompStomp owner) { }
-
-        public void OnEnter(StompStomp owner)
-        {
-
-        }
-
-        public void OnExit(StompStomp owner) { }
-    }
-
-    sealed class JumpingState : State<StompStomp>
-    {
-        public void Update(StompStomp owner) { }
-
-        public void FixedUpdate(StompStomp owner) { }
-
-        public void OnEnter(StompStomp owner)
-        {
-
-        }
-
-        public void OnExit(StompStomp owner) { }
-    }
-    */
+    
 }
