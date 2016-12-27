@@ -3,24 +3,11 @@ using System.Collections;
 
 public class EnemyTouch : MonoBehaviour {
 
-    private bool mDamageEnabled = true;
-
-    public bool DamageEnabled
-    {
-        get
-        {
-            return mDamageEnabled;
-        }
-
-        set
-        {
-            mDamageEnabled = value;
-        }
-    }
+    public bool mDamageEnabled = true;
 
     // Use this for initialization
     void Start () {
-	
+	    
 	}
 
     void OnTriggerEnter2D(Collider2D other)

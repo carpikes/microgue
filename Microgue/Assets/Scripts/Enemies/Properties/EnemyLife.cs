@@ -3,7 +3,7 @@
 public class EnemyLife : MonoBehaviour {
 
     private GameObject mHealthBar;
-    public float mCurrentHP = 2;
+    public float mCurrentHP;
     private float mTotalHP;
 
     private Animator mAnimator;

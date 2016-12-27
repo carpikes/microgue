@@ -36,6 +36,8 @@ public class StompStomp : MonoBehaviour
 
     private Animator mAnimator;
 
+    private EnemyPosition mEnemyPosition;
+
     // Used for shadow projection
     private Vector2 mMovingDirection, mJumpStartPosition, mShadowOffset;
     private bool mDontMoveShadow;
@@ -79,13 +81,15 @@ public class StompStomp : MonoBehaviour
 
         mMovingDirection = new Vector2(0, 0);
         mStatus = EnemyStatus.WAITING;
-        mEnemyTouch.DamageEnabled = false;
+        mEnemyTouch.mDamageEnabled = false;
         mInputManager = GameObject.Find("MainCharacter").GetComponent<InputManager>();
 
         Vector2 pos = new Vector2(0.0f, 10.0f);
         mEnemyRb.position = mEnemyRb.position + pos + mRenderingOffset;
         mStompStompEnemy.position = mEnemyRb.position + pos + mRenderingOffset;
 
+        mEnemyPosition = GetComponent<EnemyPosition>();
+        mEnemyPosition.SetEnabled(false);
 
         // mStateMachine = new StateMachine<StompStomp>(this, mIdleState, null); // mGlobalState);
     }
@@ -145,7 +149,8 @@ public class StompStomp : MonoBehaviour
 
         mDontMoveShadow = ((mJumpStartPosition - mCurTarget).magnitude < 0.1);
         mStatus = EnemyStatus.JUMPING;
-        mEnemyTouch.DamageEnabled = false;
+        mEnemyTouch.mDamageEnabled = false;
+        //mEnemyPosition.SetEnabled(false);
         mAnimator.SetTrigger("jumping");
     }   
 
@@ -180,7 +185,8 @@ public class StompStomp : MonoBehaviour
 
             mVelocity = Vector2.zero;
             mStatus = EnemyStatus.IDLE;
-            mEnemyTouch.DamageEnabled = true;
+            mEnemyTouch.mDamageEnabled = true;
+            mEnemyPosition.SetEnabled(true);
             mEnemyCollider.enabled = true;
             mAnimator.SetTrigger("idle");
 
@@ -196,7 +202,8 @@ public class StompStomp : MonoBehaviour
         }
 
         mEnemyRb.transform.position = newPosition + mRenderingOffset;
-	}
+        mEnemyPosition.SetWorldPosition(mEnemyRb.position);
+    }
 
     public void OnShadowTouch() {
         if (mStatus == EnemyStatus.WAITING)

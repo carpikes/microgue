@@ -1,22 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-using Random = UnityEngine.Random;
-using System;
+public class WanderingFlame : MonoBehaviour {
 
-public class ChasingBird : MonoBehaviour {
     private Rigidbody2D mPlayerRb;
     private Rigidbody2D mRb;
 
     private Vector2 mVelocity = Vector2.zero;
     private float mRemainingTime = 0.0f;
-    private float mAcceleration = 5.0f;
+    float mAcceleration = 50.0f;
     private Vector2 mTargetPoint;
 
     private EnemyPosition mEnemyPosition;
 
-    void Start()
-    {
+    // Use this for initialization
+    void Start () {
         mRb = GetComponent<Rigidbody2D>();
         mPlayerRb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
 
@@ -28,7 +26,7 @@ public class ChasingBird : MonoBehaviour {
 
     void FixedUpdate()
     {
-        Vector2 delta = mPlayerRb.position + mTargetPoint - new Vector2(mRb.position.x, mRb.position.y);
+        Vector2 delta = mTargetPoint;
 
         mRemainingTime -= Time.fixedDeltaTime;
         if (mRemainingTime < 0)
@@ -36,20 +34,19 @@ public class ChasingBird : MonoBehaviour {
 
         if (delta.magnitude > 0.3f)
         {
-            mVelocity += delta.normalized * Time.fixedDeltaTime * mAcceleration;
-            if (delta.magnitude > 0.6f)
-                mVelocity.x *= 0.99f;
-            mVelocity.y *= 0.95f;
-        } 
+            mVelocity = delta.normalized * Time.fixedDeltaTime * mAcceleration;
+        }
 
         mRb.position += mVelocity * Time.fixedDeltaTime;
         mEnemyPosition.SetWorldPosition(mRb.position);
     }
-
     void ChooseNewPoint()
     {
-        mTargetPoint = Random.onUnitSphere;
-        mTargetPoint.y /= 3.0f;
+        float w = AIMap.GetWidth();
+        float h = AIMap.GetHeight();
+
+        mTargetPoint = new Vector2(Random.Range(-w/2, w/2), Random.Range(-h/2, h/2));
+
         mRemainingTime = Random.Range(0.1f, 0.3f);
     }
 }

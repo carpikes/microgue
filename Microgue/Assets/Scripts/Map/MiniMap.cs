@@ -39,10 +39,10 @@ public class MiniMap : MonoBehaviour {
                     if (i > r.yMax) r.yMax = i;
                 }
 
-        Debug.Log("w: " + mMap.GetWidth());
-        Debug.Log("h: " + mMap.GetHeight());
-        Debug.Log("x min max: " + r.xMin + " " + r.xMax);
-        Debug.Log("y min max: " + r.yMin + " " + r.yMax);
+        //Debug.Log("w: " + mMap.GetWidth());
+        //Debug.Log("h: " + mMap.GetHeight());
+        //Debug.Log("x min max: " + r.xMin + " " + r.xMax);
+        //Debug.Log("y min max: " + r.yMin + " " + r.yMax);
 
         float pw = .5f;
         float ph = .5f;

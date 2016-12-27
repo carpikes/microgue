@@ -29,6 +29,8 @@ public class AngrySoul : MonoBehaviour
 
     private SpriteRenderer mSpriteRenderer;
 
+    private EnemyPosition mEnemyPosition;
+
     // TODO? Moving to a common shooting script?
     private float lastShootTime = 0.0f;
     private const float shotCooldownTime = 1.0f;
@@ -54,6 +56,10 @@ public class AngrySoul : MonoBehaviour
 
         mStateMachine = new StateMachine<AngrySoul>(this, mIdleState, mGlobalState);
         mShootingStateMachine = new StateMachine<AngrySoul>(this, mNotShootingState, null);
+
+        mEnemyPosition = GetComponent<EnemyPosition>();
+
+        mEnemyPosition.SetEnabled(true);
     }
 
     // Update is called once per frame
@@ -71,7 +77,6 @@ public class AngrySoul : MonoBehaviour
 
     void Shoot()
     {
-        // --------- SEPARATE SCRIPT ------------
         if (Time.time - lastShootTime > shotCooldownTime)
         {
             GameObject lb = Instantiate(darkBall);
@@ -82,7 +87,6 @@ public class AngrySoul : MonoBehaviour
 
             lastShootTime = Time.time;
         }
-        // --------- SEPARATE SCRIPT ------------
     }
 
     void OnTriggerEnter2D(Collider2D other) {
@@ -192,7 +196,9 @@ public class AngrySoul : MonoBehaviour
             owner.mVelocity *= (1.0f - owner.mFriction); // * Time.fixedDeltaTime);
             owner.mRb.position += owner.mVelocity * Time.fixedDeltaTime;
 
-            // owner.transform.localScale = new Vector3(owner.mRb.position.x >= owner.mPlayerRb.position.x ? -1 : 1, 1, 1);
+            owner.mEnemyPosition.SetWorldPosition(owner.mRb.position);
+
+            //owner.transform.localScale = new Vector3(owner.mRb.position.x >= owner.mPlayerRb.position.x ? -1 : 1, 1, 1);
         }
 
         public void OnEnter(AngrySoul owner) { }
