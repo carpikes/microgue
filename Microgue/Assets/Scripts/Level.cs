@@ -251,6 +251,7 @@ public class Level
 
     public int CountEnemies()
     {
-        return GameObject.Find(mCurrentRoom.name + "/Enemies").transform.childCount; // do not consider Enemies itself
+        return GameObject.Find(mCurrentRoom.name + "/Enemies").transform.childCount - 
+            GameObject.Find(mCurrentRoom.name + "/Enemies").GetComponentsInChildren<NoEnemyCount>().Length; // do not consider Enemies itself
     }
 }
