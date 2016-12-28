@@ -254,4 +254,23 @@ public class Level
         return GameObject.Find(mCurrentRoom.name + "/Enemies").transform.childCount - 
             GameObject.Find(mCurrentRoom.name + "/Enemies").GetComponentsInChildren<NoEnemyCount>().Length; // do not consider Enemies itself
     }
+
+    public GameObject RandomEnemy()
+    {
+        List<GameObject> enemies = new List<GameObject>();
+
+        foreach (var go in GameObject.FindGameObjectsWithTag("Enemy"))
+            if (go.GetComponent<NoEnemyCount>() == null)
+                enemies.Add(go);
+
+        if (enemies.Count == 0)
+            return null;
+        else {
+            int i = Random.Range(0, enemies.Count);
+            Debug.Log("index: " + i);
+            Debug.Log("enemies count: " + enemies.Count);
+            Debug.Log("child count: " + GameObject.Find(mCurrentRoom.name + "/Enemies").transform.childCount);
+            return GameObject.Find(mCurrentRoom.name + "/Enemies").transform.GetChild(i).gameObject;
+        }
+    }
 }

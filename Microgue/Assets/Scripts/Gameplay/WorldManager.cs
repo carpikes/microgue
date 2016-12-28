@@ -157,6 +157,14 @@ public class WorldManager
         return false;
     }
 
+    public GameObject RandomEnemy()
+    {
+        if (mCurWorld != null)
+            return mCurWorld.RandomEnemy();
+
+        return null;
+    }
+
     public void OnDoorEnter(RoomMap.Door door, RoomMap.Door opposite)
     {
         if (mCurRoom.GetId() == mMapGenerator.GetEndRoomId())

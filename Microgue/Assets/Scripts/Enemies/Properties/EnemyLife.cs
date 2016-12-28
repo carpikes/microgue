@@ -8,6 +8,8 @@ public class EnemyLife : MonoBehaviour {
 
     private Animator mAnimator;
 
+    public bool mIsInvincible = false;
+
 	// Use this for initialization
 	void Start () {
         mHealthBar = transform.FindChild("HealthBar").gameObject;
@@ -19,7 +21,7 @@ public class EnemyLife : MonoBehaviour {
 	}
 
     void OnTriggerEnter2D(Collider2D other) {
-        if (other.CompareTag("Shot"))
+        if (other.CompareTag("Shot") && !mIsInvincible)
         {
             EventManager.TriggerEvent(Events.ON_ENEMY_HIT, null);
             mCurrentHP -= other.GetComponent<ShotProperties>().mDamage;
