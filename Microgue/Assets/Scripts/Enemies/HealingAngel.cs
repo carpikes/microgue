@@ -135,6 +135,6 @@ public class HealingAngel : MonoBehaviour {
 
     void Update()
     {
-        Debug.Log(mState.ToString());
+        //Debug.Log(mState.ToString());
     }
 }

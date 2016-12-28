@@ -183,10 +183,10 @@ public class Level
 
     private void GetBoundsOnLoad()
     {
-        Renderer r = GameObject.Find(mCurrentRoom.name + "/Background/water").GetComponent<Renderer>();
+        Renderer r = GameObject.Find(mCurrentRoom.name + "/Background").GetComponentInChildren<Renderer>();
         if (r == null)
         {
-            Debug.LogError("Cannot find 'water' layer used to get map size");
+            Debug.LogError("Cannot find layer used to get map size");
             return;
         }
         float ratio = Camera.main.aspect * 2.0f;
