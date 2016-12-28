@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 
 public class EnemyLife : MonoBehaviour {
 
@@ -35,6 +37,19 @@ public class EnemyLife : MonoBehaviour {
 
         if (mCurrentHP <= 0.0f)
             DeathAnimation();
+        else
+            StartCoroutine(FlashAnimation());
+    }
+
+    private IEnumerator FlashAnimation()
+    {
+        SpriteRenderer renderer = GetComponentInParent<SpriteRenderer>();
+        Color color = renderer.color;
+
+        Debug.Assert(renderer != null, "Sprite renderer not present");
+        renderer.color = Color.red;
+        yield return new WaitForSeconds(0.05f);
+        renderer.color = color;
     }
 
     public void InstaKill()

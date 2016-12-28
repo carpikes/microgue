@@ -43,6 +43,7 @@ public class HealingAngel : MonoBehaviour {
     private void DisableCurrentEnemy(Dictionary<string, string> arg0)
     {
         mCurrentTargetEnemy = null;
+        Debug.Log("Enemy disabled");
     }
 
     void Start()

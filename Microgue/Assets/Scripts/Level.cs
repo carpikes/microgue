@@ -267,9 +267,9 @@ public class Level
             return null;
         else {
             int i = Random.Range(0, enemies.Count);
-            Debug.Log("index: " + i);
-            Debug.Log("enemies count: " + enemies.Count);
-            Debug.Log("child count: " + GameObject.Find(mCurrentRoom.name + "/Enemies").transform.childCount);
+            //Debug.Log("index: " + i);
+            //Debug.Log("enemies count: " + enemies.Count);
+            //Debug.Log("child count: " + GameObject.Find(mCurrentRoom.name + "/Enemies").transform.childCount);
             return GameObject.Find(mCurrentRoom.name + "/Enemies").transform.GetChild(i).gameObject;
         }
     }
