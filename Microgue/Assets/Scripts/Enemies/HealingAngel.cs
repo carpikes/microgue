@@ -6,18 +6,44 @@ using System;
 using System.Collections.Generic;
 
 public class HealingAngel : MonoBehaviour {
+    enum States
+    {
+        SETUP,
+        ENEMY_TARGETED,
+        LOOKING_FOR_ENEMY,
+        DYING
+    }
+
     private Rigidbody2D mPlayerRb;
     private Rigidbody2D mRb;
-    private List<GameObject> mProtectedEnemies;
+    public List<GameObject> mProtectedEnemies;
     private GameObject mCurrentTargetEnemy = null;
     WorldManager mWorldManager;
+    EnemyLife mEnemyLife;
 
     private Vector2 mVelocity = Vector2.zero;
     private float mRemainingTime = 0.0f;
-    private float mAcceleration = 2.0f;
+    private float mAcceleration = 1.0f;
     private Vector2 mTargetPoint;
 
     private EnemyPosition mEnemyPosition;
+
+    private States mState;
+
+    void OnEnable()
+    {
+        EventManager.StartListening(Events.ON_ENEMY_DEATH, DisableCurrentEnemy);
+    }
+
+    void Disable()
+    {
+        EventManager.StopListening(Events.ON_ENEMY_DEATH, DisableCurrentEnemy);
+    }
+
+    private void DisableCurrentEnemy(Dictionary<string, string> arg0)
+    {
+        mCurrentTargetEnemy = null;
+    }
 
     void Start()
     {
@@ -28,6 +54,9 @@ public class HealingAngel : MonoBehaviour {
         mEnemyPosition = GetComponent<EnemyPosition>();
         mEnemyPosition.SetEnabled(true);
 
+        mEnemyLife = GetComponent<EnemyLife>();
+        mState = States.SETUP;
+
         StartCoroutine(LateStart());
     }
 
@@ -37,24 +66,45 @@ public class HealingAngel : MonoBehaviour {
         mWorldManager = GameObject.Find("GameplayManager").GetComponent<GameplayManager>().GetWorldManager();
         Debug.Assert(mWorldManager != null, "no world manager found");
 
-        mCurrentTargetEnemy = ChooseNewEnemy();
+        ChooseNewEnemy();
         ChooseNewPoint();
     }
 
     private GameObject ChooseNewEnemy()
     {
+        if (mWorldManager == null)
+            return null;
+
         if (mWorldManager.AreAllEnemiesKilled())
             return null;
 
+        // ok chosen new enemy
+        mState = States.ENEMY_TARGETED;
         return mWorldManager.RandomEnemy();
     }
 
     void FixedUpdate()
     {
         // wait initialization of world manager first!
-        if (mCurrentTargetEnemy == null)
+        if (mState == States.SETUP || mState == States.DYING)
             return;
 
+        if (mCurrentTargetEnemy == null)
+        {
+            mState = States.LOOKING_FOR_ENEMY;
+
+            if (mWorldManager.CountEnemies() == 1)
+            {
+                mState = States.DYING;
+                mEnemyLife.InstaKill();
+            }
+            else {
+                mCurrentTargetEnemy = ChooseNewEnemy();
+            }
+        }
+
+        if (mState == States.DYING)
+            return;
 
         Vector2 delta = new Vector2(mCurrentTargetEnemy.transform.position.x, mCurrentTargetEnemy.transform.position.y)
             + mTargetPoint - new Vector2(mRb.position.x, mRb.position.y);
@@ -82,26 +132,8 @@ public class HealingAngel : MonoBehaviour {
         mRemainingTime = Random.Range(0.1f, 0.3f);
     }
 
-    void OnTriggerEnter2D (Collider2D other)
+    void Update()
     {
-        if (other.CompareTag("Enemy"))
-        {
-            Debug.Log("ADDED");
-            other.gameObject.GetComponent<SpriteRenderer>().color = Color.green;
-            other.gameObject.GetComponent<EnemyLife>().mIsInvincible = true;
-            mProtectedEnemies.Add(other.gameObject);
-        }
+        Debug.Log(mState.ToString());
     }
-
-    void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Enemy"))
-        {
-            Debug.Log("REMOVED");
-            other.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-            other.gameObject.GetComponent<EnemyLife>().mIsInvincible = false;
-            mProtectedEnemies.Remove(other.gameObject);
-        }
-    }
-
 }

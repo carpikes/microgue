@@ -23,13 +23,23 @@ public class EnemyLife : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Shot") && !mIsInvincible)
         {
-            EventManager.TriggerEvent(Events.ON_ENEMY_HIT, null);
-            mCurrentHP -= other.GetComponent<ShotProperties>().mDamage;
-            UpdateHPBar();
+            Damage(other.GetComponent<ShotProperties>().mDamage);
         }
+    }
+
+    public void Damage(float howMuch)
+    {
+        EventManager.TriggerEvent(Events.ON_ENEMY_HIT, null);
+        mCurrentHP -= howMuch;
+        UpdateHPBar();
 
         if (mCurrentHP <= 0.0f)
             DeathAnimation();
+    }
+
+    public void InstaKill()
+    {
+        Damage(mCurrentHP);
     }
 
     private void DeathAnimation()
@@ -41,6 +51,7 @@ public class EnemyLife : MonoBehaviour {
 
     private void Die()
     {
+        EventManager.TriggerEvent(Events.ON_ENEMY_DEATH, null);
         Destroy(gameObject);
     }
 

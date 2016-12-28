@@ -149,6 +149,14 @@ public class WorldManager
         p.MovePosition(coords);
     }
 
+    public int CountEnemies()
+    {
+        if (mCurWorld != null)
+            return mCurWorld.CountEnemies();
+
+        return -1;
+    }
+
     public bool AreAllEnemiesKilled()
     {
         if (mCurWorld != null)

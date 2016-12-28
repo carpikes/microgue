@@ -623,7 +623,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd9ed493e8c47494dbc5c904d34f8fc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_DontDestroyOnLoad: 0
+  m_DontDestroyOnLoad: 1
 --- !u!4 &393340095
 Transform:
   m_ObjectHideFlags: 0
@@ -1044,6 +1044,12 @@ Prefab:
       propertyPath: mInputChoice
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114000013228287918, guid: f9cdb9929af97cb4fab874f6984a6221,
+        type: 2}
+      propertyPath: lightBall
+      value: 
+      objectReference: {fileID: 1000010376868484, guid: 7af8e4b26b415924594b2d33f9de4dc6,
+        type: 2}
     m_RemovedComponents:
     - {fileID: 114000013842790230, guid: f9cdb9929af97cb4fab874f6984a6221, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: f9cdb9929af97cb4fab874f6984a6221, type: 2}
