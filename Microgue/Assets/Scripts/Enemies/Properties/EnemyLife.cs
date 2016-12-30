@@ -14,8 +14,11 @@ public class EnemyLife : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        mHealthBar = transform.FindChild("HealthBar").gameObject;
-        Debug.Assert(mHealthBar != null && mHealthBar.activeSelf, "No health bar for: " + gameObject.name);
+        if (!mIsInvincible)
+        {
+            mHealthBar = transform.FindChild("HealthBar").gameObject;
+            Debug.Assert(mHealthBar != null && mHealthBar.activeSelf, "No health bar for: " + gameObject.name);
+        }
 
         mTotalHP = mCurrentHP;
 
@@ -71,13 +74,16 @@ public class EnemyLife : MonoBehaviour {
     }
 
     void UpdateHPBar() {
-        mHealthBar.SetActive(true);
+        if( !mIsInvincible )
+        {
+            mHealthBar.SetActive(true);
 
-        float percentage = mCurrentHP / mTotalHP;
-        float xOffset = -0.29f * (1.0f - percentage);
+            float percentage = mCurrentHP / mTotalHP;
+            float xOffset = -0.29f * (1.0f - percentage);
 
-        Transform tr = mHealthBar.transform.GetChild(1);
-        tr.localScale = new Vector3(percentage,1,1);
-        tr.localPosition = new Vector3(xOffset, 0, 0);
+            Transform tr = mHealthBar.transform.GetChild(1);
+            tr.localScale = new Vector3(percentage, 1, 1);
+            tr.localPosition = new Vector3(xOffset, 0, 0);
+        }
     }
 }

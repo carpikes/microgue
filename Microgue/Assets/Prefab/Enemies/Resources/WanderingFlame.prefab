@@ -28,6 +28,7 @@ GameObject:
   - 114: {fileID: 114000012260266226}
   - 114: {fileID: 114000014117727484}
   - 114: {fileID: 114000010335937106}
+  - 114: {fileID: 114000010139761242}
   m_Layer: 0
   m_Name: WanderingFlame
   m_TagString: Enemy
@@ -96,6 +97,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114000010139761242
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011746347044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2aede8658bda6b7499b7f8cd1b5d4c68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mCurrentHP: 10
+  mIsInvincible: 1
 --- !u!114 &114000010335937106
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -181,7 +195,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1573465145
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2fcab023d7055f548a0a173c3d5561f9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d7aa473d188a7c746b420a7c32378bcf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

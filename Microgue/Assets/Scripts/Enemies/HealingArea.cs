@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 public class HealingArea : MonoBehaviour {
 
-    HealingAngel mEnemy;
+    BlessingAngel mEnemy;
     Collider2D mTrigger;
 
     void Start()
     {
-        mEnemy = (HealingAngel)transform.parent.gameObject.GetComponent<HealingAngel>();
+        mEnemy = (BlessingAngel)transform.parent.gameObject.GetComponent<BlessingAngel>();
         Debug.Assert(mEnemy != null, "Cannot find parent enemy for healing angel");
 
         mTrigger = GetComponent<Collider2D>();
