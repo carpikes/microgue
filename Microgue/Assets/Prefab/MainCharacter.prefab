@@ -26,7 +26,6 @@ GameObject:
   - 114: {fileID: 114000013228287918}
   - 61: {fileID: 61000010677527858}
   - 114: {fileID: 114000011107284612}
-  - 114: {fileID: 114000013842790230}
   m_Layer: 0
   m_Name: MainCharacter
   m_TagString: Player
@@ -134,24 +133,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aimTransform: {fileID: 0}
-  initialSpeed: 200
+  mAcceleration: 5000
+  mInitialSpeed: 3
+  mFriction: 5
   lightBall: {fileID: 1000010376868484, guid: 7af8e4b26b415924594b2d33f9de4dc6, type: 2}
   shotCooldownTime: 0.3
   shotSpeed: 5
-  mInputChoice: 0
---- !u!114 &114000013842790230
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013211588202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f320274ba629fb245a919d228ec6be70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  xPercentage: 0.05
-  yPercentage: 0.05
+  refillEnemiesToReload: 3
+  mInputChoice: 1
+  mBallColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!212 &212000011237110204
 SpriteRenderer:
   m_ObjectHideFlags: 1

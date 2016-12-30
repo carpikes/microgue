@@ -89,7 +89,7 @@ public class JoypadInput : MonoBehaviour, InputInterface {
 
     public bool IsSecondaryAttackButtonPressed()
     {
-        return Input.GetButton("Shoot 2");
+        return Input.GetButtonDown("Shoot 2");
     }
 
     public bool IsShootingButtonPressed()

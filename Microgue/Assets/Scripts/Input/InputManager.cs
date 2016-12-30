@@ -3,6 +3,7 @@ using System.Collections;
 using System;
 
 using Bundle = System.Collections.Generic.Dictionary<string, string>;
+using System.Collections.Generic;
 
 public class InputManager : MonoBehaviour {
 
@@ -50,6 +51,10 @@ public class InputManager : MonoBehaviour {
     public float shotSpeed = 5f;
     float lastShootTime = 0f;
 
+    [Header("Secondary Attack")]
+    public int refillEnemiesToReload = 3;
+    int enemiesKilledCounter = 0;
+
     [Header("Keyboard or joypad?")]
     InputInterface mInput;
     public InputChoiches mInputChoice;
@@ -60,6 +65,16 @@ public class InputManager : MonoBehaviour {
     // True se e` in shooting.
     private bool mIsShooting = false;
     PlayerDirection mLastDirection = PlayerDirection.NONE;
+
+    void OnEnable()
+    {
+        EventManager.StartListening(Events.ON_ENEMY_DEATH, UpdateCounter);
+    }
+
+    void OnDisable()
+    {
+        EventManager.StopListening(Events.ON_ENEMY_DEATH, UpdateCounter);
+    }
 
     // Use this for initialization
     void Start ()
@@ -264,6 +279,7 @@ public class InputManager : MonoBehaviour {
         if(mIsShooting && CanShoot())
             Shoot();
 
+        /*
         if (mInput.IsItemButtonPressed())
         {
             Debug.Log("Item");
@@ -272,6 +288,7 @@ public class InputManager : MonoBehaviour {
 
         if (mInput.IsDashButtonPressed())
             Dash();
+        */
 
         if (mInput.IsSecondaryAttackButtonPressed())
             SecondaryAttack();
@@ -302,15 +319,26 @@ public class InputManager : MonoBehaviour {
         return Time.time - lastShootTime > shotCooldownTime;
     }
 
-    private void SecondaryAttack()
+    private void UpdateCounter(Bundle arg0)
     {
-        Debug.Log("SecondaryAttack()");
-        EventManager.TriggerEvent(Events.ON_MAIN_CHAR_SECOND_ATTACK, null);
+        ++enemiesKilledCounter;
     }
 
-    private void Dash()
+    private void SecondaryAttack()
+    {
+        Debug.Log(enemiesKilledCounter + " " + refillEnemiesToReload);
+
+        if (refillEnemiesToReload <= enemiesKilledCounter)
+        {
+            Debug.Log("KABOOM");
+            enemiesKilledCounter -= refillEnemiesToReload;
+            EventManager.TriggerEvent(Events.ON_MAIN_CHAR_SECOND_ATTACK, null);
+        }
+    }
+
+    /*private void Dash()
     {
         Debug.Log("Dash()");
         EventManager.TriggerEvent(Events.ON_MAIN_CHAR_DASH, null);
-    }
+    }*/
 }

@@ -68,7 +68,7 @@ public class KeyboardInput : MonoBehaviour, InputInterface {
 
     public bool IsSecondaryAttackButtonPressed()
     {
-        return Input.GetButton("Shoot 2");
+        return Input.GetButtonDown("Shoot 2");
     }
 
     public void FeedPlayerPosition(Vector2 pos)
