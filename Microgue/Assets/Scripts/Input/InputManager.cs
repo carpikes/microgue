@@ -54,6 +54,7 @@ public class InputManager : MonoBehaviour {
     [Header("Secondary Attack")]
     public int refillEnemiesToReload = 3;
     int enemiesKilledCounter = 0;
+    public float mSecondaryAttackDamage = 10f;
 
     [Header("Keyboard or joypad?")]
     InputInterface mInput;
@@ -326,13 +327,30 @@ public class InputManager : MonoBehaviour {
 
     private void SecondaryAttack()
     {
-        Debug.Log(enemiesKilledCounter + " " + refillEnemiesToReload);
-
         if (refillEnemiesToReload <= enemiesKilledCounter)
         {
-            Debug.Log("KABOOM");
+            // GRAPHICS EFFECTS TODO
+            DamageAllEnemies();
+
             enemiesKilledCounter -= refillEnemiesToReload;
             EventManager.TriggerEvent(Events.ON_MAIN_CHAR_SECOND_ATTACK, null);
+        }
+    }
+
+    private void DamageAllEnemies()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        foreach( var enemy in enemies )
+        {
+            EnemyLife lifeScript = enemy.GetComponent<EnemyLife>();
+            if (lifeScript == null)
+                continue;
+
+            Debug.Log("???");
+
+            if (!lifeScript.mIsInvincible)
+                lifeScript.Damage(mSecondaryAttackDamage);
         }
     }
 
