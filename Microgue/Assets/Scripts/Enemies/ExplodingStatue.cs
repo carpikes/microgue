@@ -4,7 +4,7 @@ using System;
 
 public class ExplodingStatue : MonoBehaviour {
 
-    enum States
+    public enum States
     {
         IDLE,
         EXPLODING,
@@ -18,10 +18,10 @@ public class ExplodingStatue : MonoBehaviour {
     private EnemyTouch mEnemyTouch;
     private EnemyPosition mEnemyPosition;
 
-    private States mState;
-    private Animator mAnimator;
+    public States mState;
+    public Animator mAnimator;
 
-    bool mSubjectToExplosion = false;
+    public bool mSubjectToExplosion = false;
 
     // Use this for initialization
     void Start () {
@@ -38,22 +38,6 @@ public class ExplodingStatue : MonoBehaviour {
         mEnemyPosition.SetEnabled(true);
 
         mState = States.IDLE;
-    }
-
-    void OnTriggerEnter2D( Collider2D other )
-    {
-        if (mState == States.IDLE)
-        {
-            mState = States.EXPLODING;
-            mAnimator.SetTrigger("enemy_death");
-        }
-
-        mSubjectToExplosion = true;
-    }
-
-    void OnTriggerExit2D(Collider2D other)
-    {
-        mSubjectToExplosion = false;
     }
 
     public void Explode()
