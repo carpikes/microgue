@@ -58,7 +58,7 @@ public class InputManager : MonoBehaviour {
 
     [Header("Keyboard or joypad?")]
     InputInterface mInput;
-    public InputChoiches mInputChoice;
+    private InputChoiches mInputChoice;
     private Vector3 mLastMouseCoords; // usato per switchare a mouse se mosso
 
     public Color mBallColor;
@@ -82,10 +82,8 @@ public class InputManager : MonoBehaviour {
     {
         mMaxSpeed = mInitialSpeed;
 
-        if (mInputChoice == InputChoiches.KeyboardMouse)
-            mInput = gameObject.AddComponent<KeyboardInput>();
-        else
-            mInput = gameObject.AddComponent<JoypadInput>();
+        mInputChoice = InputChoiches.Joypad;
+        mInput = gameObject.AddComponent<JoypadInput>();
 
         rb = GetComponent<Rigidbody2D>();
         

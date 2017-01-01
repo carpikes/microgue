@@ -4,8 +4,8 @@ using System;
 
 public class JoypadInput : MonoBehaviour, InputInterface {
     private Vector2 mCurRStick;
-    public float mCutOffFrequency = 2.0f;
-    public float mCircleArea = 0.8f;
+    private float mCutOffFrequency = 1.5f;
+    private float mCircleArea = 0.8f;
     public Vector2 mCurPlayerPos = Vector2.zero;
 
     void Start () {
@@ -58,17 +58,13 @@ public class JoypadInput : MonoBehaviour, InputInterface {
 
         float hor = Input.GetAxis("Horizontal");
         float ver = Input.GetAxis("Vertical");
-        ver = -ver;
+        if (Mathf.Abs(hor) < 0.1f)
+            hor = 0.0f;
+        if (Mathf.Abs(ver) < 0.1f)
+            ver = 0.0f;
 
-        if (hor < -float.Epsilon)
-            delta += Vector2.left;
-        else if (hor > float.Epsilon)
-            delta += Vector2.right;
-
-        if (ver > float.Epsilon)
-            delta += Vector2.down;
-        else if (ver < -float.Epsilon)
-            delta += Vector2.up;
+        delta.x += hor;
+        delta.y += ver;
 
         if (delta != Vector2.zero)
             delta.Normalize();
