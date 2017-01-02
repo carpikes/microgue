@@ -10,9 +10,9 @@ using System.IO;
 public class WorldManager
 {
     public const string PREFAB_PATH = "Assets/Tiled2Unity/Prefabs/Resources";
-    public static readonly string STARTING_MAP = "new_start";
 
-    private string mWorldName;
+    private SingleWorld mWorldConfig;
+
     private MapGenerator mMapGenerator;
     private MapAssetManager mMapAssetManager;
     private GameObject mPlayer;
@@ -26,12 +26,9 @@ public class WorldManager
     // list of available .prefab files
     private List<string> mAvailableLevels;
 
-    public int mMinRooms = 5;
-    public int mMaxRooms = 7;
-
-    public WorldManager(string worldName)
+    public WorldManager(SingleWorld worldConfig)
     {
-        mWorldName = worldName;
+        mWorldConfig = worldConfig;
         mPlayer = GameObject.Find("MainCharacter");
     }
 
@@ -39,16 +36,25 @@ public class WorldManager
     {
         // TRIGGER EVENT MAP_LOADING_STARTED
         Debug.Log("Loading Started");
-        FetchLevels(mWorldName);
+        FetchLevels(mWorldConfig.mWorldAssetPrefix);
         mMapGenerator = new MapGenerator();
         mMapAssetManager = new MapAssetManager(mMapGenerator, mAvailableLevels);
         mLevels = new Dictionary<int, Level>();
 
-        mMapGenerator.GenerateMap(mMinRooms, mMaxRooms); // TODO: sistemare con ciclo
-        mMapAssetManager.SetStartMap( STARTING_MAP );
+        mMapGenerator.GenerateMap(mWorldConfig.mMinRooms, mWorldConfig.mMaxRooms); 
+        mMapAssetManager.SetStartMap( mWorldConfig.mStartRoomName );
 
         LoadLevel(mMapGenerator.GetStartRoomId());
         // TRIGGER EVENT MAP_LOADING_COMPLETED
+    }
+
+    public void Unload()
+    {
+        if (mCurWorld != null)
+        {
+            mCurWorld.Unload();
+            mCurWorld = null;
+        }
     }
 
     /* TODO questa va in LevelLoader */
@@ -67,10 +73,9 @@ public class WorldManager
             return;
         }
 
-        if(mCurWorld != null)
-            mCurWorld.Unload();
+        Unload();
 
-        Level l = new Level(-1, "new_boss");
+        Level l = new Level(-1, mWorldConfig.mBossRoomName);
         mCurWorld = l;
         mCurWorldId = -1;
         mPlayer.transform.position = new Vector2(-9000, -9000);

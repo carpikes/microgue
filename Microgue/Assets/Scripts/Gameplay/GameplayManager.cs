@@ -16,6 +16,10 @@ public class GameplayManager : MonoBehaviour
     public GameObject mPlayer;
     public GameObject mAimCursor;
 
+    [Header("Worlds")]
+    public SingleWorld[] mWorlds;
+    private int mCurWorld;
+
     [Header("Load debug arena?")]
     public bool debugArena = false;
 
@@ -23,21 +27,17 @@ public class GameplayManager : MonoBehaviour
 
     private bool mGameRunning = true;
 
-    private WorldManager mWorldManager;
+    private WorldManager mWorldManager = null;
 
     private RawImage mRawImage;
     private GameObject mMainChr, mShotPos, mAIMap;
     // Use this for initialization
     void Start()
     {
+        mCurWorld = -1;
         Cursor.visible = false;
 
-        string lname = "new";
-        if (debugArena)
-            lname = "debug";
-
-        mWorldManager = new WorldManager(lname);
-        mWorldManager.Load();
+        NextWorld();
 
         mMainChr = GameObject.Find("/MainCharacter");
         mShotPos = GameObject.Find("/ShotPosition");
@@ -45,6 +45,43 @@ public class GameplayManager : MonoBehaviour
         mGameRunning = true;
     }
 
+    void OnEnable()
+    {
+        EventManager.StartListening(Events.ON_BOSS_KILLED, OnBossKilled);
+    }
+
+    void OnDisable()
+    {
+        EventManager.StopListening(Events.ON_BOSS_KILLED, OnBossKilled);
+    }
+
+    void OnBossKilled(Bundle useless)
+    {
+        Debug.Log("OnBossKilled");
+        NextWorld();
+    }
+
+    // Load next world (it increments world counter before loading)
+    // so, in Start() set the counter to -1
+    void NextWorld()
+    {
+        mCurWorld++;
+        if (mCurWorld >= mWorlds.Length)
+        {
+            // TODO: win screen
+            return;
+        }
+
+        if (mWorldManager != null)
+            mWorldManager.Unload();
+
+        mWorldManager = new WorldManager(mWorlds[mCurWorld]);
+        mWorldManager.Load();
+        GetComponent<TimerManager>().MAX_TIME = mWorlds[mCurWorld].mTimeInSeconds;
+        GetComponent<TimerManager>().Start();
+    }
+
+    // vai in pausa
     void StopGame()
     {
         mGameRunning = false;
@@ -58,6 +95,7 @@ public class GameplayManager : MonoBehaviour
         GetComponent<TimerManager>().enabled = false;
     }
 
+    // resume dalla pausa
     void StartGame()
     {
         mGameRunning = true;

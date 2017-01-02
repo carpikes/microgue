@@ -55,5 +55,7 @@ public enum Events
     // trigger a fade out
     FADE_OUT,
     // trigger a fade in
-    FADE_IN
+    FADE_IN,
+
+    ON_BOSS_KILLED
 }

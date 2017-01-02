@@ -12,6 +12,6 @@ public class Boss : MonoBehaviour {
 
     void OnDestroy()
     {
-        //mGameManager.CreateNewWorld(1);
+        EventManager.TriggerEvent(Events.ON_BOSS_KILLED, null);
     }
 }
