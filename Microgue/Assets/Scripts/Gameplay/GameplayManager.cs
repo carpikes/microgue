@@ -42,7 +42,7 @@ public class GameplayManager : MonoBehaviour
 
         mMainChr = GameObject.Find("/MainCharacter");
         mShotPos = GameObject.Find("/ShotPosition");
-        mAIMap = GameObject.Find("AIMap");
+        //mAIMap = GameObject.Find("AIMap");
         mGameRunning = true;
         NextWorld();
     }
@@ -119,7 +119,7 @@ public class GameplayManager : MonoBehaviour
         mWorldManager.GetWorld().SetActive(false);
         mMainChr.SetActive(false);
         mShotPos.SetActive(false);
-        mAIMap.SetActive(false);
+        //mAIMap.SetActive(false);
 
         GetComponent<AIMap>().enabled = false;
         GetComponent<TimerManager>().enabled = false;
@@ -132,7 +132,7 @@ public class GameplayManager : MonoBehaviour
         Cursor.visible = false;
         mMainChr.SetActive(true);
         mShotPos.SetActive(true);
-        mAIMap.SetActive(true);
+        //mAIMap.SetActive(true);
         mWorldManager.GetWorld().SetActive(true);
 
         GetComponent<AIMap>().enabled = true;
