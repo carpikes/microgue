@@ -13,4 +13,6 @@ public interface InputInterface {
     // il mirino anche quando il player
     // non e` centrato
     void FeedPlayerPosition(Vector2 pos);
+
+    bool IsSkipToBossPressed();
 }

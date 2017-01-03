@@ -263,6 +263,12 @@ public class InputManager : MonoBehaviour {
 
     void Update()
     {
+        if (mInput.IsSkipToBossPressed())
+        {
+            EventManager.TriggerEvent(Events.ON_BOSS_GOTO, null);
+            return;
+        }
+
         if (!mIsShooting && mInput.IsShootingButtonPressed() && CanShoot())
         {
             EventManager.TriggerEvent(Events.ON_MAIN_CHAR_START_ATTACK, null);

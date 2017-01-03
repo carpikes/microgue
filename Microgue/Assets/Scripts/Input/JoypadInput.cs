@@ -98,4 +98,9 @@ public class JoypadInput : MonoBehaviour, InputInterface {
     {
         mCurPlayerPos = pos;
     }
+
+    public bool IsSkipToBossPressed()
+    {
+        return Input.GetButtonDown("SkipBoss");
+    }
 }

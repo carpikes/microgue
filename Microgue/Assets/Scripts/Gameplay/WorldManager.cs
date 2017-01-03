@@ -6,6 +6,7 @@ using RoomMapGenerator;
 using Bundle = System.Collections.Generic.Dictionary<string, string>;
 using Random = UnityEngine.Random;
 using System.IO;
+using System;
 
 public class WorldManager
 {
@@ -26,10 +27,14 @@ public class WorldManager
     // list of available .prefab files
     private List<string> mAvailableLevels;
 
-    public WorldManager(SingleWorld worldConfig)
+    // skip directly to boss
+    private bool skipToBoss;
+
+    public WorldManager(SingleWorld worldConfig, bool canSkipToBoss)
     {
         mWorldConfig = worldConfig;
         mPlayer = GameObject.Find("MainCharacter");
+        skipToBoss = canSkipToBoss;
     }
 
     public void Load()
@@ -58,19 +63,22 @@ public class WorldManager
     }
 
     /* TODO questa va in LevelLoader */
-    private void LoadBossRoom()
+    public void LoadBossRoom()
     {
-        if (mMapAssetManager.GetNumOfLoadedMaps() != mMapGenerator.NumberOfRooms())
+        if (!skipToBoss)
         {
-            // non sono esplorate tutte le mappe
-            EventManager.TriggerEvent(Events.ON_WORLD_UNEXPLORED, null);
-            return;
-        }
+            if (mMapAssetManager.GetNumOfLoadedMaps() != mMapGenerator.NumberOfRooms())
+            {
+                // non sono esplorate tutte le mappe
+                EventManager.TriggerEvent(Events.ON_WORLD_UNEXPLORED, null);
+                return;
+            }
 
-        if (GameObject.FindGameObjectsWithTag("Enemy").Length > 0)
-        {
-            EventManager.TriggerEvent(Events.ON_STILL_ENEMIES_LEFT, null);
-            return;
+            if (!AreAllEnemiesKilled())
+            {
+                EventManager.TriggerEvent(Events.ON_STILL_ENEMIES_LEFT, null);
+                return;
+            }
         }
 
         Unload();

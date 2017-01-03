@@ -75,4 +75,9 @@ public class KeyboardInput : MonoBehaviour, InputInterface {
     {
         // not used here
     }
+
+    public bool IsSkipToBossPressed()
+    {
+        return Input.GetKeyDown(KeyCode.B);
+    }
 }

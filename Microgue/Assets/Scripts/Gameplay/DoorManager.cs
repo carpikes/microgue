@@ -7,6 +7,7 @@ public class DoorManager : MonoBehaviour
 {
     private RoomMap.Door mLastDoor, mLastOpposite;
     private WorldManager mWorldManager;
+
     void OnEnable()
     {
         EventManager.StartListening(Events.ON_DOOR_TOUCH, OnDoorEnter);
@@ -28,6 +29,7 @@ public class DoorManager : MonoBehaviour
     {
         mWorldManager = GameObject.Find("GameplayManager").GetComponent<GameplayManager>().GetWorldManager();
 
+        // skip control if flag enabled
         if (!mWorldManager.AreAllEnemiesKilled())
         {
             EventManager.TriggerEvent(Events.ON_STILL_ENEMIES_LEFT, null);

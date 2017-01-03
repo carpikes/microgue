@@ -20,10 +20,11 @@ public class GameplayManager : MonoBehaviour
     public SingleWorld[] mWorlds;
     private int mCurWorld;
 
-    [Header("Load debug arena?")]
-    public bool debugArena = false;
-
+    [Header("DEBUG")]
+    //public bool debugArena = false;
     public bool isInvincible = false;
+    public bool pressBToGoToBoss = false;
+    public bool bypassDoors = false;
 
     private bool mGameRunning = true;
 
@@ -31,6 +32,7 @@ public class GameplayManager : MonoBehaviour
 
     private RawImage mRawImage;
     private GameObject mMainChr, mShotPos, mAIMap;
+
     // Use this for initialization
     void Start()
     {
@@ -48,11 +50,18 @@ public class GameplayManager : MonoBehaviour
     void OnEnable()
     {
         EventManager.StartListening(Events.ON_BOSS_KILLED, OnBossKilled);
+        EventManager.StartListening(Events.ON_BOSS_GOTO, LoadBossRoom);
     }
 
     void OnDisable()
     {
         EventManager.StopListening(Events.ON_BOSS_KILLED, OnBossKilled);
+        EventManager.StopListening(Events.ON_BOSS_GOTO, LoadBossRoom);
+    }
+
+    private void LoadBossRoom(Bundle arg0)
+    {
+        mWorldManager.LoadBossRoom();
     }
 
     void OnBossKilled(Bundle useless)
@@ -75,7 +84,7 @@ public class GameplayManager : MonoBehaviour
         if (mWorldManager != null)
             mWorldManager.Unload();
 
-        mWorldManager = new WorldManager(mWorlds[mCurWorld]);
+        mWorldManager = new WorldManager(mWorlds[mCurWorld], pressBToGoToBoss);
         mWorldManager.Load();
         GetComponent<TimerManager>().MAX_TIME = mWorlds[mCurWorld].mTimeInSeconds;
         GetComponent<TimerManager>().Start();
