@@ -18,10 +18,11 @@ public class GameplayManager : MonoBehaviour
 
     [Header("Worlds")]
     public SingleWorld[] mWorlds;
+    public SingleWorld mDebugWorld;
     private int mCurWorld;
 
     [Header("DEBUG")]
-    //public bool debugArena = false;
+    public bool debugArena = false;
     public bool isInvincible = false;
     public bool pressBToGoToBoss = false;
     public bool bypassDoors = false;
@@ -39,11 +40,17 @@ public class GameplayManager : MonoBehaviour
         mCurWorld = -1;
         Cursor.visible = false;
 
-
         mMainChr = GameObject.Find("/MainCharacter");
         mShotPos = GameObject.Find("/ShotPosition");
         //mAIMap = GameObject.Find("AIMap");
         mGameRunning = true;
+
+        if (debugArena)
+        {
+            mWorlds = new SingleWorld[1];
+
+            mWorlds[0] = mDebugWorld;
+        }
         NextWorld();
     }
 

@@ -15,10 +15,25 @@ MonoBehaviour:
   - {fileID: 114000010090211558}
   - {fileID: 114000013528166750}
   EditorEvents:
-  - {fileID: 114000010629408614}
+  - {fileID: 114000013642237062}
+  - {fileID: 114000013491770124}
+  - {fileID: 114000011957313026}
+  - {fileID: 114000011306540776}
+  - {fileID: 114000010126139434}
+  - {fileID: 114000011908317030}
+  - {fileID: 114000011459275072}
+  - {fileID: 114000013523064222}
+  - {fileID: 114000011577810858}
+  - {fileID: 114000012252414716}
+  - {fileID: 114000013462376302}
+  - {fileID: 114000011924185638}
+  - {fileID: 114000010703428526}
+  - {fileID: 114000012353982442}
+  - {fileID: 114000010888681322}
+  - {fileID: 114000012970498086}
   MasterBankRef: {fileID: 114000013528166750}
   StringsBankRef: {fileID: 114000010090211558}
-  stringsBankWriteTime: 636189753102361808
+  stringsBankWriteTime: 636190513119281591
   cacheVersion: 2
 --- !u!114 &114000010052854320
 MonoBehaviour:
@@ -52,14 +67,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: FMOD\Desktop\Master Bank.strings.bank
-  lastModified: 636189753102361808
+  lastModified: 636190513119281591
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 682
+    Value: 1794
   - Name: Mobile
-    Value: 682
+    Value: 1794
   Exists: 1
+--- !u!114 &114000010126139434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: snapshot:/Forest
+  guid: 421d2d511779364e8131da72f446feb3
+  Banks:
+  - {fileID: 114000013528166750}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+--- !u!114 &114000010319552650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Boss
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114000010327300526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,8 +144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: event:/SoundFX/SFX_Dummy
   guid: f473be342ded0c4088047ded7a66a094
-  Banks:
-  - {fileID: 114000013528166750}
+  Banks: []
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -121,6 +171,27 @@ MonoBehaviour:
   - Name: Mobile
     Value: 47808
   Exists: 1
+--- !u!114 &114000010703428526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/SoundFX/Player/SFX_PLayerAttack
+  guid: b3556cc3617d2a42ac3e35ca6dc9e032
+  Banks:
+  - {fileID: 114000013528166750}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
 --- !u!114 &114000010800837366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,6 +232,27 @@ MonoBehaviour:
   - Name: Mobile
     Value: 47808
   Exists: 1
+--- !u!114 &114000010888681322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Ambience/AMB_Forest
+  guid: c112fa9bce8b9642a5b95f5d76383614
+  Banks:
+  - {fileID: 114000013528166750}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114000011238112112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,6 +293,48 @@ MonoBehaviour:
   - Name: Mobile
     Value: 47808
   Exists: 1
+--- !u!114 &114000011306540776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/SoundFX/UI/SFX_UI_Confirmed
+  guid: 367e9876b3756743b8d4ff2f730cf4f1
+  Banks:
+  - {fileID: 114000013528166750}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+--- !u!114 &114000011459275072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Ambience/AMB_Water
+  guid: 4d6a26eeb70dfa4e857458346c00acf3
+  Banks:
+  - {fileID: 114000013528166750}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114000011478568986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,6 +375,27 @@ MonoBehaviour:
   - Name: Mobile
     Value: 47808
   Exists: 1
+--- !u!114 &114000011577810858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/SoundFX/UI/SFX_UI_MouseOver
+  guid: 6f1f9bb10fd1944abf7e4935bc33b35f
+  Banks:
+  - {fileID: 114000013528166750}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114000011756996272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,6 +436,71 @@ MonoBehaviour:
   - Name: Mobile
     Value: 47808
   Exists: 1
+--- !u!114 &114000011908317030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/SoundFX/SFX_PickUp
+  guid: 4be75584b443cd4692ff6d10e8f37713
+  Banks:
+  - {fileID: 114000013528166750}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+--- !u!114 &114000011924185638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Music/MUS_Gameplay
+  guid: ac496e15862a8e46ac69ea40c58deb5e
+  Banks:
+  - {fileID: 114000013528166750}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 114000010319552650}
+  - {fileID: 114000013101805308}
+  MinDistance: 0
+  MaxDistance: 0
+--- !u!114 &114000011957313026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: snapshot:/Water
+  guid: 2f5523e2a2402d47ac6dc07689a8aec9
+  Banks:
+  - {fileID: 114000013528166750}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114000011967238722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,6 +541,27 @@ MonoBehaviour:
   - Name: Mobile
     Value: 47808
   Exists: 1
+--- !u!114 &114000012252414716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/SoundFX/SFX_ViewportChange
+  guid: 8a39f11fb2b9914f908bb04b0c45fe11
+  Banks:
+  - {fileID: 114000013528166750}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114000012263425790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -341,6 +582,27 @@ MonoBehaviour:
   - Name: Mobile
     Value: 47808
   Exists: 1
+--- !u!114 &114000012353982442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Ambience/AMB_Temple
+  guid: ba5bc55928c0ee4cbc2403a929f3611b
+  Banks:
+  - {fileID: 114000013528166750}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114000012386576630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -541,6 +803,27 @@ MonoBehaviour:
   - Name: Mobile
     Value: 47808
   Exists: 1
+--- !u!114 &114000012970498086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Music/MUS_PrototypeMusic
+  guid: cdcddafa7b08de458133636b6a3a434d
+  Banks:
+  - {fileID: 114000013528166750}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114000012972429320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -561,6 +844,21 @@ MonoBehaviour:
   - Name: Mobile
     Value: 47808
   Exists: 1
+--- !u!114 &114000013101805308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: PauseMenu
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114000013149002014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -621,6 +919,69 @@ MonoBehaviour:
   - Name: Mobile
     Value: 47808
   Exists: 1
+--- !u!114 &114000013462376302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/SoundFX/UI/SFX_UI_PauseGame
+  guid: 9c4d184ea9ce454d94f97897cb88d070
+  Banks:
+  - {fileID: 114000013528166750}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+--- !u!114 &114000013491770124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/SoundFX/Player/SFX_PLayerHurt
+  guid: 15f0de3f373fcb428e0bb457255cb4f4
+  Banks:
+  - {fileID: 114000013528166750}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+--- !u!114 &114000013523064222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: snapshot:/Temple
+  guid: 6a4579c244bbff47b68353a3530ad7d3
+  Banks:
+  - {fileID: 114000013528166750}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114000013528166750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -633,13 +994,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: E:\m\microgue\Microgue\FMOD\Desktop\Master Bank.bank
-  lastModified: 636189753102361808
+  lastModified: 636190513119261581
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 29728
+    Value: 7278912
   - Name: Mobile
-    Value: 47808
+    Value: 12184992
   Exists: 1
 --- !u!114 &114000013533934272
 MonoBehaviour:
@@ -661,6 +1022,27 @@ MonoBehaviour:
   - Name: Mobile
     Value: 47808
   Exists: 1
+--- !u!114 &114000013642237062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/SoundFX/SFX_KillAllEnemiesFirst
+  guid: 045d77cb0e101e43ba9fe769f8560fc9
+  Banks:
+  - {fileID: 114000013528166750}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114000013675023426
 MonoBehaviour:
   m_ObjectHideFlags: 0

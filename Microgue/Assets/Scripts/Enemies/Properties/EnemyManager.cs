@@ -10,12 +10,20 @@ public class EnemyManager : MonoBehaviour {
         enemyDictionary.Clear();
 
         List<string> firstRoomEnemies = new List<string> { "ExplodingStatue" };
-        List<string> boss = new List<string> { "BigLittleJimmy" };
         List<string> easyEnemies = new List<string> { "AngrySoul", "BlueChasingBird", "DesperateSoul", "LittleJimmy" };
         List<string> difficultEnemies = new List<string> { "StompStomp", "BlueChasingBird" };
         List<string> healingAngel = new List<string> { "BlessingAngel" };
 
+        // boss
+
+        // silent woods
+        List<string> boss = new List<string> { "BigLittleJimmy" };
+
+        // fire of the damned
+        List<string> firefox = new List<string> { "AngrySoul" };
+
         enemyDictionary.Add("Boss", boss);
+        enemyDictionary.Add("FireFox", firefox);
         enemyDictionary.Add("FirstRoomEnemy", firstRoomEnemies);
         enemyDictionary.Add("EasyEnemy", easyEnemies);
         enemyDictionary.Add("DifficultEnemy", difficultEnemies);
