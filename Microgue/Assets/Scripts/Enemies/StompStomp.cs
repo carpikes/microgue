@@ -41,6 +41,7 @@ public class StompStomp : MonoBehaviour
     // Used for shadow projection
     private Vector2 mMovingDirection, mJumpStartPosition, mShadowOffset;
     private bool mDontMoveShadow;
+    public bool mHackAttackInstant = false; // used in da boss
 
     void OnEnable()
     {
@@ -58,7 +59,7 @@ public class StompStomp : MonoBehaviour
     }
 
     // Use this for initialization
-    void Start () 
+    public void Start () 
 	{
         mStompStompEnemy = transform.FindChild("StompStompEnemy");
         mStompStompShadow = transform.FindChild("StompStompShadow");
@@ -91,6 +92,8 @@ public class StompStomp : MonoBehaviour
         mEnemyPosition = GetComponent<EnemyPosition>();
         mEnemyPosition.SetEnabled(false);
 
+        if (mHackAttackInstant)
+            OnShadowTouch();
         // mStateMachine = new StateMachine<StompStomp>(this, mIdleState, null); // mGlobalState);
     }
 

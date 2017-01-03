@@ -46,6 +46,11 @@ public class AngrySoul : MonoBehaviour
     static State<AngrySoul> mShootingState = new ShootingState();
     static State<AngrySoul> mGlobalState = new GlobalState();
 
+    public void HackStartShooting()
+    {
+        mTargetingEntryDistance = 500000.0f;
+    }
+
     void Start()
     {
         mRb = GetComponent<Rigidbody2D>();

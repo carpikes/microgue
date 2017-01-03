@@ -25,6 +25,8 @@ public class EnemyLife : MonoBehaviour {
         mAnimator = GetComponent<Animator>();
 	}
 
+    public float GetTotalHP() { return mTotalHP; }
+
     void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Shot") && !mIsInvincible)
         {

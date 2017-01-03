@@ -59,10 +59,10 @@ GameObject:
   - 114: {fileID: 114000010881514590}
   - 114: {fileID: 114000013576789140}
   - 114: {fileID: 114000014221629720}
-  - 114: {fileID: 114000013007259810}
   - 95: {fileID: 95000011866168674}
   - 114: {fileID: 114000011365538456}
   - 114: {fileID: 114000010157640018}
+  - 114: {fileID: 114000010315894170}
   m_Layer: 0
   m_Name: BigLittleJimmy
   m_TagString: Enemy
@@ -154,9 +154,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: -0.0000009536743, y: 0.0047221184}
+  m_Offset: {x: 0.04484304, y: 0.0944109}
   serializedVersion: 2
-  m_Size: {x: 0.12032097, y: 0.15888906}
+  m_Size: {x: 0.31919584, y: 0.54883957}
 --- !u!95 &95000011866168674
 Animator:
   serializedVersion: 3
@@ -183,6 +183,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 037223fa71794064c94eb57f5e21dc22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114000010315894170
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011746347044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bdde2fc02667bb41930d8abeb2c67e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114000010881514590
@@ -244,20 +255,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &114000013007259810
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011746347044}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f5deb24500be3f458532d97cc8502ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scale: 3
-  Kconst: 4
-  Friction: 0.1
 --- !u!114 &114000013576789140
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -269,7 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aede8658bda6b7499b7f8cd1b5d4c68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mCurrentHP: 10
+  mCurrentHP: 50
   mIsInvincible: 0
 --- !u!114 &114000014221629720
 MonoBehaviour:
