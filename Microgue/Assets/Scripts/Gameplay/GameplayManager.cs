@@ -39,24 +39,26 @@ public class GameplayManager : MonoBehaviour
         mCurWorld = -1;
         Cursor.visible = false;
 
-        NextWorld();
 
         mMainChr = GameObject.Find("/MainCharacter");
         mShotPos = GameObject.Find("/ShotPosition");
         mAIMap = GameObject.Find("AIMap");
         mGameRunning = true;
+        NextWorld();
     }
 
     void OnEnable()
     {
         EventManager.StartListening(Events.ON_BOSS_KILLED, OnBossKilled);
         EventManager.StartListening(Events.ON_BOSS_GOTO, LoadBossRoom);
+        EventManager.StartListening(Events.ON_LOADING_SCREEN_COMPLETE, OnLoadingScreenComplete);
     }
 
     void OnDisable()
     {
         EventManager.StopListening(Events.ON_BOSS_KILLED, OnBossKilled);
         EventManager.StopListening(Events.ON_BOSS_GOTO, LoadBossRoom);
+        EventManager.StopListening(Events.ON_LOADING_SCREEN_COMPLETE, OnLoadingScreenComplete);
     }
 
     private void LoadBossRoom(Bundle arg0)
@@ -67,7 +69,15 @@ public class GameplayManager : MonoBehaviour
     void OnBossKilled(Bundle useless)
     {
         Debug.Log("OnBossKilled");
+        StartCoroutine(WaitBeforeLoadingLevel());
+    }
+
+    IEnumerator WaitBeforeLoadingLevel() {
+        yield return new WaitForSeconds(1.0f);
+        EventManager.TriggerEvent(Events.FADE_OUT, null);
+        yield return new WaitForSeconds(0.2f);
         NextWorld();
+        EventManager.TriggerEvent(Events.FADE_IN, null);
     }
 
     // Load next world (it increments world counter before loading)
@@ -80,6 +90,9 @@ public class GameplayManager : MonoBehaviour
             // TODO: win screen
             return;
         }
+        Bundle b = new Bundle();
+        b.Add("Name", mWorlds[mCurWorld].mWorldName);
+        EventManager.TriggerEvent(Events.ON_LEVEL_BEFORE_LOADING, b);
 
         if (mWorldManager != null)
             mWorldManager.Unload();
@@ -88,9 +101,17 @@ public class GameplayManager : MonoBehaviour
         mWorldManager.Load();
         GetComponent<TimerManager>().MAX_TIME = mWorlds[mCurWorld].mTimeInSeconds;
         GetComponent<TimerManager>().Start();
+        StopGame();
+        EventManager.TriggerEvent(Events.ON_LEVEL_AFTER_LOADING, null);
     }
 
-    // vai in pausa
+    // called once after on_level_after_loading
+    void OnLoadingScreenComplete(Bundle useless)
+    {
+        StartGame();
+    }
+
+    // goto pause, called also while loading
     void StopGame()
     {
         mGameRunning = false;

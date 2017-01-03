@@ -10,6 +10,8 @@ public enum Events
     // level related
     ON_LEVEL_BEFORE_LOADING,
     ON_LEVEL_AFTER_LOADING,
+    ON_LOADING_SCREEN_COMPLETE,
+
     ON_LEVEL_UNLOADING,
     ON_DOOR_TOUCH,
 

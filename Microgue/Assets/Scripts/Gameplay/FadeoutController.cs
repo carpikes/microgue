@@ -15,9 +15,9 @@ public class FadeoutController : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        mScreen = GameObject.Find("Canvas/UICanvas/BlackScreen");
+        mScreen = GameObject.Find("Canvas/FadeTransitionCanvas/BlackScreen");
         mRawImage = mScreen.GetComponent<RawImage>();
-        mRawImage.rectTransform.sizeDelta = new Vector2(Camera.main.pixelWidth, Camera.main.pixelHeight);
+        mRawImage.rectTransform.sizeDelta = new Vector2(Camera.main.pixelWidth + 20, Camera.main.pixelHeight + 20);
         mRawImage.color = new Color(0, 0, 0, 0);
         mScreen.SetActive(false);
     }

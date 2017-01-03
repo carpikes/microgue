@@ -48,11 +48,9 @@ public class Level
             Bundle levelEventInfo = new Bundle();
             levelEventInfo.Add(LEVEL_NAME_TAG, mName);
             
-            EventManager.TriggerEvent(Events.ON_LEVEL_BEFORE_LOADING, levelEventInfo);
             mCurrentRoom = GameObject.Instantiate(worldPrefab);
             mCurrentRoom.name = mName;
             LoadStuff();
-            EventManager.TriggerEvent(Events.ON_LEVEL_BEFORE_LOADING, levelEventInfo);
         } else {
             mCurrentRoom.SetActive(true);
         }
