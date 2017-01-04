@@ -105,6 +105,22 @@ public class GameplayManager : MonoBehaviour
             mWorldManager.Unload();
 
         mWorldManager = new WorldManager(mWorlds[mCurWorld], pressBToGoToBoss);
+
+        // handle audio transition
+        FMODUnity.StudioEventEmitter ambienceEmitter =
+            GameObject.FindGameObjectWithTag("AmbienceManager").GetComponent<FMODUnity.StudioEventEmitter>();
+
+        FMODUnity.StudioEventEmitter snapshotEmitter =
+            GameObject.FindGameObjectWithTag("SnapshotManager").GetComponent<FMODUnity.StudioEventEmitter>();
+
+        ambienceEmitter.Stop();
+        ambienceEmitter.Event = mWorlds[mCurWorld].mAmbiencePath;
+        ambienceEmitter.Play();
+
+        snapshotEmitter.Stop();
+        snapshotEmitter.Event = mWorlds[mCurWorld].mMusicSnapshotPath;
+        snapshotEmitter.Play();
+
         mWorldManager.Load();
         GetComponent<TimerManager>().MAX_TIME = mWorlds[mCurWorld].mTimeInSeconds;
         GetComponent<TimerManager>().Start();
