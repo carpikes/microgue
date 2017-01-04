@@ -301,6 +301,7 @@ public class InputManager : MonoBehaviour {
 
     private void Shoot()
     {
+        EventManager.TriggerEvent(Events.ON_MAIN_CHAR_KEEP_ATTACK, null);
         GameObject lb = Instantiate(lightBall);
         lb.GetComponent<ShotProperties>().mDamage = statManager.GetStatValue(StatManager.StatStates.DAMAGE);
         lb.GetComponent<SpriteRenderer>().color = mBallColor;

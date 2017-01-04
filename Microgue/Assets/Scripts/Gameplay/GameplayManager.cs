@@ -112,7 +112,7 @@ public class GameplayManager : MonoBehaviour
         mWorldManager.Load();
         GetComponent<TimerManager>().MAX_TIME = mWorlds[mCurWorld].mTimeInSeconds;
         GetComponent<TimerManager>().Start();
-        StopGame();
+        PauseGame();
         EventManager.TriggerEvent(Events.ON_LEVEL_AFTER_LOADING, null);
     }
 
@@ -120,8 +120,9 @@ public class GameplayManager : MonoBehaviour
     {
         GameObject amb = GameObject.FindGameObjectWithTag("AmbienceManager");
         GameObject snap = GameObject.FindGameObjectWithTag("SnapshotManager");
+        GameObject mus = GameObject.FindGameObjectWithTag("BGMusicManager");
 
-        if (amb == null || snap == null)
+        if (amb == null || snap == null || mus == null)
         {
             Debug.Log("Something is wrong with the emitters. Skipping audio.");
             return;
@@ -130,16 +131,23 @@ public class GameplayManager : MonoBehaviour
         FMODUnity.StudioEventEmitter ambienceEmitter =
                     amb.GetComponent<FMODUnity.StudioEventEmitter>();
 
-        FMODUnity.StudioEventEmitter snapshotEmitter =
-            snap.GetComponent<FMODUnity.StudioEventEmitter>();
-
         ambienceEmitter.Stop();
         ambienceEmitter.Event = mWorlds[mCurWorld].mAmbiencePath;
         ambienceEmitter.Play();
 
+        FMODUnity.StudioEventEmitter snapshotEmitter =
+            snap.GetComponent<FMODUnity.StudioEventEmitter>();
+
         snapshotEmitter.Stop();
         snapshotEmitter.Event = mWorlds[mCurWorld].mMusicSnapshotPath;
         snapshotEmitter.Play();
+
+        FMODUnity.StudioEventEmitter musicEmitter =
+            mus.GetComponent<FMODUnity.StudioEventEmitter>();
+
+        musicEmitter.Stop();
+        musicEmitter.Event = mWorlds[mCurWorld].mBackgroundMusicPath;
+        musicEmitter.Play();
     }
 
     // called once after on_level_after_loading
@@ -149,7 +157,7 @@ public class GameplayManager : MonoBehaviour
     }
 
     // goto pause, called also while loading
-    void StopGame()
+    void PauseGame()
     {
         mGameRunning = false;
         Cursor.visible = true;
@@ -182,7 +190,8 @@ public class GameplayManager : MonoBehaviour
             GameObject obj = GameObject.Find("Canvas/UICanvas/PauseMenu");
             if (mGameRunning)
             {
-                StopGame();
+                GetComponent<FMODUnity.StudioEventEmitter>().Play();
+                PauseGame();
                 obj.SetActive(true);
             }
             else

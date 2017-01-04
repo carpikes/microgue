@@ -10,6 +10,7 @@ public class SingleWorld : ScriptableObject {
     public string mStartRoomName = "debug_start";
 
     [Header("Music & SFX")]
+    public string mBackgroundMusicPath;
     public string mMusicSnapshotPath;
     public string mAmbiencePath;
 

@@ -17,6 +17,7 @@ public enum Events
 
     // main character related
     ON_MAIN_CHAR_HIT,
+    ON_MAIN_CHAR_ACTUALLY_HIT,
     ON_MAIN_CHAR_INVULNERABLE_BEGIN,
     ON_MAIN_CHAR_INVULNERABLE_END,
     ON_MAIN_CHAR_DEATH,

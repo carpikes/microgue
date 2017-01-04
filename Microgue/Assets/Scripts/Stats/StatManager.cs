@@ -139,6 +139,7 @@ public class StatManager : MonoBehaviour
     {
         if (!IsInvulnerable)
         {
+            EventManager.TriggerEvent(Events.ON_MAIN_CHAR_ACTUALLY_HIT, null);
             float defence = GetStatValue(StatStates.DEFENCE);
 
             // TODO USE ACTUAL ATTACK POINT ENEMY
