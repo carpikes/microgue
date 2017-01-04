@@ -107,11 +107,31 @@ public class GameplayManager : MonoBehaviour
         mWorldManager = new WorldManager(mWorlds[mCurWorld], pressBToGoToBoss);
 
         // handle audio transition
+        AudioTransition();
+
+        mWorldManager.Load();
+        GetComponent<TimerManager>().MAX_TIME = mWorlds[mCurWorld].mTimeInSeconds;
+        GetComponent<TimerManager>().Start();
+        StopGame();
+        EventManager.TriggerEvent(Events.ON_LEVEL_AFTER_LOADING, null);
+    }
+
+    private void AudioTransition()
+    {
+        GameObject amb = GameObject.FindGameObjectWithTag("AmbienceManager");
+        GameObject snap = GameObject.FindGameObjectWithTag("SnapshotManager");
+
+        if (amb == null || snap == null)
+        {
+            Debug.Log("Something is wrong with the emitters. Skipping audio.");
+            return;
+        }
+
         FMODUnity.StudioEventEmitter ambienceEmitter =
-            GameObject.FindGameObjectWithTag("AmbienceManager").GetComponent<FMODUnity.StudioEventEmitter>();
+                    amb.GetComponent<FMODUnity.StudioEventEmitter>();
 
         FMODUnity.StudioEventEmitter snapshotEmitter =
-            GameObject.FindGameObjectWithTag("SnapshotManager").GetComponent<FMODUnity.StudioEventEmitter>();
+            snap.GetComponent<FMODUnity.StudioEventEmitter>();
 
         ambienceEmitter.Stop();
         ambienceEmitter.Event = mWorlds[mCurWorld].mAmbiencePath;
@@ -120,12 +140,6 @@ public class GameplayManager : MonoBehaviour
         snapshotEmitter.Stop();
         snapshotEmitter.Event = mWorlds[mCurWorld].mMusicSnapshotPath;
         snapshotEmitter.Play();
-
-        mWorldManager.Load();
-        GetComponent<TimerManager>().MAX_TIME = mWorlds[mCurWorld].mTimeInSeconds;
-        GetComponent<TimerManager>().Start();
-        StopGame();
-        EventManager.TriggerEvent(Events.ON_LEVEL_AFTER_LOADING, null);
     }
 
     // called once after on_level_after_loading
