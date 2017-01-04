@@ -12,12 +12,17 @@ public class FireMagician : MonoBehaviour {
 
     Transform mPlayer;
     int mState = 0;
+
+    Animator mAnimator;
+
 	// Use this for initialization
 	void Start () {
         mAIMap = GameObject.Find("GameplayManager").GetComponent<AIMap>();
         mPlayer = GameObject.Find("MainCharacter").transform;
         mChangeTime = Time.time + Random.Range(3.0f, 6.0f);
         mJumpAwayInstant = false;
+
+        mAnimator = GetComponent<Animator>();
 	}
 
 	// Update is called once per frame
@@ -49,12 +54,14 @@ public class FireMagician : MonoBehaviour {
                 }
                 break;
             case 1: // stai nascosto
-                // questi 3 comandi dovrebbero essere chiamati una sola volta,
-                // ma a quanto pare qualche altro script cambia il colore o simili
-                // e se non li setto in loop non funziona bene. lol
+                    // questi 3 comandi dovrebbero essere chiamati una sola volta,
+                    // ma a quanto pare qualche altro script cambia il colore o simili
+                    // e se non li setto in loop non funziona bene. lol
+                //mAnimator.SetTrigger("teleport_down");
                 GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
                 GetComponent<BoxCollider2D>().enabled = false;
                 transform.GetChild(0).gameObject.SetActive(false);
+
                 if (mChangeTime < Time.time) // time out, riappari altrove!
                 {
                     mState = 2;
@@ -64,6 +71,7 @@ public class FireMagician : MonoBehaviour {
                     GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
                     GetComponent<BoxCollider2D>().enabled = true;
                     transform.GetChild(0).gameObject.SetActive(true);
+                    mAnimator.SetTrigger("teleport_up");
                 }
                 break;
             case 2: // appena riapparso... 
