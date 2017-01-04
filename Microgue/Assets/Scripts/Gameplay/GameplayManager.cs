@@ -190,7 +190,7 @@ public class GameplayManager : MonoBehaviour
             GameObject obj = GameObject.Find("Canvas/UICanvas/PauseMenu");
             if (mGameRunning)
             {
-                GetComponent<FMODUnity.StudioEventEmitter>().Play();
+                GetComponents<FMODUnity.StudioEventEmitter>()[0].Play();
                 PauseGame();
                 obj.SetActive(true);
             }

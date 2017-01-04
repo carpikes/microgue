@@ -48,6 +48,7 @@ public class ItemPrefabProperties : MonoBehaviour {
         {
             Bundle itemBundle = new Bundle();
             itemBundle.Add(ITEM_PICKUP_TAG, item.Name);
+            GetComponent<FMODUnity.StudioEventEmitter>().Play();
             EventManager.TriggerEvent(Events.ON_ITEM_PICKUP, itemBundle);
 
             if ( item.IsPassive )

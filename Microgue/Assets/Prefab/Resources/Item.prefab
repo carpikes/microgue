@@ -39,6 +39,7 @@ GameObject:
   - 58: {fileID: 58000012355849360}
   - 114: {fileID: 114000010268051792}
   - 50: {fileID: 50000012421070220}
+  - 114: {fileID: 114000011836803428}
   m_Layer: 0
   m_Name: Item
   m_TagString: Item
@@ -117,6 +118,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sineAmplitude: 0.3
   sineFrequency: 5
+--- !u!114 &114000011836803428
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013929013460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/SoundFX/SFX_PickUp
+  PlayEvent: 0
+  StopEvent: 0
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
 --- !u!212 &212000010079523044
 SpriteRenderer:
   m_ObjectHideFlags: 1
