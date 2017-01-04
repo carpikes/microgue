@@ -6,12 +6,20 @@ public class FireMagician : MonoBehaviour {
     bool[,] mMap = null;
     public GameObject darkBall;
 
+    public float mShotCooldown = 0.8f;
+
+    public float mHiddenTimeMin = 2.0f;
+    public float mHiddenTimeMax = 4.0f;
+
+    public float mShotTimeMin = 3.0f;
+    public float mShotTimeMax = 6.0f;
+
     private float mNextShot = 0.0f;
     private float mChangeTime = 0.0f;
     private bool mJumpAwayInstant = false;
 
     Transform mPlayer;
-    int mState = 0;
+    int mState = 1;
 
     Animator mAnimator;
 
@@ -19,10 +27,15 @@ public class FireMagician : MonoBehaviour {
 	void Start () {
         mAIMap = GameObject.Find("GameplayManager").GetComponent<AIMap>();
         mPlayer = GameObject.Find("MainCharacter").transform;
-        mChangeTime = Time.time + Random.Range(3.0f, 6.0f);
         mJumpAwayInstant = false;
 
         mAnimator = GetComponent<Animator>();
+
+        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<BoxCollider2D>().enabled = false;
+        transform.GetChild(0).gameObject.SetActive(false);
+        mAnimator.SetTrigger("teleport_down");
+        mChangeTime = Time.time + Random.Range(mHiddenTimeMin, mHiddenTimeMax);
 	}
 
 	// Update is called once per frame
@@ -44,14 +57,14 @@ public class FireMagician : MonoBehaviour {
                 if (mNextShot < Time.time)
                 {
                     Shot();
-                    mNextShot = Time.time + Random.Range(0.3f, 0.5f);
+                    mNextShot = Time.time + mShotCooldown;
                 }
 
                 if (mChangeTime < Time.time || mJumpAwayInstant) // ok nasconditi!
                 {
                     mState = 1;
                     mAnimator.SetTrigger("teleport_down");
-                    mChangeTime = Time.time + Random.Range(3.0f, 4.0f); // stai questo tempo nascosto
+                    mChangeTime = Time.time + Random.Range(mHiddenTimeMin, mHiddenTimeMax); // stai questo tempo nascosto
                     GetComponent<BoxCollider2D>().enabled = false;
                     transform.GetChild(0).gameObject.SetActive(false);
                 }
@@ -63,10 +76,10 @@ public class FireMagician : MonoBehaviour {
                 if (mChangeTime < Time.time) // time out, riappari altrove!
                 {
                     mState = 2;
-                    mChangeTime = Time.time + Random.Range(0.7f, 1.0f);  // e stai questo tempo fermo appena riapparso
+                    mChangeTime = Time.time + Random.Range(0.6f, 0.8f);  // e stai questo tempo fermo appena riapparso
                     JumpAway();
                     // e riappari
-                    GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+                    GetComponent<SpriteRenderer>().enabled = true;
                     GetComponent<BoxCollider2D>().enabled = true;
                     mAnimator.SetTrigger("teleport_up");
                 }
@@ -75,9 +88,10 @@ public class FireMagician : MonoBehaviour {
                 if (mChangeTime < Time.time) // ok hai capito il tuo ruolo nel mondo, spara!
                 {
                     transform.GetChild(0).gameObject.SetActive(true);
-                    mChangeTime = Time.time + Random.Range(3.0f, 6.0f); // stai questo tempo fermo (da attivo)
+                    mChangeTime = Time.time + Random.Range(mShotTimeMin, mShotTimeMax); // stai questo tempo fermo (da attivo)
                     mJumpAwayInstant = false;
                     mState = 0;
+                    mAnimator.SetTrigger("idle");
                 }
                 break;
         }
