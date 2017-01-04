@@ -19,6 +19,8 @@ public class GameplayManager : MonoBehaviour
     [Header("Worlds")]
     public SingleWorld[] mWorlds;
     public SingleWorld mDebugWorld;
+    public int startFromWorld = 0;
+
     private int mCurWorld;
 
     [Header("DEBUG")]
@@ -37,7 +39,7 @@ public class GameplayManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        mCurWorld = -1;
+        mCurWorld = startFromWorld - 1;
         Cursor.visible = false;
 
         mMainChr = GameObject.Find("/MainCharacter");

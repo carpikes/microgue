@@ -29,6 +29,12 @@ GameObject:
   - 114: {fileID: 114000011031036628}
   - 114: {fileID: 114000011004983200}
   - 114: {fileID: 114000011355995584}
+  - 114: {fileID: 114000011073847530}
+  - 114: {fileID: 114000011499582200}
+  - 114: {fileID: 114000010820464476}
+  - 114: {fileID: 114000011759513996}
+  - 114: {fileID: 114000013569121710}
+  - 114: {fileID: 114000011399363556}
   m_Layer: 0
   m_Name: GameplayManager
   m_TagString: GameController
@@ -73,8 +79,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mPlayer: {fileID: 0}
   mAimCursor: {fileID: 0}
+  mWorlds:
+  - {fileID: 11400000, guid: eabce3abf3129e84792ac4eeb962dc8e, type: 2}
+  - {fileID: 11400000, guid: 14fd0b82b7ae89c41ab7e99499e67b45, type: 2}
+  mDebugWorld: {fileID: 11400000, guid: a03dcd2f4a0cdd642a2a17470d4dc098, type: 2}
   debugArena: 0
-  isInvincible: 0
+  isInvincible: 1
+  pressBToGoToBoss: 1
+  bypassDoors: 0
+  startFromWorld: 1
+--- !u!114 &114000010820464476
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012975155318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8128bc497f1ad3945a3172cb61c84c3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mCanvas: {fileID: 0}
+  mText: {fileID: 0}
 --- !u!114 &114000011004983200
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -99,6 +125,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9adad3d2fac18df4b87323eaf8decfe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114000011073847530
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012975155318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d071f654f4c03a4ba942b8c77793300, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000011355995584
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -118,6 +155,61 @@ MonoBehaviour:
   fullHeart: {fileID: 21300006, guid: 640a88534d70bc445856e1d22674137b, type: 3}
   halfHeart: {fileID: 21300010, guid: 640a88534d70bc445856e1d22674137b, type: 3}
   emptyHeart: {fileID: 21300008, guid: 640a88534d70bc445856e1d22674137b, type: 3}
+--- !u!114 &114000011399363556
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012975155318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/SoundFX/SFX_ViewportChange
+  PlayEvent: 0
+  StopEvent: 0
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
+--- !u!114 &114000011499582200
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012975155318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb3d9d443b9c104d804d4e5b717668f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114000011759513996
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012975155318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/SoundFX/UI/SFX_UI_PauseGame
+  PlayEvent: 0
+  StopEvent: 0
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
 --- !u!114 &114000012197168450
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -129,6 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ebe87b6eac075d4da75d5bfe4fd1290, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MAX_TIME: 300
 --- !u!114 &114000012333824144
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -165,6 +258,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: []
   MAX_DEFENCE: 2
+--- !u!114 &114000013569121710
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012975155318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/SoundFX/SFX_KillAllEnemiesFirst
+  PlayEvent: 0
+  StopEvent: 0
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
 --- !u!114 &114000013579835368
 MonoBehaviour:
   m_ObjectHideFlags: 1

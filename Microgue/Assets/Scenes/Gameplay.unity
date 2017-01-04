@@ -1232,7 +1232,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 598429165}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.78, y: -4.99, z: -10}
+  m_LocalPosition: {x: 4.78, y: -2.71, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -2047,112 +2047,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Event: event:/SoundFX/UI/SFX_UI_MouseOver
-  PlayEvent: 0
-  StopEvent: 0
-  CollisionTag: 
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 0
-  OverrideMaxDistance: 0
---- !u!1 &1256218331 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1000012975155318, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
-    type: 2}
-  m_PrefabInternal: {fileID: 2010269688}
---- !u!114 &1256218332
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1256218331}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d071f654f4c03a4ba942b8c77793300, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1256218333
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1256218331}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbb3d9d443b9c104d804d4e5b717668f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1256218334
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1256218331}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8128bc497f1ad3945a3172cb61c84c3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mCanvas: {fileID: 318420299}
-  mText: {fileID: 1103565770}
---- !u!114 &1256218335
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1256218331}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Event: event:/SoundFX/UI/SFX_UI_PauseGame
-  PlayEvent: 0
-  StopEvent: 0
-  CollisionTag: 
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 0
-  OverrideMaxDistance: 0
---- !u!114 &1256218336
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1256218331}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Event: event:/SoundFX/SFX_KillAllEnemiesFirst
-  PlayEvent: 0
-  StopEvent: 0
-  CollisionTag: 
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 0
-  OverrideMaxDistance: 0
---- !u!114 &1256218337
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1256218331}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Event: event:/SoundFX/SFX_ViewportChange
   PlayEvent: 0
   StopEvent: 0
   CollisionTag: 
@@ -3143,11 +3037,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
-        type: 2}
-      propertyPath: mWorlds.Array.size
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 4000011548570656, guid: 6d767db5cf5bba14aa5a9b137dbd83d6, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3180,11 +3069,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114000012369660046, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
-        type: 2}
-      propertyPath: mDebugTileForPlayerPos
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 114000011355995584, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
       propertyPath: uiCanvas
@@ -3210,16 +3094,6 @@ Prefab:
       propertyPath: healthContainer
       value: 
       objectReference: {fileID: 2011907779}
-    - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
-        type: 2}
-      propertyPath: mPlayer
-      value: 
-      objectReference: {fileID: 45119986}
-    - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
-        type: 2}
-      propertyPath: mAimCursor
-      value: 
-      objectReference: {fileID: 1093476809}
     - target: {fileID: 114000011004983200, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
       propertyPath: gameOverCanvas
@@ -3230,39 +3104,31 @@ Prefab:
       propertyPath: UICanvas
       value: 
       objectReference: {fileID: 977886681}
-    - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
+    - target: {fileID: 114000010820464476, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
-      propertyPath: mWorlds.Array.data[0]
+      propertyPath: mCanvas
       value: 
-      objectReference: {fileID: 11400000, guid: eabce3abf3129e84792ac4eeb962dc8e,
+      objectReference: {fileID: 318420299}
+    - target: {fileID: 114000010820464476, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
-    - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
-        type: 2}
-      propertyPath: mWorlds.Array.data[1]
+      propertyPath: mText
       value: 
-      objectReference: {fileID: 11400000, guid: 14fd0b82b7ae89c41ab7e99499e67b45,
-        type: 2}
+      objectReference: {fileID: 1103565770}
     - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
-      propertyPath: isInvincible
+      propertyPath: mPlayer
+      value: 
+      objectReference: {fileID: 45119986}
+    - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
+        type: 2}
+      propertyPath: mAimCursor
+      value: 
+      objectReference: {fileID: 1093476809}
+    - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
+        type: 2}
+      propertyPath: bypassDoors
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
-        type: 2}
-      propertyPath: debugArena
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
-        type: 2}
-      propertyPath: pressBToGoToBoss
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
-        type: 2}
-      propertyPath: mDebugWorld
-      value: 
-      objectReference: {fileID: 11400000, guid: a03dcd2f4a0cdd642a2a17470d4dc098,
-        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6d767db5cf5bba14aa5a9b137dbd83d6, type: 2}
   m_IsPrefabParent: 0
