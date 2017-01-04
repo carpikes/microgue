@@ -6,7 +6,11 @@ public class FireMagician : MonoBehaviour {
     bool[,] mMap = null;
     public GameObject darkBall;
 
-    public float mShotCooldown = 0.8f;
+    public int mShotMin = 10;
+    public int mShotMax = 13;
+
+    public float mShotCooldownMin = 3.0f;
+    public float mShotCooldownMax = 4.0f;
 
     public float mHiddenTimeMin = 2.0f;
     public float mHiddenTimeMax = 4.0f;
@@ -17,6 +21,7 @@ public class FireMagician : MonoBehaviour {
     private float mNextShot = 0.0f;
     private float mChangeTime = 0.0f;
     private bool mJumpAwayInstant = false;
+    private float mShotPhase = 0.0f;
 
     Transform mPlayer;
     int mState = 1;
@@ -57,7 +62,7 @@ public class FireMagician : MonoBehaviour {
                 if (mNextShot < Time.time)
                 {
                     Shot();
-                    mNextShot = Time.time + mShotCooldown;
+                    mNextShot = Time.time + Random.Range(mShotCooldownMin, mShotCooldownMax);
                 }
 
                 if (mChangeTime < Time.time || mJumpAwayInstant) // ok nasconditi!
@@ -122,10 +127,18 @@ public class FireMagician : MonoBehaviour {
     }
 
     void Shot() {
-        GameObject lb = Instantiate(darkBall);
-        lb.transform.position = transform.position;
+        int n = Random.Range(mShotMin, mShotMax);
+        float phaseInc = 2 * Mathf.PI / n / 2.0f;
+        for (int i = 0; i < n; i++)
+        {
+            float a = 2 * Mathf.PI / n * i + mShotPhase;
+            GameObject lb = Instantiate(darkBall);
+            lb.transform.position = transform.position;
 
-        Vector2 direction = (mPlayer.transform.position - transform.position).normalized;
-        (lb.GetComponent<Rigidbody2D>()).velocity = direction * 5.0f;
+            Vector2 direction = new Vector2(Mathf.Cos(a), Mathf.Sin(a));
+            lb.GetComponent<Rigidbody2D>().velocity = direction * 2.0f;
+            lb.GetComponent<ShotProperties>().SetDuration(Random.Range(2.0f, 3.0f));
+        }
+        mShotPhase += phaseInc;
     }
 }

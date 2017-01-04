@@ -9,10 +9,15 @@ public class ShotProperties : MonoBehaviour
 
     public float mDamage;
 
+    public void SetDuration(float n) {
+        mShotDuration = n;
+    }
+
     void Start()
     {
         mSprite = GetComponent<SpriteRenderer>();
-        mShotDuration = Random.Range(0.8f, 0.9f);
+        if(mShotDuration == 0.0f)
+            mShotDuration = Random.Range(0.8f, 0.9f);
         mEndTime = Time.time + mShotDuration;
     }
 
