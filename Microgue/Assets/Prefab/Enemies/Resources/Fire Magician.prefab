@@ -61,6 +61,7 @@ GameObject:
   - 114: {fileID: 114000014221629720}
   - 95: {fileID: 95000013383583854}
   - 114: {fileID: 114000012260266226}
+  - 114: {fileID: 114000012550601042}
   m_Layer: 0
   m_Name: Fire Magician
   m_TagString: Enemy
@@ -117,7 +118,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011746347044}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 6.6376705, y: -4.802302, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -152,9 +153,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: -0.0000009536743, y: 0.0047221184}
+  m_Offset: {x: 0.03585577, y: 0.004723072}
   serializedVersion: 2
-  m_Size: {x: 0.12032097, y: 0.15888906}
+  m_Size: {x: 0.5198733, y: 0.8043208}
 --- !u!95 &95000013383583854
 Animator:
   serializedVersion: 3
@@ -231,6 +232,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &114000012550601042
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011746347044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7747850d98fc6a479430dc4e3967c53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  darkBall: {fileID: 1000012785091142, guid: aea1448c22951e14996fe2fb2f894994, type: 2}
 --- !u!114 &114000013576789140
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -391,6 +404,6 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.4}
+  m_AnchoredPosition: {x: 0, y: 0.6}
   m_SizeDelta: {x: 1.5, y: 0.3}
   m_Pivot: {x: 0.5, y: 0.5}
