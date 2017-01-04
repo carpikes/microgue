@@ -50,18 +50,16 @@ public class FireMagician : MonoBehaviour {
                 if (mChangeTime < Time.time || mJumpAwayInstant) // ok nasconditi!
                 {
                     mState = 1;
+                    mAnimator.SetTrigger("teleport_down");
                     mChangeTime = Time.time + Random.Range(3.0f, 4.0f); // stai questo tempo nascosto
+                    GetComponent<BoxCollider2D>().enabled = false;
+                    transform.GetChild(0).gameObject.SetActive(false);
                 }
                 break;
             case 1: // stai nascosto
                     // questi 3 comandi dovrebbero essere chiamati una sola volta,
                     // ma a quanto pare qualche altro script cambia il colore o simili
                     // e se non li setto in loop non funziona bene. lol
-                //mAnimator.SetTrigger("teleport_down");
-                GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
-                GetComponent<BoxCollider2D>().enabled = false;
-                transform.GetChild(0).gameObject.SetActive(false);
-
                 if (mChangeTime < Time.time) // time out, riappari altrove!
                 {
                     mState = 2;
@@ -70,13 +68,13 @@ public class FireMagician : MonoBehaviour {
                     // e riappari
                     GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
                     GetComponent<BoxCollider2D>().enabled = true;
-                    transform.GetChild(0).gameObject.SetActive(true);
                     mAnimator.SetTrigger("teleport_up");
                 }
                 break;
             case 2: // appena riapparso... 
                 if (mChangeTime < Time.time) // ok hai capito il tuo ruolo nel mondo, spara!
                 {
+                    transform.GetChild(0).gameObject.SetActive(true);
                     mChangeTime = Time.time + Random.Range(3.0f, 6.0f); // stai questo tempo fermo (da attivo)
                     mJumpAwayInstant = false;
                     mState = 0;
