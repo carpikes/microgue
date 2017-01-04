@@ -185,7 +185,7 @@ public class GameplayManager : MonoBehaviour
     }
 
     void Update() {
-        if (Input.GetKeyUp(KeyCode.Escape))
+        if (Input.GetButtonDown("Escape"))
         {
             GameObject obj = GameObject.Find("Canvas/UICanvas/PauseMenu");
             if (mGameRunning)
