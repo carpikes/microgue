@@ -6,8 +6,8 @@ public class FireMagician : MonoBehaviour {
     bool[,] mMap = null;
     public GameObject darkBall;
 
-    public int mShotMin = 10;
-    public int mShotMax = 13;
+    public int mShotMin = 7;
+    public int mShotMax = 9;
 
     public float mShotCooldownMin = 3.0f;
     public float mShotCooldownMax = 4.0f;
@@ -127,7 +127,7 @@ public class FireMagician : MonoBehaviour {
     }
 
     void Shot() {
-        int n = Random.Range(mShotMin, mShotMax);
+        int n = Random.Range(mShotMin, mShotMax+1);
         float phaseInc = 2 * Mathf.PI / n / 2.0f;
         for (int i = 0; i < n; i++)
         {

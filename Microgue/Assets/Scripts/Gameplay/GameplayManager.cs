@@ -21,7 +21,7 @@ public class GameplayManager : MonoBehaviour
     public SingleWorld mDebugWorld;
     public int startFromWorld = 0;
 
-    private int mCurWorld;
+    private int mCurWorld = -1;
 
     [Header("DEBUG")]
     public bool debugArena = false;
@@ -72,6 +72,7 @@ public class GameplayManager : MonoBehaviour
             mWorlds = new SingleWorld[1];
 
             mWorlds[0] = mDebugWorld;
+            mCurWorld = -1;
         }
         NextWorld();
     }

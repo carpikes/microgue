@@ -62,6 +62,7 @@ public class InputManager : MonoBehaviour {
     private Vector3 mLastMouseCoords; // usato per switchare a mouse se mosso
 
     public Color mBallColor;
+    private float mFreezedUntil = 0;
 
     // True se e` in shooting.
     private bool mIsShooting = false;
@@ -169,6 +170,12 @@ public class InputManager : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate ()
     {
+        if (Time.time < mFreezedUntil)
+        {
+            rb.velocity = Vector2.zero;
+            return;
+        }
+
         Vector2 delta = mInput.GetVelocityDelta();
 
         // TODO HACK
@@ -364,4 +371,9 @@ public class InputManager : MonoBehaviour {
         Debug.Log("Dash()");
         EventManager.TriggerEvent(Events.ON_MAIN_CHAR_DASH, null);
     }*/
+
+    public void Freeze(float timeout)
+    {
+        mFreezedUntil = timeout;
+    }
 }
