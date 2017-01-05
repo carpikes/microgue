@@ -36,6 +36,14 @@ public class GameplayManager : MonoBehaviour
     private RawImage mRawImage;
     private GameObject mMainChr, mShotPos, mAIMap;
 
+    GameObject mAmbienceManager;
+    GameObject mSnapshotManager;
+    GameObject mMusicManager;
+
+    FMODUnity.StudioEventEmitter ambienceEmitter = null;
+    FMODUnity.StudioEventEmitter snapshotEmitter = null;
+    FMODUnity.StudioEventEmitter musicEmitter = null;
+
     // Use this for initialization
     void Start()
     {
@@ -46,6 +54,18 @@ public class GameplayManager : MonoBehaviour
         mShotPos = GameObject.Find("/ShotPosition");
         //mAIMap = GameObject.Find("AIMap");
         mGameRunning = true;
+
+        mAmbienceManager = GameObject.FindGameObjectWithTag("AmbienceManager");
+        mSnapshotManager = GameObject.FindGameObjectWithTag("SnapshotManager");
+        mMusicManager = GameObject.FindGameObjectWithTag("BGMusicManager");
+
+        if (mAmbienceManager != null && mSnapshotManager != null && mMusicManager != null)
+        {
+            Debug.Log("AUDIO OK!");
+            ambienceEmitter = mAmbienceManager.GetComponent<FMODUnity.StudioEventEmitter>();
+            snapshotEmitter = mSnapshotManager.GetComponent<FMODUnity.StudioEventEmitter>();
+            musicEmitter = mMusicManager.GetComponent<FMODUnity.StudioEventEmitter>();
+        }
 
         if (debugArena)
         {
@@ -120,32 +140,19 @@ public class GameplayManager : MonoBehaviour
 
     private void AudioTransition()
     {
-        GameObject amb = GameObject.FindGameObjectWithTag("AmbienceManager");
-        GameObject snap = GameObject.FindGameObjectWithTag("SnapshotManager");
-        GameObject mus = GameObject.FindGameObjectWithTag("BGMusicManager");
-
-        if (amb == null || snap == null || mus == null)
+        if (mAmbienceManager == null || mSnapshotManager == null || mMusicManager == null)
         {
             Debug.Log("Something is wrong with the emitters. Skipping audio.");
             return;
         }
 
-        FMODUnity.StudioEventEmitter ambienceEmitter =
-                    amb.GetComponent<FMODUnity.StudioEventEmitter>();
-
         ambienceEmitter.Stop();
         ambienceEmitter.Event = mWorlds[mCurWorld].mAmbiencePath;
         ambienceEmitter.Play();
 
-        FMODUnity.StudioEventEmitter snapshotEmitter =
-            snap.GetComponent<FMODUnity.StudioEventEmitter>();
-
         snapshotEmitter.Stop();
         snapshotEmitter.Event = mWorlds[mCurWorld].mMusicSnapshotPath;
         snapshotEmitter.Play();
-
-        FMODUnity.StudioEventEmitter musicEmitter =
-            mus.GetComponent<FMODUnity.StudioEventEmitter>();
 
         musicEmitter.Stop();
         musicEmitter.Event = mWorlds[mCurWorld].mBackgroundMusicPath;
@@ -212,6 +219,9 @@ public class GameplayManager : MonoBehaviour
     public void OnMenuPressed()
     {
         SceneManager.UnloadScene(SceneManager.GetActiveScene());
+        ambienceEmitter.Stop();
+        snapshotEmitter.Stop();
+        musicEmitter.Stop();
         SceneManager.LoadScene("Menu");
     }
 
