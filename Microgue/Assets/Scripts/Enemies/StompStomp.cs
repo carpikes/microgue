@@ -34,7 +34,7 @@ public class StompStomp : MonoBehaviour
     private Transform mPlayerTransform;
     private InputManager mInputManager;
 
-    private Animator mAnimator;
+    //private Animator mAnimator;
 
     private EnemyPosition mEnemyPosition;
 
@@ -68,8 +68,8 @@ public class StompStomp : MonoBehaviour
         mEnemyCollider = mStompStompEnemy.GetComponent<Collider2D>();
         mPlayerTransform = GameObject.FindGameObjectWithTag("Player").transform;
 
-        mAnimator = mStompStompEnemy.GetComponent<Animator>();
-        Debug.Assert(mAnimator != null, "Cannot find animator");
+        //mAnimator = mStompStompEnemy.GetComponent<Animator>();
+        //Debug.Assert(mAnimator != null, "Cannot find animator");
 
         mShadowOffset = mStompStompShadow.localPosition;
         mRenderingOffset = mEnemyRb.transform.localPosition;
@@ -154,7 +154,7 @@ public class StompStomp : MonoBehaviour
         mStatus = EnemyStatus.JUMPING;
         mEnemyTouch.mDamageEnabled = false;
         //mEnemyPosition.SetEnabled(false);
-        mAnimator.SetTrigger("jumping");
+        //mAnimator.SetTrigger("jumping");
     }   
 
     // Update is called once per frame
@@ -183,7 +183,7 @@ public class StompStomp : MonoBehaviour
             else {
                 // falling from usual jump
                 mInputManager.ShakeCamera(0.13f, 1.0f);
-                mAnimator.SetTrigger("end_jump");
+                //mAnimator.SetTrigger("end_jump");
             }
 
             mVelocity = Vector2.zero;
@@ -191,7 +191,7 @@ public class StompStomp : MonoBehaviour
             mEnemyTouch.mDamageEnabled = true;
             mEnemyPosition.SetEnabled(true);
             mEnemyCollider.enabled = true;
-            mAnimator.SetTrigger("idle");
+            //mAnimator.SetTrigger("idle");
 
             StartCoroutine(JumpCoroutine());
         }
