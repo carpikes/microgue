@@ -35,8 +35,6 @@ public class Medusa : MonoBehaviour
                 {
                     int choice = Random.Range(0, 3);
                     mSubAI = (choice == 0 ? 1 : 0); // choice == 0 ? Wait : Run
-                    mSubAI = 0;
-                    Debug.Log("SubAI: " + mSubAI);
                     mRunInited = false;
                     mFreezed = false;
                     mState = 1;
