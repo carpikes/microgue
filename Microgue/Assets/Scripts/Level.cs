@@ -249,8 +249,15 @@ public class Level
 
     public int CountEnemies()
     {
-        return GameObject.Find(mCurrentRoom.name + "/Enemies").transform.childCount - 
-            GameObject.Find(mCurrentRoom.name + "/Enemies").GetComponentsInChildren<NoEnemyCount>().Length; // do not consider Enemies itself
+        int cnt = 0;
+        GameObject[] gos = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach( var g in gos )
+        {
+            if (g.GetComponent<NoEnemyCount>() != null)
+                ++cnt;
+        }
+
+        return gos.Length - cnt;
     }
 
     public GameObject RandomEnemy()

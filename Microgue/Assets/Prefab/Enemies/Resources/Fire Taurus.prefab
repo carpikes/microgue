@@ -59,12 +59,12 @@ GameObject:
   - 114: {fileID: 114000010881514590}
   - 114: {fileID: 114000013576789140}
   - 114: {fileID: 114000014221629720}
-  - 95: {fileID: 95000011866168674}
-  - 114: {fileID: 114000011365538456}
-  - 114: {fileID: 114000010157640018}
-  - 114: {fileID: 114000011115246534}
+  - 95: {fileID: 95000013383583854}
+  - 114: {fileID: 114000012260266226}
+  - 114: {fileID: 114000011612261570}
+  - 114: {fileID: 114000010341662334}
   m_Layer: 0
-  m_Name: FireFox
+  m_Name: Fire Taurus
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -119,8 +119,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011746347044}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10, y: -8, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalPosition: {x: -2.41, y: -0.97, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 224000010845048700}
@@ -154,10 +154,10 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: -0.0000009536743, y: 0.0047221184}
+  m_Offset: {x: 0.09759712, y: -0.6332767}
   serializedVersion: 2
-  m_Size: {x: 0.12032097, y: 0.15888906}
---- !u!95 &95000011866168674
+  m_Size: {x: 2.1251607, y: 2.0803204}
+--- !u!95 &95000013383583854
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
@@ -166,7 +166,7 @@ Animator:
   m_GameObject: {fileID: 1000011746347044}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: d8e4029a22b2f9e4b8d8525f4cf36e76, type: 2}
+  m_Controller: {fileID: 9100000, guid: d3ff7e4b4a78f02479a0cd0a78e0fcc9, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -174,7 +174,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114000010157640018
+--- !u!114 &114000010341662334
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -194,17 +194,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dfca8f6a24cdfde44bc9bf2d18fa8d9a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114000011115246534
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011746347044}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0047c77c2f77a2e4690e5ba1c2c33172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114000011146142220
@@ -228,7 +217,26 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!114 &114000011365538456
+--- !u!114 &114000011612261570
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011746347044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9a6b21a0b56bb49aff21f8431d515f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  darkBall: {fileID: 1000012785091142, guid: aea1448c22951e14996fe2fb2f894994, type: 2}
+  mShots: 8
+  mShotCooldownMin: 1
+  mShotCooldownMax: 2
+  mHiddenTimeMin: 2
+  mHiddenTimeMax: 4
+  mShotTimeMin: 4
+  mShotTimeMax: 6
+--- !u!114 &114000012260266226
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -266,7 +274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aede8658bda6b7499b7f8cd1b5d4c68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mCurrentHP: 10
+  mCurrentHP: 100
   mIsInvincible: 0
 --- !u!114 &114000014221629720
 MonoBehaviour:
@@ -342,7 +350,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1573465145
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4882087bedb9a8d42838ee55c91afde7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b948b880a3a007a498e861a45b115d23, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -415,6 +423,6 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.52}
+  m_AnchoredPosition: {x: 0, y: 0.6}
   m_SizeDelta: {x: 1.5, y: 0.3}
   m_Pivot: {x: 0.5, y: 0.5}
