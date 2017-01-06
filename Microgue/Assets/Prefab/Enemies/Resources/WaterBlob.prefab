@@ -61,6 +61,7 @@ GameObject:
   - 114: {fileID: 114000014221629720}
   - 95: {fileID: 95000013383583854}
   - 114: {fileID: 114000012260266226}
+  - 114: {fileID: 114000010053295822}
   m_Layer: 0
   m_Name: WaterBlob
   m_TagString: Enemy
@@ -172,6 +173,26 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114000010053295822
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011746347044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46f44d9ea46638945ac4c2d917810b85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mMovementRadius: 3
+  mMinStillTime: 8
+  mMaxStillTime: 10
+  mAcceleration: 0.5
+  mFriction: 0.01
+  mTargetingEntryDistance: 5
+  mNotShootingColor: {r: 0, g: 0, b: 0, a: 0}
+  mShootingColor: {r: 0, g: 0, b: 0, a: 0}
+  darkBall: {fileID: 1000012785091142, guid: aea1448c22951e14996fe2fb2f894994, type: 2}
 --- !u!114 &114000010881514590
 MonoBehaviour:
   m_ObjectHideFlags: 1

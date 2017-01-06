@@ -109,9 +109,9 @@ public class Siren : MonoBehaviour
 
     void Shot()
     {
-        int n = 5;
+        int n = 3;
 
-        float starting = UnityEngine.Random.Range(0, (float)Math.PI) ;
+        float starting = UnityEngine.Random.Range(0, (float)(2f * Math.PI)) ;
 
         float phaseInc = 2 * Mathf.PI / n / 2.0f;
         for (int i = 0; i < n; i++)
