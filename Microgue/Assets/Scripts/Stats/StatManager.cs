@@ -114,7 +114,7 @@ public class StatManager : MonoBehaviour
                 break;
 
             case StatStates.SPEED:
-                inputMgr.setSpeed((int)GetStatValue(StatStates.SPEED));
+                inputMgr.SetStatSpeed((int)GetStatValue(StatStates.SPEED));
                 break;
 
             case StatStates.DAMAGE:

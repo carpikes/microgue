@@ -43,7 +43,7 @@ public class InputManager : MonoBehaviour {
     public float mInitialSpeed = 20.0f;
     [Header("Friction")]
     public float mFriction = 5.0f;
-    private float mMaxSpeed;
+    public float mMaxSpeed;
 
     [Header("Shots parameters")]
     public GameObject lightBall;
@@ -202,7 +202,12 @@ public class InputManager : MonoBehaviour {
         rb.velocity = newVelocity;
     }
 
-    internal void setSpeed(int v)
+    public void SetMaxSpeed(float v)
+    {
+        mMaxSpeed = v;
+    }
+
+    internal void SetStatSpeed(int v)
     {
         mMaxSpeed = mInitialSpeed + v * 10;
     }
