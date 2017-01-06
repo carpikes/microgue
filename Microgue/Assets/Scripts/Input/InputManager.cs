@@ -276,6 +276,10 @@ public class InputManager : MonoBehaviour {
             return;
         }
 
+        if (Time.time < mFreezedUntil)
+            return; 
+
+        // vvvvvv THIS CODE IS NOT EXECUTED IF THE PLAYER IS FREEZED vvvvvv
         if (!mIsShooting && mInput.IsShootingButtonPressed() && CanShoot())
         {
             EventManager.TriggerEvent(Events.ON_MAIN_CHAR_START_ATTACK, null);

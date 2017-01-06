@@ -3,31 +3,58 @@ using System.Collections;
 
 public class Medusa : MonoBehaviour
 {
-    private AIMap mAIMap;
-    private bool[,] mMap = null;
-    private int mState = 0;
+    // stato della fsm
+    private int mState;
+
+    // corro o freezo?
     private int mSubAI = 0;
 
-    private float mTimeout = 0;
+    [Header("Speed")]
+    public float mSpeed = 8.0f;
+
+    [Header("Waiting+Freezing Time")]
+    // tempo fermo e che freeza il giocatore
+    public float mWaitingTimeMin = 2.5f;
+    public float mWaitingTimeMax = 3.0f;
+
+    [Header("Running-like-hell Time")]
+    // tempo in cui corre
+    public float mRunTimeMin = 5.0f;
+    public float mRunTimeMax = 6.0f;
+
+    [Header("Chosing Time (wait or run?)")]
+    // tempo in cui decide cosa fare
+    public float mChosingTimeMin = 0.7f;
+    public float mChosingTimeMax = 0.9f;
+    
+    [Header("Initial Waiting Time")]
+    // secondi di attesa iniziale
+    public float mInitialWaitingTime = 5.0f;
+
+    // raggio della spell che freeza
+    [Header("Radius of the freeze")]
+    public float mSpellRadius = 1.5f;
+
+    [Header("Freeze time")]
+    // secondi in cui il giocatore e` freezato
+    public float mFreezeSeconds = 3.0f;
+
+    private float mTimeout;
     private GameObject mPlayer;
     private Rigidbody2D mRB;
+    private GameObject mSpellAnim;
 
 	// Use this for initialization
 	void Start () {
-        mTimeout = Time.time + 2.0f;
+        mTimeout = Time.time + mInitialWaitingTime;
+        mState = 0;
         mPlayer = GameObject.Find("MainCharacter");
         mRB = GetComponent<Rigidbody2D>();
-        mAIMap = GameObject.Find("GameplayManager").GetComponent<AIMap>();
+        mSpellAnim = transform.GetChild(0).gameObject;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (mMap == null && mAIMap.IsMapReady)
-                mMap = mAIMap.GetMap();
-
-        if (mMap == null)
-            return;
-
         switch (mState)
         {
             case 0:
@@ -38,7 +65,13 @@ public class Medusa : MonoBehaviour
                     mRunInited = false;
                     mFreezed = false;
                     mState = 1;
-                    mTimeout = Time.time + Random.Range(3.0f, 5.0f);
+                    if (mSubAI == 0)
+                        mTimeout = Time.time + Random.Range(mRunTimeMin, mRunTimeMax);
+                    else
+                    {
+                        mTimeout = Time.time + Random.Range(mWaitingTimeMin, mWaitingTimeMax);
+                        mSpellAnim.SetActive(true);
+                    }
                 }
                 break;
             case 1:
@@ -50,9 +83,10 @@ public class Medusa : MonoBehaviour
 
                 if (Time.time > mTimeout || b == false) 
                 {
-                    Debug.Log("Timeout!");
+                    mSpellAnim.SetActive(false);
                     mState = 0;
-                    mTimeout = Time.time + Random.Range(1.0f, 2.0f);
+                    mRB.velocity = Vector2.zero;
+                    mTimeout = Time.time + Random.Range(mChosingTimeMin, mChosingTimeMax);
                     break; 
                 }
                 break;
@@ -61,6 +95,7 @@ public class Medusa : MonoBehaviour
 
     private Vector2 mRunTo;
     private bool mRunInited;
+    private float mLastDist = 0.0f;
 
     // corre da un lato all'altro dello schermo passando sul giocatore
     bool Run()
@@ -68,70 +103,79 @@ public class Medusa : MonoBehaviour
         if (!mRunInited)
         {
             mRunTo = GetRunTo();
+            mLastDist = (new Vector2(mRB.position.x, mRB.position.y) - mRunTo).magnitude;
             mRunInited = true;
         }
 
-        Vector2 tpos = transform.position;
+        Vector2 tpos = mRB.position;
         Vector2 delta = mRunTo - tpos;
-        if (delta.magnitude < 1.0f || (mRB.velocity != Vector2.zero && Vector2.Dot(delta.normalized, mRB.velocity.normalized) < -0.9f))
+        if (delta.magnitude > mLastDist)
         {
             // target raggiunto o superato
+            mRB.velocity = Vector2.zero;
             mRunTo = GetRunTo();
             delta = mRunTo - tpos;
         }
 
-        mRB.velocity = delta.normalized * 6.0f;
+        mRB.velocity = delta.normalized * mSpeed;
+        mLastDist = delta.magnitude;
         return true;
     }
 
-    // Ottiene in punto piu` lontano sulla retta
-    // su cui giaciono i punti
-    // 1) attuale
-    // 2) giocatore
     private Vector2 GetRunTo()
     {
-        AIMap.IntPoint player = AIMap.WorldToTileCoordinates(mPlayer.transform.position);
-        AIMap.IntPoint me = AIMap.WorldToTileCoordinates(transform.position);
+        Vector3[] boundaries = {
+            new Vector3(0.75f, -2f,   1),
+            new Vector3(9.21f, -2f,   1),
+            new Vector3(9.21f, -7.3f, 1),
+            new Vector3(0.75f, -7.3f, 1)
+        };
+        Vector3[] lines = new Vector3[4];
 
-        AIMap.IntPoint jumpTo = player;
-
-        int dx = player.x - me.x;
-        int dy = player.y - me.y;
-        if ((mPlayer.transform.position - transform.position).magnitude < 1.0f)
-            dx = dy = 0;
-
-        if (dx == 0 && dy == 0)
+        for (int i = 0; i < 4; i++)
         {
-            for (int i = 0; i < 10; i++)
+            int j = (i + 1) % 4;
+            lines[i] = Vector3.Cross(boundaries[i], boundaries[j]);
+        }
+
+        Vector2 pc = mPlayer.transform.position;
+        Vector2 mc = mRB.position;
+        Vector2 direction = (pc - mc);
+
+        Vector3 pc1 = new Vector3(pc.x, pc.y, 1);
+        Vector3 mc1 = new Vector3(mc.x, mc.y, 1);
+
+        Vector3 l1 = Vector3.Cross(pc1, mc1); // linea per i due punti
+        
+        // controllo le intersezioni sui 4 muri
+        for (int i = 0; i < 4; i++)
+        {
+            int j = (i + 1) % 4;
+            Vector3 r = Vector3.Cross(l1, lines[i]); 
+            if (Mathf.Abs(r.z) < Mathf.Epsilon) // parallelo all'asse, -j DROP
+                continue;
+            r /= r.z; // normalizzo
+            // controllo se sono nei boundaries dei muri
+            if (((i == 0 || i == 2) && InBoundaries(r.x, boundaries[i].x, boundaries[j].x)) ||
+                ((i == 1 || i == 3) && InBoundaries(r.y, boundaries[i].y, boundaries[j].y)))
             {
-                jumpTo.x = Random.Range(0, mMap.GetLength(0));
-                jumpTo.y = Random.Range(0, mMap.GetLength(1));
-                if (!mMap[jumpTo.x, jumpTo.y])
-                    break; 
+                // hit!
+                Vector2 ret = new Vector2(r.x, r.y);
+                Vector2 direction2 = (ret - mc);
+                // controllo che sia il muro giusto e non quello "dietro"
+                if (Vector2.Dot(direction.normalized, direction2.normalized) >= 0.9f && direction2.magnitude >= direction.magnitude)
+                    return ret;
             }
         }
+        // Bug: non trovo posizioni? miro il giocatore e basta
+        return mRB.position;
+    }
 
-        if (dx == 0)
-        {
-            int lastValid = me.y;
-            int inc = (dy > 0) ? 1 : -1;
-            for (int y = me.y + inc; !mMap[me.x,y]; y += inc)
-                lastValid = y;
-            jumpTo.y = lastValid;
-        }
-        else
-        {
-            float d = (float)dy / (float)dx;
-            int inc = (dx > 0) ? 1 : -1;
-            float y = me.y;
-            int x = me.x + inc;
-            for (; x < mMap.GetLength(0) && y < mMap.GetLength(1) && x >= 0 && y >= 0 && !mMap[(int)x, (int)y]; x += inc)
-                y += d * (float)inc;
-            jumpTo.x = x;
-            jumpTo.y = (int)y;
-        }
-
-        return AIMap.TileToWorldCoordinates(jumpTo);
+    bool InBoundaries(float x, float a, float b)
+    {
+        if (x >= Mathf.Min(a, b) - 0.001f && x <= Mathf.Max(a, b) + 0.001f)
+            return true;
+        return false;
     }
 
     private bool mFreezed = false;
@@ -143,9 +187,10 @@ public class Medusa : MonoBehaviour
         {
             Vector2 delta = mPlayer.transform.position - transform.position;
 
-            if (delta.magnitude < 2.0f)
+            Debug.Log(delta.magnitude);
+            if (delta.magnitude < mSpellRadius)
             {
-                mPlayer.GetComponent<InputManager>().Freeze(Time.time + 4.0f);
+                mPlayer.GetComponent<InputManager>().Freeze(Time.time + mFreezeSeconds);
                 mFreezed = true;
                 OnFreeze();
             }
@@ -172,7 +217,6 @@ public class Medusa : MonoBehaviour
             GameObject go = GameObject.Instantiate(el);
             go.transform.position = pos + Random.insideUnitCircle * 2.0f;
             go.GetComponent<StompStomp>().mHackAttackInstant = true;
-//            mEnemies.Add(go);
         }
     }
 }
