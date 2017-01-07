@@ -1682,8 +1682,8 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -20, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -10, y: 10}
+  m_SizeDelta: {x: 116, y: 84}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1092694680
 MonoBehaviour:
@@ -2737,7 +2737,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 126, y: 87}
+  m_SizeDelta: {x: 116, y: 84}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1811605165
 MonoBehaviour:
@@ -3156,16 +3156,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114000010820464476, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
-        type: 2}
-      propertyPath: mCanvas
-      value: 
-      objectReference: {fileID: 318420299}
-    - target: {fileID: 114000010820464476, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
-        type: 2}
-      propertyPath: mText
-      value: 
-      objectReference: {fileID: 1103565770}
     - target: {fileID: 114000011355995584, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
       propertyPath: uiCanvas
@@ -3191,6 +3181,16 @@ Prefab:
       propertyPath: healthContainer
       value: 
       objectReference: {fileID: 2011907779}
+    - target: {fileID: 114000010820464476, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
+        type: 2}
+      propertyPath: mCanvas
+      value: 
+      objectReference: {fileID: 318420299}
+    - target: {fileID: 114000010820464476, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
+        type: 2}
+      propertyPath: mText
+      value: 
+      objectReference: {fileID: 1103565770}
     - target: {fileID: 114000011004983200, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
       propertyPath: gameOverCanvas
@@ -3211,28 +3211,6 @@ Prefab:
       propertyPath: mAimCursor
       value: 
       objectReference: {fileID: 1093476809}
-    - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
-        type: 2}
-      propertyPath: startFromWorld
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
-        type: 2}
-      propertyPath: bypassDoors
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
-        type: 2}
-      propertyPath: mWorlds.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 23442834400c25545b8826301a1b870f,
-        type: 2}
-    - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
-        type: 2}
-      propertyPath: mWorlds.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: 14fd0b82b7ae89c41ab7e99499e67b45,
-        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6d767db5cf5bba14aa5a9b137dbd83d6, type: 2}
   m_IsPrefabParent: 0

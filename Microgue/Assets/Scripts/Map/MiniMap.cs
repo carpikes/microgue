@@ -111,8 +111,8 @@ public class MiniMap : MonoBehaviour {
             DrawMap(wm.GetCurrentRoomId());
         }
 
-        Color normalColor   = new Color(0.5f, 0.5f, 0.5f, 1.0f);
-        Color nearColor     = new Color(0.3f, 0.3f, 0.3f, 0.6f);
+        Color normalColor   = new Color(0.7f, 0.7f, 0.7f, 1.0f);
+        Color nearColor     = new Color(0.4f, 0.4f, 0.4f, 0.6f);
         Color inColor       = new Color(1.0f, 1.0f, 1.0f, 1.0f);
         if (mMap != null && mLastRoom != wm.GetCurrentRoomId() && wm.GetCurrentRoomId() != -1)
         {
@@ -128,7 +128,14 @@ public class MiniMap : MonoBehaviour {
             foreach (KeyValuePair<int, GameObject> i in mTiles)
             {
                 Image r = i.Value.GetComponent<Image>();
-
+                RectTransform rr = i.Value.GetComponent<RectTransform>();
+                // nascondi quelle fuori dal container
+                if (Mathf.Abs(rr.anchoredPosition.y) > 32 || Mathf.Abs(rr.anchoredPosition.x) > 48)
+                {
+                    r.color = new Color(0, 0, 0, 0);
+                    continue;
+                }
+                
                 if (i.Value.CompareTag("BossTilePiece")) // stanza boss
                 {
                     if ((mMap.GetDoors(mMapGen.GetEndRoomId()) & (int)RoomMap.Door.VISITED) != 0)
