@@ -127,26 +127,43 @@ namespace RoomMapGenerator
         private bool CalcStartEndPoints()
         {
             List<int> candidates = new List<int>();
+            List<int> candidatesLast = new List<int>();
             for (int i = 0; i < mWidth * mHeight; i++)
             {
                 int n = mMap.GetDoors(i);
                 if (n != 0 && (n & 0x0f) != 0x0f)
+                {
                     candidates.Add(i);
+                    int x = i % mWidth;
+                    int y = i / mWidth;
+
+                    // per end room prendo una che abbia uno spazio vuoto di fianco
+                    if      ((n & (int)RoomMap.Door.UP)   == 0 && (y == 0         || mMap.GetDoors(i - mWidth) == 0)) candidatesLast.Add(i);
+                    else if ((n & (int)RoomMap.Door.DOWN) == 0 && (y == mHeight-1 || mMap.GetDoors(i + mWidth) == 0)) candidatesLast.Add(i);
+                    else if ((n & (int)RoomMap.Door.LEFT) == 0 && (x == 0         || mMap.GetDoors(i - 1)      == 0)) candidatesLast.Add(i);
+                    else if ((n & (int)RoomMap.Door.RIGHT)== 0 && (x == mWidth-1  || mMap.GetDoors(i + 1)      == 0)) candidatesLast.Add(i);
+                }
             }
-            if (candidates.Count < 2)
+            if (candidates.Count < 2 || candidatesLast.Count == 0)
                 return false;
 
-            int s = 0, e = 0;
-            while (s == e)
+            int s, e;
+            int cnt = 0;
+            do
             {
                 s = Random.Range(0, candidates.Count);
-                e = Random.Range(0, candidates.Count);
-            }
+                e = Random.Range(0, candidatesLast.Count);
+                if (cnt++ == 50)
+                {
+                    Debug.LogError("Can't find start/end rooms");
+                    return false;
+                }
+            } while (candidates[s] == candidatesLast[e]);
 
             mMap.AddDoors(candidates[s], (int)RoomMap.Door.START_POINT);
-            mMap.AddDoors(candidates[e], (int)RoomMap.Door.END_POINT);
+            mMap.AddDoors(candidatesLast[e], (int)RoomMap.Door.END_POINT);
             mStartRoom = candidates[s];
-            mEndRoom = candidates[e];
+            mEndRoom = candidatesLast[e];
             return true;
         }
 
@@ -183,7 +200,18 @@ namespace RoomMapGenerator
 
         public RoomInfo GetRoom(int id)
         {
-            RoomInfo info = new RoomInfo(mMap.GetWidth(), id, mMap.GetDoors(id));
+            int bossRoom = -1;
+            int n = mMap.GetDoors(id);
+            if (id == mEndRoom)
+            {
+                int x = id % mWidth;
+                int y = id / mWidth;
+                     if ((n & (int)RoomMap.Door.DOWN)  == 0 && (y == mHeight - 1 || mMap.GetDoors(id + mWidth) == 0)) bossRoom = id + mWidth;
+                else if ((n & (int)RoomMap.Door.LEFT)  == 0 && (x == 0           || mMap.GetDoors(id - 1) == 0)) bossRoom = id - 1;
+                else if ((n & (int)RoomMap.Door.UP)    == 0 && (y == 0           || mMap.GetDoors(id - mWidth) == 0)) bossRoom = id - mWidth;
+                else if ((n & (int)RoomMap.Door.RIGHT) == 0 && (x == mWidth - 1  || mMap.GetDoors(id + 1) == 0)) bossRoom = id + 1;
+            }
+            RoomInfo info = new RoomInfo(mMap.GetWidth(), id, n, bossRoom);
 
             return info;
         }

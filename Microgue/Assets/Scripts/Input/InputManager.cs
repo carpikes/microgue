@@ -85,8 +85,8 @@ public class InputManager : MonoBehaviour {
     {
         mMaxSpeed = mInitialSpeed;
 
-        mInputChoice = InputChoiches.Joypad;
-        mInput = gameObject.AddComponent<JoypadInput>();
+        mInputChoice = InputChoiches.KeyboardMouse;
+        mInput = gameObject.AddComponent<KeyboardInput>();
 
         rb = GetComponent<Rigidbody2D>();
         

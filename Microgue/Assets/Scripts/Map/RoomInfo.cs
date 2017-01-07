@@ -9,14 +9,16 @@ namespace RoomMapGenerator
         private int mDoors;
         private int mId;
         private int mMapWidth; // used to get near doors
+        private int mBossRoomId; 
 
         public int GetId() { return mId; }
 
-        public RoomInfo(int mapWidth, int id, int m)
+        public RoomInfo(int mapWidth, int id, int m, int bossRoomId = -1)
         {
             mId = id;
             mDoors = m;
             mMapWidth = mapWidth;
+            mBossRoomId = bossRoomId;
         }
 
         public int GetDoors()
@@ -45,13 +47,13 @@ namespace RoomMapGenerator
             if (!HasStartPoint() && !HasEndPoint())
                 return 0;
 
-            if (!HasDoor(RoomMap.Door.DOWN))
+            if (!HasDoor(RoomMap.Door.DOWN) && mBossRoomId == mId + mMapWidth)
                 return (int)RoomMap.Door.DOWN;
 
-            if (!HasDoor(RoomMap.Door.LEFT))
+            if (!HasDoor(RoomMap.Door.LEFT) && mBossRoomId == mId - 1)
                 return (int)RoomMap.Door.LEFT;
 
-            if (!HasDoor(RoomMap.Door.UP))
+            if (!HasDoor(RoomMap.Door.UP) && mBossRoomId == mId - mMapWidth)
                 return (int)RoomMap.Door.UP;
 
             return (int)RoomMap.Door.RIGHT;

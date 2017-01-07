@@ -31,8 +31,10 @@ public class MiniMap : MonoBehaviour {
         r.xMin = r.yMin = 999;
         r.xMax = r.yMax = 0;
 
+        mTiles.Clear();
         foreach (Transform t in mContainer.transform)
             Destroy(t.gameObject);
+
         if (curRoom == -1)
             return;
 
