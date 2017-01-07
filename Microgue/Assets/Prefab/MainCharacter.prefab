@@ -25,7 +25,9 @@ GameObject:
   - 61: {fileID: 61000012728219736}
   - 114: {fileID: 114000013228287918}
   - 61: {fileID: 61000010677527858}
-  - 114: {fileID: 114000011107284612}
+  - 114: {fileID: 114000012763154426}
+  - 114: {fileID: 114000010752070046}
+  - 114: {fileID: 114000012834686962}
   m_Layer: 0
   m_Name: MainCharacter
   m_TagString: Player
@@ -108,7 +110,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114000011107284612
+--- !u!114 &114000010752070046
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -116,11 +118,53 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000013211588202}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f320274ba629fb245a919d228ec6be70, type: 3}
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xPercentage: 0.05
-  yPercentage: 0.05
+  Event: event:/SoundFX/Player/SFX_PLayerHurt
+  PlayEvent: 0
+  StopEvent: 0
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!114 &114000012763154426
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013211588202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/SoundFX/Player/SFX_PLayerAttack
+  PlayEvent: 0
+  StopEvent: 0
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!114 &114000012834686962
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013211588202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac105556cd8aa434283bdc7e75d4421a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000013228287918
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -136,11 +180,12 @@ MonoBehaviour:
   mAcceleration: 5000
   mInitialSpeed: 3
   mFriction: 5
+  mMaxSpeed: 0
   lightBall: {fileID: 1000010376868484, guid: 7af8e4b26b415924594b2d33f9de4dc6, type: 2}
   shotCooldownTime: 0.3
   shotSpeed: 5
   refillEnemiesToReload: 3
-  mInputChoice: 1
+  mSecondaryAttackDamage: 10
   mBallColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!212 &212000011237110204
 SpriteRenderer:
