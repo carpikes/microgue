@@ -55,7 +55,8 @@ public class InputManager : MonoBehaviour {
     public int refillEnemiesToReload = 3;
     int enemiesKilledCounter = 0;
     public float mSecondaryAttackDamage = 10f;
-
+    bool sndAttackEnabled = true;
+    
     [Header("Keyboard or joypad?")]
     InputInterface mInput;
     private InputChoiches mInputChoice;
@@ -67,6 +68,7 @@ public class InputManager : MonoBehaviour {
     // True se e` in shooting.
     private bool mIsShooting = false;
     PlayerDirection mLastDirection = PlayerDirection.NONE;
+
 
     void OnEnable()
     {
@@ -275,6 +277,8 @@ public class InputManager : MonoBehaviour {
 
     void Update()
     {
+        Debug.Log(enemiesKilledCounter);
+
         if (mInput.IsSkipToBossPressed())
         {
             EventManager.TriggerEvent(Events.ON_BOSS_GOTO, null);
@@ -366,15 +370,24 @@ public class InputManager : MonoBehaviour {
 
     private void SecondaryAttack()
     {
-        if (refillEnemiesToReload <= enemiesKilledCounter)
+        if (sndAttackEnabled && refillEnemiesToReload <= enemiesKilledCounter)
         {
+            sndAttackEnabled = false;
+
             StartCoroutine(InvertColors());
-            // GRAPHICS EFFECTS TODO
+            
             DamageAllEnemies();
 
-            enemiesKilledCounter -= refillEnemiesToReload;
+            StartCoroutine(ResetSecondAttackStats());
             EventManager.TriggerEvent(Events.ON_MAIN_CHAR_SECOND_ATTACK, null);
         }
+    }
+
+    private IEnumerator ResetSecondAttackStats()
+    {
+        yield return new WaitForSeconds(1f);
+        enemiesKilledCounter = 0;
+        sndAttackEnabled = true;
     }
 
     private void DamageAllEnemies()
@@ -386,8 +399,6 @@ public class InputManager : MonoBehaviour {
             EnemyLife lifeScript = enemy.GetComponent<EnemyLife>();
             if (lifeScript == null)
                 continue;
-
-            Debug.Log("???");
 
             if (!lifeScript.mIsInvincible)
                 lifeScript.Damage(mSecondaryAttackDamage);
