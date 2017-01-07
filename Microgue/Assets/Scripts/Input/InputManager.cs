@@ -346,10 +346,29 @@ public class InputManager : MonoBehaviour {
         ++enemiesKilledCounter;
     }
 
+    IEnumerator InvertColors()
+    {
+        InvertColors col = Camera.main.GetComponent<InvertColors>();
+        for (float i = 0; i < 1.0f; i += 0.2f)
+        {
+            col.mIntensity = i;
+            yield return new WaitForSeconds(0.01f);
+        }
+        col.mIntensity = 1.0f;
+        yield return new WaitForSeconds(0.2f);
+        for (float i = 1.0f; i > 0.0f; i -= 0.2f)
+        {
+            col.mIntensity = i;
+            yield return new WaitForSeconds(0.01f);
+        }
+        col.mIntensity = 0.0f;
+    }
+
     private void SecondaryAttack()
     {
         if (refillEnemiesToReload <= enemiesKilledCounter)
         {
+            StartCoroutine(InvertColors());
             // GRAPHICS EFFECTS TODO
             DamageAllEnemies();
 
