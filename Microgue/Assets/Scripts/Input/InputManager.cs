@@ -277,7 +277,6 @@ public class InputManager : MonoBehaviour {
 
     void Update()
     {
-        Debug.Log(enemiesKilledCounter);
 
         if (mInput.IsSkipToBossPressed())
         {

@@ -231,4 +231,9 @@ public class WorldManager
         return mMapGenerator.GetMap();
     }
 
+    public MapGenerator GetMapGenerator()
+    {
+        return mMapGenerator;
+    }
+
 }

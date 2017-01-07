@@ -12,7 +12,7 @@ namespace RoomMapGenerator
             DOWN = 0x02,
             LEFT = 0x04,
             RIGHT = 0x08,
-            // TODO togliere start point, end point
+            // START e END point servono per disegnare la boss room (MiniMap.cs)
             START_POINT = 0x10,
             END_POINT = 0x20,
             VISITED = 0x40,
