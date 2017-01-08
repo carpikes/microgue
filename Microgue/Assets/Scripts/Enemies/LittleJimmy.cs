@@ -26,7 +26,7 @@ public class LittleJimmy : MonoBehaviour
         mTarget = GameObject.Find("MainCharacter");
         mPlayerRb = mTarget.GetComponent<Rigidbody2D>();
         mAIMap = GameObject.Find("GameplayManager").GetComponent<AIMap>();
-        dist = Random.Range(2.0f, 3.0f);
+        dist = Random.Range(1.5f, 2.0f);
 
         mEnemyPosition = GetComponent<EnemyPosition>();
         mEnemyPosition.SetEnabled(true);
