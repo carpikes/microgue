@@ -144,14 +144,22 @@ public class WorldManager
     {
         mAvailableLevels = new List<string>();
 
-        foreach (string file in Directory.GetFiles(PREFAB_PATH))
+        foreach( var go in Resources.LoadAll("TiledLevels") )
+        {
+            if( go.name.StartsWith(name + "_"))
+            {
+                mAvailableLevels.Add(go.name);
+            }
+        }
+
+        /*foreach (string file in Directory.GetFiles(PREFAB_PATH))
         {
             string fname = Path.GetFileNameWithoutExtension(file);
             if (file.EndsWith(".prefab") && fname.StartsWith(name + "_"))
             {
                 mAvailableLevels.Add(fname);
             }
-        }
+        }*/
     }
 
     // TODO sposta

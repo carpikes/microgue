@@ -41,7 +41,7 @@ public class Level
     {
         if (mCurrentRoom == null)
         {
-            GameObject worldPrefab = Resources.Load(mAssetPath) as GameObject;
+            GameObject worldPrefab = Resources.Load("TiledLevels/" + mAssetPath) as GameObject;
             Debug.Assert(worldPrefab != null, "Cannot load world at: " + mAssetPath);
 
             Bundle levelEventInfo = new Bundle();

@@ -50,10 +50,10 @@ namespace RoomMapGenerator
 
         private int GetMapDoors(string mapname)
         {
-            string assetPath = mapname;
+            string assetPath = "TiledLevels/" + mapname;
 
             GameObject worldPrefab = Resources.Load(assetPath) as GameObject;
-            Debug.Assert(worldPrefab != null, "Cannot load world prefab");
+            Debug.Assert(worldPrefab != null, "Cannot load world prefab: " + worldPrefab + "(" + assetPath + ")");
 
             DoorBehavior[] doors = worldPrefab.GetComponentsInChildren<DoorBehavior>();
             if (doors == null)
