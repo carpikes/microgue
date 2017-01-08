@@ -62,4 +62,6 @@ public enum Events
 
     ON_BOSS_KILLED,
     ON_BOSS_GOTO,
+
+    UPDATE_SECONDARY_ATTACK,
 }

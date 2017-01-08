@@ -53,7 +53,7 @@ public class InputManager : MonoBehaviour {
 
     [Header("Secondary Attack")]
     public int refillEnemiesToReload = 3;
-    int enemiesKilledCounter = 0;
+    public int enemiesKilledCounter = 0;
     public float mSecondaryAttackDamage = 10f;
     bool sndAttackEnabled = true;
     
@@ -68,7 +68,6 @@ public class InputManager : MonoBehaviour {
     // True se e` in shooting.
     private bool mIsShooting = false;
     PlayerDirection mLastDirection = PlayerDirection.NONE;
-
 
     void OnEnable()
     {
@@ -347,6 +346,11 @@ public class InputManager : MonoBehaviour {
     private void UpdateCounter(Bundle arg0)
     {
         ++enemiesKilledCounter;
+
+        Bundle b = new Bundle();
+        b.Add(CanvasManager.SECONDARY_ATTACK_BAR, Mathf.Clamp01( (float)enemiesKilledCounter / refillEnemiesToReload).ToString());
+
+        EventManager.TriggerEvent(Events.UPDATE_SECONDARY_ATTACK, b);
     }
 
     IEnumerator InvertColors()
@@ -384,8 +388,13 @@ public class InputManager : MonoBehaviour {
 
     private IEnumerator ResetSecondAttackStats()
     {
+        Bundle b = new Bundle();
+        b.Add(CanvasManager.SECONDARY_ATTACK_BAR, "0");
+        EventManager.TriggerEvent(Events.UPDATE_SECONDARY_ATTACK, b);
+
         yield return new WaitForSeconds(1f);
         enemiesKilledCounter = 0;
+
         sndAttackEnabled = true;
     }
 

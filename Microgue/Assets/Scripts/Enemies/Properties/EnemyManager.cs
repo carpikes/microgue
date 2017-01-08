@@ -10,24 +10,26 @@ public class EnemyManager : MonoBehaviour {
         enemyDictionary.Clear();
 
         List<string> firstRoomEnemies = new List<string> { "WaterBlob" };
+        enemyDictionary.Add("FirstRoomEnemy", firstRoomEnemies);
+
         List<string> easyEnemies = new List<string> { "AngrySoul", "BlueChasingBird", "DesperateSoul", "LittleJimmy" };
+        enemyDictionary.Add("EasyEnemy", easyEnemies);
+
         List<string> difficultEnemies = new List<string> { "StompStomp", "BlueChasingBird" };
-        List<string> healingAngel = new List<string> { "Fire Taurus" };
+        enemyDictionary.Add("DifficultEnemy", difficultEnemies);
 
-        // boss
-
+        // --- BOSS ---
         // silent woods
-        List<string> boss = new List<string> { "BigLittleJimmy" };
+        List<string> silentWoodsBoss = new List<string> { "BigLittleJimmy" };
+        enemyDictionary.Add("Boss", silentWoodsBoss);
+
+        // holy waters
+        List<string> waterBoss = new List<string> { "Medusa" };
+        enemyDictionary.Add("WaterBoss", waterBoss);
 
         // fire of the damned
-        List<string> firefox = new List<string> { "AngrySoul" };
-
-        enemyDictionary.Add("Boss", boss);
-        enemyDictionary.Add("FireFox", firefox);
-        enemyDictionary.Add("FirstRoomEnemy", firstRoomEnemies);
-        enemyDictionary.Add("EasyEnemy", easyEnemies);
-        enemyDictionary.Add("DifficultEnemy", difficultEnemies);
-        enemyDictionary.Add("HealingAngel", healingAngel);
+        List<string> fireBoss = new List<string> { "FireTaurus" };
+        enemyDictionary.Add("FireBoss", fireBoss);
     }
 	
 

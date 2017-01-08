@@ -8,6 +8,8 @@ using Bundle = System.Collections.Generic.Dictionary<string, string>;
 
 public class CanvasManager : MonoBehaviour {
 
+    public static string SECONDARY_ATTACK_BAR = "SECONDARY_ATTACK_BAR";
+
     public Canvas uiCanvas;
     public Text timerText;
     public Text additionalInfoText;
@@ -24,7 +26,12 @@ public class CanvasManager : MonoBehaviour {
     public Text timeText;
     public Text spdText;
 
-    GameObject mainCharacter;
+    [Header("Secondary Attack Bar")]
+    public Image barGameObject;
+    public Sprite notFullBarImage;
+    public Sprite fullBarImage;
+
+    public GameObject mainCharacter;
     StatManager playerStats;
 
     Coroutine lastTextCoroutine = null;
@@ -32,13 +39,11 @@ public class CanvasManager : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        mainCharacter = GameObject.FindGameObjectWithTag("Player");
         playerStats = GameObject.FindGameObjectWithTag("GameController").GetComponent<StatManager>();
 
         UpdateStatText();
         UpdateHealth();
         additionalInfoText.text = "";
-
     }
 
     void OnEnable()
@@ -47,6 +52,7 @@ public class CanvasManager : MonoBehaviour {
         EventManager.StartListening(Events.ON_TICK, OnTick);
         EventManager.StartListening(Events.ON_ITEM_PICKUP, OnItemPickup);
         EventManager.StartListening(Events.ON_STILL_ENEMIES_LEFT, OnStillEnemiesLeft);
+        EventManager.StartListening(Events.UPDATE_SECONDARY_ATTACK, SecondaryAttackUpdate);
     }
 
     void OnDisable()
@@ -55,6 +61,24 @@ public class CanvasManager : MonoBehaviour {
         EventManager.StopListening(Events.ON_TICK, OnTick);
         EventManager.StopListening(Events.ON_ITEM_PICKUP, OnItemPickup);
         EventManager.StopListening(Events.ON_STILL_ENEMIES_LEFT, OnStillEnemiesLeft);
+        EventManager.StopListening(Events.UPDATE_SECONDARY_ATTACK, SecondaryAttackUpdate);
+    }
+
+    private void SecondaryAttackUpdate(Bundle args)
+    {
+        string v;
+        args.TryGetValue(SECONDARY_ATTACK_BAR, out v);
+
+        float value = float.Parse(v);
+
+        barGameObject.fillAmount = value;
+        if( value >= 0.999 )
+        {
+            barGameObject.sprite = fullBarImage;
+        } else
+        {
+            barGameObject.sprite = notFullBarImage;
+        }
     }
 
     private void OnStillEnemiesLeft(Bundle args)

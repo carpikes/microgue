@@ -44,11 +44,14 @@ public class Medusa : MonoBehaviour
     private Rigidbody2D mRB;
     private GameObject mSpellAnim;
 
+    private Animator mAnimator;
+
 	// Use this for initialization
 	void Start () {
         mTimeout = Time.time + mInitialWaitingTime;
         mState = 0;
         mPlayer = GameObject.Find("MainCharacter");
+        mAnimator = mPlayer.GetComponent<Animator>();
         mRB = GetComponent<Rigidbody2D>();
         mSpellAnim = transform.GetChild(0).gameObject;
 	}
