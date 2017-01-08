@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 
 using StatPair = System.Collections.Generic.KeyValuePair<StatManager.StatStates, float>;
+using System.Text.RegularExpressions;
 
 public class ItemParser : MonoBehaviour {
 
@@ -40,47 +41,39 @@ public class ItemParser : MonoBehaviour {
 
     public void parseItemFile()
     {
-        StreamReader reader = null;
+        TextAsset file = Resources.Load("items") as TextAsset;
+        String[] lines = Regex.Split(file.text, "\n|\r|\r\n");
 
-        try {
-            reader = File.OpenText(ITEMS_FILE);
-
-            string line;
-            while ((line = reader.ReadLine()) != null)
-            {
-                line = line.Trim();
-                if (line.StartsWith("#") || line == "")
-                    continue;
-
-                string[] item_info = line.Split(',');
-
-                for (int i = 0; i < item_info.Length; ++i)
-                    item_info[i] = item_info[i].Trim();
-
-                // Create item
-                ItemData item = new ItemData();
-                item.Name = item_info[0];
-                item.Rarity = (ItemData.ItemRarities)Enum.Parse(typeof(ItemData.ItemRarities), item_info[1]);
-                item.Image = item_info[2];
-                item.IsPassive = bool.Parse(item_info[3]);
-                item.OnUseMethod = item_info[4].Trim();
-                item.OnUseParams = item_info[5].Trim();
-
-                for (int i = 6; i < item_info.Length; i += 2)
-                {
-                    StatManager.StatStates stat = (StatManager.StatStates)Enum.Parse(typeof(StatManager.StatStates), item_info[i]);
-                    item.Values.Add(new StatPair(stat, float.Parse(item_info[i + 1])));
-                }
-
-                // populate correct sublist
-                items[(int)item.Rarity].Add(item);
-
-                //Debug.Log(item.Name + " added!");
-            }
-        } catch( Exception e )
+        foreach (string line in lines)
         {
-            Debug.LogError("Error while parsing item file: " + e);
-            Application.Quit(); // applies only in build file!
-        }   
+            string line2 = line.Trim();
+            if (line2.StartsWith("#") || line2 == "")
+                continue;
+
+            string[] item_info = line2.Split(',');
+
+            for (int i = 0; i < item_info.Length; ++i)
+                item_info[i] = item_info[i].Trim();
+
+            // Create item
+            ItemData item = new ItemData();
+            item.Name = item_info[0];
+            item.Rarity = (ItemData.ItemRarities)Enum.Parse(typeof(ItemData.ItemRarities), item_info[1]);
+            item.Image = item_info[2];
+            item.IsPassive = bool.Parse(item_info[3]);
+            item.OnUseMethod = item_info[4].Trim();
+            item.OnUseParams = item_info[5].Trim();
+
+            for (int i = 6; i < item_info.Length; i += 2)
+            {
+                StatManager.StatStates stat = (StatManager.StatStates)Enum.Parse(typeof(StatManager.StatStates), item_info[i]);
+                item.Values.Add(new StatPair(stat, float.Parse(item_info[i + 1])));
+            }
+
+            // populate correct sublist
+            items[(int)item.Rarity].Add(item);
+
+            //Debug.Log(item.Name + " added!");
+        }
     }
 }
