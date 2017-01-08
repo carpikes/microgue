@@ -100,7 +100,11 @@ public class AIMap : MonoBehaviour
 
     private void UpdateEnemies()
     {
-        EnemyPosition[] arr = GameObject.Find(mWorld.name + "/Enemies").GetComponentsInChildren<EnemyPosition>();
+        GameObject worldEnemies = GameObject.Find(mWorld.name + "/Enemies");
+        if (worldEnemies == null)
+            return;
+
+        EnemyPosition[] arr = worldEnemies.GetComponentsInChildren<EnemyPosition>();
 
         for( int j = 0; j < mColTiles; ++j )
             for (int i = 0; i < mRowTiles; i++)

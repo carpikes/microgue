@@ -28,9 +28,15 @@ public class GameOverManager : MonoBehaviour {
         mPlayer = GameObject.FindGameObjectWithTag("Player");
         mAimCursor = GameObject.FindGameObjectWithTag("AimCursor");
     }
+
+    void Update() {
+        if (Input.GetButtonDown("Escape"))
+            ReloadMenu();
+    }
 	
     private void GameOver(Bundle args)
     {
+        GameObject.Find("GameplayManager").GetComponent<GameplayManager>().StopGame();
         mPlayer.SetActive(false);
         mAimCursor.SetActive(false);
 
