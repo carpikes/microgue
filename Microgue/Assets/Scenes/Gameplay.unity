@@ -1779,16 +1779,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114000010820464476, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
+    - target: {fileID: 114000012952494674, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
-      propertyPath: mCanvas
+      propertyPath: mPlayer
       value: 
-      objectReference: {fileID: 318420299}
-    - target: {fileID: 114000010820464476, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
+      objectReference: {fileID: 45119986}
+    - target: {fileID: 114000012333824144, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
-      propertyPath: mText
+      propertyPath: mainChar
       value: 
-      objectReference: {fileID: 1103565770}
+      objectReference: {fileID: 45119986}
     - target: {fileID: 114000011355995584, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
       propertyPath: uiCanvas
@@ -1829,16 +1829,21 @@ Prefab:
       propertyPath: spdText
       value: 
       objectReference: {fileID: 334030036}
-    - target: {fileID: 114000012333824144, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
+    - target: {fileID: 114000011355995584, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
-      propertyPath: mainChar
+      propertyPath: barGameObject
       value: 
-      objectReference: {fileID: 45119986}
-    - target: {fileID: 114000012952494674, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
+      objectReference: {fileID: 777309251}
+    - target: {fileID: 114000010820464476, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
-      propertyPath: mPlayer
+      propertyPath: mCanvas
       value: 
-      objectReference: {fileID: 45119986}
+      objectReference: {fileID: 318420299}
+    - target: {fileID: 114000010820464476, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
+        type: 2}
+      propertyPath: mText
+      value: 
+      objectReference: {fileID: 1103565770}
     - target: {fileID: 114000011004983200, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
       propertyPath: gameOverCanvas
@@ -1859,29 +1864,6 @@ Prefab:
       propertyPath: mAimCursor
       value: 
       objectReference: {fileID: 1093476809}
-    - target: {fileID: 114000011355995584, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
-        type: 2}
-      propertyPath: barGameObject
-      value: 
-      objectReference: {fileID: 777309251}
-    - target: {fileID: 114000011355995584, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
-        type: 2}
-      propertyPath: notFullBarImage
-      value: 
-      objectReference: {fileID: 21300000, guid: 34c39b77d67a81f4d8f9262c8b4838a9,
-        type: 3}
-    - target: {fileID: 114000011355995584, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
-        type: 2}
-      propertyPath: fullBarImage
-      value: 
-      objectReference: {fileID: 21300000, guid: 2815c0fafb0f5014984d9c6187a302ca,
-        type: 3}
-    - target: {fileID: 114000011355995584, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
-        type: 2}
-      propertyPath: mainCharacter
-      value: 
-      objectReference: {fileID: 1000013211588202, guid: f9cdb9929af97cb4fab874f6984a6221,
-        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6d767db5cf5bba14aa5a9b137dbd83d6, type: 2}
   m_IsPrefabParent: 0

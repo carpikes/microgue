@@ -31,9 +31,12 @@ MonoBehaviour:
   - {fileID: 114000012559260836}
   - {fileID: 114000013414550276}
   - {fileID: 114000012087864510}
+  - {fileID: 114000011362030862}
+  - {fileID: 114000013270527268}
+  - {fileID: 114000012326032232}
   MasterBankRef: {fileID: 114000010387432400}
   StringsBankRef: {fileID: 114000011941294460}
-  stringsBankWriteTime: 636193240334616400
+  stringsBankWriteTime: 636195037872886253
   cacheVersion: 2
 --- !u!114 &114000010216481982
 MonoBehaviour:
@@ -68,13 +71,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: E:\microgue\microgue\Microgue\FMOD\Desktop\Master Bank.bank
-  lastModified: 636193240334606507
+  lastModified: 636195037872866231
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 6920512
+    Value: 7698400
   - Name: Mobile
-    Value: 11464992
+    Value: 12546144
   Exists: 1
 --- !u!114 &114000010639956280
 MonoBehaviour:
@@ -229,6 +232,21 @@ MonoBehaviour:
   - Name: Mobile
     Value: 11464992
   Exists: 1
+--- !u!114 &114000010914096848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: PauseMenu
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114000011001794418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -339,9 +357,9 @@ MonoBehaviour:
   guid: 4d6a26eeb70dfa4e857458346c00acf3
   Banks:
   - {fileID: 114000010387432400}
-  IsStream: 0
+  IsStream: 1
   Is3D: 0
-  IsOneShot: 1
+  IsOneShot: 0
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
@@ -360,6 +378,27 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
+--- !u!114 &114000011362030862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/SoundFX/Enemies/StompStomp/SFX_StompShake
+  guid: 05c1eab09b9bd34aabce280dba076912
+  Banks:
+  - {fileID: 114000010387432400}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
 --- !u!114 &114000011371644972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -400,8 +439,8 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 1
   Parameters:
-  - {fileID: 114000011717338038}
-  - {fileID: 114000011224613764}
+  - {fileID: 114000012303043784}
+  - {fileID: 114000010914096848}
   MinDistance: 0
   MaxDistance: 0
 --- !u!114 &114000011533544078
@@ -538,13 +577,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: FMOD\Desktop\Master Bank.strings.bank
-  lastModified: 636193240334616400
+  lastModified: 636195037872886253
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 1794
+    Value: 1952
   - Name: Mobile
-    Value: 1794
+    Value: 1952
   Exists: 1
 --- !u!114 &114000012004334494
 MonoBehaviour:
@@ -653,6 +692,21 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
+--- !u!114 &114000012303043784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Boss
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114000012308366738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -683,6 +737,27 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
+--- !u!114 &114000012326032232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/SoundFX/Enemies/StompStomp/SFX_StompBigShake
+  guid: d40fc8ee1259f94ebdcc50429ecc7ee2
+  Banks:
+  - {fileID: 114000010387432400}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114000012368167480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -961,6 +1036,27 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
+--- !u!114 &114000013270527268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/SoundFX/Player/SFX_PLayerBlindingLight
+  guid: 837d9495702b8840b914665ebffa3c50
+  Banks:
+  - {fileID: 114000010387432400}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
 --- !u!114 &114000013323501782
 MonoBehaviour:
   m_ObjectHideFlags: 0
