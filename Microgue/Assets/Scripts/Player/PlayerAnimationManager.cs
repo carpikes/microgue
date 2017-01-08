@@ -7,7 +7,7 @@ using Bundle = System.Collections.Generic.Dictionary<string, string>;
 
 public class PlayerAnimationManager : MonoBehaviour {
     Animator animator;
-    GameObject mainChar;
+    public GameObject mainChar;
     SpriteRenderer spriteRenderer;
     StatManager statManager;
 
@@ -57,7 +57,6 @@ public class PlayerAnimationManager : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        mainChar = GameObject.FindGameObjectWithTag("Player");
         animator = mainChar.GetComponent<Animator>();
         spriteRenderer = mainChar.GetComponent<SpriteRenderer>();
 

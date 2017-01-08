@@ -22,6 +22,7 @@ public class StatManager : MonoBehaviour
     const int numberOfStates = (int)StatStates.NULL;
     public Stat[] stats;
 
+    public GameObject mPlayer;
     public float MAX_DEFENCE = 2f;
 
     bool isInvulnerable;
@@ -74,7 +75,7 @@ public class StatManager : MonoBehaviour
         stats[(int)StatStates.CURRENT_HEALTH].CurrentValue = stats[(int)StatStates.CURRENT_HEALTH].mMax;
 
         timerMgr = GameObject.FindGameObjectWithTag("GameController").GetComponent<TimerManager>();
-        inputMgr = GameObject.FindGameObjectWithTag("Player").GetComponent<InputManager>();
+        inputMgr = mPlayer.GetComponent<InputManager>();
         animMgr = GameObject.FindGameObjectWithTag("GameController").GetComponent<PlayerAnimationManager>();
         gameplayMgr = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameplayManager>();
 
