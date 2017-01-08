@@ -9,7 +9,6 @@ using Bundle = System.Collections.Generic.Dictionary<string, string>;
 public class CanvasManager : MonoBehaviour {
 
     public Canvas uiCanvas;
-    public Text statText;
     public Text timerText;
     public Text additionalInfoText;
 
@@ -18,6 +17,12 @@ public class CanvasManager : MonoBehaviour {
     public Sprite fullHeart;
     public Sprite halfHeart;
     public Sprite emptyHeart;
+
+    [Header("Stat UI")]
+    public Text defText;
+    public Text dmgText;
+    public Text timeText;
+    public Text spdText;
 
     GameObject mainCharacter;
     StatManager playerStats;
@@ -110,7 +115,6 @@ public class CanvasManager : MonoBehaviour {
 
     private void UpdateStatText()
     {
-        statText.text = "";
         ShowPlayerStats();
     }
 
@@ -146,8 +150,25 @@ public class CanvasManager : MonoBehaviour {
         {
             foreach( Stat s in playerStats.stats )
             {
-                if (s.showOnStatCanvas)
-                    statText.text += s.mName + ": " + s.CurrentValue + "\n";
+                if( s.mName == "DEFENCE" )
+                {
+                    defText.text = s.CurrentValue.ToString();
+                } else if( s.mName == "DAMAGE" )
+                {
+                    dmgText.text = s.CurrentValue.ToString();
+                } else if( s.mName == "TEMP_DISTORSION" )
+                {
+                    timeText.text = s.CurrentValue.ToString();
+                } else if( s.mName == "SPEED" )
+                {
+                    spdText.text = s.CurrentValue.ToString();
+                } else if( s.mName == "CURRENT_HEALTH" || s.mName == "MAX_HEALTH" )
+                {
+                    continue;
+                } else
+                {
+                    Debug.LogError("UPDATING NON-EXISTENT STAT");
+                }
             }
         } else
         {

@@ -87,7 +87,7 @@ MonoBehaviour:
   startFromWorld: 0
   debugArena: 0
   isInvincible: 0
-  pressBToGoToBoss: 0
+  pressBToGoToBoss: 1
   bypassDoors: 0
 --- !u!114 &114000010820464476
 MonoBehaviour:
@@ -149,13 +149,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiCanvas: {fileID: 0}
-  statText: {fileID: 0}
   timerText: {fileID: 0}
   additionalInfoText: {fileID: 0}
   healthContainer: {fileID: 0}
   fullHeart: {fileID: 21300006, guid: 640a88534d70bc445856e1d22674137b, type: 3}
   halfHeart: {fileID: 21300010, guid: 640a88534d70bc445856e1d22674137b, type: 3}
   emptyHeart: {fileID: 21300008, guid: 640a88534d70bc445856e1d22674137b, type: 3}
+  defText: {fileID: 0}
+  dmgText: {fileID: 0}
+  timeText: {fileID: 0}
+  spdText: {fileID: 0}
 --- !u!114 &114000011399363556
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -234,6 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ddc924210df008449c52928c6065950, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainChar: {fileID: 0}
 --- !u!114 &114000012369660046
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -258,6 +262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: []
+  mPlayer: {fileID: 0}
   MAX_DEFENCE: 2
 --- !u!114 &114000013569121710
 MonoBehaviour:
