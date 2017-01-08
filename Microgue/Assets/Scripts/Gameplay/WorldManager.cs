@@ -60,6 +60,9 @@ public class WorldManager
             mCurWorld.Unload();
             mCurWorld = null;
         }
+        GameObject parent = GameObject.Find("/WorldData");
+        foreach (Transform t in parent.transform)
+            GameObject.Destroy(t.gameObject);
     }
 
     /* TODO questa va in LevelLoader */
@@ -151,15 +154,6 @@ public class WorldManager
                 mAvailableLevels.Add(go.name);
             }
         }
-
-        /*foreach (string file in Directory.GetFiles(PREFAB_PATH))
-        {
-            string fname = Path.GetFileNameWithoutExtension(file);
-            if (file.EndsWith(".prefab") && fname.StartsWith(name + "_"))
-            {
-                mAvailableLevels.Add(fname);
-            }
-        }*/
     }
 
     // TODO sposta

@@ -14,8 +14,6 @@ public class ItemParser : MonoBehaviour {
     [HideInInspector]
     public List<List<ItemData>> items;
 
-    public static readonly string ITEMS_FILE = "Assets/Scripts/Item/items.csv";
-
     void Awake()
     {
         if (instance == null)

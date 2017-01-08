@@ -95,6 +95,7 @@ public class BigLittleJimmy : MonoBehaviour {
 	}
 
     void SpawnSouls() {
+        Transform parent = GameObject.Find("/WorldData").transform;
         Vector2 pos = transform.position;
 
         GameObject el = Resources.Load("AngrySoul") as GameObject;
@@ -103,7 +104,7 @@ public class BigLittleJimmy : MonoBehaviour {
         {
             GameObject go = GameObject.Instantiate(el);
             go.transform.position = pos + Random.insideUnitCircle;
-            go.transform.parent = this.transform;
+            go.transform.parent = parent;
             go.GetComponent<AngrySoul>().HackStartShooting();
             mEnemies.Add(go);
         }
@@ -117,6 +118,7 @@ public class BigLittleJimmy : MonoBehaviour {
             {
                 GameObject go = GameObject.Instantiate(st);
                 go.transform.position = pos + Random.insideUnitCircle * 3.0f;
+                go.transform.parent = parent;
                 go.GetComponent<StompStomp>().mHackAttackInstant = true;
                 mEnemies.Add(go);
             }

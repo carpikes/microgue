@@ -127,6 +127,10 @@ public class GameplayManager : MonoBehaviour
         if (mWorldManager != null)
             mWorldManager.Unload();
 
+        GameObject parent = GameObject.Find("/WorldData");
+        foreach (Transform t in parent.transform)
+            GameObject.Destroy(t.gameObject);
+
         mWorldManager = new WorldManager(mWorlds[mCurWorld], pressBToGoToBoss);
 
         // handle audio transition

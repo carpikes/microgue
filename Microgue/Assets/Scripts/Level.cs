@@ -46,8 +46,9 @@ public class Level
 
             Bundle levelEventInfo = new Bundle();
             levelEventInfo.Add(LEVEL_NAME_TAG, mName);
-            
-            mCurrentRoom = GameObject.Instantiate(worldPrefab);
+
+            Transform parent = GameObject.Find("/WorldData").transform;
+            mCurrentRoom = GameObject.Instantiate(worldPrefab, parent) as GameObject;
             mCurrentRoom.name = mName;
             LoadStuff();
         } else {
