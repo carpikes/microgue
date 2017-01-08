@@ -135,7 +135,7 @@ public class BigLittleJimmy : MonoBehaviour {
         {
             if (mEnemies[i] != null) {
                 EnemyLife e = mEnemies[i].GetComponentInChildren<EnemyLife>();
-                if (e.mCurrentHP > 0)
+                if (e != null && e.mCurrentHP > 0)
                     n++;
             }
         }

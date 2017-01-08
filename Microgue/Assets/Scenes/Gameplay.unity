@@ -676,6 +676,12 @@ Prefab:
       propertyPath: aimTransform
       value: 
       objectReference: {fileID: 903330748}
+    - target: {fileID: 212000011237110204, guid: f9cdb9929af97cb4fab874f6984a6221,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8893114f79295d74b9f3cb528dedc40b,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f9cdb9929af97cb4fab874f6984a6221, type: 2}
   m_IsPrefabParent: 0
@@ -1369,6 +1375,22 @@ Prefab:
       propertyPath: m_FontData.m_MaxSize
       value: 300
       objectReference: {fileID: 0}
+    - target: {fileID: 114000010880299980, guid: bddd019e128d70447bc3102b206178dc,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f8c5b039ed0d0634685596ecf8ea558b,
+        type: 3}
+    - target: {fileID: 224000010655730486, guid: bddd019e128d70447bc3102b206178dc,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 1861.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000010310020686, guid: bddd019e128d70447bc3102b206178dc,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 1789.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bddd019e128d70447bc3102b206178dc, type: 2}
   m_IsPrefabParent: 0
@@ -1866,13 +1888,8 @@ Prefab:
       objectReference: {fileID: 1093476809}
     - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
-      propertyPath: startFromWorld
+      propertyPath: pressBToGoToBoss
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
-        type: 2}
-      propertyPath: isInvincible
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6d767db5cf5bba14aa5a9b137dbd83d6, type: 2}

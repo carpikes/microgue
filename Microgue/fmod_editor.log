@@ -23,12 +23,264 @@
 [LOG] Thread::initThread                       : - Stacksize 65536.  Stack pointer 0000000000000000 : usesemaphore = 0 : sleeptime = 1
 [LOG] Thread::callback                         : * FMOD Studio bank load thread started
 [LOG] Manager::readBank                        : fileversion = 80, compatVersion = 70 (oldest = 44, newest = 80)
-[LOG] Manager::readBank                        : fileversion = 80, compatVersion = 70 (oldest = 44, newest = 80)
-[LOG] Manager::readBank                        : fileversion = 80, compatVersion = 70 (oldest = 44, newest = 80)
-[LOG] Manager::readBank                        : fileversion = 80, compatVersion = 70 (oldest = 44, newest = 80)
-[LOG] Manager::readBank                        : fileversion = 80, compatVersion = 70 (oldest = 44, newest = 80)
+[LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 3
+[LOG] SystemI::createSound                     : filename = E:\microgue\microgue\Microgue\FMOD\Desktop\Master Bank.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 0000000047F5C558 : node = 0000000047742380
+[LOG] SystemI::createSound                     : add node to async list : head = 000000002A103578.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000000047F5C558
+[LOG] SystemI::createSoundInternal             :     filename = E:\microgue\microgue\Microgue\FMOD\Desktop\Master Bank.bank : mode 02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 20393440
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 55360
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000000047742498
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Format has 1 subsounds.
+[LOG] SystemI::createSoundInternal             :     Create as FMOD_CREATESTREAM
+[LOG] System::createSoundInternal              :     decode buffersize = 19200 : blocksize = 256 : format = 2
+[LOG] SystemI::createSample                    :     mode 02010082 length 19200 samples, lengthbytes 553120
+[LOG] SystemI::createSample                    :     channels = 2
+[LOG] SystemI::createSample                    :     output = 0000000047AE56C8
+[LOG] OutputSoftware::createSample             :     lengthpcm 19200, lengthbytes 553120, channels 2, format 2, freq 48000, mode 0201008a
+[LOG] System::createSoundInternal              :     1 subsounds detected.
+[LOG] System::createSoundInternal              :     Seek stream to start
+[LOG] System::createSoundInternal              :     flush stream buffer
+[LOG] System::createSoundInternal              :     flush successful.
+[LOG] System::createSoundInternal              :     switch file handle from small blocking single buffered to large nonblocking doublebuffered.
+[LOG] SystemI::createSoundInternal             :     done.  OpenState now = FMOD_OPENSTATE_READY.
+
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000000047F5C558
+[LOG] SoundI::getSubSound                      : sound 0000000047F5C558.  Subsound index 0 / 1
+[LOG] SoundI::release                          : ImprintingIntro (0000000047F5C558)
+[LOG] SoundI::release                          : remove stream samples. (0000000047F5C558)
+[LOG] SoundI::release                          :     ImprintingIntro (00000000478A3F38)
+[LOG] SoundI::release                          : release subsounds. (0000000047F5C558)
+[LOG] SoundI::release                          :     ImprintingIntro (000000002C799E68)
+[LOG] SoundI::release                          : release codec. (0000000047F5C558)
 [LOG] Manager::readBank                        : fileversion = 80, compatVersion = 70 (oldest = 44, newest = 80)
 [LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 3
+[LOG] SystemI::createSound                     : filename = E:\microgue\microgue\Microgue\FMOD\Desktop\Master Bank.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 0000000047E68A58 : node = 0000000032C029D0
+[LOG] SystemI::createSound                     : add node to async list : head = 000000002A103578.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000000047E68A58
+[LOG] SystemI::createSoundInternal             :     filename = E:\microgue\microgue\Microgue\FMOD\Desktop\Master Bank.bank : mode 02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 20393440
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 55360
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000000032C02AE8
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Format has 1 subsounds.
+[LOG] SystemI::createSoundInternal             :     Create as FMOD_CREATESTREAM
+[LOG] System::createSoundInternal              :     decode buffersize = 19200 : blocksize = 256 : format = 2
+[LOG] SystemI::createSample                    :     mode 02010082 length 19200 samples, lengthbytes 163936
+[LOG] SystemI::createSample                    :     channels = 2
+[LOG] SystemI::createSample                    :     output = 0000000047AE56C8
+[LOG] OutputSoftware::createSample             :     lengthpcm 19200, lengthbytes 163936, channels 2, format 2, freq 48000, mode 0201008a
+[LOG] System::createSoundInternal              :     1 subsounds detected.
+[LOG] System::createSoundInternal              :     Seek stream to start
+[LOG] System::createSoundInternal              :     flush stream buffer
+[LOG] System::createSoundInternal              :     flush successful.
+[LOG] System::createSoundInternal              :     switch file handle from small blocking single buffered to large nonblocking doublebuffered.
+[LOG] SystemI::createSoundInternal             :     done.  OpenState now = FMOD_OPENSTATE_READY.
+
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000000047E68A58
+[LOG] SoundI::getSubSound                      : sound 0000000047E68A58.  Subsound index 0 / 1
+[LOG] SoundI::release                          : DarkSnowLoop (000000004D33C528)
+[LOG] SoundI::release                          : remove stream samples. (000000004D33C528)
+[LOG] SoundI::release                          :     DarkSnowLoop (0000000047A94098)
+[LOG] SoundI::release                          : release subsounds. (000000004D33C528)
+[LOG] SoundI::release                          :     DarkSnowLoop (0000000070BCC188)
+[LOG] SoundI::release                          : release codec. (000000004D33C528)
+[LOG] SoundI::release                          : AmbienceWaterLake (0000000047F5C3B8)
+[LOG] SoundI::release                          : remove stream samples. (0000000047F5C3B8)
+[LOG] SoundI::release                          :     AmbienceWaterLake (00000000478A3448)
+[LOG] SoundI::release                          : release subsounds. (0000000047F5C3B8)
+[LOG] SoundI::release                          :     AmbienceWaterLake (000000002C799648)
+[LOG] SoundI::release                          : release codec. (0000000047F5C3B8)
+[LOG] SoundI::release                          :  (0000000047AB0158)
+[LOG] SoundI::release                          : release subsounds. (0000000047AB0158)
+[LOG] SoundI::release                          :     PickUp2-001 (00000000705AEAC8)
+[LOG] SoundI::release                          : release codec. (0000000047AB0158)
+[LOG] SoundI::release                          :  (0000000047AAEEA8)
+[LOG] SoundI::release                          : release subsounds. (0000000047AAEEA8)
+[LOG] SoundI::release                          :     PickUp2-002 (00000000705AE7A8)
+[LOG] SoundI::release                          : release codec. (0000000047AAEEA8)
+[LOG] SoundI::release                          :  (0000000047AAFD08)
+[LOG] SoundI::release                          : release subsounds. (0000000047AAFD08)
+[LOG] SoundI::release                          :     PickUp2-003 (00000000705AEC58)
+[LOG] SoundI::release                          : release codec. (0000000047AAFD08)
+[LOG] SoundI::release                          :  (0000000047AAFFE8)
+[LOG] SoundI::release                          : release subsounds. (0000000047AAFFE8)
+[LOG] SoundI::release                          :     PickUp2-004 (00000000705AE938)
+[LOG] SoundI::release                          : release codec. (0000000047AAFFE8)
+[LOG] SoundI::release                          :  (0000000047AB02C8)
+[LOG] SoundI::release                          : release subsounds. (0000000047AB02C8)
+[LOG] SoundI::release                          :     PickUp2-005 (00000000705AE168)
+[LOG] SoundI::release                          : release codec. (0000000047AB02C8)
+[LOG] SoundI::release                          :  (0000000047AAFB98)
+[LOG] SoundI::release                          : release subsounds. (0000000047AAFB98)
+[LOG] SoundI::release                          :     PickUp2-006 (00000000705AE2F8)
+[LOG] SoundI::release                          : release codec. (0000000047AAFB98)
+[LOG] SoundI::release                          :  (0000000047AAF5D8)
+[LOG] SoundI::release                          : release subsounds. (0000000047AAF5D8)
+[LOG] SoundI::release                          :     363854__mtheodp__recojer-foto-2 (00000000705AEDE8)
+[LOG] SoundI::release                          : release codec. (0000000047AAF5D8)
+[LOG] SoundI::release                          :  (0000000047AAF188)
+[LOG] SoundI::release                          : release subsounds. (0000000047AAF188)
+[LOG] SoundI::release                          :     323403__gosfx__sound-1 (00000000705AEF78)
+[LOG] SoundI::release                          : release codec. (0000000047AAF188)
+[LOG] SoundI::release                          :  (0000000011147618)
+[LOG] SoundI::release                          : release subsounds. (0000000011147618)
+[LOG] SoundI::release                          :     HologramCreatureMoves02_489 (000000002A0F74D8)
+[LOG] SoundI::release                          : release codec. (0000000011147618)
+[LOG] SoundI::release                          :  (00000000299A2D38)
+[LOG] SoundI::release                          : release subsounds. (00000000299A2D38)
+[LOG] SoundI::release                          :     HologramCreatureMoves04_491 (000000002A0F7988)
+[LOG] SoundI::release                          : release codec. (00000000299A2D38)
+[LOG] SoundI::release                          :  (0000000011146EE8)
+[LOG] SoundI::release                          : release subsounds. (0000000011146EE8)
+[LOG] SoundI::release                          :     HologramDisappears03_499 (000000002A0F7E38)
+[LOG] SoundI::release                          : release codec. (0000000011146EE8)
+[LOG] SoundI::release                          :  (00000000299A2A58)
+[LOG] SoundI::release                          : release subsounds. (00000000299A2A58)
+[LOG] SoundI::release                          :     HologramDisappears04_500 (000000002A0F7B18)
+[LOG] SoundI::release                          : release codec. (00000000299A2A58)
+[LOG] SoundI::release                          :  (0000000011148198)
+[LOG] SoundI::release                          : release subsounds. (0000000011148198)
+[LOG] SoundI::release                          :     CursorClick20_020 (000000002A0F77F8)
+[LOG] SoundI::release                          : release codec. (0000000011148198)
+[LOG] SoundI::release                          :  (00000000111464D8)
+[LOG] SoundI::release                          : release subsounds. (00000000111464D8)
+[LOG] SoundI::release                          :     CursorClick21_021 (000000002A0F7348)
+[LOG] SoundI::release                          : release codec. (00000000111464D8)
+[LOG] SoundI::release                          :  (0000000011146A98)
+[LOG] SoundI::release                          : release subsounds. (0000000011146A98)
+[LOG] SoundI::release                          :     CursorClick11_011 (000000002A0F7028)
+[LOG] SoundI::release                          : release codec. (0000000011146A98)
+[LOG] SoundI::release                          :  (00000000299A1BF8)
+[LOG] SoundI::release                          : release subsounds. (00000000299A1BF8)
+[LOG] SoundI::release                          :     PlayerSpell2-001 (000000004D6C2548)
+[LOG] SoundI::release                          : release codec. (00000000299A1BF8)
+[LOG] SoundI::release                          :  (00000000299A2BC8)
+[LOG] SoundI::release                          : release subsounds. (00000000299A2BC8)
+[LOG] SoundI::release                          :     PlayerSpell2-002 (0000000047ECE9F8)
+[LOG] SoundI::release                          : release codec. (00000000299A2BC8)
+[LOG] SoundI::release                          :  (00000000299A1D68)
+[LOG] SoundI::release                          : release subsounds. (00000000299A1D68)
+[LOG] SoundI::release                          :     PlayerSpell2-003 (000000004D6C2EA8)
+[LOG] SoundI::release                          : release codec. (00000000299A1D68)
+[LOG] SoundI::release                          :  (00000000111653A8)
+[LOG] SoundI::release                          : release subsounds. (00000000111653A8)
+[LOG] SoundI::release                          :     PlayerSpell2-004 (000000004D6C2228)
+[LOG] SoundI::release                          : release codec. (00000000111653A8)
+[LOG] SoundI::release                          :  (00000000299A1638)
+[LOG] SoundI::release                          : release subsounds. (00000000299A1638)
+[LOG] SoundI::release                          :     PlayerSpell2-005 (000000004D6C29F8)
+[LOG] SoundI::release                          : release codec. (00000000299A1638)
+[LOG] SoundI::release                          :  (0000000047AAFE78)
+[LOG] SoundI::release                          : release subsounds. (0000000047AAFE78)
+[LOG] SoundI::release                          :     PlayerSpell2-006 (000000004D6C2868)
+[LOG] SoundI::release                          : release codec. (0000000047AAFE78)
+[LOG] SoundI::release                          :  (00000000299A17A8)
+[LOG] SoundI::release                          : release subsounds. (00000000299A17A8)
+[LOG] SoundI::release                          :     Whoosh-001 (000000004D6C2B88)
+[LOG] SoundI::release                          : release codec. (00000000299A17A8)
+[LOG] SoundI::release                          :  (00000000299A1918)
+[LOG] SoundI::release                          : release subsounds. (00000000299A1918)
+[LOG] SoundI::release                          :     Whoosh-002 (0000000047ECE548)
+[LOG] SoundI::release                          : release codec. (00000000299A1918)
+[LOG] SoundI::release                          :  (0000000047AAFA28)
+[LOG] SoundI::release                          : release subsounds. (0000000047AAFA28)
+[LOG] SoundI::release                          :     Whoosh-003 (000000004D6C23B8)
+[LOG] SoundI::release                          : release codec. (0000000047AAFA28)
+[LOG] SoundI::release                          :  (00000000299A1A88)
+[LOG] SoundI::release                          : release subsounds. (00000000299A1A88)
+[LOG] SoundI::release                          :     Whoosh-004 (00000000008283A8)
+[LOG] SoundI::release                          : release codec. (00000000299A1A88)
+[LOG] SoundI::release                          :  (00000000299A28E8)
+[LOG] SoundI::release                          : release subsounds. (00000000299A28E8)
+[LOG] SoundI::release                          :     Whoosh-005 (00000000008286C8)
+[LOG] SoundI::release                          : release codec. (00000000299A28E8)
+[LOG] SoundI::release                          :  (0000000047AAED38)
+[LOG] SoundI::release                          : release subsounds. (0000000047AAED38)
+[LOG] SoundI::release                          :     Whoosh-006 (00000000705AE618)
+[LOG] SoundI::release                          : release codec. (0000000047AAED38)
+[LOG] SoundI::release                          :  (00000000299A2778)
+[LOG] SoundI::release                          : release subsounds. (00000000299A2778)
+[LOG] SoundI::release                          :     PlayerSpell3-001 (0000000000828538)
+[LOG] SoundI::release                          : release codec. (00000000299A2778)
+[LOG] SoundI::release                          :  (0000000047AAF018)
+[LOG] SoundI::release                          : release subsounds. (0000000047AAF018)
+[LOG] SoundI::release                          :     PlayerSpell3-002 (00000000705AE488)
+[LOG] SoundI::release                          : release codec. (0000000047AAF018)
+[LOG] SoundI::release                          :  (00000000299A14C8)
+[LOG] SoundI::release                          : release subsounds. (00000000299A14C8)
+[LOG] SoundI::release                          :     PlayerSpell3-003 (000000004D6C2098)
+[LOG] SoundI::release                          : release codec. (00000000299A14C8)
+[LOG] SoundI::release                          :  (0000000047AAEBC8)
+[LOG] SoundI::release                          : release subsounds. (0000000047AAEBC8)
+[LOG] SoundI::release                          :     PlayerSpell3-004 (000000004D6C26D8)
+[LOG] SoundI::release                          : release codec. (0000000047AAEBC8)
+[LOG] SoundI::release                          :  (00000000299A2EA8)
+[LOG] SoundI::release                          : release subsounds. (00000000299A2EA8)
+[LOG] SoundI::release                          :     PlayerSpell3-005 (0000000000827EF8)
+[LOG] SoundI::release                          : release codec. (00000000299A2EA8)
+[LOG] SoundI::release                          :  (00000000299A1358)
+[LOG] SoundI::release                          : release subsounds. (00000000299A1358)
+[LOG] SoundI::release                          :     PlayerSpell3-006 (000000004D6C2D18)
+[LOG] SoundI::release                          : release codec. (00000000299A1358)
+[LOG] SoundI::release                          :  (00000000299A11E8)
+[LOG] SoundI::release                          : release subsounds. (00000000299A11E8)
+[LOG] SoundI::release                          :     CursorOver31_075 (000000002A0F7CA8)
+[LOG] SoundI::release                          : release codec. (00000000299A11E8)
+[LOG] SoundI::release                          :  (00000000299A2328)
+[LOG] SoundI::release                          : release subsounds. (00000000299A2328)
+[LOG] SoundI::release                          :     CursorOver32_076 (000000004830CEB8)
+[LOG] SoundI::release                          : release codec. (00000000299A2328)
+[LOG] SoundI::release                          :  (00000000299A1078)
+[LOG] SoundI::release                          : release subsounds. (00000000299A1078)
+[LOG] SoundI::release                          :     CursorOver34_078 (000000002A0F71B8)
+[LOG] SoundI::release                          : release codec. (00000000299A1078)
+[LOG] SoundI::release                          :  (0000000011146C08)
+[LOG] SoundI::release                          : release subsounds. (0000000011146C08)
+[LOG] SoundI::release                          :     CursorOver38_082 (000000002A0F7668)
+[LOG] SoundI::release                          : release codec. (0000000011146C08)
+[LOG] Thread::callback                         : * FMOD Studio update thread finished
+[LOG] Thread::close                            : FMOD Studio update thread thread destroyed
+[LOG] Thread::callback                         : * FMOD Studio bank load thread finished
+[LOG] Thread::close                            : FMOD Studio bank load thread thread destroyed
+[LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
+[LOG] Thread::callback                         : * FMOD Studio sample load thread finished
+[LOG] Thread::close                            : FMOD Studio sample load thread thread destroyed
+[LOG] LiveUpdate::release                      : 
+[LOG] LiveUpdate::reset                        : Reset connection (reason Disconnected)
+[LOG] SystemI::close                           : 
+[LOG] SystemI::close                           : Stop all sounds
+[LOG] Thread::callback                         : * FMOD stream thread finished
+[LOG] Thread::close                            : FMOD stream thread thread destroyed
+[LOG] SystemI::close                           : Stream thread destroyed
+[LOG] Thread::callback                         : * FMOD mixer thread finished
+[LOG] Thread::close                            : FMOD mixer thread thread destroyed
+[LOG] SystemI::close                           : Free master channel group.
+[LOG] SystemI::close                           : Remove 'master' sound group.
+[LOG] SystemI::close                           : Free software output.
+[LOG] SystemI::close                           : Free emulated output.
+[LOG] SystemI::close                           : Free channel pool.
+[LOG] SystemI::close                           : done.
+
+[LOG] SoundI::release                          : DarkSnowIntro (0000000047E68A58)
+[LOG] SoundI::release                          : remove stream samples. (0000000047E68A58)
+[LOG] SoundI::release                          :     DarkSnowIntro (00000000478A3F38)
+[LOG] SoundI::release                          : release subsounds. (0000000047E68A58)
+[LOG] SoundI::release                          :     DarkSnowIntro (000000002C79AD08)
+[LOG] SoundI::release                          : release codec. (0000000047E68A58)
 [LOG] Thread::callback                         : * FMOD Studio bank load thread finished
 [LOG] Thread::close                            : FMOD Studio bank load thread thread destroyed
 [LOG] Thread::callback                         : * FMOD Studio sample load thread finished
@@ -47,6 +299,10 @@
 [LOG] SystemI::close                           : Free software output.
 [LOG] SystemI::close                           : Free emulated output.
 [LOG] SystemI::close                           : Free channel pool.
+[LOG] Thread::callback                         : * FMOD nonblocking thread (0) finished
+[LOG] Thread::close                            : FMOD nonblocking thread (0) thread destroyed
+[LOG] Thread::callback                         : * FMOD file thread finished
+[LOG] Thread::close                            : FMOD file thread thread destroyed
 [LOG] SystemI::close                           : done.
 
 [LOG] System::create                           : Header version = 1.08.14. Current version = 1.08.14.

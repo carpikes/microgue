@@ -41,7 +41,7 @@ public class TimerManager : MonoBehaviour {
 
     public void Update()
     {
-        Debug.Log(mTicksLeft);
+        //Debug.Log(mTicksLeft);
 
         if( mIsTimerOn )
         {
