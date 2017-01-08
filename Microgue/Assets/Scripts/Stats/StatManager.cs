@@ -111,7 +111,7 @@ public class StatManager : MonoBehaviour
                 break;
 
             case StatStates.TEMP_DISTORSION:
-                timerMgr.setInterval((int)GetStatValue(StatStates.TEMP_DISTORSION));
+                EventManager.TriggerEvent(Events.INCREMENT_TIME, null);
                 break;
 
             case StatStates.SPEED:

@@ -34,10 +34,51 @@ MonoBehaviour:
   - {fileID: 114000011362030862}
   - {fileID: 114000013270527268}
   - {fileID: 114000012326032232}
+  - {fileID: 114000010071424450}
+  - {fileID: 114000013929791190}
+  - {fileID: 114000010739612296}
+  - {fileID: 114000011676428358}
+  - {fileID: 114000012028983674}
   MasterBankRef: {fileID: 114000010387432400}
   StringsBankRef: {fileID: 114000011941294460}
-  stringsBankWriteTime: 636195037872886253
+  stringsBankWriteTime: 636195099212729097
   cacheVersion: 2
+--- !u!114 &114000010071424450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Music/MUS_Credits_HeartOfCombat
+  guid: 2adf6ed4e9f02b40a345ff991697f422
+  Banks:
+  - {fileID: 114000010387432400}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+--- !u!114 &114000010148780026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: PauseMenu
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114000010216481982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71,13 +112,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: E:\microgue\microgue\Microgue\FMOD\Desktop\Master Bank.bank
-  lastModified: 636195037872866231
+  lastModified: 636195099212698969
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 7698400
+    Value: 20448800
   - Name: Mobile
-    Value: 12546144
+    Value: 35278016
   Exists: 1
 --- !u!114 &114000010639956280
 MonoBehaviour:
@@ -153,6 +194,27 @@ MonoBehaviour:
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+--- !u!114 &114000010739612296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Music/MUS_SiletWoods_WindOfChange
+  guid: b72f4f71fdf5e940995edcb3c31aa774
+  Banks:
+  - {fileID: 114000010387432400}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
@@ -439,10 +501,25 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 1
   Parameters:
-  - {fileID: 114000012303043784}
-  - {fileID: 114000010914096848}
+  - {fileID: 114000011482015944}
+  - {fileID: 114000010148780026}
   MinDistance: 0
   MaxDistance: 0
+--- !u!114 &114000011482015944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Boss
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114000011533544078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -535,6 +612,27 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
+--- !u!114 &114000011676428358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Music/MUS_FireDamned_Imprinting
+  guid: d9a663a9ed0c6643a1bf1d105551c67b
+  Banks:
+  - {fileID: 114000010387432400}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114000011717338038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -577,13 +675,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: FMOD\Desktop\Master Bank.strings.bank
-  lastModified: 636195037872886253
+  lastModified: 636195099212729097
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 1952
+    Value: 2218
   - Name: Mobile
-    Value: 1952
+    Value: 2218
   Exists: 1
 --- !u!114 &114000012004334494
 MonoBehaviour:
@@ -603,6 +701,27 @@ MonoBehaviour:
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+--- !u!114 &114000012028983674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Music/MUS_HolyWater_DarkSnow
+  guid: dad4a3210957f3458b810046faf41804
+  Banks:
+  - {fileID: 114000010387432400}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
@@ -1279,6 +1398,27 @@ MonoBehaviour:
   - Name: Mobile
     Value: 12184992
   Exists: 1
+--- !u!114 &114000013929791190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Music/MUS_TheLastChapter_HopeAndFuture
+  guid: 8ff434fc3c57ea4fbf0851f4d85498f1
+  Banks:
+  - {fileID: 114000010387432400}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114000013953695770
 MonoBehaviour:
   m_ObjectHideFlags: 0
