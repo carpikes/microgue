@@ -53,7 +53,7 @@ public class MiniMap : MonoBehaviour {
         xCurRoom -= r.xMin;
         yCurRoom -= r.yMin;
 
-        float tileSize = 16;
+        float tileSize = 32.0f;
         // xOff e yOff centrano la minimap
         float xOff = (xCurRoom * tileSize);
         float yOff = (yCurRoom * tileSize);
@@ -67,7 +67,7 @@ public class MiniMap : MonoBehaviour {
                     int iv = i - r.yMin, jv = j - r.xMin;
 
                     Vector3 pos = new Vector3(tileSize * jv - xOff, -(tileSize * iv) + yOff,0);
-                    tile.transform.position = mContainer.transform.position + pos;
+                    tile.GetComponent<RectTransform>().anchoredPosition = pos;
                     tile.SetActive(true);
                     mTiles[j + i * mMap.GetWidth()] = tile;
 
@@ -91,7 +91,7 @@ public class MiniMap : MonoBehaviour {
                         jv = j2 - r.xMin;
 
                         pos = new Vector3(tileSize * jv - xOff, -(tileSize * iv) + yOff, 0);
-                        tile.transform.position = mContainer.transform.position + pos;
+                        tile.GetComponent<RectTransform>().anchoredPosition = pos;
                         tile.SetActive(true);
                         mTiles[j2 + i2 * mMap.GetWidth()] = tile;
                     }
@@ -130,7 +130,7 @@ public class MiniMap : MonoBehaviour {
                 Image r = i.Value.GetComponent<Image>();
                 RectTransform rr = i.Value.GetComponent<RectTransform>();
                 // nascondi quelle fuori dal container
-                if (Mathf.Abs(rr.anchoredPosition.y) > 32 || Mathf.Abs(rr.anchoredPosition.x) > 48)
+                if (Mathf.Abs(rr.anchoredPosition.y) > 32*2 || Mathf.Abs(rr.anchoredPosition.x) > 48*2)
                 {
                     r.color = new Color(0, 0, 0, 0);
                     continue;
