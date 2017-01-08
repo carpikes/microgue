@@ -30,6 +30,7 @@ public class GameplayManager : MonoBehaviour
     public bool bypassDoors = false;
 
     private bool mGameRunning = true;
+    private bool mGameOver = false; //se true, pause non va piu`
 
     private WorldManager mWorldManager = null;
 
@@ -54,6 +55,7 @@ public class GameplayManager : MonoBehaviour
         mShotPos = GameObject.Find("/ShotPosition");
         //mAIMap = GameObject.Find("AIMap");
         mGameRunning = true;
+        mGameOver = false;
 
         mAmbienceManager = GameObject.FindGameObjectWithTag("AmbienceManager");
         mSnapshotManager = GameObject.FindGameObjectWithTag("SnapshotManager");
@@ -61,7 +63,6 @@ public class GameplayManager : MonoBehaviour
 
         if (mAmbienceManager != null && mSnapshotManager != null && mMusicManager != null)
         {
-            Debug.Log("AUDIO OK!");
             ambienceEmitter = mAmbienceManager.GetComponent<FMODUnity.StudioEventEmitter>();
             snapshotEmitter = mSnapshotManager.GetComponent<FMODUnity.StudioEventEmitter>();
             musicEmitter = mMusicManager.GetComponent<FMODUnity.StudioEventEmitter>();
@@ -170,6 +171,16 @@ public class GameplayManager : MonoBehaviour
         StartGame();
     }
 
+    public void StopGame()
+    {
+        mGameRunning = false;
+        mGameOver = true;
+        Cursor.visible = true;
+        mWorldManager.GetWorld().SetActive(false);
+        mMainChr.SetActive(false);
+        mShotPos.SetActive(false);
+    }
+
     // goto pause, called also while loading
     void PauseGame()
     {
@@ -201,6 +212,9 @@ public class GameplayManager : MonoBehaviour
     void Update() {
         if (Input.GetButtonDown("Escape"))
         {
+            if (mGameOver)
+                return; 
+
             GameObject obj = GameObject.Find("Canvas/UICanvas/PauseMenu");
             if (mGameRunning)
             {
