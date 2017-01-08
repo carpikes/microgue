@@ -11,6 +11,9 @@ public class EnemyLife : MonoBehaviour {
     private Animator mAnimator;
 
     public bool mIsInvincible = false;
+    bool canDieAnimation = true;
+
+    Collider2D[] colliders;
 
 	// Use this for initialization
 	void Start () {
@@ -23,6 +26,8 @@ public class EnemyLife : MonoBehaviour {
         mTotalHP = mCurrentHP;
 
         mAnimator = GetComponent<Animator>();
+
+        colliders = GetComponents<Collider2D>();
 	}
 
     public float GetTotalHP() { return mTotalHP; }
@@ -64,9 +69,18 @@ public class EnemyLife : MonoBehaviour {
 
     private void DeathAnimation()
     {
-        mHealthBar.SetActive(false);
-        mAnimator.SetTrigger("enemy_death");
-        // destroy is invoked by animation through an animation event
+        if (canDieAnimation)
+        {
+            canDieAnimation = false;
+            mHealthBar.SetActive(false);
+
+            foreach (var c in colliders)
+                c.enabled = false;
+
+            mAnimator.SetTrigger("enemy_death");
+            // destroy is invoked by animation through an animation event
+        }
+
     }
 
     private void Die()
