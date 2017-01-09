@@ -54,6 +54,7 @@ public class Medusa : MonoBehaviour
         mAnimator = mPlayer.GetComponent<Animator>();
         mRB = GetComponent<Rigidbody2D>();
         mSpellAnim = transform.GetChild(0).gameObject;
+        // MICHELE: qua anim di idle
 	}
 	
 	// Update is called once per frame
@@ -69,11 +70,15 @@ public class Medusa : MonoBehaviour
                     mFreezed = false;
                     mState = 1;
                     if (mSubAI == 0)
+                    {
+                        // MICHELE: #NOMIRROR qua anim di dash (se non ti interessa il mirror orizzontale) altrimenti cerca #MIRROR
                         mTimeout = Time.time + Random.Range(mRunTimeMin, mRunTimeMax);
+                    }
                     else
                     {
                         mTimeout = Time.time + Random.Range(mWaitingTimeMin, mWaitingTimeMax);
-                        mSpellAnim.SetActive(true);
+                        mSpellAnim.SetActive(true); // questo coso andra` cambiato con il gameobject di un'onda o simili
+                        // MICHELE: qua anim di "casto la spell che freeza"
                     }
                 }
                 break;
@@ -90,6 +95,7 @@ public class Medusa : MonoBehaviour
                     mState = 0;
                     mRB.velocity = Vector2.zero;
                     mTimeout = Time.time + Random.Range(mChosingTimeMin, mChosingTimeMax);
+                    // MICHELE: qua anim di idle
                     break; 
                 }
                 break;
@@ -106,6 +112,8 @@ public class Medusa : MonoBehaviour
         if (!mRunInited)
         {
             mRunTo = GetRunTo();
+            // MICHELE: anim di dash qua #MIRROR se non usi #NOMIRROR, qua controlla che mRunTo.x > mRB.position.x
+            // per mettere l'anim di dash flippata giusta
             mLastDist = (new Vector2(mRB.position.x, mRB.position.y) - mRunTo).magnitude;
             mRunInited = true;
         }
@@ -117,6 +125,8 @@ public class Medusa : MonoBehaviour
             // target raggiunto o superato
             mRB.velocity = Vector2.zero;
             mRunTo = GetRunTo();
+            // MICHELE: anim di dash qua #MIRROR (se non usi #NOMIRROR), stesso codice di poco sopra
+            // quindi magari fai una funzione
             delta = mRunTo - tpos;
         }
 
