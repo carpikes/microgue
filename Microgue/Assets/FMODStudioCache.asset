@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: 114000011941294460}
-  - {fileID: 114000013617746912}
+  - {fileID: 114000011620529728}
   EditorEvents:
   - {fileID: 114000010639956280}
   - {fileID: 114000011533544078}
@@ -39,9 +39,9 @@ MonoBehaviour:
   - {fileID: 114000010329406650}
   - {fileID: 114000011944856674}
   - {fileID: 114000012071806606}
-  MasterBankRef: {fileID: 114000013617746912}
+  MasterBankRef: {fileID: 114000011620529728}
   StringsBankRef: {fileID: 114000011941294460}
-  stringsBankWriteTime: 636195118507086448
+  stringsBankWriteTime: 636195099212729097
   cacheVersion: 2
 --- !u!114 &114000010199037546
 MonoBehaviour:
@@ -72,7 +72,7 @@ MonoBehaviour:
   Path: snapshot:/Forest
   guid: 421d2d511779364e8131da72f446feb3
   Banks:
-  - {fileID: 114000013617746912}
+  - {fileID: 114000011620529728}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -93,7 +93,7 @@ MonoBehaviour:
   Path: event:/Music/MUS_SiletWoods_WindOfChange
   guid: b72f4f71fdf5e940995edcb3c31aa774
   Banks:
-  - {fileID: 114000013617746912}
+  - {fileID: 114000011620529728}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -120,6 +120,21 @@ MonoBehaviour:
   - Name: Mobile
     Value: 12546144
   Exists: 0
+--- !u!114 &114000010585065850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: PauseMenu
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114000010639956280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,7 +149,7 @@ MonoBehaviour:
   Path: event:/SoundFX/SFX_KillAllEnemiesFirst
   guid: 045d77cb0e101e43ba9fe769f8560fc9
   Banks:
-  - {fileID: 114000013617746912}
+  - {fileID: 114000011620529728}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -190,7 +205,7 @@ MonoBehaviour:
   Path: event:/SoundFX/UI/SFX_UI_MouseOver
   guid: 6f1f9bb10fd1944abf7e4935bc33b35f
   Banks:
-  - {fileID: 114000013617746912}
+  - {fileID: 114000011620529728}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -226,7 +241,7 @@ MonoBehaviour:
   Path: event:/SoundFX/SFX_PickUp
   guid: 4be75584b443cd4692ff6d10e8f37713
   Banks:
-  - {fileID: 114000013617746912}
+  - {fileID: 114000011620529728}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -397,7 +412,7 @@ MonoBehaviour:
   Path: event:/Ambience/AMB_Water
   guid: 4d6a26eeb70dfa4e857458346c00acf3
   Banks:
-  - {fileID: 114000013617746912}
+  - {fileID: 114000011620529728}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -433,7 +448,7 @@ MonoBehaviour:
   Path: event:/SoundFX/Enemies/StompStomp/SFX_StompShake
   guid: 05c1eab09b9bd34aabce280dba076912
   Banks:
-  - {fileID: 114000013617746912}
+  - {fileID: 114000011620529728}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -454,7 +469,7 @@ MonoBehaviour:
   Path: snapshot:/Temple
   guid: 6a4579c244bbff47b68353a3530ad7d3
   Banks:
-  - {fileID: 114000013617746912}
+  - {fileID: 114000011620529728}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -475,13 +490,13 @@ MonoBehaviour:
   Path: event:/Music/MUS_Gameplay
   guid: ac496e15862a8e46ac69ea40c58deb5e
   Banks:
-  - {fileID: 114000013617746912}
+  - {fileID: 114000011620529728}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
   Parameters:
-  - {fileID: 114000012092894158}
-  - {fileID: 114000010199037546}
+  - {fileID: 114000012211943544}
+  - {fileID: 114000010585065850}
   MinDistance: 0
   MaxDistance: 0
 --- !u!114 &114000011486704450
@@ -498,7 +513,7 @@ MonoBehaviour:
   Path: event:/Music/MUS_Credits_HeartOfCombat
   guid: 2adf6ed4e9f02b40a345ff991697f422
   Banks:
-  - {fileID: 114000013617746912}
+  - {fileID: 114000011620529728}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -519,7 +534,7 @@ MonoBehaviour:
   Path: event:/SoundFX/Player/SFX_PLayerHurt
   guid: 15f0de3f373fcb428e0bb457255cb4f4
   Banks:
-  - {fileID: 114000013617746912}
+  - {fileID: 114000011620529728}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -555,7 +570,7 @@ MonoBehaviour:
   Path: event:/SoundFX/Player/SFX_PLayerAttack
   guid: b3556cc3617d2a42ac3e35ca6dc9e032
   Banks:
-  - {fileID: 114000013617746912}
+  - {fileID: 114000011620529728}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -581,6 +596,26 @@ MonoBehaviour:
     Value: 6920512
   - Name: Mobile
     Value: 11464992
+  Exists: 1
+--- !u!114 &114000011620529728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: E:\microgue\microgue\Microgue\FMOD\Desktop\Master Bank.bank
+  lastModified: 636195645208902743
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 19231552
+  - Name: Mobile
+    Value: 33044000
   Exists: 1
 --- !u!114 &114000011650710208
 MonoBehaviour:
@@ -639,7 +674,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: FMOD\Desktop\Master Bank.strings.bank
-  lastModified: 636195118507086448
+  lastModified: 636195099212729097
   LoadResult: 0
   FileSizes:
   - Name: Desktop
@@ -661,7 +696,7 @@ MonoBehaviour:
   Path: event:/Music/MUS_FireDamned_Imprinting
   guid: d9a663a9ed0c6643a1bf1d105551c67b
   Banks:
-  - {fileID: 114000013617746912}
+  - {fileID: 114000011620529728}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -682,7 +717,7 @@ MonoBehaviour:
   Path: event:/SoundFX/UI/SFX_UI_PauseGame
   guid: 9c4d184ea9ce454d94f97897cb88d070
   Banks:
-  - {fileID: 114000013617746912}
+  - {fileID: 114000011620529728}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -723,7 +758,7 @@ MonoBehaviour:
   Path: event:/Music/MUS_HolyWater_DarkSnow
   guid: dad4a3210957f3458b810046faf41804
   Banks:
-  - {fileID: 114000013617746912}
+  - {fileID: 114000011620529728}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -744,7 +779,7 @@ MonoBehaviour:
   Path: event:/Music/MUS_PrototypeMusic
   guid: cdcddafa7b08de458133636b6a3a434d
   Banks:
-  - {fileID: 114000013617746912}
+  - {fileID: 114000011620529728}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -782,6 +817,21 @@ MonoBehaviour:
   Max: 1
   Default: 0
 --- !u!114 &114000012191977540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Boss
+  Min: 0
+  Max: 1
+  Default: 0
+--- !u!114 &114000012211943544
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -870,7 +920,7 @@ MonoBehaviour:
   Path: event:/SoundFX/Enemies/StompStomp/SFX_StompBigShake
   guid: d40fc8ee1259f94ebdcc50429ecc7ee2
   Banks:
-  - {fileID: 114000013617746912}
+  - {fileID: 114000011620529728}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1031,7 +1081,7 @@ MonoBehaviour:
   Path: event:/Ambience/AMB_Temple
   guid: ba5bc55928c0ee4cbc2403a929f3611b
   Banks:
-  - {fileID: 114000013617746912}
+  - {fileID: 114000011620529728}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -1052,7 +1102,7 @@ MonoBehaviour:
   Path: snapshot:/Water
   guid: 2f5523e2a2402d47ac6dc07689a8aec9
   Banks:
-  - {fileID: 114000013617746912}
+  - {fileID: 114000011620529728}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -1088,7 +1138,7 @@ MonoBehaviour:
   Path: event:/SoundFX/SFX_ViewportChange
   guid: 8a39f11fb2b9914f908bb04b0c45fe11
   Banks:
-  - {fileID: 114000013617746912}
+  - {fileID: 114000011620529728}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1139,7 +1189,7 @@ MonoBehaviour:
   Path: event:/Music/MUS_TheLastChapter_HopeAndFuture
   guid: 8ff434fc3c57ea4fbf0851f4d85498f1
   Banks:
-  - {fileID: 114000013617746912}
+  - {fileID: 114000011620529728}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -1190,7 +1240,7 @@ MonoBehaviour:
   Path: event:/SoundFX/Player/SFX_PLayerBlindingLight
   guid: 837d9495702b8840b914665ebffa3c50
   Banks:
-  - {fileID: 114000013617746912}
+  - {fileID: 114000011620529728}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1231,7 +1281,7 @@ MonoBehaviour:
   Path: event:/Ambience/AMB_Forest
   guid: c112fa9bce8b9642a5b95f5d76383614
   Banks:
-  - {fileID: 114000013617746912}
+  - {fileID: 114000011620529728}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -1397,7 +1447,7 @@ MonoBehaviour:
   Path: event:/SoundFX/UI/SFX_UI_Confirmed
   guid: 367e9876b3756743b8d4ff2f730cf4f1
   Banks:
-  - {fileID: 114000013617746912}
+  - {fileID: 114000011620529728}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
