@@ -10,6 +10,7 @@ public class GameOverManager : MonoBehaviour {
 
     public GameObject gameOverCanvas;
     public GameObject UICanvas;
+    private bool mGameOver = false;
 
     void OnEnable()
     {
@@ -30,12 +31,13 @@ public class GameOverManager : MonoBehaviour {
     }
 
     void Update() {
-        if (Input.GetButtonDown("Escape"))
+        if (mGameOver && Input.GetButtonDown("Escape"))
             ReloadMenu();
     }
 	
     private void GameOver(Bundle args)
     {
+        mGameOver = true;
         GameObject.Find("GameplayManager").GetComponent<GameplayManager>().StopGame();
         mPlayer.SetActive(false);
         mAimCursor.SetActive(false);
