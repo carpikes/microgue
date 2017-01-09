@@ -51,10 +51,11 @@ public class Medusa : MonoBehaviour
         mTimeout = Time.time + mInitialWaitingTime;
         mState = 0;
         mPlayer = GameObject.Find("MainCharacter");
-        mAnimator = mPlayer.GetComponent<Animator>();
+        mAnimator = GetComponent<Animator>();
         mRB = GetComponent<Rigidbody2D>();
         mSpellAnim = transform.GetChild(0).gameObject;
-        // MICHELE: qua anim di idle
+
+        mAnimator.SetTrigger("idle");
 	}
 	
 	// Update is called once per frame
@@ -78,7 +79,8 @@ public class Medusa : MonoBehaviour
                     {
                         mTimeout = Time.time + Random.Range(mWaitingTimeMin, mWaitingTimeMax);
                         mSpellAnim.SetActive(true); // questo coso andra` cambiato con il gameobject di un'onda o simili
-                        // MICHELE: qua anim di "casto la spell che freeza"
+
+                        mAnimator.SetTrigger("idle"); // TODO cambiare con freezing animation
                     }
                 }
                 break;
@@ -95,7 +97,8 @@ public class Medusa : MonoBehaviour
                     mState = 0;
                     mRB.velocity = Vector2.zero;
                     mTimeout = Time.time + Random.Range(mChosingTimeMin, mChosingTimeMax);
-                    // MICHELE: qua anim di idle
+
+                    mAnimator.SetTrigger("idle");
                     break; 
                 }
                 break;
@@ -114,6 +117,8 @@ public class Medusa : MonoBehaviour
             mRunTo = GetRunTo();
             // MICHELE: anim di dash qua #MIRROR se non usi #NOMIRROR, qua controlla che mRunTo.x > mRB.position.x
             // per mettere l'anim di dash flippata giusta
+            mAnimator.SetTrigger(mRunTo.x > mRB.position.x ? "dash_right" : "dash_left");
+
             mLastDist = (new Vector2(mRB.position.x, mRB.position.y) - mRunTo).magnitude;
             mRunInited = true;
         }
@@ -127,6 +132,7 @@ public class Medusa : MonoBehaviour
             mRunTo = GetRunTo();
             // MICHELE: anim di dash qua #MIRROR (se non usi #NOMIRROR), stesso codice di poco sopra
             // quindi magari fai una funzione
+            mAnimator.SetTrigger(mRunTo.x > mRB.position.x ? "dash_right" : "dash_left");
             delta = mRunTo - tpos;
         }
 
@@ -200,7 +206,7 @@ public class Medusa : MonoBehaviour
         {
             Vector2 delta = mPlayer.transform.position - transform.position;
 
-            Debug.Log(delta.magnitude);
+            //Debug.Log(delta.magnitude);
             if (delta.magnitude < mSpellRadius)
             {
                 mPlayer.GetComponent<InputManager>().Freeze(Time.time + mFreezeSeconds);
