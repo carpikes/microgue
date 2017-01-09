@@ -62,6 +62,7 @@ GameObject:
   - 114: {fileID: 114000013007259810}
   - 95: {fileID: 95000011866168674}
   - 114: {fileID: 114000014201683766}
+  - 114: {fileID: 114000014129152138}
   m_Layer: 0
   m_Name: LittleJimmy
   m_TagString: Enemy
@@ -248,6 +249,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mCurrentHP: 10
   mIsInvincible: 0
+--- !u!114 &114000014129152138
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011746347044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f5a980901c483f4aaf8babda1c5fd0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000014201683766
 MonoBehaviour:
   m_ObjectHideFlags: 1

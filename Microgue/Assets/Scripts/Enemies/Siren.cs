@@ -74,7 +74,7 @@ public class Siren : MonoBehaviour
     {
         if( mState == States.MOVING ) {
             noise = new Vector2(UnityEngine.Random.Range(0.1f, 0.3f), UnityEngine.Random.Range(0.1f, 0.3f));
-            mRb.MovePosition(mRb.position + (mPlayerRb.position - mRb.position) * mSpeed * Time.fixedDeltaTime);
+            mRb.velocity = (mPlayerRb.position - mRb.position) * mSpeed;
         } else if (mState == States.SCREAMING) {
             if (mScreamingCount > 0)
             {

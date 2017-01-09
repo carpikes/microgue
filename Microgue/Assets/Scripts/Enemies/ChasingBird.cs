@@ -40,9 +40,9 @@ public class ChasingBird : MonoBehaviour {
             if (delta.magnitude > 0.6f)
                 mVelocity.x *= 0.99f;
             mVelocity.y *= 0.95f;
-        } 
+        }
 
-        mRb.position += mVelocity * Time.fixedDeltaTime;
+        mRb.velocity = mVelocity;
         mEnemyPosition.SetWorldPosition(mRb.position);
     }
 

@@ -14,6 +14,7 @@ public class LittleJimmy : MonoBehaviour
     private AIMap mAIMap;
     private byte[] mAwayMap = null;
     private byte[] mObstacleMap = null;
+    private DontEscape mEscapeCheck;
 
     private EnemyPosition mEnemyPosition;
 
@@ -26,6 +27,7 @@ public class LittleJimmy : MonoBehaviour
         mTarget = GameObject.Find("MainCharacter");
         mPlayerRb = mTarget.GetComponent<Rigidbody2D>();
         mAIMap = GameObject.Find("GameplayManager").GetComponent<AIMap>();
+        mEscapeCheck = GetComponent<DontEscape>();
         dist = Random.Range(1.5f, 2.0f);
 
         mEnemyPosition = GetComponent<EnemyPosition>();
@@ -49,7 +51,6 @@ public class LittleJimmy : MonoBehaviour
     float dist, newdist;
     float tget;
     float newtget;
-    Vector2 mSpeed = Vector2.zero;
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -67,8 +68,14 @@ public class LittleJimmy : MonoBehaviour
         if (Time.time > timeout)
         {
             timeout = Time.time + Random.Range(2, 3);
-            newtget = Random.Range(0, 2.0f * Mathf.PI);
-            newdist = Random.Range(2.0f, 3.0f);
+            for (int i = 0; i < 10; i++)
+            {
+                newtget = Random.Range(0, 2.0f * Mathf.PI);
+                newdist = Random.Range(2.0f, 3.0f);
+                Vector2 tgetpos = mPlayerRb.position + newdist * new Vector2(Mathf.Cos(newtget), Mathf.Sin(newtget));
+                if (!mEscapeCheck.IsOutOfBound(tgetpos))
+                    break;
+            }
         }
 
         if (newtget != tget)
@@ -82,14 +89,11 @@ public class LittleJimmy : MonoBehaviour
         float dl = delta.magnitude;
         delta.Normalize();
 
-        mSpeed += delta * dl * Kconst * Time.fixedDeltaTime;
-        mSpeed *= (1.0f - Friction);
+        Vector2 vel = mRb.velocity;
+        vel += delta * dl * Kconst * Time.fixedDeltaTime;
+        vel *= (1.0f - Friction);
 
-        Vector2 t = transform.position;
-        t += mSpeed * Time.fixedDeltaTime;
-        transform.position = t;
-
-        transform.localScale = new Vector3(mRb.position.x >= mPlayerRb.position.x ? scale : -scale, scale, scale);
+        mRb.velocity = vel;
     }
 
     /*

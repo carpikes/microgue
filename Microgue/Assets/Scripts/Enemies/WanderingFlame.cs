@@ -8,9 +8,8 @@ public class WanderingFlame : MonoBehaviour {
 
     private Animator mAnimator;
 
-    private Vector2 mVelocity = Vector2.zero;
     private float mRemainingTime = 0.0f;
-    public float mSpeed = 1f;
+    public float mSpeed = 1.0f;
     private Vector2 mTargetPoint;
 
     private EnemyPosition mEnemyPosition;
@@ -32,22 +31,17 @@ public class WanderingFlame : MonoBehaviour {
     void FixedUpdate()
     {
         mRemainingTime -= Time.fixedDeltaTime;
-        if (mRemainingTime < 0 || (mTargetPoint - mRb.position).sqrMagnitude <= .01f )
+        if (mRemainingTime < 0 || (mTargetPoint - mRb.position).sqrMagnitude <= 1f )
             ChooseNewPoint();
 
-        mRb.position += mVelocity * Time.fixedDeltaTime;
         mEnemyPosition.SetWorldPosition(mRb.position);
     }
 
     void ChooseNewPoint()
     {
-        float w = AIMap.GetWidth();
-        float h = AIMap.GetHeight();
+        mTargetPoint = mPlayerRb.position + Random.insideUnitCircle * 5.0f;
 
-        mTargetPoint = new Vector2(Random.Range(0, w), -Random.Range(0, h));
-        mVelocity = (mTargetPoint - mRb.position).normalized * mSpeed * Time.deltaTime;
-
-        //Debug.Log(mTargetPoint);
+        mRb.velocity = (mTargetPoint - mRb.position).normalized * mSpeed;
 
         mRemainingTime = 3f;
     }

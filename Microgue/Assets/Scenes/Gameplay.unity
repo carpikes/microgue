@@ -529,7 +529,7 @@ Transform:
   m_Children:
   - {fileID: 393340095}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!1 &598429165
 GameObject:
   m_ObjectHideFlags: 0
@@ -669,7 +669,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000011242583054, guid: f9cdb9929af97cb4fab874f6984a6221, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114000013228287918, guid: f9cdb9929af97cb4fab874f6984a6221,
         type: 2}
@@ -1889,6 +1889,11 @@ Prefab:
     - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
       propertyPath: startFromWorld
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
+        type: 2}
+      propertyPath: debugArena
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

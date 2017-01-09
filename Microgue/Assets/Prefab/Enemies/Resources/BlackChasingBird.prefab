@@ -62,6 +62,7 @@ GameObject:
   - 114: {fileID: 114000014221629720}
   - 95: {fileID: 95000013383583854}
   - 114: {fileID: 114000012260266226}
+  - 114: {fileID: 114000011536489660}
   m_Layer: 0
   m_Name: BlackChasingBird
   m_TagString: Enemy
@@ -216,6 +217,18 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114000011536489660
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011746347044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f55ec24f1b2cd794b89d9d6f608fb5d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mMirror: 1
 --- !u!114 &114000012260266226
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -6,7 +6,7 @@ public class BigLittleJimmy : MonoBehaviour {
     int mState;
     float mTime;
     private List<GameObject> mEnemies;
-    private Vector2 mVelocity;
+    private Rigidbody2D mRB;
     private GameObject mPlayer;
     int mGoNearOrFar = 0;
     private Vector2 mTarget = Vector2.zero;
@@ -24,15 +24,17 @@ public class BigLittleJimmy : MonoBehaviour {
         mState = 0;
         mEnemies = new List<GameObject>();
         mPlayer = GameObject.Find("MainCharacter");
+        mRB = GetComponent<Rigidbody2D>();
 	}
 
     void FixedUpdate() {
         Vector2 ppos = mPlayer.transform.position;
+        Vector2 vel = mRB.velocity;
         if (mGoNearOrFar == 0)
         {
             ppos = mPlayer.transform.position - transform.position;
             if (ppos.magnitude > 3.0f)
-                mVelocity += ppos.normalized * 2.0f * Time.deltaTime;
+                vel += ppos.normalized * 2.0f * Time.deltaTime;
         }
         else
         {
@@ -43,14 +45,11 @@ public class BigLittleJimmy : MonoBehaviour {
             if (ppos.magnitude < 1.0f)
                 mTarget = Vector2.zero;
             else
-                mVelocity += ppos.normalized * 5.0f * Time.deltaTime;
+                vel += ppos.normalized * 5.0f * Time.deltaTime;
         } 
 
-        mVelocity *= 0.98f;
-
-        Vector2 np = transform.position;
-        np += mVelocity * Time.fixedDeltaTime;
-        transform.position = np;
+        vel *= 0.99f;
+        mRB.velocity = vel;
     }
 	
 	// Update is called once per frame
