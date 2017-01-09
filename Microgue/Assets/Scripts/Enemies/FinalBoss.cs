@@ -3,9 +3,15 @@ using System.Collections;
 
 public class FinalBoss : MonoBehaviour {
     private int mState = 0;
-    private float mTimeout;
+    private float mTimeout, mAttackDelay;
     private Rigidbody2D mRB;
-    private GameObject mPlayer;
+    public GameObject mPlayer;
+    public GameObject mWorldContainer;
+
+    // fra quanto iniziare lo spostamento. se messo a 0.0f == "non muoverti"
+    private float mStartTimeout = 0.0f;
+    private float mSpeed = 0.0f;
+    private Vector2 mTarget, mLastTargetDelta;
 
     private enum Animation {
         SLICE_LEFT,
@@ -25,7 +31,6 @@ public class FinalBoss : MonoBehaviour {
 	void Start () {
         mTimeout = Time.time + 3;
         mRB = GetComponent<Rigidbody2D>();
-        mPlayer = GameObject.Find("MainCharacter");
 	}
 	
 	// Update is called once per frame
@@ -34,7 +39,7 @@ public class FinalBoss : MonoBehaviour {
         {
             case 0: // idle
                 if (Time.time > mTimeout)
-                    mState = Random.Range(1, 4);
+                    mState = Random.Range(1, 6);
                 break;
             case 1: // run sx/dx
                 {
@@ -73,18 +78,27 @@ public class FinalBoss : MonoBehaviour {
                     mTimeout = Time.time + 3.0f;
                 }
                 break;
-            case 5: // spara con una mano
-                DoSomething();
-                mState = 0;
-                mTimeout = Time.time + 2.0f;
+            case 5: // entry point per l'attacco
+                DoSomething(); // il nuovo stato (6 o 7) viene settato qua
+                break;
+            case 6: // attacchi
+            case 7:
+            case 8:
+                if (Time.time > mTimeout)
+                {
+                    // MICHELE codice animazione idle
+                    mState = 0;
+                    mTimeout = Time.time + 2.0f;
+                }
+                if (mAttackDelay != 0.0f && Time.time >= mAttackDelay)
+                {
+                    if(mState == 6) OneHandAttack();
+                    else if(mState == 7) TwoHandAttack();
+                    else if(mState == 8) PowaAttack();
+                }
                 break;
         }	
 	}
-
-    // fra quanto iniziare lo spostamento. se messo a 0.0f == "non muoverti"
-    private float mStartTimeout = 0.0f;
-    private float mSpeed = 0.0f;
-    private Vector2 mTarget, mLastTargetDelta;
 
     void FixedUpdate() {
         if (mStartTimeout < Time.time && mStartTimeout != 0.0f)
@@ -93,7 +107,7 @@ public class FinalBoss : MonoBehaviour {
             Vector2 newPos = mRB.position + velocity * Time.fixedDeltaTime;
             if (Vector2.Dot((newPos - mTarget).normalized, (mRB.position - mTarget).normalized) < -0.9f)
             {
-                // target raggiunto
+                // target raggiunto (slice)
                 // MICHELE: qua va il codice di cambio animazione in idle
                 mRB.position = mTarget;
                 mSpeed = 0.0f;
@@ -115,6 +129,101 @@ public class FinalBoss : MonoBehaviour {
 
     void DoSomething()
     {
-        // TODO
+        Debug.Log("DoSomething()");
+        EnemyLife life = GetComponent<EnemyLife>();
+        float lifePerc = life.mCurrentHP / life.GetTotalHP();
+
+        float animDelay = 0.5f; // MICHELE: qua il delay fra l'inizio dell'animazione e l'attacco vero
+        mAttackDelay = Time.time + animDelay;
+        mTimeout = mAttackDelay + Random.Range(1.5f, 2.0f);
+
+        if (lifePerc < 0.3f)
+        {
+            // MICHELE: qua animazione attacco powa
+            mState = 8;
+        }
+        else if (lifePerc < 0.6f)
+        {
+            // MICHELE: qua animazione attacco a due mani
+            mState = 7;
+        }
+        else
+        {
+            // MICHELE: qua animazione attacco a una mano
+            mState = 6;
+        }
+    }
+
+    // Le tre funzioni *Attack() sono chiamate in ad ogni
+    // update mentre devono essere eseguite.
+    // I child di finalboss devono essere: HealthBar, SingleHand, OtherHand, LeftHandPowa, RightHandPowa
+
+    private float mAttackTimeout = 0.0f; // usato come delay fra le varie instantiate
+    public GameObject mDarkBall = null;
+
+    [Header("Quella che esplode forte")]
+    public GameObject mFinalBall = null;
+
+    void OneHandAttack()
+    {
+        if (mAttackTimeout != 0.0f && Time.time < mAttackTimeout)
+            return;
+
+        Transform spawnPoint = transform.GetChild(1);
+        Debug.Assert(spawnPoint.name.Equals("SingleHand"), "Ordine dei child errato!");
+
+        int n = Random.Range(5, 8);
+        Shot(spawnPoint, mDarkBall, n, false);
+
+        mAttackTimeout = Time.time + 0.3f;
+    }
+
+    void TwoHandAttack()
+    {
+        if (mAttackTimeout != 0.0f && Time.time < mAttackTimeout)
+            return;
+
+        Transform spawnPoint = transform.GetChild(1);
+        Transform spawnPoint2 = transform.GetChild(2);
+        Debug.Assert(spawnPoint.name.Equals("SingleHand"), "Ordine dei child errato!");
+        Debug.Assert(spawnPoint2.name.Equals("OtherHand"), "Ordine dei child errato!");
+
+        int n = Random.Range(5, 8);
+        Shot(spawnPoint, mDarkBall, n, false);
+        Shot(spawnPoint2, mDarkBall, n, false);
+
+        mAttackTimeout = Time.time + 0.3f;
+    }
+
+    void PowaAttack()
+    {
+        if (mAttackTimeout != 0.0f && Time.time < mAttackTimeout)
+            return;
+
+        Transform spawnPoint = transform.GetChild(3);
+        Transform spawnPoint2 = transform.GetChild(4);
+        Debug.Assert(spawnPoint.name.Equals("LeftHandPowa"), "Ordine dei child errato!");
+        Debug.Assert(spawnPoint2.name.Equals("RightHandPowa"), "Ordine dei child errato!");
+
+        int n = Random.Range(5, 8);
+        Shot(spawnPoint, mFinalBall, n, false);
+        Shot(spawnPoint2, mFinalBall, n, false);
+
+        mAttackTimeout = Time.time + 0.3f;
+    }
+
+    void Shot(Transform startPoint, GameObject ball, int n, bool toPlayer)
+    {
+        float phase = Random.Range(0, Mathf.PI);
+        for (int i = 0; i < n; i++)
+        {
+            float a = 2.0f * Mathf.PI / n * i + phase;
+            GameObject lb = Instantiate(ball, mWorldContainer.transform) as GameObject;
+            lb.transform.position = startPoint.position;
+
+            Vector2 direction = new Vector2(Mathf.Cos(a), Mathf.Sin(a));
+            lb.GetComponent<Rigidbody2D>().velocity = direction * 2.0f;
+            lb.GetComponent<ShotProperties>().SetDuration(UnityEngine.Random.Range(2.0f, 3.0f));
+        }
     }
 }
