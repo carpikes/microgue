@@ -95,6 +95,7 @@ public class Siren : MonoBehaviour
     {
         ++mScreamingCount;
 
+        mAnimator.SetTrigger("attack");
         mState = States.SCREAMING;
     }
 
@@ -103,6 +104,7 @@ public class Siren : MonoBehaviour
         mScreamingCount--;
 
         if (mScreamingCount == 0) {
+            mAnimator.SetTrigger("idle");
             mState = States.MOVING;
         }
     }

@@ -4,6 +4,7 @@ using System.Timers;
 using System;
 
 using Bundle = System.Collections.Generic.Dictionary<string, string>;
+using System.Collections.Generic;
 
 public class TimerManager : MonoBehaviour {
 
@@ -28,20 +29,32 @@ public class TimerManager : MonoBehaviour {
         mScaleTimer = 1.0f;
     }
 
+    void OnEnable()
+    {
+        EventManager.StartListening(Events.INCREMENT_TIME, IncrementTicks);
+    }
+
+    void OnDisable()
+    {
+        EventManager.StopListening(Events.INCREMENT_TIME, IncrementTicks);
+    }
+
     public void Update()
     {
+        //Debug.Log(mTicksLeft);
+
         if( mIsTimerOn )
         {
             mTicksLeft -= Time.deltaTime / mScaleTimer;
 
             if ((int)mTicksLeft < mLastSecond)
             {
-                DecreaseCountdown();
+                UpdateCountdown();
             }
         }
     }
 
-    private void DecreaseCountdown()
+    private void UpdateCountdown()
     {
         Bundle tickBundle = new Bundle();
         tickBundle.Add(TICKS_LEFT_TAG, Mathf.RoundToInt(mTicksLeft).ToString());
@@ -58,10 +71,16 @@ public class TimerManager : MonoBehaviour {
         }
     }
 
-    public void setInterval(int s)
+    /*public void setInterval(int s)
     {
         // linear interpolation between 1 second interval (s=1) and 2 second interval (s=10)
         mScaleTimer = (s - 1) / 9.0f + 1;
+    }*/
+
+    private void IncrementTicks(Bundle args)
+    {
+        mTicksLeft += 30.0f;
+        UpdateCountdown();
     }
 
 }

@@ -118,7 +118,7 @@ public class GameplayManager : MonoBehaviour
         mCurWorld++;
         if (mCurWorld >= mWorlds.Length)
         {
-            // TODO: win screen
+            WinScreen();
             return;
         }
         Bundle b = new Bundle();
@@ -142,6 +142,11 @@ public class GameplayManager : MonoBehaviour
         GetComponent<TimerManager>().Start();
         PauseGame();
         EventManager.TriggerEvent(Events.ON_LEVEL_AFTER_LOADING, null);
+    }
+
+    private void WinScreen()
+    {
+        Debug.LogError("WIN SCREEN MISSING!");
     }
 
     private void AudioTransition()
