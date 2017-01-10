@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="32" tileheight="32" nextobjectid="19">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="32" tileheight="32" nextobjectid="21">
  <properties>
   <property name="unity:resource" value="True"/>
  </properties>
@@ -424,7 +424,7 @@
   </properties>
   <object id="1" x="248.333" y="324.333" width="50" height="50">
    <properties>
-    <property name="SpawnName" value="DifficultEnemy"/>
+    <property name="SpawnName" value="Fire"/>
     <property name="SpawnNumber" value="1"/>
    </properties>
    <ellipse/>
@@ -438,7 +438,14 @@
   </object>
   <object id="14" x="316.107" y="417.652" width="75" height="75">
    <properties>
-    <property name="SpawnName" value="EasyEnemy"/>
+    <property name="SpawnName" value="Fire"/>
+    <property name="SpawnNumber" value="1"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="20" x="633.167" y="431.833" width="75" height="75">
+   <properties>
+    <property name="SpawnName" value="Basic"/>
     <property name="SpawnNumber" value="1"/>
    </properties>
    <ellipse/>

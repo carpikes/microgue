@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--Tiled2Unity generated xml data-->
 <!--Do not modify by hand-->
-<!--Last exported: 2017-01-09 21:19:26-->
+<!--Last exported: 2017-01-10 04:54:11-->
 <Tiled2Unity version="1.0.9.3">
   <AssignMaterial mesh="mesh_0001" material="waters" />
   <AssignMaterial mesh="mesh_0002" material="w_terrain" />
@@ -121,13 +121,18 @@
       </GameObject>
     </GameObject>
     <GameObject name="Spawns" x="0" y="0" z="0" tag="SpawnLayer">
-      <GameObject name="CircleObject" x="6.57666969" y="-2.47" rotation="0" layer="">
-        <Property name="SpawnName" value="DifficultEnemy" />
+      <GameObject name="CircleObject" x="6.49166965" y="-2.11832976" rotation="0" layer="">
+        <Property name="SpawnName" value="Basic" />
+        <Property name="SpawnNumber" value="1" />
+        <CircleCollider2D radius="0.375" />
+      </GameObject>
+      <GameObject name="CircleObject" x="4.79" y="-2.35" rotation="0" layer="">
+        <Property name="SpawnName" value="Water" />
         <Property name="SpawnNumber" value="1" />
         <CircleCollider2D radius="0.25" />
       </GameObject>
-      <GameObject name="CircleObject" x="6.04107" y="-3.50984979" rotation="0" layer="">
-        <Property name="SpawnName" value="EasyEnemy" />
+      <GameObject name="CircleObject" x="5.60107" y="-3.41652" rotation="0" layer="">
+        <Property name="SpawnName" value="Basic" />
         <Property name="SpawnNumber" value="1" />
         <CircleCollider2D radius="0.375" />
       </GameObject>

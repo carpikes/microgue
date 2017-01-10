@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--Tiled2Unity generated xml data-->
 <!--Do not modify by hand-->
-<!--Last exported: 2017-01-09 22:51:03-->
+<!--Last exported: 2017-01-10 05:06:35-->
 <Tiled2Unity version="1.0.9.3">
   <AssignMaterial mesh="mesh_0001" material="f_fire" />
   <AssignMaterial mesh="mesh_0002" material="f_terrain" />
@@ -122,17 +122,17 @@
     </GameObject>
     <GameObject name="Spawns" x="0" y="0" z="0" tag="SpawnLayer">
       <GameObject name="CircleObject" x="2.49667" y="-2.71665978" rotation="0" layer="">
-        <Property name="SpawnName" value="DifficultEnemy" />
+        <Property name="SpawnName" value="Flame" />
         <Property name="SpawnNumber" value="1" />
         <CircleCollider2D radius="0.25" />
       </GameObject>
       <GameObject name="CircleObject" x="4.11" y="-3.73665977" rotation="0" layer="">
-        <Property name="SpawnName" value="DifficultEnemy" />
+        <Property name="SpawnName" value="Fire" />
         <Property name="SpawnNumber" value="1" />
         <CircleCollider2D radius="0.25" />
       </GameObject>
-      <GameObject name="CircleObject" x="6.89439964" y="-5.38984966" rotation="0" layer="">
-        <Property name="SpawnName" value="EasyEnemy" />
+      <GameObject name="CircleObject" x="7.10773" y="-4.61652" rotation="0" layer="">
+        <Property name="SpawnName" value="Basic" />
         <Property name="SpawnNumber" value="1" />
         <CircleCollider2D radius="0.375" />
       </GameObject>

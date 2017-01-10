@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="32" tileheight="32" nextobjectid="19">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="24" tilewidth="32" tileheight="32" nextobjectid="21">
  <properties>
   <property name="unity:resource" value="True"/>
  </properties>
@@ -405,9 +405,9 @@
   <properties>
    <property name="unity:tag" value="SpawnLayer"/>
   </properties>
-  <object id="1" x="415" y="499" width="50" height="50">
+  <object id="1" x="293.667" y="520.333" width="50" height="50">
    <properties>
-    <property name="SpawnName" value="DifficultEnemy"/>
+    <property name="SpawnName" value="Water"/>
     <property name="SpawnNumber" value="1"/>
    </properties>
    <ellipse/>
@@ -419,9 +419,23 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="14" x="558.774" y="352.319" width="75" height="75">
+  <object id="14" x="630.774" y="417.652" width="75" height="75">
    <properties>
-    <property name="SpawnName" value="EasyEnemy"/>
+    <property name="SpawnName" value="Basic"/>
+    <property name="SpawnNumber" value="1"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="19" x="431" y="528.333" width="50" height="50">
+   <properties>
+    <property name="SpawnName" value="Basic"/>
+    <property name="SpawnNumber" value="1"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="20" x="547.833" y="298.5" width="75" height="75">
+   <properties>
+    <property name="SpawnName" value="Basic"/>
     <property name="SpawnNumber" value="1"/>
    </properties>
    <ellipse/>

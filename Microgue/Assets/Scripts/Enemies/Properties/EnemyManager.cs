@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public class EnemyManager : MonoBehaviour {
 
@@ -9,7 +10,8 @@ public class EnemyManager : MonoBehaviour {
     void Start () {
         enemyDictionary.Clear();
 
-        List<string> firstRoomEnemies = new List<string> { "WaterBlob" };
+        // --- SILENT WOODS ---
+        List<string> firstRoomEnemies = new List<string> { "Desperate Soul" };
         enemyDictionary.Add("FirstRoomEnemy", firstRoomEnemies);
 
         List<string> easyEnemies = new List<string> { "AngrySoul", "BlueChasingBird", "DesperateSoul", "LittleJimmy" };
@@ -17,6 +19,20 @@ public class EnemyManager : MonoBehaviour {
 
         List<string> difficultEnemies = new List<string> { "StompStomp", "BlueChasingBird" };
         enemyDictionary.Add("DifficultEnemy", difficultEnemies);
+
+        // --- HOLY WATERS ---
+        List<string> basic = new List<string> { "AngrySoul", "BlueChasingBird", "DesperateSoul", "LittleJimmy", "StompStomp", "BlueChasingBird" };
+        enemyDictionary.Add("Basic", difficultEnemies);
+
+        List<string> water = new List<string> { "WaterBlob", "Siren" };
+        enemyDictionary.Add("Water", water);
+
+        // --- FIRE OF THE DAMNED ---
+        List<string> fire = new List<string> { "Fire Magician", "ExplodingStatue", "BlackChasingBird" };
+        enemyDictionary.Add("Fire", fire);
+
+        List<string> wanderingFlame = new List<string> { "WanderingFlame" };
+        enemyDictionary.Add("Flame", wanderingFlame);
 
         // --- BOSS ---
         // silent woods
