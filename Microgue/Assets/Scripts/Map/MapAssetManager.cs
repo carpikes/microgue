@@ -48,7 +48,7 @@ namespace RoomMapGenerator
             Debug.LogError("Cannot find start map in my array.");
         }
 
-        private int GetMapDoors(string mapname)
+        public int GetMapDoors(string mapname)
         {
             string assetPath = "TiledLevels/" + mapname;
 

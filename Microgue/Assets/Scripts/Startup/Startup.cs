@@ -34,7 +34,7 @@ public class Startup : MonoBehaviour {
             yield return new WaitForSeconds(TIME_BETWEEN_SCREENS);
         }
 
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("Video");
     }
 
     private static void ChangeTransparency(Image img, float alpha)

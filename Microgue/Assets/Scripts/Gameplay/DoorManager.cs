@@ -2,6 +2,9 @@
 using System.Collections;
 using RoomMapGenerator;
 using Bundle = System.Collections.Generic.Dictionary<string, string>;
+using System.Collections.Generic;
+using UnityEngine.Events;
+using System;
 
 public class DoorManager : MonoBehaviour
 {
@@ -11,11 +14,30 @@ public class DoorManager : MonoBehaviour
     void OnEnable()
     {
         EventManager.StartListening(Events.ON_DOOR_TOUCH, OnDoorEnter);
+        EventManager.StartListening(Events.ON_ENEMY_DEATH, TryUnlockDoors);
     }
 
     void OnDisable()
     {
         EventManager.StopListening(Events.ON_DOOR_TOUCH, OnDoorEnter);
+        EventManager.StopListening(Events.ON_ENEMY_DEATH, TryUnlockDoors);
+    }
+
+    private void TryUnlockDoors(Bundle args)
+    {
+        // DA FINIRE!
+
+        /*mWorldManager = GameObject.Find("GameplayManager").GetComponent<GameplayManager>().GetWorldManager();
+
+        // l'update viene fatto dopo, quindi al momento della morte ce n'è ancora uno vivo...
+        if (mWorldManager.CountEnemies() > 1)
+        {
+            Debug.Log("There are still enemies left...");
+            return;
+        } else
+        {
+            Debug.Log("PORTE: " + mWorldManager.GetMapDoors(mWorldManager.GetWorld().name));
+        }*/
     }
 
     IEnumerator FadeOut() {

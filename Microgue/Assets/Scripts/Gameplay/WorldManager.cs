@@ -238,4 +238,8 @@ public class WorldManager
         return mMapGenerator;
     }
 
+    public int GetMapDoors(string mapname)
+    {
+        return mMapAssetManager.GetMapDoors(mapname);
+    }
 }

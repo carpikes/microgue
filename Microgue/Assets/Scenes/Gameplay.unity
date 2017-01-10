@@ -1391,6 +1391,12 @@ Prefab:
       propertyPath: m_AnchoredPosition.x
       value: 1789.2
       objectReference: {fileID: 0}
+    - target: {fileID: 114000012361792508, guid: bddd019e128d70447bc3102b206178dc,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ba57bc2bfe2eb8b4cb3463070f8c9df9,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bddd019e128d70447bc3102b206178dc, type: 2}
   m_IsPrefabParent: 0
@@ -1801,16 +1807,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114000010820464476, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
+    - target: {fileID: 114000012952494674, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
-      propertyPath: mCanvas
+      propertyPath: mPlayer
       value: 
-      objectReference: {fileID: 318420299}
-    - target: {fileID: 114000010820464476, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
+      objectReference: {fileID: 45119986}
+    - target: {fileID: 114000012333824144, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
-      propertyPath: mText
+      propertyPath: mainChar
       value: 
-      objectReference: {fileID: 1103565770}
+      objectReference: {fileID: 45119986}
     - target: {fileID: 114000011355995584, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
       propertyPath: uiCanvas
@@ -1856,16 +1862,16 @@ Prefab:
       propertyPath: barGameObject
       value: 
       objectReference: {fileID: 777309251}
-    - target: {fileID: 114000012333824144, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
+    - target: {fileID: 114000010820464476, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
-      propertyPath: mainChar
+      propertyPath: mCanvas
       value: 
-      objectReference: {fileID: 45119986}
-    - target: {fileID: 114000012952494674, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
+      objectReference: {fileID: 318420299}
+    - target: {fileID: 114000010820464476, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
-      propertyPath: mPlayer
+      propertyPath: mText
       value: 
-      objectReference: {fileID: 45119986}
+      objectReference: {fileID: 1103565770}
     - target: {fileID: 114000011004983200, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
       propertyPath: gameOverCanvas
@@ -1888,18 +1894,8 @@ Prefab:
       objectReference: {fileID: 1093476809}
     - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
-      propertyPath: startFromWorld
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
-        type: 2}
-      propertyPath: debugArena
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
-        type: 2}
       propertyPath: pressBToGoToBoss
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6d767db5cf5bba14aa5a9b137dbd83d6, type: 2}
