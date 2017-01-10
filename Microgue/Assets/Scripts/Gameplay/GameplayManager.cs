@@ -267,6 +267,11 @@ public class GameplayManager : MonoBehaviour
     public void OnMenuPressed()
     {
         SceneManager.UnloadScene(SceneManager.GetActiveScene());
+
+        mMusicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        mAmbienceInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        mSnapshotInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+
         /*ambienceEmitter.Stop();
         snapshotEmitter.Stop();
         musicEmitter.Stop();*/
