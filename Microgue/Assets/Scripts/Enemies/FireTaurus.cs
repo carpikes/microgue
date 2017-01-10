@@ -103,7 +103,7 @@ public class FireTaurus : MonoBehaviour {
                 if (mChangeTime < Time.time && mWorldManager.CountEnemies() == 1) // time out, riappari altrove!
                 {
                     mState = 2;
-                    mChangeTime = Time.time + Random.Range(1f, 2f);  // e stai questo tempo fermo appena riapparso
+                    mChangeTime = Time.time + 2f;  // e stai questo tempo fermo appena riapparso
                     JumpAway();
                     // e riappari
                     GetComponent<SpriteRenderer>().enabled = true;

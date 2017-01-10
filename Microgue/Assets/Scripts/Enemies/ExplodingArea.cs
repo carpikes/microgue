@@ -48,9 +48,9 @@ public class ExplodingArea : MonoBehaviour {
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (!other.CompareTag("Player"))
+       /* if (!other.CompareTag("Player"))
             return;
 
-        mEnemy.mSubjectToExplosion = false;
+        mEnemy.mSubjectToExplosion = false;*/
     }
 }

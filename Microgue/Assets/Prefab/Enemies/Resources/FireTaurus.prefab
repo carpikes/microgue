@@ -119,7 +119,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011746347044}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.41, y: -0.97, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -154,9 +154,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: 0.09759712, y: -0.6332767}
+  m_Offset: {x: 0.13710976, y: -0.65303314}
   serializedVersion: 2
-  m_Size: {x: 2.1251607, y: 2.0803204}
+  m_Size: {x: 1.61149, y: 1.6851914}
 --- !u!95 &95000013383583854
 Animator:
   serializedVersion: 3
@@ -234,8 +234,8 @@ MonoBehaviour:
   mShotCooldownMax: 2
   mHiddenTimeMin: 2
   mHiddenTimeMax: 4
-  mShotTimeMin: 4
-  mShotTimeMax: 6
+  mShotTimeMin: 6
+  mShotTimeMax: 8
 --- !u!114 &114000012260266226
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -423,6 +423,6 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.6}
+  m_AnchoredPosition: {x: 0, y: 1.12}
   m_SizeDelta: {x: 1.5, y: 0.3}
   m_Pivot: {x: 0.5, y: 0.5}

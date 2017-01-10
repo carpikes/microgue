@@ -11,7 +11,7 @@ public class EnemyManager : MonoBehaviour {
         enemyDictionary.Clear();
 
         // --- SILENT WOODS ---
-        List<string> firstRoomEnemies = new List<string> { "Desperate Soul" };
+        List<string> firstRoomEnemies = new List<string> { "DesperateSoul" };
         enemyDictionary.Add("FirstRoomEnemy", firstRoomEnemies);
 
         List<string> easyEnemies = new List<string> { "AngrySoul", "BlueChasingBird", "DesperateSoul", "LittleJimmy" };
