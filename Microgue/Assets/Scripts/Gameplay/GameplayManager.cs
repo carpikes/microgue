@@ -205,6 +205,10 @@ public class GameplayManager : MonoBehaviour
 
     public void StopGame()
     {
+        mMusicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        mAmbienceInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        mSnapshotInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+
         mGameRunning = false;
         mGameOver = true;
         Cursor.visible = true;

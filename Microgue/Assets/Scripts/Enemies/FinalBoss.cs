@@ -8,6 +8,8 @@ public class FinalBoss : MonoBehaviour {
     public GameObject mPlayer;
     public GameObject mWorldContainer;
 
+    Animator mAnimator;
+
     // fra quanto iniziare lo spostamento. se messo a 0.0f == "non muoverti"
     private float mStartTimeout = 0.0f;
     private float mSpeed = 0.0f;
@@ -21,10 +23,10 @@ public class FinalBoss : MonoBehaviour {
     };
 
     private Vector2[] mArea = {
-        new Vector2(0.7f,  -2.0f), // UL
-        new Vector2(8.88f, -2.0f), // UR
-        new Vector2(8.88f, -7.1f), // DR
-        new Vector2(0.7f,  -7.1f), // DL
+        new Vector2(2.62f,  -2.2f), // UL
+        new Vector2(7.2f, -2.2f), // UR
+        new Vector2(7.2f, -5.41f), // DR
+        new Vector2(2.62f,  -5.41f), // DL
     };
 
 	// Use this for initialization
@@ -34,6 +36,8 @@ public class FinalBoss : MonoBehaviour {
 
         mPlayer = GameObject.Find("MainCharacter");
         mWorldContainer = GameObject.Find("WorldData");
+
+        mAnimator = GetComponent<Animator>();
     }
 	
 	// Update is called once per frame
@@ -52,7 +56,7 @@ public class FinalBoss : MonoBehaviour {
                     else if (mPlayer.transform.position.x - mRB.position.x > 0) x = mArea[1].x;
                     else x = mArea[0].x;
                     Vector2 newPos = new Vector2(x, mRB.position.y);
-                    GoTo(newPos, 0.8f, 10.0f, (x == mArea[0].x) ? Animation.SLICE_LEFT : Animation.SLICE_RIGHT);
+                    GoTo(newPos, 0.8f, 10.0f, (x == mArea[0].x) ? "side_slice_left" : "side_slice_right");
 
                     mState = 0; // wait mTimeout
                     mTimeout = Time.time + 3.0f;
@@ -63,7 +67,7 @@ public class FinalBoss : MonoBehaviour {
                 if (y > mArea[2].y + 0.5) // slide down (la y e` invertita!)
                 {
                     Vector2 newPos = new Vector2(mRB.position.x, mArea[2].y);
-                    GoTo(newPos, 0.8f, 10.0f, Animation.SLICE_DOWN);
+                    GoTo(newPos, 0.8f, 10.0f, "front_slice");
                     mState = 0;
                     mTimeout = Time.time + 3.0f;
                 }
@@ -76,7 +80,7 @@ public class FinalBoss : MonoBehaviour {
                 {
                     Vector2 newPos = mPlayer.transform.position;
                     newPos += Random.insideUnitCircle * 2.0f;
-                    GoTo(newPos, 0.8f, 3f, Animation.IDLE);
+                    GoTo(newPos, 0.8f, 3f, "idle");
                     mState = 0;
                     mTimeout = Time.time + 3.0f;
                 }
@@ -90,6 +94,7 @@ public class FinalBoss : MonoBehaviour {
                 if (Time.time > mTimeout)
                 {
                     // MICHELE codice animazione idle
+                    mAnimator.SetTrigger("idle");
                     mState = 0;
                     mTimeout = Time.time + 2.0f;
                 }
@@ -112,6 +117,7 @@ public class FinalBoss : MonoBehaviour {
             {
                 // target raggiunto (slice)
                 // MICHELE: qua va il codice di cambio animazione in idle
+                mAnimator.SetTrigger("idle");
                 mRB.position = mTarget;
                 mSpeed = 0.0f;
                 mStartTimeout = 0.0f;
@@ -121,10 +127,11 @@ public class FinalBoss : MonoBehaviour {
         }
     }
 
-    void GoTo(Vector2 coords, float delay, float speed, Animation animId)
+    void GoTo(Vector2 coords, float delay, float speed, string animat)
     {
         //MICHELE: switch (animId) { .... } per fare animazioni
-        Debug.Log("Goto: " + coords + ", " + delay + "," + animId.ToString());
+        Debug.Log("Goto: " + coords + ", " + delay + "," + animat);
+        mAnimator.SetTrigger(animat);
         mStartTimeout = Time.time + delay;
         mSpeed = speed;
         mTarget = coords;
@@ -143,16 +150,19 @@ public class FinalBoss : MonoBehaviour {
         if (lifePerc < 0.3f)
         {
             // MICHELE: qua animazione attacco powa
+            mAnimator.SetTrigger("explosion");
             mState = 8;
         }
         else if (lifePerc < 0.6f)
         {
             // MICHELE: qua animazione attacco a due mani
+            mAnimator.SetTrigger("2hands");
             mState = 7;
         }
         else
         {
             // MICHELE: qua animazione attacco a una mano
+            mAnimator.SetTrigger("1hand");
             mState = 6;
         }
     }
