@@ -46,6 +46,10 @@ public class EnemyManager : MonoBehaviour {
         // fire of the damned
         List<string> fireBoss = new List<string> { "FireTaurus" };
         enemyDictionary.Add("FireBoss", fireBoss);
+
+        // final boss
+        List<string> finalBoss = new List<string> { "FinalBoss" };
+        enemyDictionary.Add("FinalBoss", finalBoss);
     }
 	
 

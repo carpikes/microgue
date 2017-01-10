@@ -127,11 +127,14 @@ public class GameplayManager : MonoBehaviour
     {
         mCurWorld++;
 
+        // HACK FINAL BOSS
         if (mCurWorld >= mWorlds.Length)
         {
             WinScreen();
+
             return;
         }
+
         Bundle b = new Bundle();
         b.Add("Name", mWorlds[mCurWorld].mWorldName);
         EventManager.TriggerEvent(Events.ON_LEVEL_BEFORE_LOADING, b);

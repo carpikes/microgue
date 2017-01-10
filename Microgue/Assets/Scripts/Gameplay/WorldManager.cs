@@ -1,12 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using RoomMapGenerator;
-
-using Bundle = System.Collections.Generic.Dictionary<string, string>;
-using Random = UnityEngine.Random;
-using System.IO;
-using System;
 
 public class WorldManager
 {

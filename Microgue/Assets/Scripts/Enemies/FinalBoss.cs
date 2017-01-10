@@ -31,7 +31,10 @@ public class FinalBoss : MonoBehaviour {
 	void Start () {
         mTimeout = Time.time + 3;
         mRB = GetComponent<Rigidbody2D>();
-	}
+
+        mPlayer = GameObject.Find("MainCharacter");
+        mWorldContainer = GameObject.Find("WorldData");
+    }
 	
 	// Update is called once per frame
 	void Update () {
