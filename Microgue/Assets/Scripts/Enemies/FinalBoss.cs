@@ -13,6 +13,7 @@ public class FinalBoss : MonoBehaviour {
     // fra quanto iniziare lo spostamento. se messo a 0.0f == "non muoverti"
     private float mStartTimeout = 0.0f;
     private float mSpeed = 0.0f;
+    private int mRage = 0;
     private Vector2 mTarget, mLastTargetDelta;
 
     private enum Animation {
@@ -45,8 +46,8 @@ public class FinalBoss : MonoBehaviour {
         switch (mState)
         {
             case 0: // idle
-                if (Time.time > mTimeout)
-                    mState = Random.Range(1, 6);
+                if (Time.time >= mTimeout)
+                    ComputeNewState();
                 break;
             case 1: // run sx/dx
                 {
@@ -108,7 +109,22 @@ public class FinalBoss : MonoBehaviour {
         }	
 	}
 
-    void FixedUpdate() {
+    void ComputeNewState()
+    {
+        Vector2 ppos = mPlayer.transform.position;
+        ppos -= mRB.position;
+        if (Mathf.Abs(ppos.y) < 1.0f)
+            mState = 1;
+        else if (Mathf.Abs(ppos.x) < 1.0f && ppos.y < 0)
+            mState = 2;
+        else if (ppos.magnitude > 3.0f)
+            mState = 3;
+        else
+            mState = 5;
+    }
+
+    void FixedUpdate()
+    {
         if (mStartTimeout < Time.time && mStartTimeout != 0.0f)
         {
             Vector2 velocity = (mTarget - mRB.position).normalized * mSpeed;
@@ -147,21 +163,18 @@ public class FinalBoss : MonoBehaviour {
         mAttackDelay = Time.time + animDelay;
         mTimeout = mAttackDelay + Random.Range(1.5f, 2.0f);
 
-        if (lifePerc < 0.3f)
+        if ((lifePerc < 0.4f && mRage > 1) || mRage > 20)
         {
-            // MICHELE: qua animazione attacco powa
             mAnimator.SetTrigger("explosion");
             mState = 8;
         }
-        else if (lifePerc < 0.6f)
+        else if ((lifePerc < 0.7f && mRage > 1) || mRage > 10)
         {
-            // MICHELE: qua animazione attacco a due mani
             mAnimator.SetTrigger("2hands");
             mState = 7;
         }
         else
         {
-            // MICHELE: qua animazione attacco a una mano
             mAnimator.SetTrigger("1hand");
             mState = 6;
         }
@@ -185,7 +198,8 @@ public class FinalBoss : MonoBehaviour {
         Transform spawnPoint = transform.GetChild(1);
         Debug.Assert(spawnPoint.name.Equals("SingleHand"), "Ordine dei child errato!");
 
-        int n = Random.Range(5, 8);
+        int n = GetNumOfBalls(3, 8); // livelli di rabbia
+
         Shot(spawnPoint, mDarkBall, n, false);
 
         mAttackTimeout = Time.time + 0.3f;
@@ -201,11 +215,25 @@ public class FinalBoss : MonoBehaviour {
         Debug.Assert(spawnPoint.name.Equals("SingleHand"), "Ordine dei child errato!");
         Debug.Assert(spawnPoint2.name.Equals("OtherHand"), "Ordine dei child errato!");
 
-        int n = Random.Range(5, 8);
+        int n = GetNumOfBalls(14, 17); // livelli di rabbia
+
         Shot(spawnPoint, mDarkBall, n, false);
         Shot(spawnPoint2, mDarkBall, n, false);
 
         mAttackTimeout = Time.time + 0.3f;
+    }
+
+    int GetNumOfBalls(int r1, int r2)
+    {
+        int n;
+        if (mRage < r1)
+            n = Random.Range(5, 8);
+        else if (mRage < r2)
+            n = Random.Range(7, 9);
+        else
+            n = Random.Range(10, 12);
+
+        return n;
     }
 
     void PowaAttack()
@@ -218,7 +246,7 @@ public class FinalBoss : MonoBehaviour {
         Debug.Assert(spawnPoint.name.Equals("LeftHandPowa"), "Ordine dei child errato!");
         Debug.Assert(spawnPoint2.name.Equals("RightHandPowa"), "Ordine dei child errato!");
 
-        int n = Random.Range(5, 8);
+        int n = Random.Range(10, 15);
         Shot(spawnPoint, mFinalBall, n, false);
         Shot(spawnPoint2, mFinalBall, n, false);
 
@@ -238,5 +266,16 @@ public class FinalBoss : MonoBehaviour {
             lb.GetComponent<Rigidbody2D>().velocity = direction * 2.0f;
             lb.GetComponent<ShotProperties>().SetDuration(UnityEngine.Random.Range(2.0f, 3.0f));
         }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Shot"))
+            mRage++;
+        if (other.CompareTag("Player"))
+            mRage-=10;
+
+        mRage = Mathf.Clamp(mRage, 0, 30);
+        Debug.Log(mRage);
     }
 }
