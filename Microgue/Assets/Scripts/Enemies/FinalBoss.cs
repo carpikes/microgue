@@ -59,7 +59,7 @@ public class FinalBoss : MonoBehaviour {
                     GoTo(newPos, 0.8f, 10.0f, (x == mArea[0].x) ? "side_slice_left" : "side_slice_right");
 
                     mState = 0; // wait mTimeout
-                    mTimeout = Time.time + 3.0f;
+                    mTimeout = Time.time + 2.0f;
                 }
                 break;
             case 2: // run down
@@ -69,7 +69,7 @@ public class FinalBoss : MonoBehaviour {
                     Vector2 newPos = new Vector2(mRB.position.x, mArea[2].y);
                     GoTo(newPos, 0.8f, 10.0f, "front_slice");
                     mState = 0;
-                    mTimeout = Time.time + 3.0f;
+                    mTimeout = Time.time + 2.0f;
                 }
                 else
                     mState = 3;
@@ -79,10 +79,10 @@ public class FinalBoss : MonoBehaviour {
             case 4:
                 {
                     Vector2 newPos = mPlayer.transform.position;
-                    newPos += Random.insideUnitCircle * 2.0f;
+                    newPos += Random.insideUnitCircle * 1.0f;
                     GoTo(newPos, 0.8f, 3f, "idle");
                     mState = 0;
-                    mTimeout = Time.time + 3.0f;
+                    mTimeout = Time.time + 2.0f;
                 }
                 break;
             case 5: // entry point per l'attacco
