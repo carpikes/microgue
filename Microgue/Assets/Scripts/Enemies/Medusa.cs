@@ -14,8 +14,8 @@ public class Medusa : MonoBehaviour
 
     [Header("Waiting+Freezing Time")]
     // tempo fermo e che freeza il giocatore
-    public float mWaitingTimeMin = 2.5f;
-    public float mWaitingTimeMax = 3.0f;
+    public float mWaitingTimeMin = 1.5f;
+    public float mWaitingTimeMax = 2.0f;
 
     [Header("Running-like-hell Time")]
     // tempo in cui corre
@@ -24,20 +24,22 @@ public class Medusa : MonoBehaviour
 
     [Header("Chosing Time (wait or run?)")]
     // tempo in cui decide cosa fare
-    public float mChosingTimeMin = 0.7f;
-    public float mChosingTimeMax = 0.9f;
+    public float mChosingTimeMin = 0.3f;
+    public float mChosingTimeMax = 0.4f;
     
     [Header("Initial Waiting Time")]
     // secondi di attesa iniziale
-    public float mInitialWaitingTime = 5.0f;
+    public float mInitialWaitingTime = 2.0f;
 
     // raggio della spell che freeza
     [Header("Radius of the freeze")]
-    public float mSpellRadius = 1.5f;
+    public float mSpellRadius = 3.0f;
 
     [Header("Freeze time")]
     // secondi in cui il giocatore e` freezato
-    public float mFreezeSeconds = 3.0f;
+    public float mFreezeSeconds = 3.5f;
+
+    private bool mJustWaited = false;
 
     private float mTimeout;
     private GameObject mPlayer;
@@ -55,6 +57,7 @@ public class Medusa : MonoBehaviour
         mRB = GetComponent<Rigidbody2D>();
         mSpellAnim = transform.GetChild(0).gameObject;
 
+        mJustWaited = false;
         mAnimator.SetTrigger("idle");
 	}
 	
@@ -66,6 +69,8 @@ public class Medusa : MonoBehaviour
                 if (Time.time > mTimeout)
                 {
                     int choice = Random.Range(0, 3);
+                    if (mJustWaited)
+                        choice = 1;
                     mSubAI = (choice == 0 ? 1 : 0); // choice == 0 ? Wait : Run
                     mRunInited = false;
                     mFreezed = false;
@@ -74,6 +79,8 @@ public class Medusa : MonoBehaviour
                     {
                         // MICHELE: #NOMIRROR qua anim di dash (se non ti interessa il mirror orizzontale) altrimenti cerca #MIRROR
                         mTimeout = Time.time + Random.Range(mRunTimeMin, mRunTimeMax);
+                        Debug.Log("Dash");
+                        mJustWaited = false;
                     }
                     else
                     {
@@ -81,6 +88,8 @@ public class Medusa : MonoBehaviour
                         mSpellAnim.SetActive(true); // questo coso andra` cambiato con il gameobject di un'onda o simili
 
                         mAnimator.SetTrigger("idle"); // TODO cambiare con freezing animation
+                        Debug.Log("Wait");
+                        mJustWaited = true;
                     }
                 }
                 break;
