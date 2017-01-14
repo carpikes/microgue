@@ -37,31 +37,22 @@ public class GameplayManager : MonoBehaviour
     private RawImage mRawImage;
     private GameObject mMainChr, mShotPos, mAIMap;
 
-    /*GameObject mAmbienceManager;
-    GameObject mSnapshotManager;
-    GameObject mMusicManager;
-
-    FMODUnity.StudioEventEmitter ambienceEmitter = null;
-    FMODUnity.StudioEventEmitter snapshotEmitter = null;
-    FMODUnity.StudioEventEmitter musicEmitter = null;*/
+    public GameObject settingsMgrGo;
+    private SettingsManager settingsMgr;
 
     FMOD.Studio.EventInstance mMusicInstance = null;
     FMOD.Studio.EventInstance mAmbienceInstance = null;
     FMOD.Studio.EventInstance mSnapshotInstance = null;
 
+    public GameObject resumeButton;
+
     void Awake()
     {
-        
-        /*mAmbienceManager = GameObject.FindGameObjectWithTag("AmbienceManager");
-        mSnapshotManager = GameObject.FindGameObjectWithTag("SnapshotManager");
-        mMusicManager = GameObject.FindGameObjectWithTag("BGMusicManager");
+        settingsMgr = GameObject.FindGameObjectWithTag("SettingsManager").GetComponent<SettingsManager>();
+        pressBToGoToBoss = settingsMgr.skipToBoss;
+        isInvincible = settingsMgr.invincible;
 
-        if (mAmbienceManager != null && mSnapshotManager != null && mMusicManager != null)
-        {
-            ambienceEmitter = mAmbienceManager.GetComponent<FMODUnity.StudioEventEmitter>();
-            snapshotEmitter = mSnapshotManager.GetComponent<FMODUnity.StudioEventEmitter>();
-            musicEmitter = mMusicManager.GetComponent<FMODUnity.StudioEventEmitter>();
-        }*/
+        Debug.Log("boss: " + pressBToGoToBoss);
     }
 
     // Use this for initialization
