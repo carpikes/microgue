@@ -1524,12 +1524,6 @@ GameObject:
   m_PrefabParentObject: {fileID: 1000011719702356, guid: bddd019e128d70447bc3102b206178dc,
     type: 2}
   m_PrefabInternal: {fileID: 1280329707}
---- !u!114 &1280329710 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114000010742069566, guid: bddd019e128d70447bc3102b206178dc,
-    type: 2}
-  m_PrefabInternal: {fileID: 1280329707}
-  m_Script: {fileID: 1392445389, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!114 &1359912933 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114000010083950072, guid: bddd019e128d70447bc3102b206178dc,
@@ -2031,7 +2025,12 @@ Prefab:
         type: 2}
       propertyPath: resumeButton
       value: 
-      objectReference: {fileID: 1280329710}
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
+        type: 2}
+      propertyPath: startFromWorld
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6d767db5cf5bba14aa5a9b137dbd83d6, type: 2}
   m_IsPrefabParent: 0

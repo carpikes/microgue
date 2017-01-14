@@ -48,9 +48,15 @@ public class GameplayManager : MonoBehaviour
 
     void Awake()
     {
-        settingsMgr = GameObject.FindGameObjectWithTag("SettingsManager").GetComponent<SettingsManager>();
-        pressBToGoToBoss = settingsMgr.skipToBoss;
-        isInvincible = settingsMgr.invincible;
+        try {
+            settingsMgr = GameObject.FindGameObjectWithTag("SettingsManager").GetComponent<SettingsManager>();
+
+            pressBToGoToBoss = settingsMgr.skipToBoss;
+            isInvincible = settingsMgr.invincible;
+        } catch( Exception e )
+        {
+            Debug.Log("you must start the game from the intro!");
+        }
 
         Debug.Log("boss: " + pressBToGoToBoss);
     }

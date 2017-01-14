@@ -24,10 +24,10 @@ public class FinalBoss : MonoBehaviour {
     };
 
     private Vector2[] mArea = {
-        new Vector2(2.62f,  -2.2f), // UL
-        new Vector2(7.2f, -2.2f), // UR
-        new Vector2(7.2f, -5.41f), // DR
-        new Vector2(2.62f,  -5.41f), // DL
+        new Vector2(2.88f,  -3f), // UL
+        new Vector2(7.74f, -3f), // UR
+        new Vector2(7.74f, -6.38f), // DR
+        new Vector2(2.88f,  -6.38f), // DL
     };
 
 	// Use this for initialization
