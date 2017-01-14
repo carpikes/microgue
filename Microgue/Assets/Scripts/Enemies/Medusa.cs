@@ -58,6 +58,7 @@ public class Medusa : MonoBehaviour
         mSpellAnim = transform.GetChild(0).gameObject;
 
         mJustWaited = false;
+        mRunInited = false;
         mAnimator.SetTrigger("idle");
 	}
 	
@@ -77,6 +78,7 @@ public class Medusa : MonoBehaviour
                     mState = 1;
                     if (mSubAI == 0)
                     {
+                            //  Debug.Log("S1");
                         // MICHELE: #NOMIRROR qua anim di dash (se non ti interessa il mirror orizzontale) altrimenti cerca #MIRROR
                         mTimeout = Time.time + Random.Range(mRunTimeMin, mRunTimeMax);
                         Debug.Log("Dash");
@@ -84,6 +86,7 @@ public class Medusa : MonoBehaviour
                     }
                     else
                     {
+                        // Debug.Log("S2");
                         mTimeout = Time.time + Random.Range(mWaitingTimeMin, mWaitingTimeMax);
                         mSpellAnim.SetActive(true); // questo coso andra` cambiato con il gameobject di un'onda o simili
 
@@ -95,6 +98,8 @@ public class Medusa : MonoBehaviour
                 break;
             case 1:
                 bool b;
+                    //Debug.Log("WW" + mSubAI);
+
                 if (mSubAI == 0)
                     b = Run();
                 else
@@ -102,6 +107,7 @@ public class Medusa : MonoBehaviour
 
                 if (Time.time > mTimeout || b == false) 
                 {
+                    //Debug.Log("Timeout");
                     mSpellAnim.SetActive(false);
                     mState = 0;
                     mRB.velocity = Vector2.zero;
@@ -123,6 +129,7 @@ public class Medusa : MonoBehaviour
     {
         if (!mRunInited)
         {
+            // Debug.Log("A");
             mRunTo = GetRunTo();
             // MICHELE: anim di dash qua #MIRROR se non usi #NOMIRROR, qua controlla che mRunTo.x > mRB.position.x
             // per mettere l'anim di dash flippata giusta
@@ -152,6 +159,7 @@ public class Medusa : MonoBehaviour
 
     private Vector2 GetRunTo()
     {
+        // Debug.Log("B");
         Vector3[] boundaries = {
             new Vector3(0.75f, -2f,   1),
             new Vector3(9.21f, -2f,   1),
@@ -211,8 +219,10 @@ public class Medusa : MonoBehaviour
     // e la vita e` minore di X, allora spawna nemici
     bool Wait()
     {
+        // Debug.Log("C");
         if (!mFreezed)
         {
+            // Debug.Log("D");
             Vector2 delta = mPlayer.transform.position - transform.position;
 
             //Debug.Log(delta.magnitude);
@@ -229,6 +239,7 @@ public class Medusa : MonoBehaviour
     // codice da eseguire appena il giocatore viene freezato
     void OnFreeze()
     {
+        // Debug.Log("E");
         EnemyLife life = GetComponent<EnemyLife>();
         if (life.mCurrentHP < 0.5f * life.GetTotalHP())
             SpawnEnemies();
