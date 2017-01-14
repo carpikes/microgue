@@ -27,10 +27,10 @@ public class FinalBoss : MonoBehaviour {
     };
 
     private Vector2[] mArea = {
-        new Vector2(2.88f,  -3f), // UL
-        new Vector2(7.74f, -3f), // UR
-        new Vector2(7.74f, -6.38f), // DR
-        new Vector2(2.88f,  -6.38f), // DL
+        new Vector3(2.42f, -2.7f), // UL
+        new Vector3(8.00f, -2.7f), // UR
+        new Vector3(8.00f, -6.5f), // DR
+        new Vector3(2.42f, -6.5f), // DL
     };
 
 	// Use this for initialization
@@ -63,7 +63,7 @@ public class FinalBoss : MonoBehaviour {
                     GoTo(newPos, 0.8f, 10.0f, (x == mArea[0].x) ? "side_slice_left" : "side_slice_right");
 
                     mState = 0; // wait mTimeout
-                    mTimeout = Time.time + 2.0f;
+                    mTimeout = Time.time + 30.0f; // not used (ideally +inf)
                 }
                 break;
             case 2: // run down
@@ -71,9 +71,9 @@ public class FinalBoss : MonoBehaviour {
                 if (y > mArea[2].y + 0.5) // slide down (la y e` invertita!)
                 {
                     Vector2 newPos = new Vector2(mRB.position.x, mArea[2].y);
-                    GoTo(newPos, 0.8f, 10.0f, "front_slice");
+                    GoTo(newPos, 0.3f, 10.0f, "front_slice");
                     mState = 0;
-                    mTimeout = Time.time + 2.0f;
+                    mTimeout = Time.time + 30.0f; // not used (ideally +inf)
                 }
                 else
                     mState = 3;
@@ -84,9 +84,9 @@ public class FinalBoss : MonoBehaviour {
                 {
                     Vector2 newPos = mPlayer.transform.position;
                     newPos += Random.insideUnitCircle * 1.0f;
-                    GoTo(newPos, 0.8f, 3f, "idle");
+                    GoTo(newPos, 0.3f, 3f, "idle");
                     mState = 0;
-                    mTimeout = Time.time + 2.0f;
+                    mTimeout = Time.time + 30.0f;
                 }
                 break;
             case 5: // entry point per l'attacco
@@ -98,9 +98,10 @@ public class FinalBoss : MonoBehaviour {
                 if (Time.time > mTimeout)
                 {
                     // MICHELE codice animazione idle
+                    ResetAll();
                     mAnimator.SetTrigger("idle");
                     mState = 0;
-                    mTimeout = Time.time + 2.0f;
+                    mTimeout = Time.time + 1.0f;
                 }
                 if (mAttackDelay != 0.0f && Time.time >= mAttackDelay)
                 {
@@ -132,14 +133,17 @@ public class FinalBoss : MonoBehaviour {
         {
             Vector2 velocity = (mTarget - mRB.position).normalized * mSpeed;
             Vector2 newPos = mRB.position + velocity * Time.fixedDeltaTime;
+            Debug.Log(Vector2.Dot((newPos - mTarget).normalized, (mRB.position - mTarget).normalized));
             if (Vector2.Dot((newPos - mTarget).normalized, (mRB.position - mTarget).normalized) < -0.9f)
             {
                 // target raggiunto (slice)
                 // MICHELE: qua va il codice di cambio animazione in idle
+                ResetAll();
                 mAnimator.SetTrigger("idle");
                 mRB.position = mTarget;
                 mSpeed = 0.0f;
                 mStartTimeout = 0.0f;
+                mTimeout = Time.time + 0.8f;
             }
             else
                 mRB.position = newPos;
@@ -150,6 +154,7 @@ public class FinalBoss : MonoBehaviour {
     {
         //MICHELE: switch (animId) { .... } per fare animazioni
         Debug.Log("Goto: " + coords + ", " + delay + "," + animat);
+        mAnimator.ResetTrigger("idle");
         mAnimator.SetTrigger(animat);
         mStartTimeout = Time.time + delay;
         mSpeed = speed;
@@ -162,32 +167,28 @@ public class FinalBoss : MonoBehaviour {
         EnemyLife life = GetComponent<EnemyLife>();
         float lifePerc = life.mCurrentHP / life.GetTotalHP();
 
-        float animDelay = 0.5f; // MICHELE: qua il delay fra l'inizio dell'animazione e l'attacco vero
+        float animDelay = 0.3f; // MICHELE: qua il delay fra l'inizio dell'animazione e l'attacco vero
         mAttackDelay = Time.time + animDelay;
         mTimeout = mAttackDelay + Random.Range(1.5f, 2.0f);
 
         if ((lifePerc < 0.4f && mRage > 1) || mRage > 20)
         {
-            StartCoroutine(AnimationWithDelay("explosion", animDelay));
-            
+            mAnimator.ResetTrigger("idle");
+            mAnimator.SetTrigger("explosion");
             mState = 8;
         }
         else if ((lifePerc < 0.7f && mRage > 1) || mRage > 10)
         {
-            StartCoroutine(AnimationWithDelay("2hands", animDelay));
+            mAnimator.ResetTrigger("idle");
+            mAnimator.SetTrigger("2hands");
             mState = 7;
         }
         else
         {
-            StartCoroutine(AnimationWithDelay("1hand", animDelay));
+            mAnimator.ResetTrigger("idle");
+            mAnimator.SetTrigger("1hand");
             mState = 6;
         }
-    }
-
-    private IEnumerator AnimationWithDelay(string anim, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        mAnimator.SetTrigger(anim);
     }
 
     // Le tre funzioni *Attack() sono chiamate in ad ogni
@@ -212,7 +213,7 @@ public class FinalBoss : MonoBehaviour {
 
         Shot(spawnPoint, mDarkBall, n, false);
 
-        mAttackTimeout = Time.time + 0.3f;
+        mAttackTimeout = Time.time + 0.5f;
     }
 
     void TwoHandAttack()
@@ -230,7 +231,7 @@ public class FinalBoss : MonoBehaviour {
         Shot(spawnPoint, mDarkBall, n, false);
         Shot(spawnPoint2, mDarkBall, n, false);
 
-        mAttackTimeout = Time.time + 0.3f;
+        mAttackTimeout = Time.time + 0.4f;
     }
 
     int GetNumOfBalls(int r1, int r2)
@@ -287,5 +288,15 @@ public class FinalBoss : MonoBehaviour {
 
         mRage = Mathf.Clamp(mRage, 0, 30);
         Debug.Log(mRage);
+    }
+
+    void ResetAll()
+    {
+        mAnimator.ResetTrigger("side_slice_left");
+        mAnimator.ResetTrigger("side_slice_right");
+        mAnimator.ResetTrigger("front_slice");
+        mAnimator.ResetTrigger("1hand");
+        mAnimator.ResetTrigger("2hands");
+        mAnimator.ResetTrigger("explosion");
     }
 }
