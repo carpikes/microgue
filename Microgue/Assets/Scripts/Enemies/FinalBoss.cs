@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
+
+using Random = UnityEngine.Random;
 
 public class FinalBoss : MonoBehaviour {
     private int mState = 0;
@@ -165,19 +168,26 @@ public class FinalBoss : MonoBehaviour {
 
         if ((lifePerc < 0.4f && mRage > 1) || mRage > 20)
         {
-            mAnimator.SetTrigger("explosion");
+            StartCoroutine(AnimationWithDelay("explosion", animDelay));
+            
             mState = 8;
         }
         else if ((lifePerc < 0.7f && mRage > 1) || mRage > 10)
         {
-            mAnimator.SetTrigger("2hands");
+            StartCoroutine(AnimationWithDelay("2hands", animDelay));
             mState = 7;
         }
         else
         {
-            mAnimator.SetTrigger("1hand");
+            StartCoroutine(AnimationWithDelay("1hand", animDelay));
             mState = 6;
         }
+    }
+
+    private IEnumerator AnimationWithDelay(string anim, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        mAnimator.SetTrigger(anim);
     }
 
     // Le tre funzioni *Attack() sono chiamate in ad ogni
