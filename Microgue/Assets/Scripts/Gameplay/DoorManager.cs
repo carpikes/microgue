@@ -55,6 +55,8 @@ public class DoorManager : MonoBehaviour
             UnlockDoor(world.transform.FindChild("DBWest"));
         if (room.HasDoor(RoomMap.Door.RIGHT))
             UnlockDoor(world.transform.FindChild("DBEast"));
+
+        EventManager.TriggerEvent(Events.ON_DOOR_UNLOCK, null);
     }
 
     IEnumerator FadeOut() {
