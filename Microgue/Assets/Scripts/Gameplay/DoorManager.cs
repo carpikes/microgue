@@ -60,7 +60,7 @@ public class DoorManager : MonoBehaviour
     }
 
     IEnumerator FadeOut() {
-        GetComponents<FMODUnity.StudioEventEmitter>()[2].Play();
+//        GetComponents<FMODUnity.StudioEventEmitter>()[2].Play();
         EventManager.TriggerEvent(Events.FADE_OUT, null);
         yield return new WaitForSeconds(0.2f);
         mWorldManager.OnDoorEnter(mLastDoor, mLastOpposite);
@@ -73,7 +73,7 @@ public class DoorManager : MonoBehaviour
         // skip control if flag enabled
         if (!mWorldManager.AreAllEnemiesKilled())
         {
-            GetComponents<FMODUnity.StudioEventEmitter>()[1].Play();
+//            GetComponents<FMODUnity.StudioEventEmitter>()[1].Play();
             EventManager.TriggerEvent(Events.ON_STILL_ENEMIES_LEFT, null);
             return;
         }

@@ -11,9 +11,6 @@ public class LittleJimmy : MonoBehaviour
     private GameObject mTarget;
     private Rigidbody2D mPlayerRb;
     private Rigidbody2D mRb;
-    private AIMap mAIMap;
-    private byte[] mAwayMap = null;
-    private byte[] mObstacleMap = null;
     private DontEscape mEscapeCheck;
 
     private EnemyPosition mEnemyPosition;
@@ -26,23 +23,12 @@ public class LittleJimmy : MonoBehaviour
         mRb = GetComponent<Rigidbody2D>();
         mTarget = GameObject.Find("MainCharacter");
         mPlayerRb = mTarget.GetComponent<Rigidbody2D>();
-        mAIMap = GameObject.Find("GameplayManager").GetComponent<AIMap>();
         mEscapeCheck = GetComponent<DontEscape>();
         dist = Random.Range(1.5f, 2.0f);
 
         mEnemyPosition = GetComponent<EnemyPosition>();
         mEnemyPosition.SetEnabled(true);
     }
-
-    float wait = 0;
-
-    public byte[] GetMap()
-    {
-        return mAwayMap;
-    }
-
-    IntPoint lastTile;
-    bool ltset = false;
 
     public float Kconst = 8.0f;
     public float Friction = 0.05f;

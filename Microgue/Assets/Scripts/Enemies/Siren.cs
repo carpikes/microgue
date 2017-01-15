@@ -10,21 +10,12 @@ public class Siren : MonoBehaviour
     private float mSpeed = 0.5f;
     private float mAttractionSpeed = 5f;
 
-    private Vector2 mInitialPosition;
-
     public States mState;
     public Animator mAnimator;
 
     InputManager mInputMgr;
 
     int mScreamingCount = 0;
-
-    private float mRemainingTime = 0.0f;
-    private float mAcceleration = 1.0f;
-
-    private Vector2 mTargetPoint;
-
-    private GameObject mCurrentTargetEnemy = null;
 
     WorldManager mWorldManager;
 
@@ -48,7 +39,6 @@ public class Siren : MonoBehaviour
     {
         noise = new Vector2(UnityEngine.Random.Range(0.1f, 0.3f), UnityEngine.Random.Range(0.1f, 0.3f));
         mRb = GetComponent<Rigidbody2D>();
-        mInitialPosition = transform.position;
         mPlayer = GameObject.FindGameObjectWithTag("Player");
         mPlayerRb = mPlayer.GetComponent<Rigidbody2D>();
 
@@ -56,8 +46,6 @@ public class Siren : MonoBehaviour
 
         mState = States.MOVING;
         mAnimator = GetComponent<Animator>();
-
-        mTargetPoint = mRb.position;
 
         StartCoroutine(LateStart());
     }

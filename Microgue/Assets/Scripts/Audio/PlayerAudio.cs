@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class PlayerAudio : MonoBehaviour {
 
+    /*
     FMODUnity.StudioEventEmitter[] emitters;
 
     void OnEnable()
@@ -34,5 +35,5 @@ public class PlayerAudio : MonoBehaviour {
     {
         emitters[1].Play();
     }
-
+    */
 }

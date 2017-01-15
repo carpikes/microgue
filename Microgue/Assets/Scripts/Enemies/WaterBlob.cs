@@ -20,7 +20,6 @@ public class WaterBlob : MonoBehaviour
     public Color mShootingColor;
 
     private GameObject mPlayer;
-    private Rigidbody2D mPlayerRb;
     private Rigidbody2D mRb;
     private Vector2 mVelocity = Vector2.zero;
 
@@ -56,7 +55,6 @@ public class WaterBlob : MonoBehaviour
         mRb = GetComponent<Rigidbody2D>();
         mInitialPosition = transform.position;
         mPlayer = GameObject.FindGameObjectWithTag("Player");
-        mPlayerRb = mPlayer.GetComponent<Rigidbody2D>();
         mSpriteRenderer = GetComponent<SpriteRenderer>();
 
         mStateMachine = new StateMachine<WaterBlob>(this, mIdleState, mGlobalState);

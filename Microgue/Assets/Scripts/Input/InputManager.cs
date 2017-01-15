@@ -27,12 +27,8 @@ public class InputManager : MonoBehaviour {
 
     Camera mainCam;
     GameplayManager mGameManager = null;
-    PlayerItemHandler playerManager = null;
     StatManager statManager = null;
 
-    PlayerAnimationManager animManager;
-
-    float lastAimX = 0.0f;
     private float mShakeTime = 0.0f, mShakeForce = 0.0f;
 
     [Header("Aim transform")]
@@ -89,9 +85,7 @@ public class InputManager : MonoBehaviour {
 
         rb = GetComponent<Rigidbody2D>();
         
-        playerManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<PlayerItemHandler>();
         statManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<StatManager>();
-        animManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<PlayerAnimationManager>();
 
         mBallColor = Color.white;
         mainCam = Camera.main;

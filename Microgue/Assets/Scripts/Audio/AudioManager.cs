@@ -3,16 +3,18 @@ using System.Collections;
 using POLIMIGameCollective;
 
 public class AudioManager : Singleton<AudioManager> {
+    AudioSource mAudioSrc;
 
-    protected AudioManager() { }
+    public AudioClip mSoundtrack;
 
     // Use this for initialization
     void Start () {
         DontDestroyOnLoad(gameObject);
+        mAudioSrc = GetComponent<AudioSource>();
 	}
 	
-	public static void Play()
+	public void Play()
     {
-        
+        mAudioSrc.Play();
     }
 }

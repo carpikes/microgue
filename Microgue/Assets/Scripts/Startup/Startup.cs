@@ -20,6 +20,7 @@ public class Startup : MonoBehaviour {
         polimiSplash.enabled = false;
         developerSplash.enabled = false;
 
+        AudioManager.Instance.Play();
         StartCoroutine(LoadSplash());
     }
 

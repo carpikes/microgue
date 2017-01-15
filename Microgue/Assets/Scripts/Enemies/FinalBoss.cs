@@ -17,7 +17,7 @@ public class FinalBoss : MonoBehaviour {
     private float mStartTimeout = 0.0f;
     private float mSpeed = 0.0f;
     private int mRage = 0;
-    private Vector2 mTarget, mLastTargetDelta;
+    private Vector2 mTarget;
 
     private enum Animation {
         SLICE_LEFT,

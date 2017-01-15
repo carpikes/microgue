@@ -36,8 +36,6 @@ public class DontEscape : MonoBehaviour {
 
     public bool IsOutOfBound(Vector2 pos)
     {
-        if (pos == null) return true;
-        if (mBounds == null) return false;
         if (mBounds.Length != 2 || mBounds[0] == null || mBounds[1] == null) return false;
         if (pos.x < mBounds[0].x || pos.x > mBounds[1].x || pos.y < mBounds[0].y || pos.y > mBounds[1].y)
             return true;

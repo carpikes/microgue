@@ -24,7 +24,6 @@ public class DoorBehavior : MonoBehaviour {
         if (mNeedItem == "")
         {
             GameObject gm = GameObject.FindGameObjectWithTag("GameController");
-            GameplayManager ggm = gm.GetComponent<GameplayManager>();
 
             Bundle doorEventData = new Bundle();
             doorEventData.Add(DOOR_TYPE_TAG, mType);

@@ -27,7 +27,6 @@ public class StatManager : MonoBehaviour
 
     bool isInvulnerable;
     GameplayManager gameplayMgr;
-    TimerManager timerMgr;
     InputManager inputMgr;
     PlayerAnimationManager animMgr;
 
@@ -74,7 +73,6 @@ public class StatManager : MonoBehaviour
 
         stats[(int)StatStates.CURRENT_HEALTH].CurrentValue = stats[(int)StatStates.CURRENT_HEALTH].mMax;
 
-        timerMgr = GameObject.FindGameObjectWithTag("GameController").GetComponent<TimerManager>();
         inputMgr = mPlayer.GetComponent<InputManager>();
         animMgr = GameObject.FindGameObjectWithTag("GameController").GetComponent<PlayerAnimationManager>();
         gameplayMgr = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameplayManager>();

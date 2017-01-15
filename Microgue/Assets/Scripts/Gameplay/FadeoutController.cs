@@ -11,8 +11,6 @@ public class FadeoutController : MonoBehaviour {
     private GameObject mScreen;
     private RawImage mRawImage;
 
-    private float mFadeSeconds = 0.2f;
-
     // Use this for initialization
     void Start() {
         mScreen = GameObject.Find("Canvas/FadeTransitionCanvas/BlackScreen");

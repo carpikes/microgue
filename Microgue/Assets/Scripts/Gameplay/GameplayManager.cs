@@ -38,15 +38,16 @@ public class GameplayManager : MonoBehaviour
 
     private WorldManager mWorldManager = null;
 
-    private RawImage mRawImage;
-    private GameObject mMainChr, mShotPos, mAIMap;
+    private GameObject mMainChr, mShotPos;
 
     public GameObject settingsMgrGo;
     private SettingsManager settingsMgr;
 
+    /*
     FMOD.Studio.EventInstance mMusicInstance = null;
     FMOD.Studio.EventInstance mAmbienceInstance = null;
     FMOD.Studio.EventInstance mSnapshotInstance = null;
+    */
 
     public GameObject resumeButton;
 
@@ -180,7 +181,7 @@ public class GameplayManager : MonoBehaviour
             Debug.Log("Something is wrong with the emitters. Skipping audio.");
             return;
         }*/
-
+        /*
         if (mSnapshotInstance != null) mSnapshotInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         mSnapshotInstance = FMODUnity.RuntimeManager.CreateInstance(mWorlds[mCurWorld].mMusicSnapshotPath);
         mSnapshotInstance.start();
@@ -194,7 +195,7 @@ public class GameplayManager : MonoBehaviour
         mAmbienceInstance.start();
 
 
-        /*//ambienceEmitter.Stop();
+        //ambienceEmitter.Stop();
         ambienceEmitter.Event = mWorlds[mCurWorld].mAmbiencePath;
         ambienceEmitter.Play();
 
@@ -215,10 +216,11 @@ public class GameplayManager : MonoBehaviour
 
     public void StopGame()
     {
+        /*
         mMusicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         mAmbienceInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         mSnapshotInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-
+        */
         mGameRunning = false;
         mGameOver = true;
         Cursor.visible = true;
@@ -264,7 +266,7 @@ public class GameplayManager : MonoBehaviour
             GameObject obj = GameObject.Find("Canvas/UICanvas/PauseMenu");
             if (mGameRunning)
             {
-                GetComponents<FMODUnity.StudioEventEmitter>()[0].Play();
+                //GetComponents<FMODUnity.StudioEventEmitter>()[0].Play();
                 PauseGame();
                 obj.SetActive(true);
             }
@@ -285,11 +287,12 @@ public class GameplayManager : MonoBehaviour
     {
         SceneManager.UnloadScene(SceneManager.GetActiveScene());
 
+        /*
         mMusicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         mAmbienceInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         mSnapshotInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 
-        /*ambienceEmitter.Stop();
+        ambienceEmitter.Stop();
         snapshotEmitter.Stop();
         musicEmitter.Stop();*/
         SceneManager.LoadScene("Menu");

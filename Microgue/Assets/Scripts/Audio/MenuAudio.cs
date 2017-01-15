@@ -5,6 +5,7 @@ using System;
 
 public class MenuAudio : MonoBehaviour {
 
+    /*
     FMODUnity.StudioEventEmitter[] emitters;
 
     // Use this for initialization
@@ -21,4 +22,5 @@ public class MenuAudio : MonoBehaviour {
     {
         emitters[1].Play();
     }
+    */
 }
