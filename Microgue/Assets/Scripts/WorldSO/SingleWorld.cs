@@ -18,4 +18,7 @@ public class SingleWorld : ScriptableObject {
     public int mMinRooms = 3;
     public int mMaxRooms = 7;
     public int mTimeInSeconds = 60 * 5;
+
+    [Header("Is Room Map enabled")]
+    public bool mMapEnabled = true;
 }

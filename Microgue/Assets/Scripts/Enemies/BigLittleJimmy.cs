@@ -6,6 +6,7 @@ public class BigLittleJimmy : MonoBehaviour {
     int mState;
     float mTime;
     private List<GameObject> mEnemies;
+    private SpriteRenderer mSpriteRenderer;
     private Rigidbody2D mRB;
     private GameObject mPlayer;
     int mGoNearOrFar = 0;
@@ -25,6 +26,7 @@ public class BigLittleJimmy : MonoBehaviour {
         mEnemies = new List<GameObject>();
         mPlayer = GameObject.Find("MainCharacter");
         mRB = GetComponent<Rigidbody2D>();
+        mSpriteRenderer = GetComponent<SpriteRenderer>();
 	}
 
     void FixedUpdate() {
@@ -146,5 +148,6 @@ public class BigLittleJimmy : MonoBehaviour {
     void SetInvincible(bool value)
     {
         GetComponent<EnemyLife>().mIsInvincible = value;
+        mSpriteRenderer.color = new Color(1, 1, 1, value ? 0.5f : 1f);
     }
 }

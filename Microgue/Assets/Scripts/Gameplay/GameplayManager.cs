@@ -16,6 +16,10 @@ public class GameplayManager : MonoBehaviour
     public GameObject mPlayer;
     public GameObject mAimCursor;
 
+    [Header("Room map")]
+    public GameObject mRoomMap;
+    public GameObject mBlankRoomMap;
+
     [Header("Worlds")]
     public SingleWorld[] mWorlds;
     public SingleWorld mDebugWorld;
@@ -101,6 +105,7 @@ public class GameplayManager : MonoBehaviour
 
     private void LoadBossRoom(Bundle arg0)
     {
+        ToggleRoomMap();
         mWorldManager.LoadBossRoom();
     }
 
@@ -152,7 +157,15 @@ public class GameplayManager : MonoBehaviour
         GetComponent<TimerManager>().MAX_TIME = mWorlds[mCurWorld].mTimeInSeconds;
         GetComponent<TimerManager>().Start();
         PauseGame();
+
+        ToggleRoomMap();
+
         EventManager.TriggerEvent(Events.ON_LEVEL_AFTER_LOADING, null);
+    }
+
+    private void ToggleRoomMap()
+    {
+        mRoomMap.SetActive(mWorlds[mCurWorld].mMapEnabled);
     }
 
     private void WinScreen()
