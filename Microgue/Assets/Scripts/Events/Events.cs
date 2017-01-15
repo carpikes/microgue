@@ -67,4 +67,5 @@ public enum Events
 
     INCREMENT_TIME,
 
+    ON_DOOR_UNLOCK
 }

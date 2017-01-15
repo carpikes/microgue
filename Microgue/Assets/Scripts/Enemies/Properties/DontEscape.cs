@@ -29,7 +29,7 @@ public class DontEscape : MonoBehaviour {
             // compenso gli offset della telecamera
             float ratio = Camera.main.aspect * 2.0f;
             mBounds[0].x -= ratio; mBounds[0].y -= 2;
-            mBounds[1].x += ratio; mBounds[1].y += 2;
+            mBounds[1].x += ratio; mBounds[1].y += 2 - 0.2f;
             mCenter = new Vector2((mBounds[0].x + mBounds[1].x) / 2.0f, (mBounds[0].y + mBounds[1].y) / 2.0f);
         }
     }
