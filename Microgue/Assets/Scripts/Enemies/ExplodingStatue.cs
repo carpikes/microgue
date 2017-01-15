@@ -46,6 +46,8 @@ public class ExplodingStatue : MonoBehaviour {
         {
             EventManager.TriggerEvent(Events.ON_MAIN_CHAR_HIT, null);
         }
+
+        GetComponent<EnemyLife>().Die();
     }
 
 }

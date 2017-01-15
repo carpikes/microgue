@@ -83,7 +83,7 @@ public class EnemyLife : MonoBehaviour {
 
     }
 
-    private void Die()
+    public void Die()
     {
         EventManager.TriggerEvent(Events.ON_ENEMY_DEATH, null);
         Destroy(gameObject);

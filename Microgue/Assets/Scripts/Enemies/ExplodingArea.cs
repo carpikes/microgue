@@ -39,11 +39,11 @@ public class ExplodingArea : MonoBehaviour {
 
         if (mState == ExplodingStatue.States.IDLE)
         {
+            mEnemy.mSubjectToExplosion = true;
+
             mState = ExplodingStatue.States.EXPLODING;
             mAnimator.SetTrigger("enemy_death");
         }
-
-        mEnemy.mSubjectToExplosion = true;
     }
 
     void OnTriggerExit2D(Collider2D other)

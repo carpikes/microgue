@@ -55,7 +55,7 @@ public class GameplayManager : MonoBehaviour
             isInvincible = settingsMgr.invincible;
         } catch( Exception e )
         {
-            Debug.Log("you must start the game from the intro!");
+            Debug.Log("You must start the game from the intro!");
         }
 
         Debug.Log("boss: " + pressBToGoToBoss);
