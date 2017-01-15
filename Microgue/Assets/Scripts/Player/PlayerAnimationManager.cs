@@ -87,7 +87,7 @@ public class PlayerAnimationManager : MonoBehaviour {
 
     private void OnMainCharSecondAttack(Bundle args)
     {
-        //throw new NotImplementedException();
+        animator.SetTrigger("secondAttack");
     }
 
     private void OnMainCharMove(Bundle args)

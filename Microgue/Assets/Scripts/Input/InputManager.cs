@@ -375,6 +375,8 @@ public class InputManager : MonoBehaviour {
     {
         if (sndAttackEnabled && refillEnemiesToReload <= enemiesKilledCounter)
         {
+            EventManager.TriggerEvent(Events.ON_MAIN_CHAR_SECOND_ATTACK, null);
+            Debug.Log("BUM");
             sndAttackEnabled = false;
 
             StartCoroutine(InvertColors());
@@ -382,7 +384,6 @@ public class InputManager : MonoBehaviour {
             DamageAllEnemies();
 
             StartCoroutine(ResetSecondAttackStats());
-            EventManager.TriggerEvent(Events.ON_MAIN_CHAR_SECOND_ATTACK, null);
         }
     }
 
