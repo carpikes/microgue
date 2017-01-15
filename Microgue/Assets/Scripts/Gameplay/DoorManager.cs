@@ -46,14 +46,14 @@ public class DoorManager : MonoBehaviour
             return;
 
         RoomInfo room = mWorldManager.GetMapGenerator().GetRoom(mWorldManager.GetCurrentRoomId());
-
-        if (room.HasDoor(RoomMap.Door.UP))
+        bool b = room.HasEndPoint();
+        if (room.HasDoor(RoomMap.Door.UP) || (b && (room.GetStartOrEndDoor() & (int) RoomMap.Door.UP) != 0))
             UnlockDoor(world.transform.FindChild("DBNorth"));
-        if (room.HasDoor(RoomMap.Door.DOWN))
+        if (room.HasDoor(RoomMap.Door.DOWN) || (b && (room.GetStartOrEndDoor() & (int) RoomMap.Door.DOWN) != 0))
             UnlockDoor(world.transform.FindChild("DBSouth"));
-        if (room.HasDoor(RoomMap.Door.LEFT))
+        if (room.HasDoor(RoomMap.Door.LEFT) || (b && (room.GetStartOrEndDoor() & (int) RoomMap.Door.LEFT) != 0))
             UnlockDoor(world.transform.FindChild("DBWest"));
-        if (room.HasDoor(RoomMap.Door.RIGHT))
+        if (room.HasDoor(RoomMap.Door.RIGHT) || (b && (room.GetStartOrEndDoor() & (int) RoomMap.Door.RIGHT) != 0))
             UnlockDoor(world.transform.FindChild("DBEast"));
 
         EventManager.TriggerEvent(Events.ON_DOOR_UNLOCK, null);
@@ -94,11 +94,11 @@ public class DoorManager : MonoBehaviour
 
         // avoiding fadeout if the door is closed
         RoomInfo room = mWorldManager.GetMapGenerator().GetRoom(mWorldManager.GetCurrentRoomId());
-        if (!room.HasDoor(door))
-            return;
-
-        mLastDoor = door;
-        mLastOpposite = opposite;
-        StartCoroutine(FadeOut());
+        if (room.HasDoor(door) || (room.HasEndPoint() && (int)door == room.GetStartOrEndDoor()))
+        {
+            StartCoroutine(FadeOut());
+            mLastDoor = door;
+            mLastOpposite = opposite;
+        }
     }
 }
