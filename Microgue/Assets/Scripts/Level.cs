@@ -187,9 +187,11 @@ public class Level
             Debug.LogError("Cannot find layer used to get map size");
             return;
         }
+
+        // XXX: ricordarsi di cambiare i valori (+/- 2.0f, +0.2f, ecc) anche in DontEscape.cs!
         float ratio = Camera.main.aspect * 2.0f;
         mCameraBounds[0] = new Vector3(r.bounds.min.x + ratio, r.bounds.min.y + 2.0f);
-        mCameraBounds[1] = new Vector3(r.bounds.max.x - ratio, r.bounds.max.y - 2.0f);
+        mCameraBounds[1] = new Vector3(r.bounds.max.x - ratio, r.bounds.max.y - 2.0f + 0.2f);
     }
 
     private void LoadDoors()
