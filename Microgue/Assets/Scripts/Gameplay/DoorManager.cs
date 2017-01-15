@@ -9,7 +9,7 @@ using System;
 public class DoorManager : MonoBehaviour
 {
     private RoomMap.Door mLastDoor, mLastOpposite;
-    private WorldManager mWorldManager;
+    private WorldManager mWorldManager = null;
 
     void OnEnable()
     {
@@ -23,21 +23,38 @@ public class DoorManager : MonoBehaviour
         EventManager.StopListening(Events.ON_ENEMY_DEATH, TryUnlockDoors);
     }
 
+    private void UnlockDoor(Transform t)
+    {
+        if (t == null) return;
+        GameObject g = t.gameObject;
+        if (g == null) return;
+        g.SetActive(false);
+    }
+
     private void TryUnlockDoors(Bundle args)
     {
-        // DA FINIRE!
-
-        /*mWorldManager = GameObject.Find("GameplayManager").GetComponent<GameplayManager>().GetWorldManager();
+        mWorldManager = GameObject.Find("GameplayManager").GetComponent<GameplayManager>().GetWorldManager();
+        if (mWorldManager == null)
+            return;
 
         // l'update viene fatto dopo, quindi al momento della morte ce n'è ancora uno vivo...
         if (mWorldManager.CountEnemies() > 1)
-        {
-            Debug.Log("There are still enemies left...");
             return;
-        } else
-        {
-            Debug.Log("PORTE: " + mWorldManager.GetMapDoors(mWorldManager.GetWorld().name));
-        }*/
+
+        GameObject world = mWorldManager.GetWorld();
+        if (world == null)
+            return;
+
+        RoomInfo room = mWorldManager.GetMapGenerator().GetRoom(mWorldManager.GetCurrentRoomId());
+
+        if (room.HasDoor(RoomMap.Door.UP))
+            UnlockDoor(world.transform.FindChild("DBNorth"));
+        if (room.HasDoor(RoomMap.Door.DOWN))
+            UnlockDoor(world.transform.FindChild("DBSouth"));
+        if (room.HasDoor(RoomMap.Door.LEFT))
+            UnlockDoor(world.transform.FindChild("DBWest"));
+        if (room.HasDoor(RoomMap.Door.RIGHT))
+            UnlockDoor(world.transform.FindChild("DBEast"));
     }
 
     IEnumerator FadeOut() {
@@ -51,7 +68,6 @@ public class DoorManager : MonoBehaviour
     public void OnDoorEnter(Bundle args)
     {
         mWorldManager = GameObject.Find("GameplayManager").GetComponent<GameplayManager>().GetWorldManager();
-
         // skip control if flag enabled
         if (!mWorldManager.AreAllEnemiesKilled())
         {
@@ -73,6 +89,11 @@ public class DoorManager : MonoBehaviour
             case DoorBehavior.DOOR_RIGHT: door = RoomMap.Door.RIGHT; opposite = RoomMap.Door.LEFT;  break;
             default: return;
         }
+
+        // avoiding fadeout if the door is closed
+        RoomInfo room = mWorldManager.GetMapGenerator().GetRoom(mWorldManager.GetCurrentRoomId());
+        if (!room.HasDoor(door))
+            return;
 
         mLastDoor = door;
         mLastOpposite = opposite;
