@@ -71,4 +71,14 @@ public class AudioManager : Singleton<AudioManager> {
             instance.mBackgroundSrc.Play();
         } 
     }
+
+    public static void SetAmbienceVolume(float v)
+    {
+        instance.mAmbientSrc.volume = v;
+    }
+
+    public static void SetMusicVolume(float v)
+    {
+        instance.mBackgroundSrc.volume = v;
+    }
 }

@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using System;
 
@@ -20,20 +18,39 @@ public class UIMenu : MonoBehaviour {
 
     public Toggle invToggle;
     public Toggle skipToggle;
+    public Slider musicSlider;
+    public Slider ambienceSlider;
+
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Assert(scene.name == "Menu", "WHY IS THIS SCRIPT NOT IN THE MENU??");
+
+        SetupMenuElements();
+    }
+
+    private void SetupMenuElements()
+    {
+        settingsManager.FetchPlayerPrefs();
+
+        invToggle.isOn = settingsManager.invincible;
+        skipToggle.isOn = settingsManager.skipToBoss;
+        musicSlider.value = settingsManager.musicVolume;
+        ambienceSlider.value = settingsManager.ambienceVolume;
+    }
 
     public void Awake()
     {
         ShowOptions(false);
-        SetSettings();
-    }
-
-    private void SetSettings()
-    {
-        settingsManager.setInvincible(true);
-        settingsManager.setSkipToBoss(false);
-
-        invToggle.isOn = true;
-        skipToggle.isOn = false;
     }
 
     public void ShowOptions(bool v)
@@ -57,6 +74,8 @@ public class UIMenu : MonoBehaviour {
 
     public void BeginThePath()
     {
+        // save prefs to disk and load level
+        settingsManager.SaveToDisk();
         SceneManager.LoadScene("Gameplay");
     }
 
