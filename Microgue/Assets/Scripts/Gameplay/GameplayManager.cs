@@ -1,10 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using UnityEngine;
-using UnityEngine.UI;
-using RoomMapGenerator;
-
-using Random = UnityEngine.Random;
+﻿using UnityEngine;
 using Bundle = System.Collections.Generic.Dictionary<string, string>;
 using System;
 using System.Collections;
@@ -42,12 +36,6 @@ public class GameplayManager : MonoBehaviour
 
     public GameObject settingsMgrGo;
     private SettingsManager settingsMgr;
-
-    /*
-    FMOD.Studio.EventInstance mMusicInstance = null;
-    FMOD.Studio.EventInstance mAmbienceInstance = null;
-    FMOD.Studio.EventInstance mSnapshotInstance = null;
-    */
 
     public GameObject resumeButton;
 
@@ -92,6 +80,7 @@ public class GameplayManager : MonoBehaviour
 
     void OnEnable()
     {
+        EventManager.StartListening(Events.VOID_COMPLETED, OnBossKilled);
         EventManager.StartListening(Events.ON_BOSS_KILLED, OnBossKilled);
         EventManager.StartListening(Events.ON_BOSS_GOTO, LoadBossRoom);
         EventManager.StartListening(Events.ON_LOADING_SCREEN_COMPLETE, OnLoadingScreenComplete);
@@ -99,6 +88,7 @@ public class GameplayManager : MonoBehaviour
 
     void OnDisable()
     {
+        EventManager.StartListening(Events.VOID_COMPLETED, OnBossKilled);
         EventManager.StopListening(Events.ON_BOSS_KILLED, OnBossKilled);
         EventManager.StopListening(Events.ON_BOSS_GOTO, LoadBossRoom);
         EventManager.StopListening(Events.ON_LOADING_SCREEN_COMPLETE, OnLoadingScreenComplete);
