@@ -51,6 +51,7 @@ public class CanvasManager : MonoBehaviour {
         EventManager.StartListening(Events.ON_STAT_CHANGED, OnStatChanged);
         EventManager.StartListening(Events.ON_TICK, OnTick);
         EventManager.StartListening(Events.ON_ITEM_PICKUP, OnItemPickup);
+        EventManager.StartListening(Events.ON_SHOW_MESSAGE, OnShowMessage);
         EventManager.StartListening(Events.ON_STILL_ENEMIES_LEFT, OnStillEnemiesLeft);
         EventManager.StartListening(Events.UPDATE_SECONDARY_ATTACK, SecondaryAttackUpdate);
     }
@@ -60,6 +61,7 @@ public class CanvasManager : MonoBehaviour {
         EventManager.StopListening(Events.ON_STAT_CHANGED, OnStatChanged);
         EventManager.StopListening(Events.ON_TICK, OnTick);
         EventManager.StopListening(Events.ON_ITEM_PICKUP, OnItemPickup);
+        EventManager.StopListening(Events.ON_SHOW_MESSAGE, OnShowMessage);
         EventManager.StopListening(Events.ON_STILL_ENEMIES_LEFT, OnStillEnemiesLeft);
         EventManager.StopListening(Events.UPDATE_SECONDARY_ATTACK, SecondaryAttackUpdate);
     }
@@ -93,6 +95,25 @@ public class CanvasManager : MonoBehaviour {
     {
         additionalInfoText.text = "You have to kill all enemies first!";
         yield return new WaitForSeconds(2f);
+
+        additionalInfoText.text = "";
+    }
+
+    private void OnShowMessage(Bundle args)
+    {
+        if (lastTextCoroutine != null)
+            StopCoroutine(lastTextCoroutine);
+
+        lastTextCoroutine = StartCoroutine( ShowMessageCoroutine(args) );
+    }
+
+    private IEnumerator ShowMessageCoroutine(Bundle args)
+    {
+        string text;
+        if (args.TryGetValue("text", out text))
+            additionalInfoText.text = text;
+
+        yield return new WaitForSeconds(5f);
 
         additionalInfoText.text = "";
     }

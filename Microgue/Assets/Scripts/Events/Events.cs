@@ -43,6 +43,7 @@ public enum Events
     // object related
     ON_ITEM_PICKUP,
     ON_ITEM_USE,
+    ON_SHOW_MESSAGE,
 
     // time related
     ON_TICK,
