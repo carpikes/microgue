@@ -20,7 +20,6 @@ public class Startup : MonoBehaviour {
         polimiSplash.enabled = false;
         developerSplash.enabled = false;
 
-        AudioManager.Instance.Play();
         StartCoroutine(LoadSplash());
     }
 
@@ -35,7 +34,7 @@ public class Startup : MonoBehaviour {
             yield return new WaitForSeconds(TIME_BETWEEN_SCREENS);
         }
 
-        SceneManager.LoadScene("Video");
+        SceneManager.LoadScene("Gameplay");
     }
 
     private static void ChangeTransparency(Image img, float alpha)

@@ -287,7 +287,6 @@ public class FinalBoss : MonoBehaviour {
             mRage-=10;
 
         mRage = Mathf.Clamp(mRage, 0, 30);
-        Debug.Log(mRage);
     }
 
     void ResetAll()

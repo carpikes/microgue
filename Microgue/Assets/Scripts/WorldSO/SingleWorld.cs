@@ -10,9 +10,10 @@ public class SingleWorld : ScriptableObject {
     public string mStartRoomName = "debug_start";
 
     [Header("Music & SFX")]
-    public string mBackgroundMusicPath;
-    public string mMusicSnapshotPath;
-    public string mAmbiencePath;
+    public AudioClip mBackgroundMusic;
+//    public AudioSource mMusicSnapshotPath;
+    public AudioClip mAmbienceMusic;
+    public bool mMusicFadeIn;
 
     [Header("World layout")]
     public int mMinRooms = 3;

@@ -497,12 +497,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 212000011359582050, guid: 27ef3101ad7f33d43b63d3a387d97c7a,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 4d078bd85752dbc4f84c61e4369607ee,
-        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 27ef3101ad7f33d43b63d3a387d97c7a, type: 2}
   m_IsPrefabParent: 0
@@ -723,15 +717,7 @@ Prefab:
       propertyPath: aimTransform
       value: 
       objectReference: {fileID: 903330748}
-    - target: {fileID: 212000011237110204, guid: f9cdb9929af97cb4fab874f6984a6221,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 8893114f79295d74b9f3cb528dedc40b,
-        type: 3}
-    m_RemovedComponents:
-    - {fileID: 114000012763154426, guid: f9cdb9929af97cb4fab874f6984a6221, type: 2}
-    - {fileID: 114000010752070046, guid: f9cdb9929af97cb4fab874f6984a6221, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f9cdb9929af97cb4fab874f6984a6221, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &712933535
@@ -2006,16 +1992,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114000010820464476, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
+    - target: {fileID: 114000012952494674, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
-      propertyPath: mCanvas
+      propertyPath: mPlayer
       value: 
-      objectReference: {fileID: 318420299}
-    - target: {fileID: 114000010820464476, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
+      objectReference: {fileID: 45119986}
+    - target: {fileID: 114000012333824144, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
-      propertyPath: mText
+      propertyPath: mainChar
       value: 
-      objectReference: {fileID: 1103565770}
+      objectReference: {fileID: 45119986}
     - target: {fileID: 114000011355995584, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
       propertyPath: uiCanvas
@@ -2061,16 +2047,16 @@ Prefab:
       propertyPath: barGameObject
       value: 
       objectReference: {fileID: 777309251}
-    - target: {fileID: 114000012333824144, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
+    - target: {fileID: 114000010820464476, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
-      propertyPath: mainChar
+      propertyPath: mCanvas
       value: 
-      objectReference: {fileID: 45119986}
-    - target: {fileID: 114000012952494674, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
+      objectReference: {fileID: 318420299}
+    - target: {fileID: 114000010820464476, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
-      propertyPath: mPlayer
+      propertyPath: mText
       value: 
-      objectReference: {fileID: 45119986}
+      objectReference: {fileID: 1103565770}
     - target: {fileID: 114000011004983200, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
       propertyPath: gameOverCanvas
@@ -2093,31 +2079,6 @@ Prefab:
       objectReference: {fileID: 1093476809}
     - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
-      propertyPath: pressBToGoToBoss
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
-        type: 2}
-      propertyPath: isInvincible
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
-        type: 2}
-      propertyPath: resumeButton
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
-        type: 2}
-      propertyPath: startFromWorld
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
-        type: 2}
-      propertyPath: debugArena
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
-        type: 2}
       propertyPath: mRoomMap
       value: 
       objectReference: {fileID: 268110047}
@@ -2127,9 +2088,9 @@ Prefab:
       value: 
       objectReference: {fileID: 1234539281}
     m_RemovedComponents:
-    - {fileID: 114000011759513996, guid: 6d767db5cf5bba14aa5a9b137dbd83d6, type: 2}
-    - {fileID: 114000013569121710, guid: 6d767db5cf5bba14aa5a9b137dbd83d6, type: 2}
-    - {fileID: 114000011399363556, guid: 6d767db5cf5bba14aa5a9b137dbd83d6, type: 2}
+    - {fileID: 114000012597857394, guid: 6d767db5cf5bba14aa5a9b137dbd83d6, type: 2}
+    - {fileID: 82000011456559648, guid: 6d767db5cf5bba14aa5a9b137dbd83d6, type: 2}
+    - {fileID: 82000013153140862, guid: 6d767db5cf5bba14aa5a9b137dbd83d6, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 6d767db5cf5bba14aa5a9b137dbd83d6, type: 2}
   m_IsPrefabParent: 0
 --- !u!224 &2011907779 stripped

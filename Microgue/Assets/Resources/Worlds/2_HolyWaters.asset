@@ -15,9 +15,10 @@ MonoBehaviour:
   mWorldAssetPrefix: water
   mBossRoomName: water_boss
   mStartRoomName: water_start
-  mBackgroundMusicPath: event:/Music/MUS_HolyWater_DarkSnow
-  mMusicSnapshotPath: snapshot:/Water
-  mAmbiencePath: event:/Ambience/AMB_Water
+  mBackgroundMusic: {fileID: 8300000, guid: ac327d17e2e825544b83468e55ad8d77, type: 3}
+  mAmbienceMusic: {fileID: 8300000, guid: 1981d193cf0e2e644a816ace2fad0cb7, type: 3}
+  mMusicFadeIn: 1
   mMinRooms: 4
   mMaxRooms: 6
   mTimeInSeconds: 300
+  mMapEnabled: 1

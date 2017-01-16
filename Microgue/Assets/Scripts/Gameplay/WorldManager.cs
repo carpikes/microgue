@@ -44,6 +44,8 @@ public class WorldManager
         mMapAssetManager.SetStartMap( mWorldConfig.mStartRoomName );
 
         LoadLevel(mMapGenerator.GetStartRoomId());
+        AudioManager.PlayMusic(mWorldConfig.mBackgroundMusic, mWorldConfig.mMusicFadeIn);
+        AudioManager.PlayAmbience(mWorldConfig.mAmbienceMusic);
         // TRIGGER EVENT MAP_LOADING_COMPLETED
     }
 
