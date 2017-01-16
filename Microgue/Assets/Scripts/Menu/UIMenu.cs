@@ -13,6 +13,9 @@ public class UIMenu : MonoBehaviour {
     private GameObject optionsPanel;
 
     [SerializeField]
+    private GameObject creditsPanel;
+
+    [SerializeField]
     Button[] mainButtons;
 
     public Toggle invToggle;
@@ -37,6 +40,13 @@ public class UIMenu : MonoBehaviour {
     {
         DisableMainMenuButtons(v);
         optionsPanel.SetActive(v);
+    }
+
+    public void ShowCredits(bool v)
+    {
+        Debug.Log("Credits");
+        DisableMainMenuButtons(v);
+        creditsPanel.SetActive(v);
     }
 
     private void DisableMainMenuButtons(bool v)
