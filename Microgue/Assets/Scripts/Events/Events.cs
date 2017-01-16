@@ -67,5 +67,6 @@ public enum Events
 
     INCREMENT_TIME,
 
-    ON_DOOR_UNLOCK
+    ON_DOOR_UNLOCK,
+    VOID_COMPLETED
 }

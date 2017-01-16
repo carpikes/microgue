@@ -9,15 +9,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95e6fed59994506409d375dff2aa6346, type: 3}
-  m_Name: 0_DEBUG
+  m_Name: DEBUG
   m_EditorClassIdentifier: 
   mWorldName: DEBUG
   mWorldAssetPrefix: debug
   mBossRoomName: debug_start
   mStartRoomName: debug_start
-  mBackgroundMusicPath: event:/Music/MUS_SiletWoods_WindOfChange
-  mMusicSnapshotPath: snapshot:/Forest
-  mAmbiencePath: event:/Ambience/AMB_Forest
+  mBackgroundMusic: {fileID: 0}
+  mAmbienceMusic: {fileID: 0}
+  mMusicFadeIn: 0
   mMinRooms: 1
   mMaxRooms: 3
   mTimeInSeconds: 300
