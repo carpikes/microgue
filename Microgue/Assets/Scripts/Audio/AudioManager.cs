@@ -30,6 +30,7 @@ public class AudioManager : Singleton<AudioManager> {
 	
 	public static void PlayAmbience(AudioClip music)
     {
+        if (instance == null) return;
         instance.mAmbientSrc.Stop();
         if (music != null)
         {
@@ -57,6 +58,7 @@ public class AudioManager : Singleton<AudioManager> {
 
     public static void PlayMusic(AudioClip music, bool fadeIn)
     {
+        if (instance == null) return;
         instance.mBackgroundSrc.Stop();
         if (music != null)
         {
