@@ -46,6 +46,9 @@ public class DoorManager : MonoBehaviour
             return;
 
         RoomInfo room = mWorldManager.GetMapGenerator().GetRoom(mWorldManager.GetCurrentRoomId());
+        if (room.GetId() < 0 || room.GetDoors() == 0)
+            return;
+
         bool b = room.HasEndPoint();
         if (room.HasDoor(RoomMap.Door.UP) || (b && (room.GetStartOrEndDoor() & (int) RoomMap.Door.UP) != 0))
             UnlockDoor(world.transform.FindChild("DBNorth"));
