@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using POLIMIGameCollective;
+using Bundle = System.Collections.Generic.Dictionary<string, string>;
 
 public class AudioManager : Singleton<AudioManager> {
     AudioSource mBackgroundSrc, mAmbientSrc;
@@ -8,6 +9,13 @@ public class AudioManager : Singleton<AudioManager> {
     private bool mFadeIn = false;
     private float mStartVolume = 0.0f;
     private float mTargetVolume = 1.0f;
+
+    void OnEnable() {
+    }
+
+    void OnDisable() {
+
+    }
 
     // Use this for initialization
     void Awake()
@@ -27,6 +35,10 @@ public class AudioManager : Singleton<AudioManager> {
 
     void Start()
     {
+    }
+
+    void OnItemPickup(Bundle b) {
+
     }
 	
 	public static void PlayAmbience(AudioClip music)

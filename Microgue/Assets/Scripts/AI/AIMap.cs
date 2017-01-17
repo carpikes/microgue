@@ -12,7 +12,6 @@ public class AIMap : MonoBehaviour
     static int mColTiles, mRowTiles;
     static float mMapWidthWC, mMapHeightWC;
     static float mTileWidthWC, mTileHeightWC;
-    Bounds mWorldArea;
 	private float mEnemyUpdateInterval = 0.1f;
 	private float mNextEnemyUpdate = 0.0f;
 
@@ -73,8 +72,6 @@ public class AIMap : MonoBehaviour
 
         // 0.32 0.32 ok!
         // Debug.Log("DIMENSIONI TILE IN WC: " + mTileWidthWC + " " + mTileHeightWC);
-
-        mWorldArea = new Bounds(new Vector2(mMapWidthWC / 2, mMapHeightWC / 2), new Vector2(mMapWidthWC, mMapHeightWC));
     }
 
     // Update is called once per frame

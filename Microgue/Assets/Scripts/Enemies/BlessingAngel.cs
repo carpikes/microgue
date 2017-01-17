@@ -14,7 +14,6 @@ public class BlessingAngel : MonoBehaviour {
         DYING
     }
 
-    private Rigidbody2D mPlayerRb;
     private Rigidbody2D mRb;
     public List<GameObject> mProtectedEnemies;
     private GameObject mCurrentTargetEnemy = null;
@@ -50,7 +49,6 @@ public class BlessingAngel : MonoBehaviour {
     {
         mProtectedEnemies = new List<GameObject>();
         mRb = GetComponent<Rigidbody2D>();
-        mPlayerRb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
 
         mEnemyPosition = GetComponent<EnemyPosition>();
         mEnemyPosition.SetEnabled(true);

@@ -11,7 +11,6 @@ public class DesperateSoul : MonoBehaviour
     public float mFriction = 0.01f;
 
     private Rigidbody2D mRb;
-    private Rigidbody2D mPlayerRb;
     private Vector2 mVelocity = Vector2.zero;
 
     private Vector2 mInitialPosition;
@@ -27,7 +26,6 @@ public class DesperateSoul : MonoBehaviour
 
     void Start()
     {
-        mPlayerRb = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
         mRb = GetComponent<Rigidbody2D>();
         mEnemyPosition = GetComponent<EnemyPosition>();
         mInitialPosition = transform.position;
@@ -105,7 +103,6 @@ public class DesperateSoul : MonoBehaviour
             owner.mRb.position += owner.mVelocity * Time.fixedDeltaTime;
 
             owner.mEnemyPosition.SetWorldPosition(owner.mRb.position);
-            // owner.transform.localScale = new Vector3(owner.mRb.position.x >= owner.mPlayerRb.position.x ? -1 : 1, 1, 1);
         }
 
         public void OnEnter(DesperateSoul owner) { }

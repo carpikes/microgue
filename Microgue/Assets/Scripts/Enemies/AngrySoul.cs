@@ -20,7 +20,6 @@ public class AngrySoul : MonoBehaviour
     public Color mShootingColor;
 
     private GameObject mPlayer;
-    private Rigidbody2D mPlayerRb;
     private Rigidbody2D mRb;
     private Vector2 mVelocity = Vector2.zero;
 
@@ -56,7 +55,6 @@ public class AngrySoul : MonoBehaviour
         mRb = GetComponent<Rigidbody2D>();
         mInitialPosition = transform.position;
         mPlayer = GameObject.FindGameObjectWithTag("Player");
-        mPlayerRb = mPlayer.GetComponent<Rigidbody2D>();
         mSpriteRenderer = GetComponent<SpriteRenderer>();
 
         mStateMachine = new StateMachine<AngrySoul>(this, mIdleState, mGlobalState);
@@ -203,7 +201,6 @@ public class AngrySoul : MonoBehaviour
 
             owner.mEnemyPosition.SetWorldPosition(owner.mRb.position);
 
-            //owner.transform.localScale = new Vector3(owner.mRb.position.x >= owner.mPlayerRb.position.x ? -1 : 1, 1, 1);
         }
 
         public void OnEnter(AngrySoul owner) { }

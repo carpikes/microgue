@@ -130,9 +130,7 @@ public class CanvasManager : MonoBehaviour {
     {
         string itemName;
         if (args.TryGetValue(ItemPrefabProperties.ITEM_PICKUP_TAG, out itemName))
-        {
             additionalInfoText.text = "You picked up: " + itemName.ToUpper();
-        }
 
         yield return new WaitForSeconds(2f);
 
@@ -196,24 +194,17 @@ public class CanvasManager : MonoBehaviour {
             foreach( Stat s in playerStats.stats )
             {
                 if( s.mName == "DEFENCE" )
-                {
                     defText.text = s.CurrentValue.ToString();
-                } else if( s.mName == "DAMAGE" )
-                {
+                else if( s.mName == "DAMAGE" )
                     dmgText.text = s.CurrentValue.ToString();
-                } else if( s.mName == "TEMP_DISTORSION" )
-                {
-                    timeText.text = s.CurrentValue.ToString();
-                } else if( s.mName == "SPEED" )
-                {
-                    spdText.text = s.CurrentValue.ToString();
-                } else if( s.mName == "CURRENT_HEALTH" || s.mName == "MAX_HEALTH" )
-                {
-                    continue;
-                } else
-                {
-                    Debug.LogError("UPDATING NON-EXISTENT STAT");
-                }
+                else if( s.mName == "TEMP_DISTORSION" )
+                   timeText.text = s.CurrentValue.ToString();
+                else if( s.mName == "SPEED" )
+                   spdText.text = s.CurrentValue.ToString();
+                else if( s.mName == "CURRENT_HEALTH" || s.mName == "MAX_HEALTH" )
+                   continue;
+                else
+                   Debug.LogError("UPDATING NON-EXISTENT STAT");
             }
         } else
         {
