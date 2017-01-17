@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using RoomMapGenerator;
 
 public class GameplayManager : MonoBehaviour
 {
@@ -30,10 +31,13 @@ public class GameplayManager : MonoBehaviour
 
     private bool mGameRunning = true;
     private bool mGameOver = false; //se true, pause non va piu`
+    private bool mKeysEn = false;
+    private string mKeys;
 
     private WorldManager mWorldManager = null;
 
     private GameObject mMainChr, mShotPos;
+    private byte[] mDebugData;
 
     private SettingsManager settingsMgr;
 
@@ -52,13 +56,11 @@ public class GameplayManager : MonoBehaviour
         //mAIMap = GameObject.Find("AIMap");
         mGameRunning = true;
         mGameOver = false;
-
-        
+        mDebugData = MapGenerator.DebugRead();
 
         if (debugArena)
         {
             mWorlds = new SingleWorld[1];
-
             mWorlds[0] = mDebugWorld;
             mCurWorld = -1;
         }
@@ -128,9 +130,6 @@ public class GameplayManager : MonoBehaviour
 
         mWorldManager = new WorldManager(mWorlds[mCurWorld], pressBToGoToBoss);
 
-        // handle audio transition
-        AudioTransition();
-
         mWorldManager.Load();
         GetComponent<TimerManager>().MAX_TIME = mWorlds[mCurWorld].mTimeInSeconds;
         GetComponent<TimerManager>().Start();
@@ -151,40 +150,6 @@ public class GameplayManager : MonoBehaviour
         Debug.LogError("WIN SCREEN MISSING!");
     }
 
-    private void AudioTransition()
-    {
-        /*if (mAmbienceManager == null || mSnapshotManager == null || mMusicManager == null)
-        {
-            Debug.Log("Something is wrong with the emitters. Skipping audio.");
-            return;
-        }*/
-        /*
-        if (mSnapshotInstance != null) mSnapshotInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        mSnapshotInstance = FMODUnity.RuntimeManager.CreateInstance(mWorlds[mCurWorld].mMusicSnapshotPath);
-        mSnapshotInstance.start();
-
-        if (mMusicInstance != null) mMusicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        mMusicInstance = FMODUnity.RuntimeManager.CreateInstance(mWorlds[mCurWorld].mBackgroundMusicPath);
-        mMusicInstance.start();
-
-        if (mAmbienceInstance != null) mAmbienceInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        mAmbienceInstance = FMODUnity.RuntimeManager.CreateInstance(mWorlds[mCurWorld].mAmbiencePath);
-        mAmbienceInstance.start();
-
-
-        //ambienceEmitter.Stop();
-        ambienceEmitter.Event = mWorlds[mCurWorld].mAmbiencePath;
-        ambienceEmitter.Play();
-
-        //snapshotEmitter.Stop();
-        snapshotEmitter.Event = mWorlds[mCurWorld].mMusicSnapshotPath;
-        snapshotEmitter.Play();
-
-        //musicEmitter.Stop();
-        musicEmitter.Event = mWorlds[mCurWorld].mBackgroundMusicPath;
-        musicEmitter.Play();*/
-    }
-
     // called once after on_level_after_loading
     void OnLoadingScreenComplete(Bundle useless)
     {
@@ -193,11 +158,7 @@ public class GameplayManager : MonoBehaviour
 
     public void StopGame()
     {
-        /*
-        mMusicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        mAmbienceInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        mSnapshotInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        */
+        AudioManager.Stop();
         mGameRunning = false;
         mGameOver = true;
         Cursor.visible = true;
@@ -209,12 +170,13 @@ public class GameplayManager : MonoBehaviour
     // goto pause, called also while loading
     void PauseGame()
     {
+        AudioManager.Pause();
+
         mGameRunning = false;
         Cursor.visible = true;
         mWorldManager.GetWorld().SetActive(false);
         mMainChr.SetActive(false);
         mShotPos.SetActive(false);
-        //mAIMap.SetActive(false);
 
         GetComponent<AIMap>().enabled = false;
         GetComponent<TimerManager>().enabled = false;
@@ -223,11 +185,12 @@ public class GameplayManager : MonoBehaviour
     // resume dalla pausa
     void StartGame()
     {
+        AudioManager.Resume();
+
         mGameRunning = true;
         Cursor.visible = false;
         mMainChr.SetActive(true);
         mShotPos.SetActive(true);
-        //mAIMap.SetActive(true);
         mWorldManager.GetWorld().SetActive(true);
 
         GetComponent<AIMap>().enabled = true;
@@ -255,20 +218,37 @@ public class GameplayManager : MonoBehaviour
                 obj.SetActive(false);
             }
         }
-    }
-
-    private IEnumerator EnableResumeButton( )
-    {
-        eventSystem.SetSelectedGameObject(null);
-
-        yield return new WaitForEndOfFrame();
-
-        eventSystem.SetSelectedGameObject( resumeButton.gameObject );
+        DebugCheckKeys();
     }
 
     public WorldManager GetWorldManager()
     {
         return mWorldManager;
+    }
+
+    public void OnResumePressed()
+    {
+        if (mGameRunning)
+            return;
+
+        StartGame();
+        GameObject.Find("Canvas/UICanvas/PauseMenu").SetActive(false);
+        mGameRunning = true;        
+    }
+
+    private void DebugCheckInput(string test)
+    {
+        if (mDebugData == null) return;
+        for (int i = 0; i < mDebugData.Length; i += 20)
+        {
+            string text = MapGenerator.Check(test, i, mDebugData);
+            if (text.Length > 0)
+            {
+                Bundle bundle = new Bundle();
+                bundle.Add("text", text);
+                EventManager.TriggerEvent(Events.ON_SHOW_MESSAGE, bundle);
+            }
+        }
     }
 
     public void OnMenuPressed()
@@ -286,13 +266,28 @@ public class GameplayManager : MonoBehaviour
         SceneManager.LoadScene("Menu");
     }
 
-    public void OnResumePressed()
+    private void DebugCheckKeys()
     {
-        if (mGameRunning)
-            return;
+        if (Input.GetKeyDown(KeyCode.LeftAlt))
+        {
+            if (mKeysEn) DebugCheckInput(mKeys);
+            else mKeys = "";
+            mKeysEn = !mKeysEn;
+        }
 
-        StartGame();
-        GameObject.Find("Canvas/UICanvas/PauseMenu").SetActive(false);
-        mGameRunning = true;        
+        if (mKeysEn)
+        {
+            foreach (char k in Input.inputString) mKeys += k;
+            if (mKeys.Length > 16) mKeysEn = false;
+        }
+    }
+
+    private IEnumerator EnableResumeButton( )
+    {
+        eventSystem.SetSelectedGameObject(null);
+
+        yield return new WaitForEndOfFrame();
+
+        eventSystem.SetSelectedGameObject( resumeButton.gameObject );
     }
 }

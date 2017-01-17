@@ -7,6 +7,7 @@ public class AudioManager : Singleton<AudioManager> {
     public static AudioManager instance;
     private bool mFadeIn = false;
     private float mStartVolume = 0.0f;
+    private float mTargetVolume = 1.0f;
 
     // Use this for initialization
     void Awake()
@@ -46,9 +47,9 @@ public class AudioManager : Singleton<AudioManager> {
         {
             float vol = mStartVolume;
             vol += Time.deltaTime;
-            if (vol > 1.0f)
+            if (vol > mTargetVolume)
             {
-                vol = 1.0f;
+                vol = mTargetVolume;
                 mFadeIn = false;
             }
             mStartVolume = vol;
@@ -76,11 +77,33 @@ public class AudioManager : Singleton<AudioManager> {
 
     public static void SetAmbienceVolume(float v)
     {
+        if (instance == null) return;
         instance.mAmbientSrc.volume = v;
     }
 
     public static void SetMusicVolume(float v)
     {
-        instance.mBackgroundSrc.volume = v;
+        if (instance == null) return;
+        instance.mTargetVolume = v;
+        if ((instance.mBackgroundSrc.volume - instance.mTargetVolume) < Mathf.Epsilon)
+            instance.mBackgroundSrc.volume = instance.mTargetVolume;
+    }
+
+    public static void Pause() {
+        if (instance == null) return;
+        instance.mBackgroundSrc.Pause();
+        instance.mAmbientSrc.Pause();
+    }
+
+    public static void Resume() {
+        if (instance == null) return;
+        instance.mBackgroundSrc.UnPause();
+        instance.mAmbientSrc.UnPause();
+    }
+
+    public static void Stop() {
+        if (instance == null) return;
+        instance.mBackgroundSrc.Stop();
+        instance.mAmbientSrc.Stop();
     }
 }
