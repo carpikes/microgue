@@ -41,21 +41,6 @@ public class GameplayManager : MonoBehaviour
     public Button resumeButton;
     public UnityEngine.EventSystems.EventSystem eventSystem;
 
-    void Awake()
-    {
-        try {
-            settingsMgr = GameObject.FindGameObjectWithTag("SettingsManager").GetComponent<SettingsManager>();
-
-            pressBToGoToBoss = settingsMgr.skipToBoss;
-            isInvincible = settingsMgr.invincible;
-        } catch( Exception e )
-        {
-            Debug.Log("You must start the game from the intro!");
-        }
-
-        Debug.Log("boss: " + pressBToGoToBoss);
-    }
-
     // Use this for initialization
     void Start()
     {
