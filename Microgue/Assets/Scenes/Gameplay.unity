@@ -125,7 +125,7 @@ RectTransform:
   - {fileID: 1181316726}
   - {fileID: 712933536}
   m_Father: {fileID: 1807306596}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -343,7 +343,7 @@ RectTransform:
   - {fileID: 1140529152}
   - {fileID: 1103565771}
   m_Father: {fileID: 1807306596}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -1590,6 +1590,12 @@ GameObject:
   m_PrefabParentObject: {fileID: 1000011719702356, guid: bddd019e128d70447bc3102b206178dc,
     type: 2}
   m_PrefabInternal: {fileID: 1280329707}
+--- !u!114 &1280329710 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000010742069566, guid: bddd019e128d70447bc3102b206178dc,
+    type: 2}
+  m_PrefabInternal: {fileID: 1280329707}
+  m_Script: {fileID: 1392445389, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!114 &1359912933 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114000010083950072, guid: bddd019e128d70447bc3102b206178dc,
@@ -1742,7 +1748,6 @@ Transform:
   m_Children:
   - {fileID: 1849289880}
   - {fileID: 977886685}
-  - {fileID: 2053921078}
   - {fileID: 1858649628}
   - {fileID: 318420300}
   - {fileID: 1271377}
@@ -1952,7 +1957,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1807306596}
-  m_RootOrder: 3
+  m_RootOrder: 2
 --- !u!1001 &2010269688
 Prefab:
   m_ObjectHideFlags: 0
@@ -1992,16 +1997,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114000010820464476, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
+    - target: {fileID: 114000012952494674, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
-      propertyPath: mCanvas
+      propertyPath: mPlayer
       value: 
-      objectReference: {fileID: 318420299}
-    - target: {fileID: 114000010820464476, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
+      objectReference: {fileID: 45119986}
+    - target: {fileID: 114000012333824144, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
-      propertyPath: mText
+      propertyPath: mainChar
       value: 
-      objectReference: {fileID: 1103565770}
+      objectReference: {fileID: 45119986}
     - target: {fileID: 114000011355995584, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
       propertyPath: uiCanvas
@@ -2047,16 +2052,16 @@ Prefab:
       propertyPath: barGameObject
       value: 
       objectReference: {fileID: 777309251}
-    - target: {fileID: 114000012333824144, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
+    - target: {fileID: 114000010820464476, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
-      propertyPath: mainChar
+      propertyPath: mCanvas
       value: 
-      objectReference: {fileID: 45119986}
-    - target: {fileID: 114000012952494674, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
+      objectReference: {fileID: 318420299}
+    - target: {fileID: 114000010820464476, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
-      propertyPath: mPlayer
+      propertyPath: mText
       value: 
-      objectReference: {fileID: 45119986}
+      objectReference: {fileID: 1103565770}
     - target: {fileID: 114000011004983200, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
       propertyPath: gameOverCanvas
@@ -2087,6 +2092,21 @@ Prefab:
       propertyPath: mBlankRoomMap
       value: 
       objectReference: {fileID: 1234539281}
+    - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
+        type: 2}
+      propertyPath: resumeButton
+      value: 
+      objectReference: {fileID: 1280329710}
+    - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
+        type: 2}
+      propertyPath: eventSystem
+      value: 
+      objectReference: {fileID: 1858649627}
+    - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
+        type: 2}
+      propertyPath: startFromWorld
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6d767db5cf5bba14aa5a9b137dbd83d6, type: 2}
   m_IsPrefabParent: 0
@@ -2095,68 +2115,6 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224000011649157424, guid: bddd019e128d70447bc3102b206178dc,
     type: 2}
   m_PrefabInternal: {fileID: 1280329707}
---- !u!1 &2053921075
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 2053921078}
-  - 114: {fileID: 2053921077}
-  - 114: {fileID: 2053921076}
-  m_Layer: 0
-  m_Name: EventSystem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &2053921076
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2053921075}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1077351063, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
---- !u!114 &2053921077
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2053921075}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -619905303, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 1280329709}
-  m_sendNavigationEvents: 1
-  m_DragThreshold: 5
---- !u!4 &2053921078
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2053921075}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.000061035156, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 1807306596}
-  m_RootOrder: 2
 --- !u!1 &2067080744
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using Bundle = System.Collections.Generic.Dictionary<string, string>;
 using System;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameplayManager : MonoBehaviour
 {
@@ -34,10 +35,11 @@ public class GameplayManager : MonoBehaviour
 
     private GameObject mMainChr, mShotPos;
 
-    public GameObject settingsMgrGo;
     private SettingsManager settingsMgr;
 
-    public GameObject resumeButton;
+    [Header("UI")]
+    public Button resumeButton;
+    public UnityEngine.EventSystems.EventSystem eventSystem;
 
     void Awake()
     {
@@ -259,6 +261,8 @@ public class GameplayManager : MonoBehaviour
                 //GetComponents<FMODUnity.StudioEventEmitter>()[0].Play();
                 PauseGame();
                 obj.SetActive(true);
+
+                StartCoroutine(EnableResumeButton());
             }
             else
             {
@@ -266,6 +270,15 @@ public class GameplayManager : MonoBehaviour
                 obj.SetActive(false);
             }
         }
+    }
+
+    private IEnumerator EnableResumeButton( )
+    {
+        eventSystem.SetSelectedGameObject(null);
+
+        yield return new WaitForEndOfFrame();
+
+        eventSystem.SetSelectedGameObject( resumeButton.gameObject );
     }
 
     public WorldManager GetWorldManager()
