@@ -26,6 +26,7 @@ public class FireMagician : MonoBehaviour {
     int mState = 1;
 
     Animator mAnimator;
+    public AudioClip mAudioAppear, mAudioDisappear;
 
 	// Use this for initialization
 	void Start () {
@@ -67,6 +68,7 @@ public class FireMagician : MonoBehaviour {
                 if (mChangeTime < Time.time || mJumpAwayInstant) // ok nasconditi!
                 {
                     mState = 1;
+                    GetComponent<AudioSource>().PlayOneShot(mAudioDisappear);
                     mAnimator.SetTrigger("teleport_down");
                     mChangeTime = Time.time + Random.Range(mHiddenTimeMin, mHiddenTimeMax); // stai questo tempo nascosto
                     GetComponent<BoxCollider2D>().enabled = false;
@@ -83,6 +85,7 @@ public class FireMagician : MonoBehaviour {
                     mChangeTime = Time.time + Random.Range(0.6f, 0.8f);  // e stai questo tempo fermo appena riapparso
                     JumpAway();
                     // e riappari
+                    GetComponent<AudioSource>().PlayOneShot(mAudioAppear);
                     GetComponent<SpriteRenderer>().enabled = true;
                     GetComponent<BoxCollider2D>().enabled = true;
                     mAnimator.SetTrigger("teleport_up");
