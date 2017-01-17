@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
 using System.Collections.Generic;
 
 public class PlayerAudio : MonoBehaviour {
@@ -26,6 +25,7 @@ public class PlayerAudio : MonoBehaviour {
 
     private void OnAttack(Dictionary<string, string> arg0)
     {
+        mEmitters[1].pitch = Random.Range(0.99f, 1.01f);
         mEmitters[1].Play();
     }
 

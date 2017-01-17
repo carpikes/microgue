@@ -52,6 +52,7 @@ public class EventManager : MonoBehaviour {
 	public static void StartListening (Events eventName, UnityAction<Bundle> listener)
 	{
 		UnityEvent<Bundle> thisEvent = null;
+        if (instance == null) return;
 		if (instance.eventDictionary.TryGetValue (eventName, out thisEvent))
 		{
 			thisEvent.AddListener (listener);
@@ -66,6 +67,7 @@ public class EventManager : MonoBehaviour {
 
 	public static void StopListening (Events eventName, UnityAction<Bundle> listener)
 	{
+        if (instance == null) return;
 		if (eventManager == null) return;
 		UnityEvent<Bundle> thisEvent = null;
 		if (instance.eventDictionary.TryGetValue (eventName, out thisEvent))
@@ -76,6 +78,7 @@ public class EventManager : MonoBehaviour {
 
 	public static void TriggerEvent (Events eventName, Bundle eventData)
 	{
+        if (instance == null) return;
 		UnityEvent<Bundle> thisEvent = null;
 		if (instance.eventDictionary.TryGetValue (eventName, out thisEvent))
 		{

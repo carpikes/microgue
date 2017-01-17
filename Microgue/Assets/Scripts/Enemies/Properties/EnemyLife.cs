@@ -12,6 +12,7 @@ public class EnemyLife : MonoBehaviour {
 
     public bool mIsInvincible = false;
     bool canDieAnimation = true;
+    public AudioClip mDeathAudio = null;
 
     Collider2D[] colliders;
 
@@ -76,6 +77,9 @@ public class EnemyLife : MonoBehaviour {
 
             foreach (var c in colliders)
                 c.enabled = false;
+
+            if (mDeathAudio != null)
+                GetComponents<AudioSource>()[0].PlayOneShot(mDeathAudio);
 
             mAnimator.SetTrigger("enemy_death");
             // destroy is invoked by animation through an animation event
