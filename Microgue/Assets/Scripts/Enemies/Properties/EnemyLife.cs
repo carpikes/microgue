@@ -78,8 +78,8 @@ public class EnemyLife : MonoBehaviour {
             foreach (var c in colliders)
                 c.enabled = false;
 
-            if (mDeathAudio != null)
-                GetComponents<AudioSource>()[0].PlayOneShot(mDeathAudio);
+            if (mDeathAudio != null && GetComponent<AudioSource>() != null)
+                GetComponent<AudioSource>().PlayOneShot(mDeathAudio);
 
             mAnimator.SetTrigger("enemy_death");
             // destroy is invoked by animation through an animation event

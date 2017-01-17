@@ -2002,16 +2002,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114000012952494674, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
+    - target: {fileID: 114000010820464476, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
-      propertyPath: mPlayer
+      propertyPath: mCanvas
       value: 
-      objectReference: {fileID: 45119986}
-    - target: {fileID: 114000012333824144, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
+      objectReference: {fileID: 318420299}
+    - target: {fileID: 114000010820464476, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
-      propertyPath: mainChar
+      propertyPath: mText
       value: 
-      objectReference: {fileID: 45119986}
+      objectReference: {fileID: 1103565770}
     - target: {fileID: 114000011355995584, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
       propertyPath: uiCanvas
@@ -2057,16 +2057,16 @@ Prefab:
       propertyPath: barGameObject
       value: 
       objectReference: {fileID: 777309251}
-    - target: {fileID: 114000010820464476, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
+    - target: {fileID: 114000012333824144, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
-      propertyPath: mCanvas
+      propertyPath: mainChar
       value: 
-      objectReference: {fileID: 318420299}
-    - target: {fileID: 114000010820464476, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
+      objectReference: {fileID: 45119986}
+    - target: {fileID: 114000012952494674, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
-      propertyPath: mText
+      propertyPath: mPlayer
       value: 
-      objectReference: {fileID: 1103565770}
+      objectReference: {fileID: 45119986}
     - target: {fileID: 114000011004983200, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
       propertyPath: gameOverCanvas
@@ -2107,16 +2107,6 @@ Prefab:
       propertyPath: eventSystem
       value: 
       objectReference: {fileID: 1858649627}
-    - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
-        type: 2}
-      propertyPath: isInvincible
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
-        type: 2}
-      propertyPath: pressBToGoToBoss
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6d767db5cf5bba14aa5a9b137dbd83d6, type: 2}
   m_IsPrefabParent: 0
