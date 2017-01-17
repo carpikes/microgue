@@ -5,8 +5,7 @@ using System.Collections.Generic;
 
 public class PlayerAudio : MonoBehaviour {
 
-    /*
-    FMODUnity.StudioEventEmitter[] emitters;
+    AudioSource[] mEmitters;
 
     void OnEnable()
     {
@@ -22,18 +21,16 @@ public class PlayerAudio : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        emitters = GetComponents<FMODUnity.StudioEventEmitter>();
-
+        mEmitters = GetComponents<AudioSource>();
 	}
 
     private void OnAttack(Dictionary<string, string> arg0)
     {
-        emitters[0].Play();
+        mEmitters[1].Play();
     }
 
     private void OnHit(Dictionary<string, string> arg0)
     {
-        emitters[1].Play();
+        mEmitters[0].Play();
     }
-    */
 }

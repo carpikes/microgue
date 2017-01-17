@@ -4,7 +4,7 @@ using POLIMIGameCollective;
 using Bundle = System.Collections.Generic.Dictionary<string, string>;
 
 public class AudioManager : Singleton<AudioManager> {
-    AudioSource mBackgroundSrc, mAmbientSrc;
+    AudioSource mBackgroundSrc, mAmbientSrc, mSimpleSrc;
     public static AudioManager instance;
     private bool mFadeIn = false;
     private float mStartVolume = 0.0f;
@@ -14,7 +14,6 @@ public class AudioManager : Singleton<AudioManager> {
     }
 
     void OnDisable() {
-
     }
 
     // Use this for initialization
