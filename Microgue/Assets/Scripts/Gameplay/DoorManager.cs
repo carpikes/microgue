@@ -45,8 +45,13 @@ public class DoorManager : MonoBehaviour
         if (world == null)
             return;
 
-        RoomInfo room = mWorldManager.GetMapGenerator().GetRoom(mWorldManager.GetCurrentRoomId());
-        if (room.GetId() < 0 || room.GetDoors() == 0)
+        int curRoomId = mWorldManager.GetCurrentRoomId();
+        if (curRoomId < 0)
+            return;
+
+        RoomInfo room = mWorldManager.GetMapGenerator().GetRoom(curRoomId);
+
+        if (room.GetDoors() == 0)
             return;
 
         bool b = room.HasEndPoint();

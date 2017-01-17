@@ -99,7 +99,6 @@ public class FireTaurus : MonoBehaviour {
                 if (mWorldManager == null)
                     return;
 
-                Debug.Log(mWorldManager.CountEnemies());
                 if (mChangeTime < Time.time && mWorldManager.CountEnemies() == 1) // time out, riappari altrove!
                 {
                     mState = 2;

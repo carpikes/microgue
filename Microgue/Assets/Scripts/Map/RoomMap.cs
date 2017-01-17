@@ -37,7 +37,14 @@ namespace RoomMapGenerator
 
         public int GetDoors(int n)
         {
-            return mMap[n];
+            try
+            {
+                return mMap[n];
+            }
+            catch (System.Exception e) {
+                Debug.Log(e.StackTrace);
+                return 0;
+            }
         }
 
         public int GetDoors(int x, int y)

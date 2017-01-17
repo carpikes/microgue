@@ -105,7 +105,6 @@ public class MiniMap : MonoBehaviour {
 
         if (wm.GetMap() != null && ( mMap == null || mLastRoom != wm.GetCurrentRoomId()) && mGameManager.IsCurrentMapEnabled())
         {
-            Debug.Log("Disegno la minimap");
             mMap = wm.GetMap();
             mMapGen = wm.GetMapGenerator();
             DrawMap(wm.GetCurrentRoomId());
@@ -116,7 +115,6 @@ public class MiniMap : MonoBehaviour {
         Color inColor       = new Color(1.0f, 1.0f, 1.0f, 1.0f);
         if (mMap != null && mLastRoom != wm.GetCurrentRoomId() && wm.GetCurrentRoomId() != -1)
         {
-            Debug.Log("SECONDO IF minimap");
             mLastRoom = wm.GetCurrentRoomId();
             HashSet<int> nearIds = new HashSet<int>();
 
