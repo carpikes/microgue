@@ -254,10 +254,7 @@ public class GameplayManager : MonoBehaviour
     public void OnMenuPressed()
     {
         SceneManager.UnloadScene(SceneManager.GetActiveScene());
-
-        AudioManager.StopAllSounds();
-
-
+        AudioManager.Stop();
         SceneManager.LoadScene("Menu");
     }
 

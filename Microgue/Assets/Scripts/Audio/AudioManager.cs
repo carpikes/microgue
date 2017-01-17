@@ -117,10 +117,4 @@ public class AudioManager : Singleton<AudioManager> {
         instance.mBackgroundSrc.Stop();
         instance.mAmbientSrc.Stop();
     }
-
-    public static void StopAllSounds()
-    {
-        instance.mAmbientSrc.Stop();
-        instance.mBackgroundSrc.Stop();
-    }
 }
