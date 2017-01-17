@@ -4,7 +4,7 @@ using System.Collections;
 public class ItemActions {
 
     public static void Nothing(string param) {
-        Debug.Log("It works:" + param);
+        //Debug.Log("It works:" + param);
     }
 
     public static void BallColor(string color)
@@ -17,7 +17,7 @@ public class ItemActions {
             case "green": c = Color.green; break;
             default: return;
         }
-        Debug.Log("BallColor: " + color);
+        //Debug.Log("BallColor: " + color);
         GameObject.Find("MainCharacter").GetComponent<InputManager>().mBallColor = c;
     }
 }

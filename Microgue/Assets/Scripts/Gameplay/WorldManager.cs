@@ -34,7 +34,7 @@ public class WorldManager
     public void Load()
     {
         // TRIGGER EVENT MAP_LOADING_STARTED
-        Debug.Log("Loading Started");
+        //Debug.Log("Loading Started");
         FetchLevels(mWorldConfig.mWorldAssetPrefix);
         mMapGenerator = new MapGenerator();
         mMapAssetManager = new MapAssetManager(mMapGenerator, mAvailableLevels);

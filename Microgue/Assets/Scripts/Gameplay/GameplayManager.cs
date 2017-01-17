@@ -85,13 +85,13 @@ public class GameplayManager : MonoBehaviour
 
     private void LoadBossRoom(Bundle arg0)
     {
-        ToggleRoomMap();
+        //ToggleRoomMap();
         mWorldManager.LoadBossRoom();
     }
 
     void OnBossKilled(Bundle useless)
     {
-        Debug.Log("OnBossKilled");
+        //Debug.Log("OnBossKilled");
         StartCoroutine(WaitBeforeLoadingLevel());
     }
 
@@ -135,14 +135,14 @@ public class GameplayManager : MonoBehaviour
         GetComponent<TimerManager>().Start();
         PauseGame();
 
-        ToggleRoomMap();
+        //ToggleRoomMap();
 
         EventManager.TriggerEvent(Events.ON_LEVEL_AFTER_LOADING, null);
     }
 
-    private void ToggleRoomMap()
+    public bool IsCurrentMapEnabled()
     {
-        mRoomMap.SetActive(mWorlds[mCurWorld].mMapEnabled);
+        return mWorlds[mCurWorld].mMapEnabled;
     }
 
     private void WinScreen()
@@ -255,14 +255,9 @@ public class GameplayManager : MonoBehaviour
     {
         SceneManager.UnloadScene(SceneManager.GetActiveScene());
 
-        /*
-        mMusicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        mAmbienceInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        mSnapshotInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        AudioManager.StopAllSounds();
 
-        ambienceEmitter.Stop();
-        snapshotEmitter.Stop();
-        musicEmitter.Stop();*/
+
         SceneManager.LoadScene("Menu");
     }
 
