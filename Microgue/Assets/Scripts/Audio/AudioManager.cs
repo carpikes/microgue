@@ -8,7 +8,7 @@ public class AudioManager : Singleton<AudioManager> {
     public static AudioManager instance;
     private bool mFadeIn = false;
     private float mStartVolume = 0.0f;
-    private float mTargetVolume = 1.0f;
+    private float mTargetVolume = 0.5f;
 
     void OnEnable() {
     }
@@ -48,7 +48,7 @@ public class AudioManager : Singleton<AudioManager> {
         {
             instance.mAmbientSrc.loop = true;
             instance.mAmbientSrc.clip = music;
-            instance.mAmbientSrc.volume = 1.0f;
+            instance.mAmbientSrc.volume = 0.5f;
             instance.mAmbientSrc.Play();
         }
     }
