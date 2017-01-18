@@ -19,6 +19,9 @@ public class BigLittleJimmy : MonoBehaviour {
         new Vector2(5.0f, -6.9f),
     };
 
+    public AudioClip mCrystalSound, mHitSound, mSpawnSound;
+    private AudioSource[] mAudioSrc;
+
 	// Use this for initialization
 	void Start () {
         mTime = 0;
@@ -27,6 +30,7 @@ public class BigLittleJimmy : MonoBehaviour {
         mPlayer = GameObject.Find("MainCharacter");
         mRB = GetComponent<Rigidbody2D>();
         mSpriteRenderer = GetComponent<SpriteRenderer>();
+        mAudioSrc = GetComponents<AudioSource>();
 	}
 
     void FixedUpdate() {
@@ -99,6 +103,7 @@ public class BigLittleJimmy : MonoBehaviour {
         Transform parent = GameObject.Find("/WorldData").transform;
         Vector2 pos = transform.position;
 
+        mAudioSrc[1].PlayOneShot(mSpawnSound);
         GameObject el = Resources.Load("AngrySoul") as GameObject;
 
         for (int i = 0; i < 3; i++)
@@ -123,7 +128,6 @@ public class BigLittleJimmy : MonoBehaviour {
                 go.GetComponent<StompStomp>().mHackAttackInstant = true;
                 mEnemies.Add(go);
             }
-                
         }
     }
 
@@ -150,4 +154,13 @@ public class BigLittleJimmy : MonoBehaviour {
         GetComponent<EnemyLife>().mIsInvincible = value;
         mSpriteRenderer.color = new Color(1, 1, 1, value ? 0.5f : 1f);
     }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.CompareTag("Shot"))
+            if (GetComponent<EnemyLife>().mIsInvincible)
+                mAudioSrc[0].PlayOneShot(mCrystalSound);
+            else
+                mAudioSrc[0].PlayOneShot(mHitSound);
+    } 
 }

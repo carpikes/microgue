@@ -64,6 +64,7 @@ GameObject:
   - 114: {fileID: 114000010157640018}
   - 114: {fileID: 114000010315894170}
   - 82: {fileID: 82000011319499126}
+  - 82: {fileID: 82000013270689116}
   m_Layer: 0
   m_Name: BigLittleJimmy
   m_TagString: Enemy
@@ -168,7 +169,81 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 1
+  BypassListenerEffects: 1
+  BypassReverbZones: 1
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+--- !u!82 &82000013270689116
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011746347044}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -271,6 +346,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bdde2fc02667bb41930d8abeb2c67e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mCrystalSound: {fileID: 8300000, guid: 8e23e811fb7e9b24fa5c8f037e5cb709, type: 3}
+  mHitSound: {fileID: 8300000, guid: 9af3d40b535804142a336ca9ffddb658, type: 3}
+  mSpawnSound: {fileID: 8300000, guid: bc3a479fc3e711c44b2ace019f2d4180, type: 3}
 --- !u!114 &114000010881514590
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -341,7 +419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aede8658bda6b7499b7f8cd1b5d4c68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mCurrentHP: 1
+  mCurrentHP: 100
   mIsInvincible: 0
   mDeathAudio: {fileID: 0}
 --- !u!114 &114000014221629720
