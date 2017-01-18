@@ -10,6 +10,8 @@ public class AudioMenu : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
         sources = GetComponents<AudioSource>();
         Debug.Assert(sources != null, "Audio for menu not working.");
+        sources[1].Play();
+        sources[1].Pause();
     }
 
     public void MouseOver()
@@ -19,7 +21,7 @@ public class AudioMenu : MonoBehaviour {
 
     public void ConfirmChoice()
     {
-        Debug.Log(sources[1].clip.name);
-        sources[1].Play();
+        sources[1].UnPause();
+        GetComponent<UIMenu>().BeginThePath();
     }
 }

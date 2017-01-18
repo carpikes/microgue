@@ -30,7 +30,7 @@ public class LoadingScreenManager : MonoBehaviour {
     }
 
     IEnumerator WaitCoroutine() {
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(1.2f);
         EventManager.TriggerEvent(Events.ON_LOADING_SCREEN_COMPLETE, null);
         EventManager.TriggerEvent(Events.FADE_OUT, null);
         yield return new WaitForSeconds(0.5f);

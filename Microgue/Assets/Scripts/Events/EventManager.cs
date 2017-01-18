@@ -28,6 +28,7 @@ public class EventManager : MonoBehaviour {
 
 				if (!eventManager) 
 				{
+                    try { throw new System.Exception(); } catch (System.Exception e) { Debug.Log(e.StackTrace); }
 					Debug.LogError ("There needs to be one active EventManger script on a GameObject in your scene.");
 				}
 				else
