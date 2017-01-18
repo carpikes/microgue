@@ -45,6 +45,8 @@ public class GameplayManager : MonoBehaviour
     public Button resumeButton;
     public UnityEngine.EventSystems.EventSystem eventSystem;
 
+    public bool canPause = true;
+
     // Use this for initialization
     void Start()
     {
@@ -96,11 +98,13 @@ public class GameplayManager : MonoBehaviour
     }
 
     IEnumerator WaitBeforeLoadingLevel() {
+        canPause = false;
         yield return new WaitForSeconds(1.0f);
         EventManager.TriggerEvent(Events.FADE_OUT, null);
         yield return new WaitForSeconds(0.2f);
         NextWorld();
         EventManager.TriggerEvent(Events.FADE_IN, null);
+        canPause = true;
     }
 
     // Load next world (it increments world counter before loading)
@@ -198,7 +202,7 @@ public class GameplayManager : MonoBehaviour
     }
 
     void Update() {
-        if (Input.GetButtonDown("Escape"))
+        if (Input.GetButtonDown("Escape") && canPause)
         {
             if (mGameOver)
                 return; 

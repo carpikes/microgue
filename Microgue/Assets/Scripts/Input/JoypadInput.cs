@@ -8,8 +8,23 @@ public class JoypadInput : MonoBehaviour, InputInterface {
     private float mCircleArea = 0.8f;
     public Vector2 mCurPlayerPos = Vector2.zero;
 
+    // shoot button is os depedent
+    bool isWindows;
+    private string shootString;
+
+
     void Start () {
         mCurRStick = new Vector2(0, 0);
+
+        // if I'm on windows...
+        if( Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor) {
+            isWindows = true;
+            shootString = "Shoot";
+        } else
+        {
+            isWindows = false;
+            shootString = "ShootLinux";
+        }
     }
 
     void FixedUpdate() {
@@ -79,8 +94,9 @@ public class JoypadInput : MonoBehaviour, InputInterface {
 
     public bool IsDashButtonPressed()
     {
-        float v = Input.GetAxisRaw("Shoot");
-        return (v > 0.2);
+        //float v = Input.GetAxisRaw("Shoot");
+        //return (v > 0.2);
+        return false;
     }
 
     public bool IsSecondaryAttackButtonPressed()
@@ -90,8 +106,8 @@ public class JoypadInput : MonoBehaviour, InputInterface {
 
     public bool IsShootingButtonPressed()
     {
-        float v = Input.GetAxisRaw("Shoot");
-        return (v < -0.2);
+        float v = Input.GetAxisRaw(shootString);
+        return isWindows ? (v < -0.2f) : (v > 0.2f);
     }
 
     public void FeedPlayerPosition(Vector2 pos)
