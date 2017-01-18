@@ -32,6 +32,7 @@ public class GameplayManager : MonoBehaviour
     private bool mGameRunning = true;
     private bool mGameOver = false; //se true, pause non va piu`
     private bool mKeysEn = false;
+    private bool mLoading = false;
     private string mKeys;
 
     private WorldManager mWorldManager = null;
@@ -73,14 +74,16 @@ public class GameplayManager : MonoBehaviour
         EventManager.StartListening(Events.ON_BOSS_KILLED, OnBossKilled);
         EventManager.StartListening(Events.ON_BOSS_GOTO, LoadBossRoom);
         EventManager.StartListening(Events.ON_LOADING_SCREEN_COMPLETE, OnLoadingScreenComplete);
+        EventManager.StartListening(Events.ON_LEVEL_BEFORE_LOADING, OnLevelBeforeLoading);
     }
 
     void OnDisable()
     {
-        EventManager.StartListening(Events.VOID_COMPLETED, OnBossKilled);
+        EventManager.StopListening(Events.VOID_COMPLETED, OnBossKilled);
         EventManager.StopListening(Events.ON_BOSS_KILLED, OnBossKilled);
         EventManager.StopListening(Events.ON_BOSS_GOTO, LoadBossRoom);
         EventManager.StopListening(Events.ON_LOADING_SCREEN_COMPLETE, OnLoadingScreenComplete);
+        EventManager.StopListening(Events.ON_LEVEL_BEFORE_LOADING, OnLevelBeforeLoading);
     }
 
     private void LoadBossRoom(Bundle arg0)
@@ -153,7 +156,13 @@ public class GameplayManager : MonoBehaviour
     // called once after on_level_after_loading
     void OnLoadingScreenComplete(Bundle useless)
     {
+        mLoading = false;
         StartGame();
+    }
+
+    void OnLevelBeforeLoading(Bundle useless)
+    {
+        mLoading = true;
     }
 
     public void StopGame()
@@ -198,7 +207,7 @@ public class GameplayManager : MonoBehaviour
     }
 
     void Update() {
-        if (Input.GetButtonDown("Escape"))
+        if (Input.GetButtonDown("Escape") && !mLoading)
         {
             if (mGameOver)
                 return; 
