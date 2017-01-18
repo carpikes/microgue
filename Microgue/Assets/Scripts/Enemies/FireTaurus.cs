@@ -34,7 +34,9 @@ public class FireTaurus : MonoBehaviour {
 
     Rigidbody2D rb;
 
-   
+    private AudioSource[] mAudioSrc;
+    public AudioClip mDownAudio, mUpAudio, mShootAudio, mSpawnAudio;
+    private bool mMustAppear;
 
     // Use this for initialization
     void Start () {
@@ -51,6 +53,8 @@ public class FireTaurus : MonoBehaviour {
         mChangeTime = Time.time + Random.Range(mHiddenTimeMin, mHiddenTimeMax);
 
         rb = GetComponent<Rigidbody2D>();
+        mAudioSrc = GetComponents<AudioSource>();
+        mMustAppear = false;
 
         StartCoroutine(LateStart());
     }
@@ -86,6 +90,7 @@ public class FireTaurus : MonoBehaviour {
 
                 if (mChangeTime < Time.time || mJumpAwayInstant) // ok nasconditi!
                 {
+                    mAudioSrc[0].PlayOneShot(mDownAudio);
                     mState = 1;
                     mAnimator.SetTrigger("teleport_down");
                     mChangeTime = Time.time + Random.Range(mHiddenTimeMin, mHiddenTimeMax); // stai questo tempo nascosto
@@ -99,15 +104,26 @@ public class FireTaurus : MonoBehaviour {
                 if (mWorldManager == null)
                     return;
 
-                if (mChangeTime < Time.time && mWorldManager.CountEnemies() == 1) // time out, riappari altrove!
+                if (mChangeTime < Time.time && mWorldManager.CountEnemies() == 1) // time out, riappari oppure spawna altri nemici
                 {
-                    mState = 2;
-                    mChangeTime = Time.time + 2f;  // e stai questo tempo fermo appena riapparso
-                    JumpAway();
-                    // e riappari
-                    GetComponent<SpriteRenderer>().enabled = true;
-                    GetComponent<BoxCollider2D>().enabled = true;
-                    mAnimator.SetTrigger("teleport_up");
+                    if (Random.Range(0, 2) == 0 && !mMustAppear) // spawna
+                    {
+                        mChangeTime = Time.time + Random.Range(mHiddenTimeMin, mHiddenTimeMax); // stai questo tempo nascosto
+                        GenerateEnemies(Random.Range(1,3));
+                        mMustAppear = true;
+                    }
+                    else // riappari
+                    {
+                        mMustAppear = false;
+                        mAudioSrc[0].PlayOneShot(mUpAudio);
+                        mState = 2;
+                        mChangeTime = Time.time + 2f;  // e stai questo tempo fermo appena riapparso
+                        JumpAway();
+                        // e riappari
+                        GetComponent<SpriteRenderer>().enabled = true;
+                        GetComponent<BoxCollider2D>().enabled = true;
+                        mAnimator.SetTrigger("teleport_up");
+                    }
                 }
                 break;
             case 2: // appena riapparso... 
@@ -125,6 +141,8 @@ public class FireTaurus : MonoBehaviour {
 
     private void GenerateEnemies(int n)
     {
+        mAudioSrc[2].clip = mSpawnAudio;
+        mAudioSrc[2].PlayDelayed(0.5f);
         for (int i = 0; i < n; i++)
         {
             string enemy = "Fire Magician";
@@ -163,6 +181,7 @@ public class FireTaurus : MonoBehaviour {
     }
 
     void Shot() {
+        mAudioSrc[1].PlayOneShot(mShootAudio);
         int n = mShots;
         float phaseInc = 2 * Mathf.PI / n / 2.0f;
         for (int i = 0; i < n; i++)
