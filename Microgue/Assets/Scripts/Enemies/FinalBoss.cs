@@ -133,7 +133,6 @@ public class FinalBoss : MonoBehaviour {
         {
             Vector2 velocity = (mTarget - mRB.position).normalized * mSpeed;
             Vector2 newPos = mRB.position + velocity * Time.fixedDeltaTime;
-            Debug.Log(Vector2.Dot((newPos - mTarget).normalized, (mRB.position - mTarget).normalized));
             if (Vector2.Dot((newPos - mTarget).normalized, (mRB.position - mTarget).normalized) < -0.9f)
             {
                 // target raggiunto (slice)

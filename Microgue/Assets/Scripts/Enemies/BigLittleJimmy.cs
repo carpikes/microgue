@@ -152,14 +152,29 @@ public class BigLittleJimmy : MonoBehaviour {
     void SetInvincible(bool value)
     {
         GetComponent<EnemyLife>().mIsInvincible = value;
-        mSpriteRenderer.color = new Color(1, 1, 1, value ? 0.5f : 1f);
+        if(value)
+            mSpriteRenderer.color = new Color(0.7f, 0.7f, 1, 0.5f);
+        else
+            mSpriteRenderer.color = new Color(1, 1, 1, 1f);
+    }
+
+    IEnumerator BlinkCoroutine() {
+        mSpriteRenderer.color = new Color(1, 1, 1, 1.0f);
+        yield return new WaitForSeconds(0.1f);
+        if( GetComponent<EnemyLife>().mIsInvincible)
+            mSpriteRenderer.color = new Color(0.7f, 0.7f, 1, 0.5f);
+        else
+            mSpriteRenderer.color = new Color(1, 1, 1, 1f);
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.CompareTag("Shot"))
+        if (other.CompareTag("Shot"))
             if (GetComponent<EnemyLife>().mIsInvincible)
+            {
+                StartCoroutine(BlinkCoroutine());
                 mAudioSrc[0].PlayOneShot(mCrystalSound);
+            }
             else
                 mAudioSrc[0].PlayOneShot(mHitSound);
     } 
