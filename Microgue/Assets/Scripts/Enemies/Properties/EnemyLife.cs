@@ -13,6 +13,7 @@ public class EnemyLife : MonoBehaviour {
     public bool mIsInvincible = false;
     bool canDieAnimation = true;
     public AudioClip mDeathAudio = null;
+    private float mKillTimeout = 0.0f;
 
     Collider2D[] colliders;
 
@@ -68,6 +69,13 @@ public class EnemyLife : MonoBehaviour {
         Damage(mCurrentHP);
     }
 
+    IEnumerator DieCoroutine() {
+        Debug.Log("Started..");
+        yield return new WaitForSeconds(1.5f);
+        Debug.Log("Finished");
+        Die();
+    }
+
     private void DeathAnimation()
     {
         if (canDieAnimation)
@@ -82,9 +90,15 @@ public class EnemyLife : MonoBehaviour {
                 GetComponent<AudioSource>().PlayOneShot(mDeathAudio);
 
             mAnimator.SetTrigger("enemy_death");
+            mKillTimeout = Time.time + 1.0f;
             // destroy is invoked by animation through an animation event
         }
+    }
 
+    void Update()
+    {
+        if (Time.time > mKillTimeout && mKillTimeout != 0.0f)
+            Die();
     }
 
     public void Die()

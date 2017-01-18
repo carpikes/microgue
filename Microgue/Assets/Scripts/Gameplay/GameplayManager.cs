@@ -38,6 +38,7 @@ public class GameplayManager : MonoBehaviour
     private WorldManager mWorldManager = null;
 
     private GameObject mMainChr, mShotPos;
+    public GameObject mWorldData;
     private byte[] mDebugData;
 
     private SettingsManager settingsMgr;
@@ -94,7 +95,8 @@ public class GameplayManager : MonoBehaviour
 
     void OnBossKilled(Bundle useless)
     {
-        //Debug.Log("OnBossKilled");
+        Debug.Log("OnBossKilled");
+        mLoading = true;
         StartCoroutine(WaitBeforeLoadingLevel());
     }
 
@@ -174,6 +176,7 @@ public class GameplayManager : MonoBehaviour
         mWorldManager.GetWorld().SetActive(false);
         mMainChr.SetActive(false);
         mShotPos.SetActive(false);
+        mWorldData.SetActive(false);
     }
 
     // goto pause, called also while loading
@@ -186,6 +189,7 @@ public class GameplayManager : MonoBehaviour
         mWorldManager.GetWorld().SetActive(false);
         mMainChr.SetActive(false);
         mShotPos.SetActive(false);
+        mWorldData.SetActive(false);
 
         GetComponent<AIMap>().enabled = false;
         GetComponent<TimerManager>().enabled = false;
@@ -201,6 +205,7 @@ public class GameplayManager : MonoBehaviour
         mMainChr.SetActive(true);
         mShotPos.SetActive(true);
         mWorldManager.GetWorld().SetActive(true);
+        mWorldData.SetActive(true);
 
         GetComponent<AIMap>().enabled = true;
         GetComponent<TimerManager>().enabled = true;
