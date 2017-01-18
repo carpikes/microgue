@@ -48,6 +48,9 @@ public class Medusa : MonoBehaviour
 
     private Animator mAnimator;
 
+    public AudioClip mDashAudio, mWaitAudio, mSSAudio;
+    private AudioSource[] mAudioSrc;
+
 	// Use this for initialization
 	void Start () {
         mTimeout = Time.time + mInitialWaitingTime;
@@ -56,6 +59,7 @@ public class Medusa : MonoBehaviour
         mAnimator = GetComponent<Animator>();
         mRB = GetComponent<Rigidbody2D>();
         mSpellAnim = transform.GetChild(0).gameObject;
+        mAudioSrc = GetComponents<AudioSource>();
 
         mJustWaited = false;
         mRunInited = false;
@@ -69,7 +73,7 @@ public class Medusa : MonoBehaviour
             case 0:
                 if (Time.time > mTimeout)
                 {
-                    int choice = Random.Range(0, 3);
+                    int choice = Random.Range(0, 2);
                     if (mJustWaited)
                         choice = 1;
                     mSubAI = (choice == 0 ? 1 : 0); // choice == 0 ? Wait : Run
@@ -78,22 +82,22 @@ public class Medusa : MonoBehaviour
                     mState = 1;
                     if (mSubAI == 0)
                     {
-                            //  Debug.Log("S1");
-                        // MICHELE: #NOMIRROR qua anim di dash (se non ti interessa il mirror orizzontale) altrimenti cerca #MIRROR
                         mTimeout = Time.time + Random.Range(mRunTimeMin, mRunTimeMax);
                         Debug.Log("Dash");
                         mJustWaited = false;
+                        mAudioSrc[1].clip = mDashAudio;
                     }
                     else
                     {
-                        // Debug.Log("S2");
                         mTimeout = Time.time + Random.Range(mWaitingTimeMin, mWaitingTimeMax);
                         mSpellAnim.SetActive(true); // questo coso andra` cambiato con il gameobject di un'onda o simili
 
                         mAnimator.SetTrigger("idle"); // TODO cambiare con freezing animation
-                        Debug.Log("Wait");
                         mJustWaited = true;
+                        mAudioSrc[1].clip = mWaitAudio;
                     }
+                    mAudioSrc[0].PlayOneShot(mSSAudio);
+                    mAudioSrc[1].Play();
                 }
                 break;
             case 1:
@@ -114,6 +118,8 @@ public class Medusa : MonoBehaviour
                     mTimeout = Time.time + Random.Range(mChosingTimeMin, mChosingTimeMax);
 
                     mAnimator.SetTrigger("idle");
+                    mAudioSrc[0].PlayOneShot(mSSAudio);
+                    mAudioSrc[1].Stop();
                     break; 
                 }
                 break;
@@ -144,6 +150,7 @@ public class Medusa : MonoBehaviour
         if (delta.magnitude > mLastDist)
         {
             // target raggiunto o superato
+            mAudioSrc[0].PlayOneShot(mSSAudio);
             mRB.velocity = Vector2.zero;
             mRunTo = GetRunTo();
             // MICHELE: anim di dash qua #MIRROR (se non usi #NOMIRROR), stesso codice di poco sopra
@@ -161,10 +168,10 @@ public class Medusa : MonoBehaviour
     {
         // Debug.Log("B");
         Vector3[] boundaries = {
-            new Vector3(0.75f, -2f,   1),
-            new Vector3(9.21f, -2f,   1),
-            new Vector3(9.21f, -7.3f, 1),
-            new Vector3(0.75f, -7.3f, 1)
+            new Vector3(2.00f, -2.50f, 1),
+            new Vector3(9.21f, -2.50f, 1),
+            new Vector3(9.21f, -6.50f, 1),
+            new Vector3(2.00f, -6.50f, 1)
         };
         Vector3[] lines = new Vector3[4];
 
