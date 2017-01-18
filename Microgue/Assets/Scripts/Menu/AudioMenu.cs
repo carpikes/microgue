@@ -3,21 +3,23 @@ using System.Collections;
 
 public class AudioMenu : MonoBehaviour {
 
-//    StudioEventEmitter[] emitters;
+    AudioSource[] sources;
 
     void Start()
     {
-//        emitters = GetComponents<StudioEventEmitter>();
-//        Debug.Assert(emitters != null, "Audio for menu not working.");
+        DontDestroyOnLoad(gameObject);
+        sources = GetComponents<AudioSource>();
+        Debug.Assert(sources != null, "Audio for menu not working.");
     }
 
-	public void MouseOver()
+    public void MouseOver()
     {
-//        emitters[0].Play();
+        sources[0].Play();
     }
 
     public void ConfirmChoice()
     {
-//        emitters[1].Play();
+        Debug.Log(sources[1].clip.name);
+        sources[1].Play();
     }
 }
