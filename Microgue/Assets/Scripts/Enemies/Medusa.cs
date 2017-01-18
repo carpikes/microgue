@@ -48,7 +48,7 @@ public class Medusa : MonoBehaviour
 
     private Animator mAnimator;
 
-    public AudioClip mDashAudio, mWaitAudio, mSSAudio;
+    public AudioClip mDashAudio, mWaitAudio, mSSAudio, mSpawnAudio;
     private AudioSource[] mAudioSrc;
 
 	// Use this for initialization
@@ -256,6 +256,7 @@ public class Medusa : MonoBehaviour
     {
         Vector2 pos = transform.position;
 
+        mAudioSrc[0].PlayOneShot(mSpawnAudio);
         GameObject el = Resources.Load("StompStomp") as GameObject;
 
         for (int i = 0; i < 3; i++)
