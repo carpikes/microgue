@@ -3,10 +3,14 @@ using System.Collections;
 
 using StatPair = System.Collections.Generic.KeyValuePair<StatManager.StatStates, float>;
 using Bundle = System.Collections.Generic.Dictionary<string, string>;
+using System;
 
 public class ItemPrefabProperties : MonoBehaviour {
 
     PlayerItemHandler playerManager;
+
+    AudioSource audioSource;
+    public AudioClip itemClip;
 
     [HideInInspector]
     public ItemData item;
@@ -32,6 +36,9 @@ public class ItemPrefabProperties : MonoBehaviour {
 
         shadow = transform.FindChild("Shadow");
         shadowInitialPos = shadow.transform.position;
+
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = itemClip;
     }
 
     void FixedUpdate ()
@@ -48,15 +55,32 @@ public class ItemPrefabProperties : MonoBehaviour {
         {
             Bundle itemBundle = new Bundle();
             itemBundle.Add(ITEM_PICKUP_TAG, item.Name);
-//            GetComponent<FMODUnity.StudioEventEmitter>().Play();
-            EventManager.TriggerEvent(Events.ON_ITEM_PICKUP, itemBundle);
 
-            if ( item.IsPassive )
-                playerManager.UseItem(item);
-            else
-                playerManager.StoreItem(item);
-
-            gameObject.SetActive(false);
+            StartCoroutine(EndItem(itemBundle));
         }
+    }
+
+    private IEnumerator EndItem(Bundle itemBundle)
+    {
+        if (!audioSource.isPlaying)
+            audioSource.Play();
+
+        foreach (MonoBehaviour mb in GetComponents<MonoBehaviour>())
+            if (mb != this)
+                mb.enabled = false;
+
+        GetComponent<SpriteRenderer>().enabled = false;
+        transform.GetChild(0).gameObject.SetActive(false);
+
+        EventManager.TriggerEvent(Events.ON_ITEM_PICKUP, itemBundle);
+
+        if (item.IsPassive)
+            playerManager.UseItem(item);
+        else
+            playerManager.StoreItem(item);
+
+        yield return new WaitForSeconds(itemClip.length);
+
+        gameObject.SetActive(false);
     }
 }
