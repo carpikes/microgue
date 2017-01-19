@@ -181,9 +181,9 @@ AudioSource:
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
-  BypassEffects: 1
-  BypassListenerEffects: 1
-  BypassReverbZones: 1
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -255,9 +255,9 @@ AudioSource:
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
-  BypassEffects: 1
-  BypassListenerEffects: 1
-  BypassReverbZones: 1
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -422,6 +422,7 @@ MonoBehaviour:
   mCurrentHP: 100
   mIsInvincible: 0
   mDeathAudio: {fileID: 0}
+  mHitSound: {fileID: 0}
 --- !u!114 &114000014221629720
 MonoBehaviour:
   m_ObjectHideFlags: 1

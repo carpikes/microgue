@@ -32,6 +32,7 @@ GameObject:
   - 114: {fileID: 114000011073847530}
   - 114: {fileID: 114000011499582200}
   - 114: {fileID: 114000010820464476}
+  - 82: {fileID: 82000012950046848}
   m_Layer: 0
   m_Name: GameplayManager
   m_TagString: GameController
@@ -52,6 +53,80 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!82 &82000012950046848
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012975155318}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114000010066687410
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -85,9 +160,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 14fd0b82b7ae89c41ab7e99499e67b45, type: 2}
   - {fileID: 11400000, guid: 8d6b61173ab349e4c9da2ab55fdf5311, type: 2}
   mDebugWorld: {fileID: 11400000, guid: a03dcd2f4a0cdd642a2a17470d4dc098, type: 2}
-  startFromWorld: 1
+  startFromWorld: 0
   debugArena: 0
-  isInvincible: 1
+  isInvincible: 0
   pressBToGoToBoss: 1
   bypassDoors: 0
   mWorldData: {fileID: 0}
@@ -119,6 +194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverCanvas: {fileID: 0}
   UICanvas: {fileID: 0}
+  gameOverClip: {fileID: 8300000, guid: 4979da92319dc354bb6417eb32cc6141, type: 3}
 --- !u!114 &114000011031036628
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -141,6 +217,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d071f654f4c03a4ba942b8c77793300, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doorClosedClip: {fileID: 8300000, guid: 6316c36355bf4884984363e95df353fa, type: 3}
+  changeRoomClip: {fileID: 8300000, guid: 6316c36355bf4884984363e95df353fa, type: 3}
 --- !u!114 &114000011355995584
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -168,6 +246,7 @@ MonoBehaviour:
   fullBarImage: {fileID: 21300000, guid: 2815c0fafb0f5014984d9c6187a302ca, type: 3}
   mainCharacter: {fileID: 1000013211588202, guid: f9cdb9929af97cb4fab874f6984a6221,
     type: 2}
+  mShowSound: {fileID: 8300000, guid: cd5e3abf498bf5c419f13b96716f1b11, type: 3}
 --- !u!114 &114000011499582200
 MonoBehaviour:
   m_ObjectHideFlags: 1

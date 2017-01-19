@@ -33,6 +33,7 @@ public class CanvasManager : MonoBehaviour {
 
     public GameObject mainCharacter;
     StatManager playerStats;
+    public AudioClip mShowSound;
 
     Coroutine lastTextCoroutine = null;
 
@@ -104,6 +105,7 @@ public class CanvasManager : MonoBehaviour {
         if (lastTextCoroutine != null)
             StopCoroutine(lastTextCoroutine);
 
+        GetComponent<AudioSource>().PlayOneShot(mShowSound);
         lastTextCoroutine = StartCoroutine( ShowMessageCoroutine(args) );
     }
 
