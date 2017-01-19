@@ -86,24 +86,33 @@ public class EnemyLife : MonoBehaviour {
             foreach (var c in colliders)
                 c.enabled = false;
 
+            mAnimator.SetTrigger("enemy_death");
+
+            // audio of death
             if (mDeathAudio != null && GetComponent<AudioSource>() != null)
                 GetComponent<AudioSource>().PlayOneShot(mDeathAudio);
-
-            mAnimator.SetTrigger("enemy_death");
-            mKillTimeout = Time.time + 1.0f;
-            // destroy is invoked by animation through an animation event
         }
-    }
-
-    void Update()
-    {
-        if (Time.time > mKillTimeout && mKillTimeout != 0.0f)
-            Die();
     }
 
     public void Die()
     {
         EventManager.TriggerEvent(Events.ON_ENEMY_DEATH, null);
+
+        foreach (MonoBehaviour mb in GetComponents<MonoBehaviour>())
+            if (mb != this)
+                mb.enabled = false;
+
+        // disable sprite renderer
+        GetComponent<SpriteRenderer>().enabled = false;
+
+        StartCoroutine(DeathAudioWait());
+    }
+
+    private IEnumerator DeathAudioWait()
+    {
+        if( mDeathAudio != null )
+            yield return new WaitForSeconds(mDeathAudio.length);
+
         Destroy(gameObject);
     }
 
