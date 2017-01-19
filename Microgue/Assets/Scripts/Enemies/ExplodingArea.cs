@@ -42,15 +42,7 @@ public class ExplodingArea : MonoBehaviour {
             mEnemy.mSubjectToExplosion = true;
 
             mState = ExplodingStatue.States.EXPLODING;
-            mAnimator.SetTrigger("enemy_death");
+            mEnemy.Explode();
         }
-    }
-
-    void OnTriggerExit2D(Collider2D other)
-    {
-       /* if (!other.CompareTag("Player"))
-            return;
-
-        mEnemy.mSubjectToExplosion = false;*/
     }
 }

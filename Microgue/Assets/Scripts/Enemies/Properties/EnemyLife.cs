@@ -80,7 +80,7 @@ public class EnemyLife : MonoBehaviour {
         Die();
     }
 
-    private void DeathAnimation()
+    public void DeathAnimation()
     {
         if (canDieAnimation)
         {
