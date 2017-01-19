@@ -369,6 +369,7 @@ public class InputManager : MonoBehaviour {
     {
         if (sndAttackEnabled && refillEnemiesToReload <= enemiesKilledCounter)
         {
+            GetComponents<AudioSource>()[2].Play();
             EventManager.TriggerEvent(Events.ON_MAIN_CHAR_SECOND_ATTACK, null);
             //Debug.Log("BUM");
             sndAttackEnabled = false;
