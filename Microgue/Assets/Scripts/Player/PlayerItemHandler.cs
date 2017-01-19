@@ -27,7 +27,10 @@ public class PlayerItemHandler : MonoBehaviour {
 
         //EventManager.TriggerEvent(Events.ON_ITEM_USE, item);
         foreach (StatPair pair in item.Values)
+        {
+            Debug.Log(pair.Key + ":" + pair.Value);
             statManager.UpdateStatValue(pair.Key, pair.Value);
+        }
 
         Invoke(item.OnUseMethod, item.OnUseParams);
     }

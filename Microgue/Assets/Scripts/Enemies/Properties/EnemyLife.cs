@@ -13,6 +13,7 @@ public class EnemyLife : MonoBehaviour {
     public bool mIsInvincible = false;
     bool canDieAnimation = true;
     public AudioClip mDeathAudio = null;
+    public AudioClip mHitSound = null;
     private float mKillTimeout = 0.0f;
 
     Collider2D[] colliders;
@@ -37,6 +38,9 @@ public class EnemyLife : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Shot") && !mIsInvincible)
         {
+            AudioSource src = GetComponent<AudioSource>();
+            if(src != null && mHitSound != null)
+                src.PlayOneShot(mHitSound);
             Damage(other.GetComponent<ShotProperties>().mDamage);
         }
     }

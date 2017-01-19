@@ -204,7 +204,7 @@ public class InputManager : MonoBehaviour {
 
     internal void SetStatSpeed(float v)
     {
-        mMaxSpeed = mInitialSpeed + v;
+        mMaxSpeed = v;
     }
 
     private void Aim()
