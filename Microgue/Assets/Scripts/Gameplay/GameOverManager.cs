@@ -12,6 +12,9 @@ public class GameOverManager : MonoBehaviour {
     public GameObject UICanvas;
     private bool mGameOver = false;
 
+    AudioSource gameoverSource;
+    public AudioClip gameOverClip;
+
     void OnEnable()
     {
         EventManager.StartListening(Events.ON_MAIN_CHAR_DEATH, GameOver);
@@ -28,6 +31,8 @@ public class GameOverManager : MonoBehaviour {
     void Start () {
         mPlayer = GameObject.FindGameObjectWithTag("Player");
         mAimCursor = GameObject.FindGameObjectWithTag("AimCursor");
+
+        gameoverSource = GetComponents<AudioSource>()[0];
     }
 
     void Update() {
@@ -46,6 +51,9 @@ public class GameOverManager : MonoBehaviour {
 
         Cursor.visible = true;
         gameOverCanvas.SetActive(true);
+
+        if( !gameoverSource.isPlaying )
+            gameoverSource.PlayOneShot(gameOverClip);
     }
 
     public void ReloadMenu()

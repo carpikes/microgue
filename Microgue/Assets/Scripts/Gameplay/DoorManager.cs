@@ -11,6 +11,10 @@ public class DoorManager : MonoBehaviour
     private RoomMap.Door mLastDoor, mLastOpposite;
     private WorldManager mWorldManager = null;
 
+    AudioSource doorSource;
+    public AudioClip doorClosedClip;
+    public AudioClip changeRoomClip;
+
     void OnEnable()
     {
         EventManager.StartListening(Events.ON_DOOR_TOUCH, OnDoorEnter);
@@ -21,6 +25,11 @@ public class DoorManager : MonoBehaviour
     {
         EventManager.StopListening(Events.ON_DOOR_TOUCH, OnDoorEnter);
         EventManager.StopListening(Events.ON_ENEMY_DEATH, TryUnlockDoors);
+    }
+
+    void Start()
+    {
+        doorSource = GetComponents<AudioSource>()[0];
     }
 
     private void UnlockDoor(Transform t)
@@ -39,7 +48,9 @@ public class DoorManager : MonoBehaviour
 
         // l'update viene fatto dopo, quindi al momento della morte ce n'è ancora uno vivo...
         if (mWorldManager.CountEnemies() > 1)
+        {
             return;
+        }
 
         GameObject world = mWorldManager.GetWorld();
         if (world == null)
@@ -81,7 +92,9 @@ public class DoorManager : MonoBehaviour
         // skip control if flag enabled
         if (!mWorldManager.AreAllEnemiesKilled())
         {
-//            GetComponents<FMODUnity.StudioEventEmitter>()[1].Play();
+            if (!doorSource.isPlaying)
+                doorSource.PlayOneShot(doorClosedClip);
+
             EventManager.TriggerEvent(Events.ON_STILL_ENEMIES_LEFT, null);
             return;
         }
@@ -90,8 +103,9 @@ public class DoorManager : MonoBehaviour
         RoomMap.Door door, opposite;
 
         if (!args.TryGetValue(DoorBehavior.DOOR_TYPE_TAG, out type))
+        {
             return;
-
+        }
         switch (type) {
             case DoorBehavior.DOOR_DOWN:  door = RoomMap.Door.DOWN;  opposite = RoomMap.Door.UP;    break;
             case DoorBehavior.DOOR_UP:    door = RoomMap.Door.UP;    opposite = RoomMap.Door.DOWN;  break;
@@ -104,9 +118,16 @@ public class DoorManager : MonoBehaviour
         RoomInfo room = mWorldManager.GetMapGenerator().GetRoom(mWorldManager.GetCurrentRoomId());
         if (room.HasDoor(door) || (room.HasEndPoint() && (int)door == room.GetStartOrEndDoor()))
         {
+            if (!doorSource.isPlaying)
+                doorSource.PlayOneShot(changeRoomClip);
+
             StartCoroutine(FadeOut());
             mLastDoor = door;
             mLastOpposite = opposite;
+        } else
+        {
+            if (!doorSource.isPlaying)
+                doorSource.PlayOneShot(doorClosedClip);
         }
     }
 }
