@@ -53,7 +53,10 @@ public class GameOverManager : MonoBehaviour {
         gameOverCanvas.SetActive(true);
 
         if( !gameoverSource.isPlaying )
+        {
+            gameoverSource.volume = 0.6f;
             gameoverSource.PlayOneShot(gameOverClip);
+        }
     }
 
     public void ReloadMenu()
