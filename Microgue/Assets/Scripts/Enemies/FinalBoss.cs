@@ -11,6 +11,8 @@ public class FinalBoss : MonoBehaviour {
     public GameObject mPlayer;
     public GameObject mWorldContainer;
 
+    public AudioClip slideClip;
+
     Animator mAnimator;
 
     // fra quanto iniziare lo spostamento. se messo a 0.0f == "non muoverti"
@@ -54,6 +56,7 @@ public class FinalBoss : MonoBehaviour {
                 break;
             case 1: // run sx/dx
                 {
+                    GetComponents<AudioSource>()[1].Play();
                     float x = mRB.position.x;
                     if (mRB.position.x < mArea[0].x + 0.1f) x = mArea[1].x;
                     else if (mRB.position.x > mArea[1].x - 0.1f) x = mArea[0].x;
@@ -70,6 +73,7 @@ public class FinalBoss : MonoBehaviour {
                 float y = mRB.position.y;
                 if (y > mArea[2].y + 0.5) // slide down (la y e` invertita!)
                 {
+                    GetComponents<AudioSource>()[1].Play();
                     Vector2 newPos = new Vector2(mRB.position.x, mArea[2].y);
                     GoTo(newPos, 0.3f, 10.0f, "front_slice");
                     mState = 0;
