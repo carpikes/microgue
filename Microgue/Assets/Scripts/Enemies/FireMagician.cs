@@ -27,6 +27,7 @@ public class FireMagician : MonoBehaviour {
 
     Animator mAnimator;
     public AudioClip mAudioAppear, mAudioDisappear;
+    public AudioClip mShoot;
 
 	// Use this for initialization
 	void Start () {
@@ -130,6 +131,7 @@ public class FireMagician : MonoBehaviour {
 
     void Shot() {
         int n = mShots;
+        GetComponent<AudioSource>().PlayOneShot(mShoot);
         float phaseInc = 2 * Mathf.PI / n / 2.0f;
         for (int i = 0; i < n; i++)
         {
