@@ -119,6 +119,7 @@ public class StatManager : MonoBehaviour
             case StatStates.DAMAGE:
                 // you cannot set a different value to the prefab at runtime, only to their instances
                 // therefore the values are set to the clones in the InputManager script.
+                EventManager.TriggerEvent(Events.ON_MAIN_CHAR_ACTUALLY_HIT, null);
                 break;
 
             case StatStates.DEFENCE:
