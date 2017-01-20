@@ -46,6 +46,13 @@ public class GameplayManager : MonoBehaviour
     [Header("UI")]
     public Button resumeButton;
     public UnityEngine.EventSystems.EventSystem eventSystem;
+    public GameObject UICanvas;
+
+    [Header("Game win")]
+    public GameObject gameWinCanvas;
+
+    AudioSource gameWinSource;
+    public AudioClip gameWinClip;
 
     // Use this for initialization
     void Start()
@@ -66,6 +73,8 @@ public class GameplayManager : MonoBehaviour
             mWorlds[0] = mDebugWorld;
             mCurWorld = -1;
         }
+
+        gameWinSource = GetComponents<AudioSource>()[0];
         NextWorld();
     }
 
@@ -152,7 +161,21 @@ public class GameplayManager : MonoBehaviour
 
     private void WinScreen()
     {
-        Debug.LogError("WIN SCREEN MISSING!");
+        mGameOver = true;
+        StopGame();
+        mPlayer.SetActive(false);
+        mAimCursor.SetActive(false);
+
+        UICanvas.SetActive(false);
+
+        Cursor.visible = true;
+        gameWinCanvas.SetActive(true);
+
+        if (!gameWinSource.isPlaying)
+        {
+            gameWinSource.volume = 0.6f;
+            gameWinSource.PlayOneShot(gameWinClip);
+        }
     }
 
     // called once after on_level_after_loading
