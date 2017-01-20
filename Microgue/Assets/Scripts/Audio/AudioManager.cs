@@ -5,6 +5,7 @@ using Bundle = System.Collections.Generic.Dictionary<string, string>;
 
 public class AudioManager : Singleton<AudioManager> {
     AudioSource mBackgroundSrc, mAmbientSrc, mSimpleSrc;
+    public AudioClip mBossClip;
     public static AudioManager instance;
     private bool mFadeIn = false;
     private float mStartVolume = 0.0f;
@@ -84,6 +85,11 @@ public class AudioManager : Singleton<AudioManager> {
             }
             instance.mBackgroundSrc.Play();
         } 
+    }
+
+    public static void PlayBossMusic()
+    {
+        AudioManager.PlayMusic(instance.mBossClip, false);
     }
 
     public static void SetAmbienceVolume(float v)
