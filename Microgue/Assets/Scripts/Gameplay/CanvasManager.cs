@@ -73,15 +73,17 @@ public class CanvasManager : MonoBehaviour {
         args.TryGetValue(SECONDARY_ATTACK_BAR, out v);
 
         float value = float.Parse(v);
+        Debug.Log(value);
 
-        barGameObject.fillAmount = value;
-        if( value >= 0.999 )
+        if( value >= 0.999f )
         {
             barGameObject.sprite = fullBarImage;
         } else
         {
             barGameObject.sprite = notFullBarImage;
         }
+
+        barGameObject.fillAmount = value;
     }
 
     private void OnStillEnemiesLeft(Bundle args)
