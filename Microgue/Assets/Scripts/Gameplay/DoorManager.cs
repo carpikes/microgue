@@ -49,6 +49,7 @@ public class DoorManager : MonoBehaviour
             return;
 
         // l'update viene fatto dopo, quindi al momento della morte ce n'è ancora uno vivo...
+        Debug.Log("TRYUNLOCKDOORS: " + mWorldManager.CountEnemies());
         if (mWorldManager.CountEnemies() > 1)
         {
             return;

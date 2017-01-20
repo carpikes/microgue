@@ -100,8 +100,6 @@ public class EnemyLife : MonoBehaviour {
 
     public void Die()
     {
-        EventManager.TriggerEvent(Events.ON_ENEMY_DEATH, null);
-
         foreach (MonoBehaviour mb in GetComponents<MonoBehaviour>())
             if (mb != this)
                 mb.enabled = false;
@@ -117,6 +115,7 @@ public class EnemyLife : MonoBehaviour {
         if( mDeathAudio != null )
             yield return new WaitForSeconds(mDeathAudio.length);
 
+        EventManager.TriggerEvent(Events.ON_ENEMY_DEATH, null);
         Destroy(gameObject);
     }
 

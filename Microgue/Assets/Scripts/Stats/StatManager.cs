@@ -89,8 +89,8 @@ public class StatManager : MonoBehaviour
     {
         Stat currentStat = stats[(int)s];
 
-        if(s == StatStates.CURRENT_HEALTH && currentStat.CurrentValue > v)
-            EventManager.TriggerEvent(Events.ON_MAIN_CHAR_ACTUALLY_HIT, null);
+        //if(s == StatStates.CURRENT_HEALTH && currentStat.CurrentValue > v)
+        //    EventManager.TriggerEvent(Events.ON_MAIN_CHAR_ACTUALLY_HIT, null);
 
         currentStat.CurrentValue = v;
         Mathf.Clamp(currentStat.CurrentValue, currentStat.mMin, currentStat.mMax);
