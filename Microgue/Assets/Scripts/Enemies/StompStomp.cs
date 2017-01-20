@@ -34,6 +34,8 @@ public class StompStomp : MonoBehaviour
     private Transform mPlayerTransform;
     private InputManager mInputManager;
 
+    public AudioClip mSmallImpact, mBigImpact;
+    private AudioSource mAudioSrc;
     //private Animator mAnimator;
 
     private EnemyPosition mEnemyPosition;
@@ -94,7 +96,7 @@ public class StompStomp : MonoBehaviour
 
         if (mHackAttackInstant)
             OnShadowTouch();
-        // mStateMachine = new StateMachine<StompStomp>(this, mIdleState, null); // mGlobalState);
+        mAudioSrc = GetComponents<AudioSource>()[1];
     }
 
     void Update()
@@ -178,10 +180,12 @@ public class StompStomp : MonoBehaviour
             {
                 // INITIAL FALLING
                 newPosition.y = mCurTarget.y;
+                mAudioSrc.PlayOneShot(mBigImpact);
                 mInputManager.ShakeCamera(0.15f, 2.0f);
             }
             else {
                 // falling from usual jump
+                mAudioSrc.PlayOneShot(mSmallImpact);
                 mInputManager.ShakeCamera(0.13f, 1.0f);
                 //mAnimator.SetTrigger("end_jump");
             }
