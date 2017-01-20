@@ -36,8 +36,32 @@ public class StompStompEnemy : MonoBehaviour
         Destroy(transform.parent.gameObject);
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    public void DieStompStomp()
     {
-        //Debug.Log("Stomp hit " + other.name + " " + Time.time + ": " + gameObject.transform.position);
+        EventManager.TriggerEvent(Events.ON_ENEMY_DEATH, null);
+
+        foreach (MonoBehaviour mb in GetComponents<MonoBehaviour>())
+            if (mb != this)
+                mb.enabled = false;
+
+        foreach (MonoBehaviour mb in transform.parent.gameObject.GetComponents<MonoBehaviour>())
+            if (mb != this)
+                mb.enabled = false;
+
+        // disable sprite renderer
+        //GetComponent<SpriteRenderer>().enabled = false;
+        foreach(var sr in transform.parent.gameObject.GetComponentsInChildren<SpriteRenderer>())
+            sr.enabled = false;
+
+
+        StartCoroutine(DeathAudioWait());
+    }
+
+    private IEnumerator DeathAudioWait()
+    {
+        if (GetComponent<EnemyLife>().mDeathAudio != null)
+            yield return new WaitForSeconds(GetComponent<EnemyLife>().mDeathAudio.length);
+
+        Destroy(transform.parent.gameObject);
     }
 }
