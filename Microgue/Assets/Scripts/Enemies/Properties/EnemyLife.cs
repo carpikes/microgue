@@ -73,7 +73,14 @@ public class EnemyLife : MonoBehaviour {
         Damage(mCurrentHP);
     }
 
-    IEnumerator DieCoroutine() {
+    void Update()
+    {
+        if (Time.time > mKillTimeout && mKillTimeout != 0.0f)
+            Die();
+    }
+
+    IEnumerator DieCoroutine()
+    {
         Debug.Log("Started..");
         yield return new WaitForSeconds(1.5f);
         Debug.Log("Finished");
@@ -91,6 +98,7 @@ public class EnemyLife : MonoBehaviour {
                 c.enabled = false;
 
             mAnimator.SetTrigger("enemy_death");
+            mKillTimeout = Time.time + 3.0f;
 
             // audio of death
             if (mDeathAudio != null && GetComponent<AudioSource>() != null)
