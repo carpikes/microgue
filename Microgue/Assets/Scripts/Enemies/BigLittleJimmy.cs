@@ -106,7 +106,7 @@ public class BigLittleJimmy : MonoBehaviour {
         mAudioSrc[1].PlayOneShot(mSpawnSound);
         GameObject el = Resources.Load("AngrySoul") as GameObject;
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 2; i++)
         {
             GameObject go = GameObject.Instantiate(el);
             go.transform.position = pos + Random.insideUnitCircle;
