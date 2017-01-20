@@ -27,6 +27,7 @@ public class Siren : MonoBehaviour
     int shotLimit = 10;
     public GameObject darkBall;
     private float mShotPhase = 0.0f;
+    private AudioSource mScreamingAudio, mMovingAudio;
 
     public enum States
     {
@@ -46,6 +47,8 @@ public class Siren : MonoBehaviour
 
         mState = States.MOVING;
         mAnimator = GetComponent<Animator>();
+        mMovingAudio = GetComponents<AudioSource>()[1];
+        mScreamingAudio = GetComponents<AudioSource>()[2];
 
         StartCoroutine(LateStart());
     }
@@ -63,7 +66,11 @@ public class Siren : MonoBehaviour
         if( mState == States.MOVING ) {
             noise = new Vector2(UnityEngine.Random.Range(0.1f, 0.3f), UnityEngine.Random.Range(0.1f, 0.3f));
             mRb.velocity = (mPlayerRb.position - mRb.position) * mSpeed;
+            mScreamingAudio.volume = Mathf.Clamp01(mScreamingAudio.volume - 0.03f);
+            mMovingAudio.volume = Mathf.Clamp01(mMovingAudio.volume + 0.03f);
         } else if (mState == States.SCREAMING) {
+            mScreamingAudio.volume = Mathf.Clamp01(mScreamingAudio.volume + 0.03f);
+            mMovingAudio.volume = Mathf.Clamp01(mMovingAudio.volume - 0.03f);
             if (mScreamingCount > 0)
             {
                 if ( (mRb.position - mPlayerRb.position).magnitude >= maxDistance )
