@@ -211,9 +211,9 @@ AudioSource:
   MaxDistance: 5000
   Pan2D: 0
   rolloffMode: 1
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
+  BypassEffects: 1
+  BypassListenerEffects: 1
+  BypassReverbZones: 1
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -285,9 +285,9 @@ AudioSource:
   MaxDistance: 5000
   Pan2D: 0
   rolloffMode: 1
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
+  BypassEffects: 1
+  BypassListenerEffects: 1
+  BypassReverbZones: 1
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -379,7 +379,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mCurrentHP: 300
   mIsInvincible: 0
-  mDeathAudio: {fileID: 8300000, guid: 0288e084ec71258469b64d74ba09a335, type: 3}
+  mDeathAudio: {fileID: 8300000, guid: e028c7785365e4b47bf1b8f1f9f118ea, type: 3}
   mHitSound: {fileID: 8300000, guid: c85170a1bf0f43b44ba985d0843c77e8, type: 3}
 --- !u!114 &114000011506157282
 MonoBehaviour:
@@ -441,7 +441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 118c1d1c9e1bf9244a246cba47c839ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mSpeed: 5.5
+  mSpeed: 5
   mWaitingTimeMin: 2.5
   mWaitingTimeMax: 3
   mRunTimeMin: 5
@@ -451,7 +451,7 @@ MonoBehaviour:
   mInitialWaitingTime: 5
   mSpellRadius: 1.5
   mFreezeSeconds: 3
-  mDashAudio: {fileID: 8300000, guid: 6842f5829ac453c41baec4a1baa4724e, type: 3}
+  mDashAudio: {fileID: 0}
   mWaitAudio: {fileID: 8300000, guid: 526aaa0d26f7355449dd6a806f74253f, type: 3}
   mSSAudio: {fileID: 8300000, guid: 9af3d40b535804142a336ca9ffddb658, type: 3}
   mSpawnAudio: {fileID: 8300000, guid: bc3a479fc3e711c44b2ace019f2d4180, type: 3}
