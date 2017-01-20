@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System;
 
 using Random = UnityEngine.Random;
 
@@ -20,6 +18,8 @@ public class FinalBoss : MonoBehaviour {
     private float mSpeed = 0.0f;
     private int mRage = 0;
     private Vector2 mTarget;
+
+    AudioSource shotSource;
 
     private enum Animation {
         SLICE_LEFT,
@@ -44,6 +44,7 @@ public class FinalBoss : MonoBehaviour {
         mWorldContainer = GameObject.Find("WorldData");
 
         mAnimator = GetComponent<Animator>();
+        shotSource = GetComponents<AudioSource>()[2];
     }
 	
 	// Update is called once per frame
@@ -272,6 +273,8 @@ public class FinalBoss : MonoBehaviour {
         float phase = Random.Range(0, Mathf.PI);
         for (int i = 0; i < n; i++)
         {
+            shotSource.Play();
+
             float a = 2.0f * Mathf.PI / n * i + phase;
             GameObject lb = Instantiate(ball, mWorldContainer.transform) as GameObject;
             lb.transform.position = startPoint.position;
