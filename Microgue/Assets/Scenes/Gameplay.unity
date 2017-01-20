@@ -929,6 +929,16 @@ Prefab:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 93a0f5ed0f1fac24fbd0389e9435acdb, type: 3}
+    - target: {fileID: 82000013674597210, guid: f9cdb9929af97cb4fab874f6984a6221,
+        type: 2}
+      propertyPath: spreadCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82000013674597210, guid: f9cdb9929af97cb4fab874f6984a6221,
+        type: 2}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: afb1c988b6e8e594eac3725dde5772eb, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f9cdb9929af97cb4fab874f6984a6221, type: 2}
   m_IsPrefabParent: 0
@@ -2752,7 +2762,7 @@ Prefab:
     - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
       propertyPath: startFromWorld
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114000010675332212, guid: 6d767db5cf5bba14aa5a9b137dbd83d6,
         type: 2}
