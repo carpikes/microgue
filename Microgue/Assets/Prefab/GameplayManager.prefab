@@ -72,9 +72,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 5000
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -115,7 +115,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -162,12 +162,15 @@ MonoBehaviour:
   mDebugWorld: {fileID: 11400000, guid: a03dcd2f4a0cdd642a2a17470d4dc098, type: 2}
   startFromWorld: 0
   debugArena: 0
-  isInvincible: 0
+  isInvincible: 1
   pressBToGoToBoss: 1
   bypassDoors: 0
   mWorldData: {fileID: 0}
   resumeButton: {fileID: 0}
   eventSystem: {fileID: 0}
+  UICanvas: {fileID: 0}
+  gameWinCanvas: {fileID: 0}
+  gameWinClip: {fileID: 8300000, guid: 4979da92319dc354bb6417eb32cc6141, type: 3}
 --- !u!114 &114000010820464476
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -219,6 +222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doorClosedClip: {fileID: 8300000, guid: 6316c36355bf4884984363e95df353fa, type: 3}
   changeRoomClip: {fileID: 8300000, guid: 6316c36355bf4884984363e95df353fa, type: 3}
+  mDoorUnlockClip: {fileID: 8300000, guid: 71a1aa9ffd0cddf4aa5e69cde22abe31, type: 3}
 --- !u!114 &114000011355995584
 MonoBehaviour:
   m_ObjectHideFlags: 1

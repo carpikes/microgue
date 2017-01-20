@@ -14,6 +14,7 @@ public class DoorManager : MonoBehaviour
     AudioSource doorSource;
     public AudioClip doorClosedClip;
     public AudioClip changeRoomClip;
+    public AudioClip mDoorUnlockClip;
 
     void OnEnable()
     {
@@ -40,6 +41,7 @@ public class DoorManager : MonoBehaviour
         g.SetActive(false);
     }
 
+    private float mUnlockSoundTimeout = 0.0f;
     private void TryUnlockDoors(Bundle args)
     {
         mWorldManager = GameObject.Find("GameplayManager").GetComponent<GameplayManager>().GetWorldManager();
@@ -65,17 +67,35 @@ public class DoorManager : MonoBehaviour
         if (room.GetDoors() == 0)
             return;
 
+        bool unlockedOne = false;
         bool b = room.HasEndPoint();
         if (room.HasDoor(RoomMap.Door.UP) || (b && (room.GetStartOrEndDoor() & (int) RoomMap.Door.UP) != 0))
+        {
             UnlockDoor(world.transform.FindChild("DBNorth"));
+            unlockedOne = true;
+        }
         if (room.HasDoor(RoomMap.Door.DOWN) || (b && (room.GetStartOrEndDoor() & (int) RoomMap.Door.DOWN) != 0))
+        {
             UnlockDoor(world.transform.FindChild("DBSouth"));
+            unlockedOne = true;
+        }
         if (room.HasDoor(RoomMap.Door.LEFT) || (b && (room.GetStartOrEndDoor() & (int) RoomMap.Door.LEFT) != 0))
+        {
             UnlockDoor(world.transform.FindChild("DBWest"));
+            unlockedOne = true;
+        }
         if (room.HasDoor(RoomMap.Door.RIGHT) || (b && (room.GetStartOrEndDoor() & (int) RoomMap.Door.RIGHT) != 0))
+        {
             UnlockDoor(world.transform.FindChild("DBEast"));
+            unlockedOne = true;
+        }
 
         EventManager.TriggerEvent(Events.ON_DOOR_UNLOCK, null);
+        if(unlockedOne && mUnlockSoundTimeout < Time.time)
+        {
+            doorSource.PlayOneShot(mDoorUnlockClip);
+            mUnlockSoundTimeout = Time.time + 2.0f;
+        }
     }
 
     IEnumerator FadeOut() {
